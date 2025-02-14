@@ -89,7 +89,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 'Emptyings',
                 'Sludge Collections',
                 'Feedbacks',
-                'Help Desks',                
+                'Help Desks',
                 ]) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
                 <li class="nav-item {{ request()->is(
                             'fsm/fsmdashboard',
@@ -245,7 +245,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     </ul>
                 </li>
                 @endif
-                
+
                 @if (Auth::user()->hasAnyPermission(
                 'List Applications',
                 'List Emptyings',
@@ -306,7 +306,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </ul>
             </li>
             @endif
-            
+
             @if(Auth::user()->hasanyPermissionInGroup(['Sewer Connection']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
             <li class="nav-item">
                 <a href="{{ action('SewerConnection\SewerConnectionController@index') }}" class="nav-link {{ request()->is('sewerconnection/sewerconnection') ? 'active' : '' }}">
@@ -375,7 +375,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         </a>
                     </li>
                     @endcan
-                    
+
                     @if(Auth::user()->hasanyPermissionInGroup(['KPI Dashboard']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
                     <li class="nav-item">
                             <a href="{{ action('Fsm\KpiDashboardController@index') }}" class="nav-link {{ request()->is('fsm/kpi-dashboard') ? 'active' : '' }}">
@@ -504,7 +504,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         </a>
                     </li>
                     @endcan
-    
+
                     <li class="nav-item">
                         <a href="{{ action('MapsController@index') }}" class="nav-link {{ request()->is('maps') ? 'active' : '' }}">
                             <i class="nav-icon far fa-circle nav-icon"></i>
@@ -587,6 +587,29 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             @endcan
 
                         </ul>
+
+
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item {{ request()->is('language/*') ? 'menu-is-opening menu-open' : '' }}"><a href="#" class="nav-link {{ request()->is('language/*') ? 'active subnav' : '' }}">
+                            <i class="fa-solid fa-users"></i>
+                            <p>
+                               Language Settings<i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('List Languages')
+                            <li class="nav-item">
+                                <a href="{{ action('Language\LanguageController@index') }}" class="nav-link {{ request()->is('language/*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Language</p>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+
+                </ul>
                     </li>
 
                 </ul>
