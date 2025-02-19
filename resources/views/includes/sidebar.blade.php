@@ -20,7 +20,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="sidebar" style='overflow-y: scroll; font-family: Open Sans, sans-serif'>
         <nav class="mt-4">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @if(Auth::user()->hasanyPermissionInGroup(['Dashboard','Building Dashboard','Utility Dashboard','FSM Dashboard']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                @if(Auth::user()->hasanyPermissionInGroup(['Dashboard','Building Dashboard','Utility Dashboard','FSM Dashboard']) || Auth::user()->hasRole('Super Admin'))
                 <li class="nav-item">
                     <a href="{{ url('/') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-house"></i>
@@ -29,7 +29,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 </li>
                 @endif
 
-                @if (Auth::user()->hasanyPermissionInGroup(['Building Dashboard','Building Structures','Building Surveys','Low Income Communities']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                @if (Auth::user()->hasanyPermissionInGroup(['Building Dashboard','Building Structures','Building Surveys','Low Income Communities']) || Auth::user()->hasRole('Super Admin'))
                 <li class="nav-item {{ request()->is('building-info/*','layer-info/low-income-communities') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('building-info/*','layer-info/low-income-communities') ? 'active' : '' }}">
                         <img src="{{ asset('img/svg/imis-icons/buildingIMS.svg') }}" class="nav-icon" alt="Building Icon">
@@ -38,7 +38,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @if(Auth::user()->hasanyPermissionInGroup(['Building Dashboard']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                        @if(Auth::user()->hasanyPermissionInGroup(['Building Dashboard']) || Auth::user()->hasRole('Super Admin'))
                         <li class="nav-item treeview menu-open">
                             <a href="{{ action('BuildingInfo\BuildingDashboardController@index') }}" class="nav-link {{ request()->is('building-info/buildings/buildingdashboard') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -90,7 +90,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 'Sludge Collections',
                 'Feedbacks',
                 'Help Desks',
-                ]) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                ]) || Auth::user()->hasRole('Super Admin'))
                 <li class="nav-item {{ request()->is(
                             'fsm/fsmdashboard',
                             'fsm/containments','fsm/containments/*',
@@ -132,7 +132,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @if(Auth::user()->hasanyPermissionInGroup(['FSM Dashboard']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                        @if(Auth::user()->hasanyPermissionInGroup(['FSM Dashboard']) || Auth::user()->hasRole('Super Admin'))
                         <li class="nav-item ">
                             <a href="{{ action('Fsm\FsmDashboardController@index') }}" class="nav-link {{ request()->is('fsm/fsmdashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fa-solid fa-gauge"></i>
@@ -251,7 +251,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 'List Emptyings',
                 'List Feedbacks',
                 'List Sludge Collections',
-                'List Help Desks') || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                'List Help Desks') || Auth::user()->hasRole('Super Admin'))
                 <li class="nav-item  {{ request()->is('fsm/application/*', 'fsm/application','fsm/emptying', 'fsm/emptying/*','fsm/sludge-collection/*','fsm/sludge-collection', 'fsm/feedback/*','fsm/feedback', 'fsm/help-desks/*','fsm/help-desks') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('fsm/application/*', 'fsm/application','fsm/emptying', 'fsm/sludge-collection/*','fsm/sludge-collection', 'fsm/feedback/*','fsm/feedback', 'fsm/help-desks/*','fsm/help-desks') ? 'active subnav' : '' }}">
                         <i class="nav-icon fa-regular fa-building"></i>
@@ -307,7 +307,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Sewer Connection']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Sewer Connection']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item">
                 <a href="{{ action('SewerConnection\SewerConnectionController@index') }}" class="nav-link {{ request()->is('sewerconnection/sewerconnection') ? 'active' : '' }}">
                 <img src="{{ asset('img/svg/imis-icons/sewerConnectionIMS.svg')}}" class="nav-icon" alt="Sewer Connection Icon">
@@ -316,7 +316,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['PT/CT Toilets','PT Users Logs']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['PT/CT Toilets','PT Users Logs']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item {{ request()->is('fsm/ctpt', 'fsm/ctpt/*','fsm/ctpt-users/*','fsm/ctpt-users') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link {{ request()->is('fsm/ctpt','fsm/ctpt/*', 'fsm/ctpt-users/*','fsm/ctpt-users') ? 'active' : '' }}">
                     <img src="{{ asset('img/svg/imis-icons/ptctIMS.svg')}}" class="nav-icon" alt="PTCT  Icon">
@@ -347,7 +347,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
             </li>
             @endif
-            @if(Auth::user()->hasanyPermissionInGroup(['CWIS','KPI Dashboard','KPI Target']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['CWIS','KPI Dashboard','KPI Target']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item {{ request()->is('cwis/*', 'fsm/kpi-dashboard', 'fsm/kpi-targets/*','fsm/kpi-targets','fsm/cwis-setting/*','fsm/cwis-setting') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="" class="nav-link {{ request()->is('cwis/*', 'fsm/kpi-dashboard', 'fsm/kpi-targets/*','fsm/kpi-targets','fsm/cwis-setting/*','fsm/cwis-setting') ? 'active' : '' }}">
                 <img src="{{ asset('img/svg/imis-icons/cwis.svg')}}" class="nav-icon" alt="CWIS  Icon">
@@ -376,7 +376,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     </li>
                     @endcan
 
-                    @if(Auth::user()->hasanyPermissionInGroup(['KPI Dashboard']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                    @if(Auth::user()->hasanyPermissionInGroup(['KPI Dashboard']) || Auth::user()->hasRole('Super Admin'))
                     <li class="nav-item">
                             <a href="{{ action('Fsm\KpiDashboardController@index') }}" class="nav-link {{ request()->is('fsm/kpi-dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon far fa-circle nav-icon"></i>
@@ -398,7 +398,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Utility Dashboard','Roads','Sewers','WaterSupply Network','Drain']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Utility Dashboard','Roads','Sewers','WaterSupply Network','Drain']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item {{ request()->is('utilityinfo/*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link {{ request()->is('utilityinfo/*') ? 'active' : '' }}">
                     <img src="{{ asset('img/svg/imis-icons/utilityIMS.svg')}}" class="nav-icon" alt="Utility Icon">
@@ -407,7 +407,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    @if(Auth::user()->hasanyPermissionInGroup(['Utility Dashboard']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+                    @if(Auth::user()->hasanyPermissionInGroup(['Utility Dashboard']) || Auth::user()->hasRole('Super Admin'))
                     <li class="nav-item">
                         <a href="{{ action('UtilityInfo\UtilityDashboardController@index') }}" class="nav-link {{ request()->is('utilityinfo/utilitydashboard') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
@@ -453,7 +453,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Swm Service Payment']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Swm Service Payment']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item">
                 <a href="{{ route('swm-payment.index') }}" class="nav-link {{ request()->is('swm-payment') ? 'active' : '' }}">
                     <img src="{{ asset('img/svg/imis-icons/swmPaymentStatus.svg')}}" class="nav-icon">
@@ -464,7 +464,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Property Tax Collection ISS']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Property Tax Collection ISS']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item">
                 <a href="{{ route('tax-payment.index') }}" class="nav-link {{ request()->is('tax-payment') ? 'active' : '' }}">
                     <img src="{{ asset('img/svg/imis-icons/propertyTaxCollectionIMS.svg')}}" class="nav-icon">
@@ -475,7 +475,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Water Supply ISS']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Water Supply ISS']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item">
                 <a href="{{ route('watersupply-payment.index') }}" class="nav-link {{ request()->is('watersupply-payment') ? 'active' : '' }}">
                     <img src="{{ asset('img/svg/imis-icons/watersupplyISS.svg')}}" class="nav-icon" alt="Water Supply ISS Icon">
@@ -487,7 +487,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Data Export','Maps']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Data Export','Maps']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item  {{ request()->is('export-shp-kml', 'maps') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->is('export-shp-kml', 'maps') ? 'active' : '' }}">
                     <img src="{{ asset('img/svg/imis-icons/urbanManagementDSS.svg')}}" class="nav-icon" alt="Urban Management DSS">
@@ -515,7 +515,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Water Samples','Hotspots','Yearly Waterborne Cases']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Water Samples','Hotspots','Yearly Waterborne Cases']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item {{ request()->is('publichealth/hotspots/*','publichealth/hotspots', 'publichealth/waterborne/*','publichealth/waterborne','publichealth/water-samples/*','publichealth/water-samples') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link {{ request()->is('publichealth/hotspots/*','publichealth/hotspots','publichealth/waterborne/*','publichealth/waterborne' ,'publichealth/water-samples/*','publichealth/water-samples') ? 'active' : '' }}">
                     <img src="{{ asset('img/svg/imis-icons/publicHealthISS.svg')}}" class="nav-icon" alt="Fecal Sludge Icon">
@@ -553,7 +553,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </li>
             @endif
 
-            @if(Auth::user()->hasanyPermissionInGroup(['Users','Roles']) || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Super Admin'))
+            @if(Auth::user()->hasanyPermissionInGroup(['Users','Roles','Language']) || Auth::user()->hasRole('Super Admin'))
             <li class="nav-item {{ request()->is('auth/*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link {{ request()->is('auth/*') ? 'active' : '' }}">
                     <i class="nav-icon fa-solid fa-gear"></i>
@@ -587,10 +587,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             @endcan
 
                         </ul>
+                    </li>
 
-
-
-                        <ul class="nav nav-treeview">
+                </ul>
+                <ul class="nav nav-treeview">
                             <li class="nav-item {{ request()->is('language/*') ? 'menu-is-opening menu-open' : '' }}"><a href="#" class="nav-link {{ request()->is('language/*') ? 'active subnav' : '' }}">
                             <i class="fa-solid fa-users"></i>
                             <p>
@@ -610,11 +610,9 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     </li>
 
                 </ul>
-                    </li>
-
-                </ul>
             </li>
             @endif
+
             </ul>
         </nav>
 
