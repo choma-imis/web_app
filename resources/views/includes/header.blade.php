@@ -1,3 +1,6 @@
+<?php
+use App\Helpers\LanguageSwitcher;
+?>
 <nav class="main-header navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
         @if (request()->is('maps'))
@@ -22,7 +25,9 @@
                 </a>
             </li>
         @endif
-
+              
+        <!-- Language Dropdown -->
+        {!! LanguageSwitcher::language_switcher() !!}
         <!-- This div is used for aligning the user name and roles to the right -->
         <div style="flex-grow: 1;"></div> <!-- This pushes content to the right -->
         
