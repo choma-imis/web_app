@@ -7,7 +7,7 @@
     <span class="info-box-text">
       <h3>{{ number_format($othersCount) }}</h3>
     </span>
-    <span class="info-box-number">Others</span>
+    <span class="info-box-number">{{__('Others') }}</span>
   </div>
   <!-- Top-right icon with tooltip -->
   <span class="top-right-icon" data-tooltip="Culture & Religious<br>Agricultural & Farm">

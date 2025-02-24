@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Language;
 
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Language\LanguageRequest;
 use Illuminate\Http\Request;
@@ -568,4 +567,5 @@ class LanguageController extends Controller
         });
         $writer->close();
     }
+
 }
