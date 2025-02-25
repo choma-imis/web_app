@@ -32,7 +32,8 @@ class BuildingDashboardController extends Controller
 
     public function index()
     { {
-            $page_title = 'Building Dashboard';
+
+            $page_title = __("Building Dashboard");
             $buildingCount = Building::whereNull('deleted_at')->count();
 
 
