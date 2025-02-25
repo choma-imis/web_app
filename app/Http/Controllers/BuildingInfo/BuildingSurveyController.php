@@ -52,7 +52,7 @@ class BuildingSurveyController extends Controller
      */
     public function index()
     {
-        $page_title = "Building Survey";
+        $page_title = __("Building Survey");
 
         return view('building-info.building-surveys.index',compact('page_title'));
     }
