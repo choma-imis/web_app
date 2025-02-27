@@ -1,20 +1,20 @@
 @extends('layouts.dashboard')
-@section('title', 'Roles')
+@section('title', __('Roles'))
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     @can('Add Role')
-                        <a href="{{ url('auth/roles/create') }}" class="btn btn-info">Create Role</a>
+                        <a href="{{ url('auth/roles/create') }}" class="btn btn-info">{{__('Create Role')}}</a>
                     @endcan
                 </div><!-- /.box-header -->
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap table-striped">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Actions</th>
+                                <th>{{__('Name')}}</th>
+                                <th>{{__('Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
