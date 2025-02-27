@@ -193,7 +193,7 @@ class LowIncomeCommunityServiceClass
     {
         $lic = LowIncomeCommunity::find($id);
         if ($lic) {
-            $page_title = "Low Income Community Details";
+            $page_title = __("Low Income Community Details");
             $geomArr = DB::select("SELECT ST_X(ST_AsText(ST_Centroid(ST_Centroid(geom)))) AS long, ST_Y(ST_AsText(ST_Centroid(ST_Centroid(geom)))) AS lat, ST_AsText(geom) AS geom FROM layer_info.low_income_communities WHERE id = $id");
             $geom = ($geomArr[0]->geom);
             $lat = $geomArr[0]->lat;
