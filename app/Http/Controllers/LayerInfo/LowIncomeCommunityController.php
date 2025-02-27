@@ -34,7 +34,7 @@ class LowIncomeCommunityController extends Controller
 
     public function index()
     {
-        $page_title = "Low Income Community";
+        $page_title = __("Low Income Community");
         return view('layer-info.low-income-communities.index', compact('page_title'));
     }
 
@@ -51,7 +51,7 @@ class LowIncomeCommunityController extends Controller
      */
     public function create()
     {
-        $page_title = "Add Low Income Community";
+        $page_title = __("Add Low Income Community");
         return view('layer-info.low-income-communities.create', compact('page_title'));
     }
 
@@ -92,7 +92,7 @@ class LowIncomeCommunityController extends Controller
         $lat = $geomArr[0]->lat;
         $long = $geomArr[0]->long;
         if ($lic) {
-            $page_title = "Edit Low Income Community";
+            $page_title = __("Edit Low Income Community");
             return view('layer-info.low-income-communities.edit', compact('page_title', 'lic', 'geom', 'lat', 'long'));
         } else {
             abort(404);
@@ -160,7 +160,7 @@ class LowIncomeCommunityController extends Controller
     {
         $lic = LowIncomeCommunity::find($id);
         if ($lic) {
-            $page_title = "Low Income Community History";
+            $page_title = __("Low Income Community History");
             return view('layer-info.low-income-communities.history', compact('page_title', 'lic'));
         } else {
             abort(404);
