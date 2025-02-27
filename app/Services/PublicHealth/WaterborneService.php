@@ -172,7 +172,7 @@ class WaterborneService
     {
         $YearlyWaterborne = YearlyWaterborne::find($id);
         if ($YearlyWaterborne) {
-            $page_title = "Waterborne Cases Information Details";
+            $page_title = __("Waterborne Cases Information Details");
             $enumValue =  (int)$YearlyWaterborne->infected_disease;
             $diseaseName = HotspotDisease::getDescription($enumValue);
             return view('public-health.waterborne.show', compact('page_title', 'YearlyWaterborne', 'diseaseName'));
