@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $page_title = "Users";
+        $page_title = __("Users");
         $users = $this->userService->getAllData($request);
         return view('users.index')->with(compact('users', 'page_title'));
     }
@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $page_title = "Create User";
+        $page_title = __("Create User");
        if (!$request->user()->hasRole("Super Admin") && !$request->user()->hasRole("Municipality - Super Admin") && !$request->user()->hasRole("Municipality - IT Admin")){
             if ($request->user()->hasRole("Municipality - Sanitation Department")){
                 $roles = Role::where('name','!=', 'Super Admin')
@@ -131,7 +131,7 @@ class UserController extends Controller
           $userRoles[] = $role->name;
         }
         if (!$userDetail->hasRole('Super Admin') && !$userDetail->hasRole('Municipality - Super Admin')) {
-            $page_title = "Users";
+            $page_title = __("Users");
             return view('users.show')->with([ 'userDetail' => $userDetail, 'userRoles' => $userRoles, 'page_title' => $page_title, 'treatmentPlants' => $user['treatmentPlants'], 'helpDesks' => $user['helpDesks'], 'serviceProviders' => $user['serviceProviders'], 'status' => $status,'munhelpDesks'=>$munhelpDesks]);
         } else {
             abort(404);
@@ -149,7 +149,7 @@ class UserController extends Controller
         $user = User::findorfail($id);
       
         if (!$user->hasRole('Super Admin') && !$user->hasRole('Municipality - Super Admin')) {
-            $page_title = "Edit User";
+            $page_title = __("Edit User");
             if (!$request->user()->hasRole("Super Admin") && !$request->user()->hasRole("Municipality - Super Admin") && !$request->user()->hasRole("Municipality - IT Admin")){
                 $roles = Role::where('name','!=', 'Super Admin')
                     ->where('name','!=', 'Service Provider - Admin')
@@ -267,7 +267,7 @@ class UserController extends Controller
         $last_login_ip = User::find($id)->lastLoginIp();
 
         if (!$userDetail->hasRole('Super Admin') && !$userDetail->hasRole('Municipality - Super Admin')) {
-            $page_title = "Login Activity";
+            $page_title = __("Login Activity");
             return view('users.login-activity',compact('page_title', 'last_login_at', 'last_login_ip', 'userDetail'));
         } else {
             abort(404);

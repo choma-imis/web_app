@@ -237,7 +237,7 @@ class HotspotServiceClass
         if ($Hotspots) {
             $enumValue =  (int)$Hotspots->disease;
             $diseaseName = HotspotDisease::getDescription($enumValue);
-            $page_title = "Waterborne Hotspot Details";
+            $page_title = __("Waterborne Hotspot Details");
             $geomArr = DB::select("SELECT ST_X(ST_AsText(ST_Centroid(ST_Centroid(geom)))) AS long, ST_Y(ST_AsText(ST_Centroid(ST_Centroid(geom)))) AS lat, ST_AsText(geom) AS geom FROM public_health.waterborne_hotspots WHERE id = $id");
 
             $geom = ($geomArr[0]->geom);

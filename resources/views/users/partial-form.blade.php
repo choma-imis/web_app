@@ -2,38 +2,38 @@
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 <div class="card-body">
     <div class="form-group row required">
-        {!! Form::label('name','Full Name',['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('name',__('Full Name'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::text('name',null,['class' => 'form-control', 'placeholder' => 'Full Name']) !!}
+            {!! Form::text('name',null,['class' => 'form-control', 'placeholder' => __('Full Name')]) !!}
         </div>
     </div>
     <div class="form-group row required">
-        {!! Form::label('Gender',null,['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label(__('Gender'),null,['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('gender', ["Male"=>"Male", "Female"=>"Female","Others"=>"Others"], null, ['class' => 'form-control', 'placeholder' => 'Gender']) !!}
+            {!! Form::select('gender', ["Male"=>"Male", "Female"=>"Female","Others"=>"Others"], null, ['class' => 'form-control', 'placeholder' => __('Gender')]) !!}
         </div>
     </div>
     <div class="form-group row required">
-        {!! Form::label('username',null,['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label(__('username'),null,['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::text('username',null,['class' => 'form-control', 'placeholder' => 'Username']) !!}
+            {!! Form::text(__('username'),null,['class' => 'form-control', 'placeholder' => __('Username')]) !!}
         </div>
     </div>
     <div class="form-group row required">
-        {!! Form::label('email',null,['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label(__('email'),null,['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::text('email',null,['class' => 'form-control', 'placeholder' => 'Email']) !!}
+            {!! Form::text(__('email'),null,['class' => 'form-control', 'placeholder' => __('Email')]) !!}
         </div>
     </div>
     <div class="form-group row required">
-    {!! Form::label('password', 'Password', ['class' => 'col-sm-3 control-label']) !!}
+    {!! Form::label('password', __('Password'), ['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-3">
         <!-- Password Input -->
         <input type="password"
                class="form-control"
                name="password"
                id="password"
-               placeholder="Password">
+               placeholder="{{__('Password')}}">
 
         <!-- Error/Requirement Message Container -->
         <div id="password-error" class="mt-1" style="display: none; color: red;">
@@ -48,13 +48,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 </div>
 <div class="form-group row">
-    {!! Form::label('password_confirmation', 'Confirm Password', ['class' => 'col-sm-3 control-label']) !!}
+    {!! Form::label('password_confirmation', __('Confirm Password'), ['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-3">
         <input type="password"
                class="form-control"
                name="password_confirmation"
                id="password_confirmation"
-               placeholder="Confirm Password">
+               placeholder="{{__("Confirm Password")}}">
 
         <!-- Confirm Password Requirements -->
         <div id="confirm-password-error" class="mt-1" style="display: none; color: red;">
@@ -71,43 +71,43 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 </div>
     @if(Auth::user()->hasRole('Municipality - Sanitation Department'))
         <div class="form-group row">
-            {!! Form::label('User Type',null,['class' => 'col-sm-3 control-label']) !!}
+            {!! Form::label(__('User Type'),null,['class' => 'col-sm-3 control-label']) !!}
             <div class="col-sm-3">
-                {!! Form::select('user_type', ["Service Provider"=>"Service Provider", "Treatment Plant"=>"Treatment Plant", "Help Desk"=>"Help Desk"], null, ['class' => 'form-control userType', 'placeholder' => 'User Type']) !!}
+                {!! Form::select('user_type', ["Service Provider"=>"Service Provider", "Treatment Plant"=>"Treatment Plant", "Help Desk"=>"Help Desk"], null, ['class' => 'form-control userType', 'placeholder' => __('User Type')]) !!}
             </div>
         </div>
     @else
         <div class="form-group row required">
-            {!! Form::label('User Type',null,['class' => 'col-sm-3 control-label']) !!}
+            {!! Form::label(__('User Type'),null,['class' => 'col-sm-3 control-label']) !!}
             <div class="col-sm-3">
-                {!! Form::select('user_type', ["Municipality"=>"Municipality", "Service Provider"=>"Service Provider", "Treatment Plant"=>"Treatment Plant", "Help Desk"=>"Help Desk", "Guest"=>"Guest"], null, ['class' => 'form-control userType', 'placeholder' => 'User Type']) !!}
+                {!! Form::select('user_type', ["Municipality"=>"Municipality", "Service Provider"=>"Service Provider", "Treatment Plant"=>"Treatment Plant", "Help Desk"=>"Help Desk", "Guest"=>"Guest"], null, ['class' => 'form-control userType', 'placeholder' => __('User Type')]) !!}
             </div>
         </div>
     @endif
     <div class="form-group row required">
-        {!! Form::label('roles',null,['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label(__('roles'),null,['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3 roles-select">
             
         </div>
     </div>
 
     <div class="form-group row" id="treatment_plant">
-        {!! Form::label('treatment_plant_id','Treatment Plant',['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('treatment_plant_id',__('Treatment Plant'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control ', 'placeholder' => 'Treatment Plant']) !!}
+            {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control ', 'placeholder' => __('Treatment Plant')]) !!}
         </div>
     </div>
     <div class="form-group row required" id="service_provider">
-        {!! Form::label('service_provider_id','Service Provider',['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('service_provider_id',__('Service Provider'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('service_provider_id', $serviceProviders, null, ['class' => 'form-control', 'placeholder' => 'Service Provider']) !!}
+            {!! Form::select('service_provider_id', $serviceProviders, null, ['class' => 'form-control', 'placeholder' => __('Service Provider')]) !!}
         
   
           </div>
     </div>
     @if (!$isEdit)
     <div class="form-group row required" id="service_help_desk">
-    {!! Form::label('help_desk_id_1','Help Desk',['class' => 'col-sm-3 control-label']) !!}
+    {!! Form::label('help_desk_id_1',__('Help Desk'),['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-3">
         <select id="helpDeskDropdown" name="help_desk_id_1" class="form-control">
             <option value="">Help Desk</option>
@@ -115,32 +115,32 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     </div>
 </div>
 <div class="form-group row required" id="help_desk">
-    {!! Form::label('help_desk_id_2','Help Desk',['class' => 'col-sm-3 control-label']) !!}
+    {!! Form::label('help_desk_id_2',__('Help Desk'),['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-3">
-        {!! Form::select('help_desk_id_2', $munhelpDesks, null, ['class' => 'form-control ', 'placeholder' => 'Help Desk']) !!}
+        {!! Form::select('help_desk_id_2', $munhelpDesks, null, ['class' => 'form-control ', 'placeholder' => __('Help Desk')]) !!}
     </div>
 </div>
 @endif
 @if ($isEdit)
     <!-- Additional input only for edit page -->
     <div class="form-group row required" id="edit_help_desk">
-        {!! Form::label('help_desk_id','Help Desk',['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('help_desk_id',__('Help Desk'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('help_desk_id', $helpDesks, null, ['class' => 'form-control ', 'placeholder' => 'Help Desk']) !!}
+            {!! Form::select('help_desk_id', $helpDesks, null, ['class' => 'form-control ', 'placeholder' => __('Help Desk')]) !!}
         </div>
     </div>
 @endif
   
     <div class="form-group row required">
-        {!! Form::label('status','Status',['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('status',__('Status'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('status', $status, null, ['class' => 'form-control ', 'placeholder' => 'Status']) !!}
+            {!! Form::select('status', $status, null, ['class' => 'form-control ', 'placeholder' => __('Status')]) !!}
         </div>
     </div>
 </div><!-- /.box-body -->
 <div class="card-footer">
-    <a href="{{ action('Auth\UserController@index') }}" class="btn btn-info">Back to List</a>
-    {!! Form::submit('Save', ['class' => 'btn btn-info']) !!}
+    <a href="{{ action('Auth\UserController@index') }}" class="btn btn-info">{{__('Back to List')}}</a>
+    {!! Form::submit(__('Save'), ['class' => 'btn btn-info']) !!}
 </div><!-- /.card-footer -->
 @push('scripts')
 <script type="text/javascript">
