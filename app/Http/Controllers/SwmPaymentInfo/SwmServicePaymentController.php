@@ -42,7 +42,7 @@ class SwmServicePaymentController extends Controller
      */
     public function index()
     {
-        $page_title = "Solid Waste Information Support System";
+        $page_title = __("Solid Waste Information Support System");
         $wards = Ward::getInAscOrder();
         $dueYears = DueYear::getInAscOrder();
 

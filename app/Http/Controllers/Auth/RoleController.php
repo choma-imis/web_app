@@ -38,7 +38,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $page_title = "Roles";
+        $page_title = __("Roles");
         $roles = Role::where('name', '!=', 'Super Admin')->get();
 
         return view('roles.index',[
@@ -50,7 +50,7 @@ class RoleController extends Controller
     public function searchPermission(Request $request, $id)
     {
         $search = $request->search;
-        $page_title = 'Edit Role';
+        $page_title = __('Edit Role');
         $role = Role::find($id);
        $permission = DB::select("SELECT * FROM permissions WHERE LOWER(permissions.name) LIKE LOWER('%" . $search . "%')");
 
@@ -70,7 +70,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $page_title = 'Add Role';
+        $page_title = __('Create Role');
         $permission = Permission::get();
         $grouped_permissions = $this->getGroupedPermissions();
         $rolePermissions = array();
@@ -114,7 +114,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $page_title = 'Edit Role';
+        $page_title = __('Edit Role');
         $role = Role::find($id);
         $permission = Permission::get();
         $grouped_permissions = $this->getGroupedPermissions();

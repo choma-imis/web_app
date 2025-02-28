@@ -41,7 +41,7 @@ class YearlyWaterborneController extends Controller
      */
     public function index()
     {
-        $page_title = 'Waterborne Cases Information';
+        $page_title = __('Waterborne Cases Information');
         $years = YearlyWaterborne::distinct()->pluck('year','year');
         $enumValues = HotspotDisease::toEnumArray();
         return view('public-health.waterborne.index', compact('page_title','years','enumValues'));
@@ -65,7 +65,7 @@ class YearlyWaterborneController extends Controller
      */
     public function create()
     {
-        $page_title = "Add Waterborne Cases Information";
+        $page_title = __("Add Waterborne Cases Information");
         $maxDate = date('Y') + 1;
         $minDate = date('Y') - 4;
         $wards = Ward::orderBy('ward', 'asc')->pluck('ward', 'ward')->all();
@@ -115,7 +115,7 @@ class YearlyWaterborneController extends Controller
         $enumValues = HotspotDisease::toEnumArray();
 
         if ($Waterborne) {
-            $page_title = "Edit Waterborne Cases Information";
+            $page_title = __("Edit Waterborne Cases Information");
             return view('public-health.waterborne.edit', compact('page_title', 'wards', 'Waterborne','year','diesase', 'enumValues'));
         } else {
             abort(404);
@@ -156,7 +156,7 @@ class YearlyWaterborneController extends Controller
     {
         $Waterborne = YearlyWaterborne::find($id);
         if ($Waterborne) {
-            $page_title = "Waterborne Cases Information History";
+            $page_title = __("Waterborne Cases Information History");
             return view('public-health.waterborne.history', compact('page_title', 'Waterborne'));
         } else {
             abort(404);
