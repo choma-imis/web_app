@@ -61,7 +61,7 @@ class ContainmentController extends Controller
      */
     public function index()
     {
-        $page_title = "Containments";
+        $page_title = __("Containments");
         $location = Containment::distinct()->whereNotNull('location')->pluck('location', 'location')->except('Outside the property boundary')->all();
         $uniqueArray = [];
 
@@ -96,7 +96,7 @@ class ContainmentController extends Controller
      */
     public function createContainment(Request $request, $id)
     {
-        $page_title = "Add Containment";
+        $page_title = __("Add Containment");
         $building = Building::find($id);
         $containment_building = $building;
 
@@ -138,7 +138,7 @@ class ContainmentController extends Controller
      */
     public function show($id)
     {
-        $page_title = "Containment Details";
+        $page_title = __("Containment Details");
         $containment = Containment::find($id);
 
         if ($containment->septic_criteria === true) {
@@ -164,7 +164,7 @@ class ContainmentController extends Controller
      */
     public function edit($id)
     {
-        $page_title = "Edit Containment";
+        $page_title = __("Edit Containment");
         $containment = Containment::find($id);
 
         $containment->pit_shape = $containment->tank_length ? "Rectangular" : "Cylindrical";
@@ -206,7 +206,7 @@ class ContainmentController extends Controller
     {
         $containment = Containment::find($id);
         if ($containment) {
-            $page_title = "Containment History";
+            $page_title = __("Containment History");
             return view('fsm.containments.history', compact('page_title', 'containment'));
         } else {
             abort(404);
@@ -229,7 +229,7 @@ class ContainmentController extends Controller
             ->sortByDesc('created_at')
             ->reverse();
         if ($containment) {
-            $page_title = "Containment Type Change History";
+            $page_title = __("Containment Type Change History");
             return view('fsm.containments.type-change-history', compact('page_title', 'containment', 'revisions'));
         } else {
             abort(404);
@@ -286,7 +286,7 @@ class ContainmentController extends Controller
         $containment = Containment::find($id);
 
         if ($containment) {
-            $page_title = "Building Connected to Containment: " . $containment->id;
+            $page_title = __("Building Connected to Containment: ") . $containment->id;
             $buildings = $containment->buildings;
 
             return view('fsm.containments.listBuilding', compact('page_title', 'containment', 'buildings'));
@@ -321,7 +321,7 @@ class ContainmentController extends Controller
                 // fetch and checking if the running application has emptying status true or false
                 $emptyingStatusContain = $containment->applications()->latest()->value('emptying_status') ;
                 // not allow deletion if containment has running application i.e. emptying status is false
-                if($emptyingStatusContain != true ) 
+                if($emptyingStatusContain != true )
                 {
                     return redirect()->back()->with('error', 'Cannot delete Containment that has running Application (Emptying not completed).');
                 }
