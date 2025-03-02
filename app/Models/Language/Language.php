@@ -11,7 +11,8 @@ class Language extends Model
     protected $primaryKey = 'id';
     protected $table = 'language.languages';
 
-    protected $fillable = ['name', 'label', 'short', 'code'];
+    protected $fillable = ['name', 'label', 'short', 'code', 'status'];
+
 
     public function translate()
     {

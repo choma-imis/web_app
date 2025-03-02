@@ -216,9 +216,12 @@ class LanguageController extends Controller
             $languageId = $this->storeOrUpdate(null, $data); // Store Language
             // Fetch existing records from Translates (1 to 1263)
             $existingTranslates = Translate::whereBetween('id', [1, 1263])->get();
+
+            $sequnece  =  DB::statement("SELECT setval('language.translates_id_seq', (SELECT MAX(id)+1 FROM language.translates))");
             // Insert new records in Translates table
             foreach ($existingTranslates as $translate) {
                 Translate::create([
+
                     'key'   => $translate->key,      // Keep existing key
                     'name'  => $data['code'] ?? null, // Use new language code
                     'pages' => $translate->pages,   // Keep existing pages
@@ -237,7 +240,27 @@ class LanguageController extends Controller
             return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
-
+    public function storeOrUpdate($id, $data)
+    {
+        if (is_null($id)) {
+            $language = new Language();
+            $language->name = $data['name'] ? $data['name'] : null;
+            $language->label = $data['label'] ? $data['label'] : null;
+            $language->short = $data['short'] ? $data['short'] : null;
+            $language->code = $data['code'] ? $data['code'] : null;
+            $language->status = $data['status'] ? $data['status'] : 0;
+            $language->save();
+            return $language->id;
+        } else {
+            $language = Language::find($id);
+            $language->name = $data['name'] ? $data['name'] : null;
+            $language->label = $data['label'] ? $data['label'] : null;
+            $language->short = $data['short'] ? $data['short'] : null;
+            $language->code = $data['code'] ? $data['code'] : null;
+            $language->status = $data['status'] ? $data['status'] : 0;
+            $language->save();
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -307,27 +330,7 @@ class LanguageController extends Controller
     }
 
 
-    public function storeOrUpdate($id, $data)
-    {
-        if (is_null($id)) {
-            $language = new Language();
-            $language->name = $data['name'] ? $data['name'] : null;
-            $language->label = $data['label'] ? $data['label'] : null;
-            $language->short = $data['short'] ? $data['short'] : null;
-            $language->code = $data['code'] ? $data['code'] : null;
-            $language->status = $data['status'] ? $data['status'] : 0;
-            $language->save();
-            return $language->id;
-        } else {
-            $language = Language::find($id);
-            $language->name = $data['name'] ? $data['name'] : null;
-            $language->label = $data['label'] ? $data['label'] : null;
-            $language->short = $data['short'] ? $data['short'] : null;
-            $language->code = $data['code'] ? $data['code'] : null;
-            $language->status = $data['status'] ? $data['status'] : 0;
-            $language->save();
-        }
-    }
+
 
     public function add_translation($languageId)
     {
