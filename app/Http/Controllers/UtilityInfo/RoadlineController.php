@@ -34,7 +34,7 @@ class RoadlineController extends Controller
      */
     public function index()
     {
-        $page_title = "Road Network";
+        $page_title = __('Road Network');
         return view('utility-info/road-lines.index', compact('page_title'));
     }
 
@@ -52,7 +52,7 @@ class RoadlineController extends Controller
      */
     public function create()
     {
-        $page_title = "Create Road";
+        $page_title = __("Create Road");
         return view('roadlines.create', compact('page_title'));
     }
 
@@ -86,7 +86,7 @@ class RoadlineController extends Controller
             // Format the length attribute to display only two decimal places
             $roadline->length = number_format($roadline->length, 2);
 
-            $page_title = "Road Network Details";
+            $page_title = __("Road Network Details");
             return view('utility-info/road-lines.show', compact('page_title', 'roadline'));
         } else {
             abort(404);
@@ -113,7 +113,7 @@ class RoadlineController extends Controller
             // Format the length attribute to display only two decimal places
             $roadline->length = number_format($roadline->length, 2);
 
-            $page_title = "Edit Road Network";
+            $page_title = __("Edit Road Network");
             return view('utility-info/road-lines.edit', compact('page_title', 'roadline','roadHierarchy','roadSurfaceTypes'));
         } else {
             abort(404);
@@ -179,7 +179,7 @@ class RoadlineController extends Controller
     {
         $roadline = Roadline::find($id);
         if ($roadline) {
-            $page_title = "Road Network History";
+            $page_title = __("Road Network History");
             return view('utility-info/road-lines.history', compact('page_title', 'roadline'));
         } else {
             abort(404);
