@@ -5,18 +5,18 @@
     <div class="col-12">
     <div class="card">
         <div class="card-header">
-          <a href="{{ action('Fsm\ContainmentController@index') }}" class="btn btn-info">Back to List</a>
+          <a href="{{ action('Fsm\ContainmentController@index') }}" class="btn btn-info">{{ __("Back to List") }}</a>
         </div><!-- /.card-header -->
         <div class="card-body">
           <table id="data-table" class="table table-bordered table-striped" width="100%">
             <thead>
               <tr>
-                <th>BIN </th>
-                <th>Tax Code/Holding ID</th>
-                <th>Structure Type</th>
-                <th>Estimated Area of the Building  (m&#178;)</th>
-                <th>Functional Use of Building </th>
-                <th>Actions</th>
+                <th>{{ __("BIN ") }}</th>
+                <th>{{ __("Tax Code/Holding ID") }}</th>
+                <th>{{ __("Structure Type") }}</th>
+                <th>{{ __("Estimated Area of the Building  (m&#178)") }}</th>
+                <th>{{ __("Functional Use of Building") }} </th>
+                <th>{{ __("Actions") }}</th>
               </tr>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
 
                     @endcan
                   {!! Form::close() !!}
-                  </td> 
+                  </td>
                 </tr>
                 @endforeach
               @else

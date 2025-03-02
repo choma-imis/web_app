@@ -19,13 +19,13 @@
                 <a href="#" id="export" class="btn btn-info">{{ __('Export to CSV') }}</a>
             @endcan
             @can('Export Low Income Communities')
-                <a href="#" id="export-shp" class="btn btn-info">{{ 'Export to Shape File' }}</a>
+                <a href="#" id="export-shp" class="btn btn-info">{{ __('Export to Shape File') }}</a>
             @endcan
             @can('Export Low Income Communities')
-                <a href="#" id="export-kml" class="btn btn-info">{{ 'Export to KML' }}</a>
+                <a href="#" id="export-kml" class="btn btn-info">{{ __('Export to KML') }}</a>
             @endcan
             <a href class="btn btn-info float-right" data-toggle="collapse" data-target="#collapseFilter"
-                aria-expanded="false" aria-controls="collapseFilter">{{ 'Show Filter' }}</a>
+                aria-expanded="false" aria-controls="collapseFilter">{{ __('Show Filter') }}</a>
         </div><!-- /.card-header -->
         <div class="card-body">
             <div class="row">
