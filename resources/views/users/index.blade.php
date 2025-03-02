@@ -1,17 +1,17 @@
 <!-- Last Modified Date: 18-04-2024
 Developed By: Innovative Solution Pvt. Ltd. (ISPL) -->
 @extends('layouts.dashboard')
-@section('title', 'Users')
+@section('title', __('Users'))
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     @can('Add User')
-                        <a href="{{ action('Auth\UserController@create') }}" class="btn btn-info">Create User</a>
+                        <a href="{{ action('Auth\UserController@create') }}" class="btn btn-info">{{__('Create User')}}</a>
                     @endcan
                     @can('Export Users to CSV')
-                        <a href="{{ action('Auth\UserController@export') }}" class="btn btn-info">Export to CSV</a>
+                        <a href="{{ action('Auth\UserController@export') }}" class="btn btn-info">{{__('Export to CSV')}}</a>
                     @endcan
                 </div>
 
@@ -19,13 +19,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL) -->
                     <table class="table table-hover text-nowrap table-striped">
                         <thead>
                             <tr>
-                                <th>User ID</th>
-                                <th>Email</th>
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>User Type</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>{{__('User ID')}}</th>
+                                <th>{{__('Email')}}</th>
+                                <th>{{__('Name')}}</th>
+                                <th>{{__('Role')}}</th>
+                                <th>{{__('User Type')}}</th>
+                                <th>{{__('Status')}}</th>
+                                <th>{{__('Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>

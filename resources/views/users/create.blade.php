@@ -1,7 +1,7 @@
 <!-- Last Modified Date: 18-04-2024
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 @extends('layouts.dashboard')
-@section('title', 'Create User')
+@section('title', __('Create User'))
 {{--Include the layout inside the main content section--}}
 @section('content')
     @include('layouts.components.error-list')
