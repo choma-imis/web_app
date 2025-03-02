@@ -11,5 +11,6 @@
             <h2> {{ number_format($sumRoads) }}</h2>
         </span>
         <span class="info-box-number"> {{ __("Total length of Road (m)") }}</span>
+
     </div>
 </div>

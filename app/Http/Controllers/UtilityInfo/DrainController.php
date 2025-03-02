@@ -33,7 +33,7 @@ class DrainController extends Controller
      */
     public function index()
     {
-        $page_title = "Drain Network";
+        $page_title = __('Drain Network');
         $cover_type = Drain::distinct('cover_type')->pluck('cover_type','cover_type')->all();
 
         return view('utility-info/drains.index', compact('page_title', 'cover_type'));
@@ -52,7 +52,7 @@ class DrainController extends Controller
      */
     public function create()
     {
-        $page_title = "Create Drain";
+        $page_title = __('Create Drain');
         return view('drains.create', compact('page_title'));
     }
 
@@ -90,7 +90,7 @@ class DrainController extends Controller
             $drain->length = number_format($drain->length, 2);
     
             // Set the page title
-            $page_title = "Drain Network Details";
+            $page_title = __("Drain Network Details");
     
             // Return the view with the data
             return view('utility-info/drains.show', compact('page_title', 'drain', 'treatmentplant'));
@@ -113,7 +113,7 @@ class DrainController extends Controller
             $drain->size = number_format($drain->size, 2);
             // Format the length attribute to display only two decimal places
             $drain->length = number_format($drain->length, 2);
-            $page_title = "Edit Drain Network";
+            $page_title = __("Edit Drain Network");
             $cover_type = Drain::where('cover_type','!=',null)->groupBy('cover_type')->pluck('cover_type','cover_type');
             $surface_type = Drain::where('surface_type','!=',null)->groupBy('surface_type')->pluck('surface_type','surface_type');
             $treatmentPlants = TreatmentPlant::where('status', true)->pluck('name', 'id')->unique();
@@ -176,7 +176,7 @@ class DrainController extends Controller
     {
         $drain = Drain::find($id);
         if ($drain) {
-            $page_title = "Drain Network History";
+            $page_title = __("Drain Network History");
             return view('utility-info/drains.history', compact('page_title', 'drain'));
         } else {
             abort(404);

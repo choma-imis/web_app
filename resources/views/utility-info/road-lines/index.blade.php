@@ -11,17 +11,16 @@
 <div class="card">
     <div class="card-header">
         @can('Export Roadlines to CSV')
-        <a href="{{ action('UtilityInfo\RoadlineController@export') }}" id="export" class="btn btn-info">Export to
-            CSV</a>
+        <a href="{{ action('UtilityInfo\RoadlineController@export') }}" id="export" class="btn btn-info">{{ __('Export to CSV')}}</a>
         @endcan
         @can('Export Roadlines to Shape')
-        <a href="#" id="export-shp" class="btn btn-info">Export to Shape File</a>
+        <a href="#" id="export-shp" class="btn btn-info">{{ __('Export to Shape File')}}</a>
         @endcan
         @can('Export Roadlines to KML')
-        <a href="#" id="export-kml" class="btn btn-info">Export to KML</a>
+        <a href="#" id="export-kml" class="btn btn-info">{{ __('Export to KML')}}</a>
         @endcan
         <a class="btn btn-info float-right" id="headingOne" type="button" data-toggle="collapse"
-            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Show Filter</a>
+            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{{ __('Show Filter')}}</a>
     </div><!-- /.box-header -->
     <div class="card-body">
         <div class="row">
@@ -33,11 +32,11 @@
                             <div class="accordion-body">
                                 <form class="form-horizontal" id="filter-form">
                                     <div class="form-group row">
-                                    <label for="code" class="col-md-2 col-form-label ">Code</label>
+                                    <label for="code" class="col-md-2 col-form-label ">{{ __('Code')}}</label>
                                         <div class="col-md-2" >
                                             <input type="text" class="form-control" id="code" placeholder="Code" oninput="validateAlphanumeric(this)" />
                                         </div>
-                                        <label for="code" class="col-md-2 col-form-label ">Hierarchy</label>
+                                        <label for="code" class="col-md-2 col-form-label ">{{ __('Hierarchy')}}</label>
                                         <div class="col-md-2" >
                                             <select class="form-control" id="road_hier_select">
                                                 <option value="">Hierarchy</option>
@@ -46,8 +45,7 @@
                                                 <option value="Other Road">Other Road</option>
                                             </select>
                                         </div>
-                                         <label for="code" class="col-md-2 col-form-label ">Surface
-                                            Type</label>
+                                         <label for="code" class="col-md-2 col-form-label ">{{ __('Surface Type')}}</label>
                                         <div class="col-md-2" >
                                             <select class="form-control" id="surface_type">
                                                 <option value="">Surface Type</option>
@@ -59,18 +57,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="name" class="col-md-2 col-form-label ">Road Name</label>
+                                        <label for="name" class="col-md-2 col-form-label ">{{ __('Road Name')}}</label>
                                         <div class="col-md-2" >
                                             <input type="text" class="form-control" id="name" placeholder="Road Name" />
                                         </div>
-                                        <label for="carrying_width" class="col-md-2 col-form-label ">Carrying Width</label>
+                                        <label for="carrying_width" class="col-md-2 col-form-label ">{{ __('Carrying Width')}}</label>
                                         <div class="col-md-2" >
                                             <input type="text" class="form-control" id="carrying_width" placeholder="Carrying Width" />
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">
-                                        <button type="submit" class="btn btn-info ">Filter</button>
-                                        <button id="reset-filter" type="reset" class="btn btn-info">Reset</button>
+                                        <button type="submit" class="btn btn-info ">{{ __('Filter')}}</button>
+                                        <button id="reset-filter" type="reset" class="btn btn-info">{{ __('Reset')}}</button>
                                     </div>
                                 </form>
                             </div>
@@ -91,14 +89,14 @@
             <table id="data-table" class="table table-bordered table-striped dtr-inline" width="100%">
                 <thead>
                     <tr>
-                        <th>Code</th>
-                        <th>Road Name</th>
-                        <th>Hierarchy</th>
-                        <th>Right of Way (m)</th>
-                        <th>Carrying Width (m)</th>
-                        <th>Surface Type</th>
-                        <th>Road Length (m)</th>
-                        <th>Actions</th>
+                        <th>{{ __('Code')}}</th>
+                        <th>{{ __('Road Name')}}</th>
+                        <th>{{ __('Hierarchy')}}</th>
+                        <th>{{ __('Right of Way (m)')}}</th>
+                        <th>{{ __('Carrying Width (m)')}}</th>
+                        <th>{{ __('Surface Type')}}</th>
+                        <th>{{ __('Road Length (m)')}}</th>
+                        <th>{{ __('Actions')}}</th>
                     </tr>
                 </thead>
             </table>

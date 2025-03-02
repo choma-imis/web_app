@@ -1,7 +1,9 @@
 <!-- Last Modified Date: 16-04-2024
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 @include('layouts.dashboard.chart-card',[
+
     'card_title' => __("Wardwise Total Road Length (m)"),
+
     'export_chart_btn_id' => "exportroadLengthPerWardChart",
     'canvas_id' => "roadLengthPerWardChart"
 ])
@@ -23,7 +25,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
             },
             options: {
                 animation:{
-                    animateScale:true
+                    animateScale:truep_sumSewersCountBox.blade.php
                 },
                 responsive: true,
                 legend: {
