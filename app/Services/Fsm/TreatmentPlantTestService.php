@@ -124,16 +124,16 @@ class TreatmentPlantTestService
                 $content = \Form::open(['method' => 'DELETE', 'route' => ['treatment-plant-test.destroy', $model->id]]);
 
                 if (Auth::user()->can('Edit Treatment Plant Efficiency Test')) {
-                    $content .= '<a title="Edit" href="' . action("Fsm\TreatmentPlantTestController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
+                    $content .= '<a title="' . __('edit') . '" href="' . action("Fsm\TreatmentPlantTestController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
                 }
                 if (Auth::user()->can('View Treatment Plant Efficiency Test')) {
-                    $content .= '<a title="Detail" href="' . action("Fsm\TreatmentPlantTestController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
+                    $content .= '<a title="' . __('detail') . '" href="' . action("Fsm\TreatmentPlantTestController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
                 }
                 if (Auth::user()->can('View Treatment Plant Efficiency Test History')) {
-                    $content .= '<a title="History" href="' . action("Fsm\TreatmentPlantTestController@history", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-history"></i></a> ';
+                    $content .= '<a title="' . __('history') . '" href="' . action("Fsm\TreatmentPlantTestController@history", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-history"></i></a> ';
                 }
                 if (Auth::user()->can('Delete Treatment Plant Efficiency Test')) {
-                    $content .= '<a href title="Delete" class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
+                    $content .= '<a href title="' . __('delete') . '" class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
                 }
                 $content .= \Form::close();
                 return $content;
@@ -167,7 +167,7 @@ class TreatmentPlantTestService
         $treatmentPlant->remarks = $data['remarks'] ? $data['remarks'] : null;
         $treatmentPlant->user_id = Auth::user()->id;
         $treatmentPlant->save();
-        return redirect('fsm/treatment-plant-test')->with('success', 'Performance Efficiency Test created successfully');
+        return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test created successfully'));
     }
 
     public function updateTpt($request, $id)
@@ -186,9 +186,9 @@ class TreatmentPlantTestService
 
             $treatmentPlant->save();
 
-            return redirect('fsm/treatment-plant-test')->with('success', 'Performance Efficiency Test updated successfully');
+            return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test updated successfully'));
         } else {
-            return redirect('fsm/treatment-plant-test')->with('Error', 'Failed to Updated Performance Efficiency Test');
+            return redirect('fsm/treatment-plant-test')->with('Error', __('Failed to Updated Performance Efficiency Test'));
         }
     }
 
