@@ -3,7 +3,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 {{--Extend the main layout--}}
 @extends('layouts.dashboard')
 {{--Add sections for the main layout--}}
-@section('title', 'Add Application')
+@section('title',  __('Add Application'))
 {{--Add sections for the index layout--}}
 
 {{--Include the layout inside the main content section--}}
@@ -12,7 +12,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     @include('layouts.components.success-alert')
     @include('layouts.components.error-alert')
     {!! Form::open(['url' => route('application.store'), 'class' => 'form-horizontal', 'id' => 'create_application_form']) !!}
-    @include('layouts.partial-form',["submitButtonText" => 'Save',"cardForm"=>true])
+    @include('layouts.partial-form', ['submitButtonText' => __('Save'), 'cardForm' => true])
     {!! Form::close() !!}
 @endsection
 
@@ -151,7 +151,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     };
                 },
             },
-            placeholder: 'House Number / BIN',
+            placeholder: '{{ __('House Number / BIN') }}',
             allowClear: true,
             closeOnSelect: true,
             width: '100%'
@@ -168,7 +168,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     };
                 },
             },
-            placeholder: 'Street Name / Street Code',
+            placeholder: '{{ __('Street Name / Street Code') }}',
             allowClear: true,
             closeOnSelect: true,
             width: '100%'
