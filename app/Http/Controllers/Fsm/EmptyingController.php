@@ -95,7 +95,7 @@ class EmptyingController extends Controller
         $emptying = Emptying::find($id);
         
         if ($emptying) {
-            $page_title = "Emptying Details";
+            $page_title = __("Emptying Details");
             $formFields = $this->emptyingService->getShowFormFields($emptying);
             $indexAction = url()->previous();
             return view('layouts.show',compact('page_title','formFields','emptying','indexAction'));

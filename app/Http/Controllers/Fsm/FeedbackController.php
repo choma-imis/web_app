@@ -44,7 +44,7 @@ class FeedbackController extends Controller{
     */
     public function index(Request $request)
     {
-        $page_title = "Feedbacks";
+        $page_title =__("Feedbacks");
         $wards = Ward::orderBy('ward', 'asc')->pluck('ward', 'ward')->all();
         $feedbackYears = $this->getAllFeedbacksYearsDate();
         $months = DB::select("select distinct extract(month from created_at) as date1 from fsm.feedbacks where deleted_at is null order by date1 asc");
@@ -107,10 +107,10 @@ class FeedbackController extends Controller{
                 $content = \Form::open(['method' => 'DELETE', 'route' => ['feedback.destroy', $model->id]]);
 
                 if (Auth::user()->can('View Feedback')) {
-                    $content .= '<a title="Detail" href="' . action("Fsm\FeedbackController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
+                    $content .= '<a title="' . __("Detail") . '" href="' . action("Fsm\FeedbackController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
                 }
                 if (Auth::user()->can('Delete Feedback')) {
-                    $content .= '<a title="Delete" class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
+                    $content .= '<a title="' . __("Delete") . '" class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
                 }
 
                 $content .= \Form::close();
@@ -142,7 +142,7 @@ class FeedbackController extends Controller{
     {
         $feedback = Feedback::find($id);
         if ($feedback) {
-            $page_title = "Feedback Details";
+            $page_title = __("Feedback Details");
             return view('fsm.feedbacks.show', compact('page_title', 'feedback'));
         } else {
             abort(404);
@@ -162,7 +162,7 @@ class FeedbackController extends Controller{
         if ($application) {
             $feedback = new Feedback;
             $feedback->application_id = $id;
-            $page_title = "Add Feedback Details";
+            $page_title = __("Add Feedback Details");
             return view('fsm.feedbacks.create', compact('page_title', 'feedback', 'application'));
 
         } else {
@@ -193,7 +193,7 @@ class FeedbackController extends Controller{
         }
         $application = Application::find($feedback->application_id);
         if ($feedback) {
-            $page_title = "Edit Feedback Details";
+            $page_title = __("Edit Feedback Details");
             return view('fsm.feedbacks.edit', compact('page_title', 'feedback', 'application'));
         } else {
             abort(404);

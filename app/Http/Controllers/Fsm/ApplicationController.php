@@ -36,7 +36,7 @@ class ApplicationController extends Controller
     public function index()
     {
         $createBtnLink = Auth::user()->can('Add Application')?$this->applicationService->getCreateRoute():null;
-        $createBtnTitle = 'Add Application';
+        $createBtnTitle = __('Add Application') ;
         $exportBtnLink = Auth::user()->can('Export Applications')?$this->applicationService->getExportRoute():null;
         $reportBtnLink = Auth::user()->can('Generate Application Report')?$this->applicationService->getReportRoute():null;
         $filterFormFields = $this->applicationService->getFilterFormFields();
@@ -106,7 +106,7 @@ class ApplicationController extends Controller
         $application = Application::find($id);
     
         if ($application) {
-            $page_title = "Application Details";
+            $page_title =__('Application Details') ;
             $formFields = $this->applicationService->getShowFormFields($application);
             $indexAction = $this->applicationService->getIndexAction();
 
@@ -127,7 +127,7 @@ class ApplicationController extends Controller
     {
         $application = Application::find($id);
         if ($application) {
-            $page_title = "Edit Application";
+            $page_title =__("Edit Application");
             $formFields = $this->applicationService->getEditFormFields($application);
             $formAction = $this->applicationService->getEditFormAction($application);
             $indexAction = $this->applicationService->getIndexAction();
