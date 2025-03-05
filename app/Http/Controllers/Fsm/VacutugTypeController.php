@@ -40,7 +40,7 @@ class VacutugTypeController extends Controller
     public function index()
     {
         //Vacutug is the correct spelling
-        $page_title = "Desludging Vehicles";
+        $page_title =__("Desludging Vehicles") ;
         $status = VacutugStatus::asSelectArray();
         $license_plate_number = VacutugType::pluck('license_plate_number','license_plate_number');
         $service_provider_id = VacutugType::with('serviceProvider')
@@ -66,7 +66,7 @@ class VacutugTypeController extends Controller
      */
     public function create()
     {
-        $page_title = "Add Desludging Vehicle";
+        $page_title = __("Add Desludging Vehicle");
         $serviceProviders = ServiceProvider::Operational()->orderBy('id')->pluck('company_name', 'id');
         $status = VacutugStatus::asSelectArray();
         $complyMaintainStandard = VacutugComplyMaintainStandard::asSelectArray();
@@ -101,7 +101,7 @@ class VacutugTypeController extends Controller
             $serviceProviders = $service_provider_id ? $service_provider_id->company_name : null;
             $status = VacutugStatus::getDescription($vacutugType->status);
             $vacutugComplyMaintainStandard = VacutugComplyMaintainStandard::getDescription($vacutugType->comply_with_maintainance_standards);
-            $page_title = "Desludging Vehicle Details";
+            $page_title = __("Desludging Vehicle Details");
             return view('fsm/vacutug-types.show', compact('page_title', 'vacutugType', 'serviceProviders', 'status', 'vacutugComplyMaintainStandard'));
         } else {
             abort(404);
@@ -122,7 +122,7 @@ class VacutugTypeController extends Controller
         $complyMaintainStandard = VacutugComplyMaintainStandard::asSelectArray();
 
         if ($vacutugType) {
-            $page_title = "Edit Desludging Vehicle";
+            $page_title = __("Edit Desludging Vehicle");
             return view('fsm/vacutug-types.edit', compact('page_title', 'vacutugType', 'serviceProviders', 'status', 'complyMaintainStandard'));
         } else {
             abort(404);
@@ -181,7 +181,7 @@ class VacutugTypeController extends Controller
     {
         $vacutugType = VacutugType::find($id);
         if ($vacutugType) {
-            $page_title = "Desludging Vehicle History";
+            $page_title = __("Desludging Vehicle History");
             return view('fsm/vacutug-types.history', compact('page_title', 'vacutugType'));
         } else {
             abort(404);
