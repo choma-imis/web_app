@@ -417,7 +417,7 @@ span {
         <input class="input" name="tabs" type="radio" id="tab-1" checked="checked" />
         <label class="label" for="tab-1"></label>
         <div class="" >
-            <h1>Equity</h1>
+            <h1>{{__('Equity')}}</h1>
             <div class="card card1" > 
 
 
