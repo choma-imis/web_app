@@ -39,7 +39,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <div class="form-group row required">
             {!! Form::label('contact_gender', __('Contact Person Gender'), ['class' => 'col-sm-3 control-label']) !!}
             <div class="col-sm-3">
-                {!! Form::select('contact_gender', ['Male' => __('Male'), 'Female' => __('Female'), 'Others' => __('Others')], null, ['class' => 'form-control', 'placeholder' => __('Contact Person Gender')]) !!}
+                {!! Form::select('contact_gender', ['Male' => 'Male', 'Female' => 'Female', 'Others' => 'Others'], null, ['class' => 'form-control', 'placeholder' => __('Contact Person Gender')]) !!}
             </div>
         </div>
 
