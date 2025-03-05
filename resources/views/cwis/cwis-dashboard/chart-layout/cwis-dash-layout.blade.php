@@ -1,7 +1,7 @@
 <!-- Last Modified Date: 16-04-2024
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 @extends('layouts.dashboard')
-@section('title', 'CWIS Dashboard')
+@section('title', __('CWIS Dashboard'))
 @section('content')
 <style>
     h1 {
@@ -237,19 +237,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
         if (percent > 100) {
             percentValue = 100;
         }
-  
         // Create a div element to display the chart's value
         var divElement = document.createElement('div');
         let domString = (percentValue === 'NaN' || isNaN(percentValue))
     ? '<div class="chart__value"><p style="color: ' + colorGreen + '">' + percent + '</p></div>'
     : '<div class="chart__value"><p style="color: ' + colorGreen + '">' + percent + '%</p></div>';
-
-
-
-        
         // Set data values for the chart
         var dataValues = percentValue > 100 ? [100, 0] : [percentValue, 100 - percentValue];
-
         // Create the doughnut chart using Chart.js library
         var doughnutChart = new Chart(canvas, {
             type: 'doughnut',
@@ -268,10 +262,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
                 }
             }
         });
-
         // Set animation duration for the chart
         Chart.defaults.global.animation.duration = animationTime;
-
         // Append the chart's value display to the container
         divElement.innerHTML = domString;
         container.appendChild(divElement.firstChild);
@@ -320,9 +312,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
         });
     });
 </script>
-
-
-
 @if(isset($noDataMessage))
         <div class="alert alert-warning">
             {{ $noDataMessage }}
@@ -330,21 +319,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
     @else
 <div class="tabs">
     <input class="input" name="tabs" type="radio" id="tab-1" checked="checked" />
-    <label class="label" for="tab-1">All</label>
+    <label class="label" for="tab-1">{{ __('All') }}</label>
     <div class="panel">
-        <h1>Equity</h1>
+        <h1>{{__('Equity')}}</h1>
         @include('cwis.cwis-dashboard.chart-layout.equity-layout')
-        <h1>Safety</h1>
+        <h1>{{__('Safety')}}</h1>
         @include('cwis.cwis-dashboard.chart-layout.safety-layout')
-       
     </div>
     <input class="input" name="tabs" type="radio" id="tab-2" />
-    <label class="label" for="tab-2">Equity</label>
+    <label class="label" for="tab-2">{{__('Equity')}}</label>
     <div class="panel">
         @include('cwis.cwis-dashboard.chart-layout.seperate-chart-layout.equity-card')
     </div>
     <input class="input" name="tabs" type="radio" id="tab-4" />
-    <label class="label" for="tab-4">Safety</label>
+    <label class="label" for="tab-4">{{__('Safety')}}</label>
     <div class="panel">
         <br>
         @include('cwis.cwis-dashboard.chart-layout.seperate-chart-layout.safety-card')
@@ -352,15 +340,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
     
     <div class="select-dropdown">
         <select style="text-align: center;" id="cwis-year-select">
-            <option value="">Select year</option>
+            <option value="">{{__('Select year')}}</option>
             @foreach($presentYears as $year)
             <option value="{{ $year }}">{{ $year }}</option>
             @endforeach
         </select>
     </div>
     <div class="buttons-container">
-        <button class="export-button" style="margin-right:none" id="export">Export to Excel</button>
-        <button class="pdf">Generate PDF</button>
+        <button class="export-button" style="margin-right:none" id="export">{{__("Export to Excel")}}</button>
+        <button class="pdf">{{__("Generate PDF")}}</button>
     </div>
 </div>
 

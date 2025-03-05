@@ -58,7 +58,8 @@ class CwisMneController extends Controller
         ->unique()
         ->values(); 
         $minyear = collect($applicationYears)->last();
-        $page_title = "CWIS Monitoring and Evaluation Indicators";
+        $page_title = __('CWIS Monitoring and Evaluation Indicators');
+
     
         // Flag to show the Add CWIS Data button if no data is available
         $show_add_cwis_button = cwis_mne::count("year") === 0;

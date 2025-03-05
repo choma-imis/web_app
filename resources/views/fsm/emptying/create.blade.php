@@ -14,7 +14,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     @include('layouts.components.error-alert')
     <div class="card-body">
     {!! Form::open(['url' => route('emptying.store'), 'class' => 'form-horizontal','files'=>true]) !!}
-        @include('layouts.partial-form',["submitButtonText" => 'Save'])
+        @include('layouts.partial-form',["submitButtonText" =>  __('Save')])
     {!! Form::close() !!}
     </div>
 </div>

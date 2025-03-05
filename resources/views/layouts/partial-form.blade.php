@@ -16,7 +16,7 @@ A dynamic form layout
                                 <div class="icheck-primary d-inline">
                                     <input type="checkbox" name="autofill" id="autofill" onclick="autoFillDetails()">
                                     <label for="autofill">
-                                        Same as Owner
+                                    {{ __('Same as Owner') }} 
                                     </label>
                                 </div>
                             </div>
@@ -318,7 +318,7 @@ A dynamic form layout
 @if(Request::is('*/create') || Request::is('*/edit') || Request::is('*/create/*') || !empty($submitButtonText))
     <div class="card-footer">
         @if(Request::is('*/create') || Request::is('*/edit') || Request::is('*/create/*'))
-         <a href="{{ $indexAction }}" class="btn btn-info">Back to List</a>
+         <a href="{{ $indexAction }}" class="btn btn-info">{{ __('Back to List') }}</a>
         @endif
         @if(!empty($submitButtonText))
         {!! Form::submit($submitButtonText, ['class' => 'btn btn-info']) !!}

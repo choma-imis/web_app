@@ -43,7 +43,7 @@ class EmployeeInfoController extends Controller
      */
     public function index()
     {
-        $page_title = "Employee Information";
+        $page_title =__("Employee Information") ;
         $status = EmployeeStatus::asSelectArray();
         $service_provider = Auth::user()->service_provider;
         $service_provider_id = $service_provider
@@ -67,7 +67,7 @@ class EmployeeInfoController extends Controller
      */
     public function create()
     {
-        $page_title = "Add Employee Information";
+        $page_title =__("Add Employee Information") ;
         if (Auth::user()->service_provider_id) {
             $id = Auth::user()->service_provider_id;
             $service_provider_id = ServiceProvider::Operational()->where('id', $id)->pluck('id');
@@ -109,7 +109,7 @@ class EmployeeInfoController extends Controller
         if ($employeeInfos) {
             $service_provider = ServiceProvider::Operational()->find($employeeInfos->service_provider_id);
             $service_provider_id = $service_provider ? $service_provider->company_name : null;
-            $page_title = "Employee Information Details";
+            $page_title = __("Employee Information Details");
             $status = EmployeeStatus::getDescription($employeeInfos->status);
             return view('fsm/employee-infos.show', compact('page_title', 'employeeInfos', 'status', 'service_provider_id'));
         } else {
@@ -129,7 +129,7 @@ class EmployeeInfoController extends Controller
         if ($employeeInfos) {
             $start = Carbon::parse($employeeInfos->employment_start)->format('Y-m-d'); // Use 'Y-m-d'
             $end = Carbon::parse($employeeInfos->employment_end)->format('Y-m-d'); // Use 'Y-m-d'
-            $page_title = "Edit Employee Information";
+            $page_title = __("Edit Employee Information");
             $service_provider_id = ServiceProvider::Operational()->pluck('company_name', 'id');
             $status = EmployeeStatus::asSelectArray();
             return view('fsm/employee-infos.edit', compact('page_title', 'employeeInfos', 'service_provider_id', 'status', 'start', 'end'));
@@ -192,7 +192,7 @@ class EmployeeInfoController extends Controller
     {
         $employeeInfos = EmployeeInfo::find($id);
         if ($employeeInfos) {
-            $page_title = "Employee Information History";
+            $page_title =__("Employee Information History") ;
             return view('fsm/employee-infos.history', compact('page_title', 'employeeInfos'));
         } else {
             abort(404);
