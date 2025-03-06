@@ -3573,7 +3573,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                     } else {
                         Swal.fire({
-                            title: 'Nothing to save!',
+                            title: '{{ __('Nothing to save!') }}',
                             icon: "warning",
                         });
                     }
@@ -3581,7 +3581,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 } else {
                     hideAddRoadForm();
                     Swal.fire({
-                        title: 'Nothing to save!',
+                        title: '{{ __('Nothing to save!') }}',
                         icon: "warning",
                     });
                 }
@@ -4172,7 +4172,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: `Please provide a title!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return;
@@ -6076,7 +6076,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: `Please select an overlay!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -6264,7 +6264,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -6388,7 +6388,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -6518,7 +6518,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -6627,7 +6627,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -6750,7 +6750,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -6878,7 +6878,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -6984,7 +6984,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -7088,7 +7088,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -7192,7 +7192,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -7290,7 +7290,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -7410,20 +7410,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
             // Validation: Check if the distance is a positive number
             if (distance === "" || isNaN(distance) || distance < 0) {
-                let message = "Please enter a valid Buffer Distance. ";
+                let message = "{{ __('Please enter a valid Buffer Distance.') }}";
 
                 // Append specific message for negative values
                 if (distance < 0) {
-                    message += "Negative numbers are not allowed.";
+                    message += "{{ __('Negative numbers are not allowed.') }}";
                 }
                 else if (!Number.isInteger(Number(distance))) {
-                    message += "Float values are not accepted.";
+                    message += "{{ __('Float values are not accepted.') }}";
                 }
                 Swal.fire({
-                    title: "Invalid Input",
+                    title: "{{ __('Invalid Input') }}",
                     text: message,
                     icon: "warning",
-                    button: "OK"
+                    button: "{{ __('OK') }}"
                 });
 
                 return false;
@@ -7519,20 +7519,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 var url1 = '{{ url("maps/water-bodies-buildings") }}';
                 var distance = $('#buffer-distance-waterbodies').val();
                 if (distance === "" || isNaN(distance) || distance < 0) {
-                let message = "Please enter a valid Buffer Distance. ";
+                let message = "{{ __('Please enter a valid Buffer Distance.') }}";
 
                 // Append specific message for negative values
                 if (distance < 0) {
-                    message += "Negative numbers are not allowed.";
+                    message += "{{ __('Negative numbers are not allowed.') }}";
                 }
                 else if (!Number.isInteger(Number(distance))) {
-                    message += "Float values are not accepted.";
+                    message += "{{ __('Float values are not accepted.') }}";
                 }
                 Swal.fire({
-                    title: "Invalid Input",
+                    title: "{{ __('Invalid Input') }}",
                     text: message,
                     icon: "warning",
-                    button: "OK"
+                    button: "{{ __('OK') }}"
                 });
 
                 return false;
@@ -7703,20 +7703,20 @@ $.ajax({
                 $('#RDBdistance').val(distance);
 
                 if (distance === "" || isNaN(distance) || distance < 0) {
-                    let message = "Please enter a valid Buffer Distance.";
+                    let message = "{{ __('Please enter a valid Buffer Distance.') }}";
 
                     // Append specific message for negative values
                     if (distance < 0) {
-                        message += "Negative numbers are not allowed.";
+                        message += "{{ __('Negative numbers are not allowed.') }}";
                     }
                     else if (!Number.isInteger(Number(distance))) {
-                    message += "Float values are not accepted.";
+                    message += "{{ __('Float values are not accepted.') }}";
                 }
                     Swal.fire({
-                        title: "Invalid Input",
+                        title: "{{ __('Invalid Input') }}",
                         text: message,
                         icon: "warning",
-                        button: "OK"
+                        button: "{{ __('OK') }}"
                     });
 
                     return false;
@@ -7808,20 +7808,20 @@ $.ajax({
                 var lat = $('#point-buffer-lat').val();
 
                 if (distance === "" || isNaN(distance) || distance < 0) {
-                let message = "Please enter a valid Buffer Distance. ";
+                let message = "{{ __('Please enter a valid Buffer Distance.') }}";
 
                 // Append specific message for negative values
                 if (distance < 0) {
-                    message += "Negative numbers are not allowed.";
+                    message += "{{ __('Negative numbers are not allowed.') }}";
                 }
                 else if (!Number.isInteger(Number(distance))) {
-                    message += "Float values are not accepted.";
+                    message += "{{ __('Float values are not accepted.') }}";
                 }
                 Swal.fire({
-                    title: "Invalid Input",
+                    title: "{{ __('Invalid Input') }}",
                     text: message,
                     icon: "warning",
-                    button: "OK"
+                    button: "{{ __('OK') }}"
                 });
 
                 return false;
@@ -8049,7 +8049,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a layer!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -8160,7 +8160,7 @@ $.ajax({
                     Swal.fire({
                         title: 'Failed to generate URL!',
                         icon: "error",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     })
                     return;
@@ -9369,7 +9369,7 @@ $.ajax({
                     Swal.fire({
                         title: 'Please enter ' + field_text + '!',
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else if (field == 'places_layer' || field == 'roadlines_layer' || field == ' bin') {
@@ -9522,7 +9522,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please type keyword to search!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return;
@@ -9605,7 +9605,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please type keyword to search!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return;
@@ -9838,7 +9838,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select wards and overlay!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return;
@@ -10211,7 +10211,7 @@ $.ajax({
                 Swal.fire({
                     title: `Please check one or more options!`,
                     icon: "warning",
-                    button: "Close",
+                    button: "{{ __('Close') }}",
                     className: "custom-swal",
                 });
                 return;
@@ -10282,7 +10282,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please check one or more options!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return;
@@ -10348,7 +10348,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please check one or more options!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return;
@@ -10412,7 +10412,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a date!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else {
@@ -10431,7 +10431,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a date!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else {
@@ -10529,7 +10529,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a year!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return false;
@@ -10537,7 +10537,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a month!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return false;
@@ -10627,7 +10627,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a year!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return false;
@@ -10635,7 +10635,7 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a month!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return false;
@@ -10802,20 +10802,20 @@ $.ajax({
                     Swal.fire({
                         title: `Please enter number of days!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else if (!Number.isInteger(days) || days < 0) {
                     Swal.fire({
                         title: `Invalid input for number of days!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else {
                     var startDate = moment().format('YYYY-MM-DD');
                     var endDate = moment().add(days, 'days').format('YYYY-MM-DD');
-                    var message = 'Number of containments proposed to be emptied on next ' + days + ' days: ';
+                    var message = '{{ __('Number of containments proposed to be emptied on next') }}' + days + ' {{ __('days') }}: ';
 
                     displayProposedEmptyingContainments(startDate, endDate, message);
                 }
@@ -10827,7 +10827,7 @@ $.ajax({
             $('#proposed_emptying_week_form').submit(function () {
                 var startDate = moment().format('YYYY-MM-DD');
                 var endDate = moment().add(7, 'days').format('YYYY-MM-DD');
-                var message = 'Number of containments proposed to be emptied next week: ';
+                var message = '{{ __('Number of containments proposed to be emptied next week') }}:';
 
                 displayProposedEmptyingContainments(startDate, endDate, message);
 
@@ -10840,11 +10840,11 @@ $.ajax({
                     Swal.fire({
                         title: `Please select a date!`,
                         icon: "warning",
-                        button: "Close",
+                        button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else {
-                    var message = 'Number of containments proposed to be emptied on ' + date + ': ';
+                    var message = '{{ __('Number of containments proposed to be emptied on') }} ' + date + ': ';
 
                     displayProposedEmptyingContainments(date, date, message);
                 }
