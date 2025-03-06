@@ -69,8 +69,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="col-md-2">
                                         <select class="form-control chosen-select" id="status" name="status">
                                             <option value="">{{ __("Select Status") }}</option>
-                                            <option value="true">{{ __("Operational") }}</option>
-                                            <option value="false">{{ __("Not Operational") }}</option>
+                                            <option value="true">Operational</option>
+                                            <option value="false">Not Operational</option>
                                         </select>
                                     </div>
                                 </div>

@@ -43,13 +43,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL) --}}
             </div>
 
             <div class="form-group row">
-                {!! Form::label('address', __('Employee Address'), ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('address', __('Address'), ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null, $employeeInfos->address, ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('employee_type', __('Employee Designation'), ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('employee_type', __('Designation'), ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null, $employeeInfos->employee_type, ['class' => 'form-control']) !!}
                 </div>
@@ -88,7 +88,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL) --}}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('status', __('Employee Status'), ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('status', __('Status'), ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null, $status, ['class' => 'form-control']) !!}
                 </div>
