@@ -66,7 +66,7 @@ class DrainController extends Controller
     {
         $data = $request->all();
         $this->drainService->storeOrUpdate($id = null,$data);
-        return redirect('utilityinfo/drains')->with('success','Drain created successfully');
+        return redirect('utilityinfo/drains')->with('success',__('Drain created successfully'));
     }
 
     /**
@@ -138,7 +138,7 @@ class DrainController extends Controller
             $this->drainService->storeOrUpdate($drain->code,$data);
             return redirect('utilityinfo/drains')->with('success','Drain Network updated successfully');
         } else {
-            return redirect('utilityinfo/drains')->with('error','Failed to update drain');
+            return redirect('utilityinfo/drains')->with('error',__('Failed to update drain'));
         }
     }
 
@@ -162,7 +162,7 @@ class DrainController extends Controller
             }
 
         } else {
-            return redirect('utilityinfo/drains')->with('error','Failed to delete Drain');
+            return redirect('utilityinfo/drains')->with('error',__('Failed to delete Drain'));
         }
     }
 

@@ -126,7 +126,7 @@ $(function() {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: "{{__('Yes, delete it!')}}"
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit();

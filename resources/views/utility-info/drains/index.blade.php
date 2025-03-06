@@ -40,7 +40,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
                     <label for="cover_type" class="col-md-2 col-form-label ">{{ __('Cover Type')}}</label>
                     <div class="col-md-2">
                       <select class="form-control" id="cover_type">
-                        <option value="">Cover Type</option>
+                        <option value="">{{__('Cover Type')}}</option>
                         @foreach($cover_type as $key)
                         <option value="{{$key}}">{{$key}}</option>
                         @endforeach
@@ -146,13 +146,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
         var form = $(this).closest("form");
         event.preventDefault();
         Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          title: "{{__('Are you sure?')}}",
+          text: "{{__('You won\'t be able to revert this!')}}",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonText: "{{__('Yes, delete it!')}}"
         }).then((result) => {
           if (result.isConfirmed) {
             form.submit();
@@ -213,8 +213,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
       return encodeURI(cql_param);
 
     }
-
-
   });
 </script>
 @endpush

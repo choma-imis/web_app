@@ -150,7 +150,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonText: "{{__('Yes, delete it!')}}"
         }).then((result) => {
           if (result.isConfirmed) {
             form.submit();
