@@ -174,6 +174,34 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
         flex-wrap: wrap;
 
     }
+    #loader-overlay {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+        z-index: 9999; /* High priority */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Loader content */
+    .loader-content {
+        text-align: center;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px;
+    }
+
+    /* Spinner icon */
+    .fa-spinner {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
 </style>
 @if ($hasInvalidValues)
 <!-- Bootstrap Modal -->
@@ -351,6 +379,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
         <button class="pdf">{{__("Generate PDF")}}</button>
     </div>
 </div>
+<div id="loader-overlay" style="display: none;">
+    <div class="loader-content">
+        <i class="fa fa-spinner fa-spin"></i>
+        <p>Loading...</p>
+    </div>
+    </div>
 
 <script>
     /**
@@ -828,7 +862,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 
     document.addEventListener('DOMContentLoaded', function () {
         function downloadPDF() {
-           
+            $('#loader-overlay').show();
             // Ensure all generateSafety functions are defined elsewhere
             var safety1aImage = generateSafetyImage();
             var safety1bImage = generateSafety1bImage();
@@ -887,6 +921,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
                         sf9Image : sf9Image
                     }),
                 })
+                
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to download PDF');
@@ -904,7 +939,11 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                });
+                }).finally(() => {
+                 // Hide the loader overlay after AJAX request completes, regardless of success or failure
+                $('#loader-overlay').hide();
+            });
+                
         }
 
         document.querySelector('.pdf').addEventListener('click', downloadPDF);
