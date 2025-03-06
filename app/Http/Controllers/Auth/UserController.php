@@ -201,14 +201,14 @@ class UserController extends Controller
             $data = $request->all();
             $this->userService->storeOrUpdate($user->id,$request);
             DB::commit(); 
-            return redirect('auth/users')->with('success','User updated successfully');
+            return redirect('auth/users')->with('success', __('User updated successfully'));
             } else {
                 abort(404);
             }
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error updating user: ' . $e->getMessage());
-            return redirect()->back()->with('error','User could not be updated');
+            return redirect()->back()->with('error', __('User could not be updated'));
         }
     }
 
@@ -243,12 +243,12 @@ class UserController extends Controller
                 $user->watersupplys()->exists() ||
                 $user->roads()->exists()    )
                 {
-                    return redirect('auth/users')->with('error','User has created some records and cannot be deleted; Update Status to Inactive to revoke access');
+                    return redirect('auth/users')->with('error', __('User has created some records and cannot be deleted; Update Status to Inactive to revoke access'));
                 }
                 User::destroy($id);
-            return redirect('auth/users')->with('success','User deleted successfully');
+            return redirect('auth/users')->with('success', __('User deleted successfully'));
         } else {
-            return redirect('auth/users')->with('error','User could not be deleted');
+            return redirect('auth/users')->with('error', __('User could not be deleted'));
         }
     }
 
