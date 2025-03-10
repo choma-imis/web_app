@@ -3465,10 +3465,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 $('#add-road-errors').empty();
                                 $('.add-road-form').slideUp();
                                 Swal.fire({
-                                    title: 'Success!',
-                                    text: "Road Network updated successfully.",
+                                    title: "{{ __('Success!') }}",
+                                    text: "{{ __('Road Network updated successfully.') }}",
                                     icon: 'success',
-                                    confirmButtonText: 'OK!',
+                                    confirmButtonText: "{{ __('OK') }}",
                                 });
                                 resetAddRoadTool();
                                 $('#add_road_control').trigger("click");
@@ -3524,10 +3524,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         /*$('#add-road-errors').empty();
                                         $('.add-road-form').slideUp();
                                         Swal.fire({
-                                            title: 'Success!',
-                                            text: "Road Network updated successfully.",
+                                            title: "{{ __('Success!') }}",
+                                            text: "{{ __('Road Network updated successfully.') }}",
                                             icon: 'success',
-                                            confirmButtonText: 'OK!',
+                                            confirmButtonText: "{{ __('OK') }}"
                                         });
                                         resetAddRoadTool();
                                         $('#add_road_control').trigger("click");*/
@@ -3628,10 +3628,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             $('#add-road-errors').empty();
             $('.add-road-form').slideUp();
             Swal.fire({
-                title: 'Success!',
-                text: "Road(s) added successfully.",
+                title: "{{ __('Success!') }}",
+                text: "{{ __('Road(s) added successfully.') }}",
                 icon: 'success',
-                confirmButtonText: 'OK!',
+                confirmButtonText: "{{ __('OK') }}"
             });
             resetAddRoadTool();
             $('#add_road_control').trigger("click");
@@ -3650,7 +3650,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     let customMessage = message.replace(new RegExp(field, "gi"), fieldTitle.toLowerCase());
 
                     // Capitalize the first letter of the custom field title
-                    customMessage = `The ${fieldTitle} is required.`;
+                    customMessage = `{{ __("This field is required") }}`+ `: ${fieldTitle}`;
 
                     html += `<li>${customMessage}</li>`;
                 });
@@ -6262,7 +6262,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6386,7 +6386,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6516,7 +6516,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6625,7 +6625,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6748,7 +6748,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6876,7 +6876,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6982,7 +6982,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7086,7 +7086,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7190,7 +7190,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7288,7 +7288,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7619,18 +7619,18 @@ var bufferDistancePolygon = $('#buffer-distance-polygon').val();
 // Validation: Check if the distance is a non-negative number
 if (bufferDistancePolygon === "" || isNaN(bufferDistancePolygon)) {
     Swal.fire({
-        title: 'Invalid Input',
-        text: 'Please enter a valid Buffer Distance.',
+        title: "{{ __('Invalid Input') }}",
+        text: "{{ __('Please enter a valid Buffer Distance.') }}",
         icon: 'warning',
-        confirmButtonText: 'OK'
+        confirmButtonText: "{{ __('OK') }}"
     });
     return false;
 } else if (parseFloat(bufferDistancePolygon) < 0) {
     Swal.fire({
-        title: 'Invalid Input',
-        text: 'Negative numbers are not allowed.',
+        title: "{{ __('Invalid Input') }}",
+        text: "{{ __('Negative numbers are not allowed.') }}",
         icon: 'warning',
-        confirmButtonText: 'OK'
+        confirmButtonText: "{{ __('OK') }}"
     });
     return false;
 }
@@ -8158,7 +8158,7 @@ $.ajax({
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -9367,7 +9367,7 @@ $.ajax({
 
                 if (!val) {
                     Swal.fire({
-                        title: 'Please enter ' + field_text + '!',
+                        title: '{{ __("Please enter") }}' + ' ' + field_text + '!',
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
