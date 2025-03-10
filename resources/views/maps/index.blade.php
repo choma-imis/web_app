@@ -10230,7 +10230,7 @@ $.ajax({
                         const url = URL.createObjectURL(blob);
                         const downloadLink = document.createElement('a');
                         downloadLink.href = url;
-                        downloadLink.setAttribute('download', `Property Tax Collection ISS.csv`);
+                        downloadLink.setAttribute('download', `{{ __("Property Tax Collection ISS") }}.csv`);
                         document.body.appendChild(downloadLink);
                         downloadLink.click();
                         document.body.removeChild(downloadLink);
@@ -10238,9 +10238,9 @@ $.ajax({
                     .catch(error => console.error('Error fetching CSV:', error));
             } else {
                 if (outputFormat === 'SHAPE-ZIP') {
-                    exportLink += '&format_options=filename:' + 'Property Tax Collection ISS' + '.zip';
+                    exportLink += '&format_options=filename:' + '{{ __("Property Tax Collection ISS") }}' + '.zip';
                 } else if (outputFormat === 'KML') {
-                    exportLink += '&format_options=filename:' + 'Property Tax Collection ISS' + '.kml';
+                    exportLink += '&format_options=filename:' + '{{ __("Property Tax Collection ISS") }}' + '.kml';
                 }
                 window.open(exportLink);
             }
@@ -10301,7 +10301,7 @@ $.ajax({
                             const url = URL.createObjectURL(blob);
                             const downloadLink = document.createElement('a');
                             downloadLink.href = url;
-                            downloadLink.setAttribute('download', `Water Supply ISS.csv`);
+                            downloadLink.setAttribute('download', `{{ __("Water Supply ISS") }}.csv`);
                             document.body.appendChild(downloadLink);
                             downloadLink.click();
                             document.body.removeChild(downloadLink);
@@ -10309,10 +10309,10 @@ $.ajax({
                         .catch(error => console.error('Error fetching CSV:', error));
                 } else {
                      if (outputFormat === 'SHAPE-ZIP') {
-                    exportLink += '&format_options=filename:' + 'Water Supply ISS' + '.zip';
+                    exportLink += '&format_options=filename:' + '{{ __("Water Supply ISS") }}' + '.zip';
                 }
                     else if (outputFormat === 'KML') {
-                    exportLink += '&format_options=filename:' + 'Water Supply ISS' + '.kml';
+                    exportLink += '&format_options=filename:' + '{{ __("Water Supply ISS") }}' + '.kml';
                 }
                     window.open(exportLink);
                 }
@@ -10367,7 +10367,7 @@ $.ajax({
                             const url = URL.createObjectURL(blob);
                             const downloadLink = document.createElement('a');
                             downloadLink.href = url;
-                            downloadLink.setAttribute('download', `Solid Waste ISS.csv`);
+                            downloadLink.setAttribute('download', `{{ __("Solid Waste ISS") }}.csv`);
                             document.body.appendChild(downloadLink);
                             downloadLink.click();
                             document.body.removeChild(downloadLink);
@@ -10375,10 +10375,10 @@ $.ajax({
                         .catch(error => console.error('Error fetching CSV:', error));
                 } else {
                      if (outputFormat === 'SHAPE-ZIP') {
-                    exportLink += '&format_options=filename:' + 'Solid Waste ISS' + '.zip';
+                    exportLink += '&format_options=filename:' + '{{ __("Solid Waste ISS") }}' + '.zip';
                 }
                     else if (outputFormat === 'KML') {
-                    exportLink += '&format_options=filename:' + 'Solid Waste ISS' + '.kml';
+                    exportLink += '&format_options=filename:' + '{{ __("Solid Waste ISS") }}' + '.kml';
                 }
                     window.open(exportLink);
                 }
