@@ -3385,12 +3385,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 }else {
                     if (currentAddRoadControl === 'Add Road') {
                         Swal.fire({
-                            title: 'Are you sure?',
-                            text: "Roads added would be lost!",
+                            title: "{{ __('Are you sure?') }}",
+                            text: "{{ __('Roads added would be lost!') }}",
                             icon: 'warning',
                             showCancelButton: true,
-                            confirmButtonText: 'Yes',
-                            cancelButtonText: 'No!',
+                            confirmButtonText: "{{ __('Yes') }}",
+                            cancelButtonText: "{{ __('No!') }}",
                             reverseButtons: true
                         }).then((result) => {
                             if (result.isConfirmed) {
@@ -3417,8 +3417,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     if(features){
                         if(features.length < 1 ){
                             Swal.fire({
-                                title: 'Error',
-                                text : `Please draw a roadline before saving!`,
+                                title: "{{ __('Error') }}",
+                                text : "{{ __('Please draw a roadline before saving!') }}",
                                 icon: "warning",
                             });
                         }else{
@@ -3465,10 +3465,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 $('#add-road-errors').empty();
                                 $('.add-road-form').slideUp();
                                 Swal.fire({
-                                    title: 'Success!',
-                                    text: "Road Network updated successfully.",
+                                    title: "{{ __('Success!') }}",
+                                    text: "{{ __('Road Network updated successfully.') }}",
                                     icon: 'success',
-                                    confirmButtonText: 'OK!',
+                                    confirmButtonText: "{{ __('OK') }}",
                                 });
                                 resetAddRoadTool();
                                 $('#add_road_control').trigger("click");
@@ -3495,12 +3495,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         //If we want to provide geom only update++++++++++
 
                         Swal.fire({
-                            title: 'Are you sure?',
-                            text: "The changes made will be saved",
+                            title: "{{ __('Are you sure?') }}",
+                            text: "{{ __('The changes made will be saved') }}",
                             icon: 'warning',
                             showCancelButton: true,
-                            confirmButtonText: 'Yes',
-                            cancelButtonText: 'No!',
+                            confirmButtonText: "{{ __('Yes') }}",
+                            cancelButtonText: "{{ __('No!') }}",
                             reverseButtons: true
                         }).then((result) => {
                             displayAjaxLoader();
@@ -3524,17 +3524,17 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         /*$('#add-road-errors').empty();
                                         $('.add-road-form').slideUp();
                                         Swal.fire({
-                                            title: 'Success!',
-                                            text: "Road Network updated successfully.",
+                                            title: "{{ __('Success!') }}",
+                                            text: "{{ __('Road Network updated successfully.') }}",
                                             icon: 'success',
-                                            confirmButtonText: 'OK!',
+                                            confirmButtonText: "{{ __('OK') }}"
                                         });
                                         resetAddRoadTool();
                                         $('#add_road_control').trigger("click");*/
                                         removeAjaxLoader();
                                         Swal.fire(
-                                            'Saved!',
-                                            'The changes have been saved.',
+                                            "{{ __('Saved!') }}",
+                                            "{{ __('The changes have been saved.') }}",
                                             'success',
                                         );
                                     },
@@ -3553,8 +3553,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         $('#add-road-errors').focus();*/
                                         removeAjaxLoader();
                                         Swal.fire(
-                                            'Error',
-                                            'There was an error!',
+                                            "{{ __('Error') }}",
+                                            "{{ __('There was an error!') }}",
                                             'error'
                                         )
                                     }
@@ -3562,8 +3562,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
                                 removeAjaxLoader();
                                 Swal.fire(
-                                    'Cancelled',
-                                    'The changes have been removed.',
+                                    "{{ __('Cancelled') }}",
+                                    "{{ __('The changes have been removed.') }}",
                                     'error'
                                 )
                             }
@@ -3573,7 +3573,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                     } else {
                         Swal.fire({
-                            title: '{{ __('Nothing to save!') }}',
+                            title: "{{ __('Nothing to save!') }}",
                             icon: "warning",
                         });
                     }
@@ -3581,7 +3581,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 } else {
                     hideAddRoadForm();
                     Swal.fire({
-                        title: '{{ __('Nothing to save!') }}',
+                        title: "{{ __('Nothing to save!') }}",
                         icon: "warning",
                     });
                 }
@@ -3628,10 +3628,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             $('#add-road-errors').empty();
             $('.add-road-form').slideUp();
             Swal.fire({
-                title: 'Success!',
-                text: "Road(s) added successfully.",
+                title: "{{ __('Success!') }}",
+                text: "{{ __('Road(s) added successfully.') }}",
                 icon: 'success',
-                confirmButtonText: 'OK!',
+                confirmButtonText: "{{ __('OK') }}"
             });
             resetAddRoadTool();
             $('#add_road_control').trigger("click");
@@ -3650,7 +3650,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     let customMessage = message.replace(new RegExp(field, "gi"), fieldTitle.toLowerCase());
 
                     // Capitalize the first letter of the custom field title
-                    customMessage = `The ${fieldTitle} is required.`;
+                    customMessage = `{{ __("This field is required") }}`+ `: ${fieldTitle}`;
 
                     html += `<li>${customMessage}</li>`;
                 });
@@ -3719,12 +3719,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 originalRoadFeature = e.selected[0];
                             } else{
                                 Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: "Previous changes may be lost.",
+                                    title: "{{ __('Are you sure?') }}",
+                                    text: "{{ __('Previous changes may be lost.') }}",
                                     icon: 'warning',
                                     showCancelButton: true,
-                                    confirmButtonText: 'Yes',
-                                    cancelButtonText: 'No!',
+                                    confirmButtonText: "{{ __('Yes') }}",
+                                    cancelButtonText: "{{ __('No!') }}",
                                     reverseButtons: true
                                 }).then((result) => {
                                     if (result.isConfirmed) {
@@ -3822,13 +3822,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
              * Message to show when the user is drawing a polygon.
              * @type {string}
              */
-            var continuePolygonMsg = 'Click to continue drawing the polygon';
+            var continuePolygonMsg = "{{ __('Click to continue drawing the polygon') }}";
 
             /**
              * Message to show when the user is drawing a line.
              * @type {string}
              */
-            var continueLineMsg = 'Click to continue drawing the line';
+            var continueLineMsg = "{{ __('Click to continue drawing the line') }}";
 
             /**
              * Handle pointer move.
@@ -4170,7 +4170,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 let map_print_center = $('#map-print-polygon-center').val();
                 if (!print_map_title) {
                     Swal.fire({
-                        title: `Please provide a title!`,
+                        title: "{{ __('Please provide a title!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6074,7 +6074,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 if (!selectedLayer) {
                     Swal.fire({
-                        title: `Please select an overlay!`,
+                        title: "{{ __('Please select an overlay!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6262,7 +6262,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6386,7 +6386,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6516,7 +6516,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6625,7 +6625,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6748,7 +6748,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6876,7 +6876,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -6982,7 +6982,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7086,7 +7086,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7190,7 +7190,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7288,7 +7288,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -7619,18 +7619,18 @@ var bufferDistancePolygon = $('#buffer-distance-polygon').val();
 // Validation: Check if the distance is a non-negative number
 if (bufferDistancePolygon === "" || isNaN(bufferDistancePolygon)) {
     Swal.fire({
-        title: 'Invalid Input',
-        text: 'Please enter a valid Buffer Distance.',
+        title: "{{ __('Invalid Input') }}",
+        text: "{{ __('Please enter a valid Buffer Distance.') }}",
         icon: 'warning',
-        confirmButtonText: 'OK'
+        confirmButtonText: "{{ __('OK') }}"
     });
     return false;
 } else if (parseFloat(bufferDistancePolygon) < 0) {
     Swal.fire({
-        title: 'Invalid Input',
-        text: 'Negative numbers are not allowed.',
+        title: "{{ __('Invalid Input') }}",
+        text: "{{ __('Negative numbers are not allowed.') }}",
         icon: 'warning',
-        confirmButtonText: 'OK'
+        confirmButtonText: "{{ __('OK') }}"
     });
     return false;
 }
@@ -8047,7 +8047,7 @@ $.ajax({
 
                 if (!layer) {
                     Swal.fire({
-                        title: `Please select a layer!`,
+                        title: "{{ __('Please select a layer!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -8158,7 +8158,7 @@ $.ajax({
                     {'INFO_FORMAT': 'application/json'});
                 if (!url) {
                     Swal.fire({
-                        title: 'Failed to generate URL!',
+                        title: "{{ __('Failed to generate URL!') }}",
                         icon: "error",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -9367,7 +9367,7 @@ $.ajax({
 
                 if (!val) {
                     Swal.fire({
-                        title: 'Please enter ' + field_text + '!',
+                        title: '{{ __("Please enter") }}' + ' ' + field_text + '!',
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -9520,7 +9520,7 @@ $.ajax({
 
                 if (!keywords) {
                     Swal.fire({
-                        title: `Please type keyword to search!`,
+                        title: "{{ __('Please type keyword to search!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -9587,7 +9587,7 @@ $.ajax({
                                     removeAjaxLoader();
                                 });
                             } else {
-                                displayAjaxErrorModal('No Results Found');
+                                displayAjaxErrorModal("{{ __('No Results Found') }}");
                             }
                         },
                         error: function (dataResponse) {
@@ -9603,7 +9603,7 @@ $.ajax({
             function findPlacesRoads(keywords, layer) {
                 if (!keywords) {
                     Swal.fire({
-                        title: `Please type keyword to search!`,
+                        title: "{{ __('Please type keyword to search!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -9675,7 +9675,7 @@ $.ajax({
                                     removeAjaxLoader();
                                 });
                             } else {
-                                displayAjaxErrorModal('No Results Found');
+                                displayAjaxErrorModal("{{ __('No Results Found') }}");
                             }
                         },
                         error: function (data) {
@@ -9694,9 +9694,9 @@ $.ajax({
                 var selectedLayer = $('#ward_overlay').val();
                 if (!selectedWards || selectedWards.length === 0 || !selectedLayer || selectedLayer.length === 0) {
                     Swal.fire({
-                        title: 'Please select wards and overlay!',
+                        title: "{{ __('Please select wards and overlay!') }}",
                         icon: 'warning',
-                        button: 'Close',
+                        button: "{{ __('Close') }}",
                         className: 'custom-swal',
                     });
                     // Prevent the form from submitting
@@ -9836,7 +9836,7 @@ $.ajax({
                 var selectedLayer = $('#ward_overlay').val();
                 if (!selectedWards || selectedWards.length === 0 || !selectedLayer || selectedLayer.length === 0) {
                     Swal.fire({
-                        title: `Please select wards and overlay!`,
+                        title: "{{ __('Please select wards and overlay!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -9944,7 +9944,7 @@ $.ajax({
                     setExportLink('KML', 'kml');
                     break;
                 default:
-                    console.error('Unsupported format:', outputFormat);
+                    console.error("{{ __('Unsupported format') }}"+':', outputFormat);
             }
         }
 
@@ -10209,7 +10209,7 @@ $.ajax({
                 checklistparam = checkedList.join(' OR ');
             } else {
                 Swal.fire({
-                    title: `Please check one or more options!`,
+                    title: "{{ __('Please check one or more options!') }}",
                     icon: "warning",
                     button: "{{ __('Close') }}",
                     className: "custom-swal",
@@ -10230,7 +10230,7 @@ $.ajax({
                         const url = URL.createObjectURL(blob);
                         const downloadLink = document.createElement('a');
                         downloadLink.href = url;
-                        downloadLink.setAttribute('download', `Property Tax Collection ISS'.csv`);
+                        downloadLink.setAttribute('download', `{{ __("Property Tax Collection ISS") }}.csv`);
                         document.body.appendChild(downloadLink);
                         downloadLink.click();
                         document.body.removeChild(downloadLink);
@@ -10238,9 +10238,9 @@ $.ajax({
                     .catch(error => console.error('Error fetching CSV:', error));
             } else {
                 if (outputFormat === 'SHAPE-ZIP') {
-                    exportLink += '&format_options=filename:' + 'Property Tax Collection ISS' + '.zip';
+                    exportLink += '&format_options=filename:' + '{{ __("Property Tax Collection ISS") }}' + '.zip';
                 } else if (outputFormat === 'KML') {
-                    exportLink += '&format_options=filename:' + 'Property Tax Collection ISS' + '.kml';
+                    exportLink += '&format_options=filename:' + '{{ __("Property Tax Collection ISS") }}' + '.kml';
                 }
                 window.open(exportLink);
             }
@@ -10280,7 +10280,7 @@ $.ajax({
                     checklistparam = checkedList.join(' OR ');
                 } else {
                     Swal.fire({
-                        title: `Please check one or more options!`,
+                        title: "{{ __('Please check one or more options!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -10301,7 +10301,7 @@ $.ajax({
                             const url = URL.createObjectURL(blob);
                             const downloadLink = document.createElement('a');
                             downloadLink.href = url;
-                            downloadLink.setAttribute('download', `Water Supply ISS.csv`);
+                            downloadLink.setAttribute('download', `{{ __("Water Supply ISS") }}.csv`);
                             document.body.appendChild(downloadLink);
                             downloadLink.click();
                             document.body.removeChild(downloadLink);
@@ -10309,10 +10309,10 @@ $.ajax({
                         .catch(error => console.error('Error fetching CSV:', error));
                 } else {
                      if (outputFormat === 'SHAPE-ZIP') {
-                    exportLink += '&format_options=filename:' + 'Water Supply ISS' + '.zip';
+                    exportLink += '&format_options=filename:' + '{{ __("Water Supply ISS") }}' + '.zip';
                 }
                     else if (outputFormat === 'KML') {
-                    exportLink += '&format_options=filename:' + 'Water Supply ISS' + '.kml';
+                    exportLink += '&format_options=filename:' + '{{ __("Water Supply ISS") }}' + '.kml';
                 }
                     window.open(exportLink);
                 }
@@ -10346,7 +10346,7 @@ $.ajax({
                     checklistparam = checkedList.join(' OR ');
                 } else {
                     Swal.fire({
-                        title: `Please check one or more options!`,
+                        title: "{{ __('Please check one or more options!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -10367,7 +10367,7 @@ $.ajax({
                             const url = URL.createObjectURL(blob);
                             const downloadLink = document.createElement('a');
                             downloadLink.href = url;
-                            downloadLink.setAttribute('download', `Solid Waste ISS.csv`);
+                            downloadLink.setAttribute('download', `{{ __("Solid Waste ISS") }}.csv`);
                             document.body.appendChild(downloadLink);
                             downloadLink.click();
                             document.body.removeChild(downloadLink);
@@ -10375,10 +10375,10 @@ $.ajax({
                         .catch(error => console.error('Error fetching CSV:', error));
                 } else {
                      if (outputFormat === 'SHAPE-ZIP') {
-                    exportLink += '&format_options=filename:' + 'Solid Waste ISS' + '.zip';
+                    exportLink += '&format_options=filename:' + '{{ __("Solid Waste ISS") }}' + '.zip';
                 }
                     else if (outputFormat === 'KML') {
-                    exportLink += '&format_options=filename:' + 'Solid Waste ISS' + '.kml';
+                    exportLink += '&format_options=filename:' + '{{ __("Solid Waste ISS") }}' + '.kml';
                 }
                     window.open(exportLink);
                 }
@@ -10410,13 +10410,13 @@ $.ajax({
                 var date = $('#application_date_field').val();
                 if (!date) {
                     Swal.fire({
-                        title: `Please select a date!`,
+                        title: "{{ __('Please select a date!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else {
-                    var message = 'Number of applications on ' + date + ': ';
+                    var message = "{{ __('Number of applications on') }}" + ' '+ date + ': ';
 
                     displaySelectedDateApplications(date, message);
                 }
@@ -10429,13 +10429,13 @@ $.ajax({
                 var date = $('#application_not_tp_date_field').val();
                 if (!date) {
                     Swal.fire({
-                        title: `Please select a date!`,
+                        title: "{{ __('Please select a date!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else {
-                    var message = 'Number of applications on ' + date + ': ';
+                    var message = "{{ __('Number of applications on') }}" + ' '+ date + ': ';
 
                     displaySelectedDateApplicationsNotTP(date, message);
                 }
@@ -10527,7 +10527,7 @@ $.ajax({
                 var application_month = $('#application_month').val();
                 if (!applicaion_year) {
                     Swal.fire({
-                        title: `Please select a year!`,
+                        title: "{{ __('Please select a year!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -10535,14 +10535,14 @@ $.ajax({
                     return false;
                 } else if (!applicaion_year && !application_month) {
                     Swal.fire({
-                        title: `Please select a month!`,
+                        title: "{{ __('Please select a month!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return false;
                 } else {
-                    var message = 'Number of applications on ' + applicaion_year + ' ' + application_month + ': ';
+                    var message = "{{ __('Number of applications on') }}" + ' '+ applicaion_year + ' ' + application_month + ': ';
                     displaySelectedYearMonthApplications(applicaion_year, application_month, message);
                 }
 
@@ -10625,7 +10625,7 @@ $.ajax({
                 var application_not_tp_month = $('#application_not_tp_month').val();
                 if (!applicaion_not_tp_year) {
                     Swal.fire({
-                        title: `Please select a year!`,
+                        title: "{{ __('Please select a year!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -10633,14 +10633,14 @@ $.ajax({
                     return false;
                 } else if (!applicaion_not_tp_year && !application_not_tp_month) {
                     Swal.fire({
-                        title: `Please select a month!`,
+                        title: "{{ __('Please select a month!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                     return false;
                 } else {
-                    var message = 'Number of applications on ' + applicaion_not_tp_year + ' ' + application_not_tp_month + ': ';
+                    var message = "{{ __('Number of applications on') }}" + ' ' + applicaion_not_tp_year + ' ' + application_not_tp_month + ': ';
                     displaySelectedYearMonthApplicationsNotTP(applicaion_not_tp_year, application_not_tp_month, message);
                 }
 
@@ -10800,14 +10800,14 @@ $.ajax({
                 var days = Number($('#proposed_emptying_days').val());
                 if (!days) {
                     Swal.fire({
-                        title: `Please enter number of days!`,
+                        title: "{{ __('Please enter number of days!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else if (!Number.isInteger(days) || days < 0) {
                     Swal.fire({
-                        title: `Invalid input for number of days!`,
+                        title: "{{ __('Invalid input for number of days!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
@@ -10815,7 +10815,7 @@ $.ajax({
                 } else {
                     var startDate = moment().format('YYYY-MM-DD');
                     var endDate = moment().add(days, 'days').format('YYYY-MM-DD');
-                    var message = '{{ __('Number of containments proposed to be emptied on next') }}' + days + ' {{ __('days') }}: ';
+                    var message = '{{ __('Number of containments proposed to be emptied in the next few days') }}' + ': ' + days ;
 
                     displayProposedEmptyingContainments(startDate, endDate, message);
                 }
@@ -10838,13 +10838,13 @@ $.ajax({
                 var date = $('#proposed_emptying_date').val();
                 if (!date) {
                     Swal.fire({
-                        title: `Please select a date!`,
+                        title: "{{ __('Please select a date!') }}",
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
                     });
                 } else {
-                    var message = '{{ __('Number of containments proposed to be emptied on') }} ' + date + ': ';
+                    var message = "{{ __('Number of containments proposed to be emptied on') }} " + date + ": ";
 
                     displayProposedEmptyingContainments(date, date, message);
                 }
