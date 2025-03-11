@@ -601,9 +601,9 @@ class LanguageController extends Controller
     // export csv template for import with the key values pre-filled
     public function export_csv_format()
     {
-        $columns = ['text', 'translated_text'];
+        $columns = ['key','text', 'translated_text'];
 
-        $query = Translate::select('text')->where('name','en');
+        $query = Translate::select('key', 'text')->where('name','en');
 
         $style = (new StyleBuilder())
             ->setFontBold()
@@ -616,7 +616,7 @@ class LanguageController extends Controller
         $query->chunk(5000, function ($translates) use ($writer) {
             foreach ($translates as $translate) {
                 $values = [];
-
+                $values[] = $translate->key;
                 $values[] = $translate->text;
                 $writer->addRow($values);
             }
