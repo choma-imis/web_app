@@ -10815,7 +10815,7 @@ $.ajax({
                 } else {
                     var startDate = moment().format('YYYY-MM-DD');
                     var endDate = moment().add(days, 'days').format('YYYY-MM-DD');
-                    var message = '{{ __('Number of containments proposed to be emptied on next') }}' + days + ' {{ __('days') }}: ';
+                    var message = '{{ __('Number of containments proposed to be emptied in the next few days') }}' + ': ' + days ;
 
                     displayProposedEmptyingContainments(startDate, endDate, message);
                 }
