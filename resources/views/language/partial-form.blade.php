@@ -60,12 +60,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 
 
-    <div class="form-group row required">
-        {!! Form::label('label', 'Label ', ['class' => 'col-sm-3 control-label']) !!}
-        <div class="col-sm-3">
-            {!! Form::text('label', null, ['class' => 'form-control', 'placeholder' => 'Label' ]) !!}
-        </div>
-    </div>
+
 
     <div class="form-group row required">
         {!! Form::label('short', 'Short ', ['class' => 'col-sm-3 control-label']) !!}
@@ -80,11 +75,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         </div>
     </div>
     <div class="form-group row required">
-        {!! Form::label('status', 'Status ', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('status', 'Status', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('status', ['true' => 'Active', 'false' => 'Diabled'], null, ['class' => 'form-control', 'placeholder' => 'Select Status']) !!}
+            {!! Form::select('status', ['1' => 'Active', '0' => 'Disabled'], null, ['class' => 'form-control', 'placeholder' => 'Select Status']) !!}
         </div>
     </div>
+
 
 </div>
 

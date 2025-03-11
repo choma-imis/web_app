@@ -25,11 +25,11 @@ class LanguageRequest extends FormRequest
     {
         return [
             'name.required' => 'Language Name required.',
-        'label.required' => 'Language Label required.',
+
         'short.required' => 'Language Short required.',
         'code.required' => 'Language Code required.',
         'status.required' => 'Language Status required.',
-
+        'code.unique' => 'Language Code already exists.',
         ];
     }
 
@@ -39,25 +39,21 @@ class LanguageRequest extends FormRequest
      * @return array
      */
     public function store()
-    {
-        return [
-            'name' => 'required',
-            'label' => 'required',
-            'short' => 'required',
-            'code' => 'required',
-            'status' => 'required',
+{
+    return [
+        'name' => 'required',
 
-        ];
-    }
+        'short' => 'required',
+        'status' => 'required',
+        'code' => 'required|unique:pgsql.language.languages,code',
+    ];
+}
+
 
     public function update()
     {
         return [
-            'name' => 'required',
-            'label' => 'required',
-            'short' => 'required',
-            'code' => 'required',
-            'status' => 'required',
+
 
         ];
     }

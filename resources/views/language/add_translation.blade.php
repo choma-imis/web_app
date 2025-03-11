@@ -134,9 +134,14 @@ button:active, button:focus { outline: none; box-shadow: none; }
                 <hr>
                 <ul>
                     @foreach($sourceTranslations as $page => $translations)
-                        <li><a href="#" class="tab-link @if($loop->first) active @endif" data-tab="tab-{{ $loop->index }}">{{ ucfirst(str_replace('_', ' ', $page)) }}</a></li>
-                    @endforeach
+                    <li>
+                        <a href="#" class="tab-link @if($loop->first) active @endif" data-tab="tab-{{ $loop->index }}">
+                            {{ preg_replace('/\bIss\b/i', 'ISS', \Illuminate\Support\Str::title(str_replace('_', ' ', $page))) }}
+                        </a>
+                    </li>
+                @endforeach
                 </ul>
+
             </div>
 
             <!-- Form Sections -->
@@ -218,9 +223,9 @@ fetch(`/language/save-translation/${slug}`, {
     console.log("Response received:", data);
 
     if (data.status === 'success') { // ✅ Check the correct response status
-        
-      
-       
+
+
+
 
         // Redirect to language/setup after a short delay
         setTimeout(() => {
