@@ -26,9 +26,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 <table id="data-table" class="table table-bordered table-striped dtr-inline" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
-                            <th>Label</th>
                             <th>Short</th>
                             <th>Language Code</th>
                             <th>Status</th>
@@ -56,24 +54,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         },
                     },
 
-                    columns: [{
-                            data: 'id',
-                            name: 'id'
-                        },
+                    columns: [
+
                         {
                             data: 'name',
                             name: 'name'
                         },
                         {
-                            data: 'label',
-                            name: 'label'
-                        },
-
-                        {
                             data: 'short',
                             name: 'short',
                         },
-
                         {
                             data: 'code',
                             name: 'code'

@@ -18,12 +18,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     {!! Form::label(null,$language->name,['class' => 'form-control']) !!}
                 </div>
             </div>
-            <div class="form-group row">
-                {!! Form::label('Label',null,['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-3">
-                    {!! Form::label(null,$language->label,['class' => 'form-control']) !!}
-                </div>
-            </div>
+        
             <div class="form-group row">
                 {!! Form::label('Short',null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">

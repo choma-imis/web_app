@@ -53,6 +53,8 @@ class LanguageController extends Controller
         return view("language.index", compact('languages', 'page_title'));
     }
 
+
+
     public function generate_translate($code)
     {
         $lang = $code;
@@ -73,9 +75,10 @@ class LanguageController extends Controller
                 $filewrite = true;
             } catch (\Exception $e) {
             }
-
             if ($filewrite) {
+
                 $content = json_encode($output, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
                 $generate = $this->generate_lang_file($lang, $content, 'update');
                 if ($generate && $generate->status == true) {
                     // $this->add_setting('lang_last_generate_' . $lang, time());
@@ -111,19 +114,24 @@ class LanguageController extends Controller
     // sub function that stores the file in correct path
     public function generate_lang_file($lang, $content, $action = 'update')
     {
+
+        // dd($lang, $content);
         $result = ['status' => false];
 
         if ($action === 'store') {
             $lang_file = lang_path($lang . '.json');
             if (File::exists($lang_file)) {
+
                 File::delete($lang_file);
             }
             File::put($lang_file, $content);
         } else {
+
             $file_name = $lang . '.json';
             $lang_file = lang_path($file_name);
             if (File::isWritable(lang_path())) {
                 if (File::exists($lang_file)) {
+
                     File::delete($lang_file);
                 }
                 File::put($lang_file, $content);
@@ -141,6 +149,12 @@ class LanguageController extends Controller
         return back();
     }
 
+
+
+
+
+
+
     /**
      * Fetch and format data for DataTables.
      *
@@ -149,37 +163,51 @@ class LanguageController extends Controller
      */
     public function getData(Request $request)
     {
-        $languages = Language::whereNull('deleted_at')->orderBY('id', 'asc');
+        $languages = Language::whereNull('deleted_at')->orderBy('id', 'asc');
+
         return Datatables::of($languages)
             ->filter(function ($query) use ($request) {})
             ->addColumn('action', function ($model) {
                 if ($model->id == 1) {
                     return '';
                 }
-                // Import translation button
-                if (Auth::user()->can('Add Translation')) {
-                    $content = '<a title="Import Translations" href="' . action("Language\LanguageController@create_import", [$model->code]) . '"class="btn btn-info btn-sm mb-1"><i class="fa fa-upload"></i></a> ';
 
-                    $content .= '<a title="Add Translations" href="' . action("Language\LanguageController@add_translation", [$model->code]) . '"class="btn btn-info btn-sm mb-1"><i class="fa fa-language" aria-hidden="true"></i></a> ';
+                $content = '';
+
+                // Edit Button
+                if (Auth::user()->can('Edit Language')) {
+                    $content .= '<a title="Edit" href="' . action("Language\LanguageController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
                 }
-                // Generate translation button
+
+                // Detail Button
+                if (Auth::user()->can('View Language')) {
+                    $content .= '<a title="Detail" href="' . action("Language\LanguageController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
+                }
+
+                // Add Translations Button
+                if (Auth::user()->can('Add Translation')) {
+                    $content .= '<a title="Add/Edit Translations" href="' . action("Language\LanguageController@add_translation", [$model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-language" aria-hidden="true"></i></a> ';
+                }
+
+                // Import Translations Button
+                if (Auth::user()->can('Add Translation')) {
+                    $content .= '<a title="Import Translations" href="' . action("Language\LanguageController@create_import", [$model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-upload"></i></a> ';
+                }
+
+                // Generate Language Button (Form Submission)
                 if (Auth::user()->can('Generate Translation')) {
-                    // Add the embedded form for "Generate Language"
                     $content .= \Form::open(['method' => 'POST', 'route' => ['lang.generate', $model->code], 'class' => 'd-inline']);
-                    $content .= '<button type="submit"class="btn btn-info btn-sm mb-1 mr-1" title="Generate Language"><i class="fa fa-cogs"></i></button>';
+                    $content .= '<button type="submit" class="btn btn-info btn-sm mb-1 mr-1" title="Generate Language"><i class="fa fa-cogs"></i></button>';
                     $content .= \Form::close();
                 }
-                $content .= \Form::open(['method' => 'DELETE', 'route' => ['setup.destroy', $model->id], 'class' => 'd-inline']);
-                if (Auth::user()->can('Edit Language')) {
-                    $content .= '<a title="Edit" href="' . action("Language\LanguageController@edit", [$model->id]) . '"  class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
-                }
-                if (Auth::user()->can('View Language')) {
-                    $content .= '<a title="Detail" href="' . action("Language\LanguageController@show", [$model->id]) . '"class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
-                }
+
+                // Delete Button (Last)
                 if (Auth::user()->can('Delete Language')) {
-                    $content .= '<a title="Delete" class="delete btn btn-danger btn-sm mb-1">&nbsp;<i class="fa fa-trash"></i>&nbsp;</a> ';
+                    $content .= \Form::open(['method' => 'DELETE', 'route' => ['setup.destroy', $model->id], 'class' => 'd-inline']);
+                    $content .= '<button type="submit" class="btn btn-danger btn-sm mb-1 delete" title="Delete"><i class="fa fa-trash"></i></button>';
+                    $content .= \Form::close();
                 }
-                $content .= \Form::close();
+
                 return $content;
             })
             ->editColumn('status', function ($model) {
@@ -187,6 +215,8 @@ class LanguageController extends Controller
             })
             ->make(true);
     }
+
+
 
 
 
@@ -213,22 +243,20 @@ class LanguageController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->all();
-            $languageId = $this->storeOrUpdate(null, $data); // Store Language
-            // Fetch existing records from Translates (1 to 1263)
-            $existingTranslates = Translate::whereBetween('id', [1, 1263])->get();
+            $languageId = $this->storeOrUpdate(null, $data);
+
+            $existingTranslates = Translate::where('name', 'en')->get();
 
             $sequnece  =  DB::statement("SELECT setval('language.translates_id_seq', (SELECT MAX(id)+1 FROM language.translates))");
             // Insert new records in Translates table
             foreach ($existingTranslates as $translate) {
                 Translate::create([
-
-                    'key'   => $translate->key,      // Keep existing key
-                    'name'  => $data['code'] ?? null, // Use new language code
-                    'pages' => $translate->pages,   // Keep existing pages
-                    'group' => $translate->group,   // Keep existing group
-                    'panel' => $translate->panel,   // Keep existing panel
-                    'load'  => $translate->load,    // Keep existing load
-
+                    'key'   => $translate->key,
+                    'name'  => $data['code'] ?? null,
+                    'pages' => $translate->pages,
+                    'group' => $translate->group,
+                    'panel' => $translate->panel,
+                    'load'  => $translate->load,
                 ]);
             }
             DB::commit();
@@ -236,31 +264,46 @@ class LanguageController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             \Log::error('Error in storing Language and Translates: ' . $e->getMessage());
-
             return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
     public function storeOrUpdate($id, $data)
-    {
+{
+    DB::beginTransaction();
+    try {
         if (is_null($id)) {
+
             $language = new Language();
-            $language->name = $data['name'] ? $data['name'] : null;
-            $language->label = $data['label'] ? $data['label'] : null;
-            $language->short = $data['short'] ? $data['short'] : null;
-            $language->code = $data['code'] ? $data['code'] : null;
-            $language->status = $data['status'] ? $data['status'] : 0;
-            $language->save();
-            return $language->id;
         } else {
+
             $language = Language::find($id);
-            $language->name = $data['name'] ? $data['name'] : null;
-            $language->label = $data['label'] ? $data['label'] : null;
-            $language->short = $data['short'] ? $data['short'] : null;
-            $language->code = $data['code'] ? $data['code'] : null;
-            $language->status = $data['status'] ? $data['status'] : 0;
-            $language->save();
+            if (!$language) {
+                throw new Exception('Language not found');
+            }
+
+
+            Translate::where('name', $language->code)->update([
+                'name' => $data['code'] ?? null
+            ]);
         }
+
+
+        $language->name = $data['name'] ?? null;
+        $language->label = $data['name'] ?? null;
+        $language->short = $data['short'] ?? null;
+        $language->code = $data['code'] ?? null;
+        $language->status = $data['status'] ?? null;
+        $language->save();
+
+        DB::commit();
+        return $language->id;
+    } catch (Exception $e) {
+        DB::rollBack();
+        \Log::error('Error in storing/updating Language and Translates: ' . $e->getMessage());
+        return null;
     }
+}
+
     /**
      * Display the specified resource.
      *
@@ -316,18 +359,28 @@ class LanguageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+{
+    DB::beginTransaction();
+    try {
         $language = Language::find($id);
-        if ($language) {
-            if ($language->code == 'en') {
-                return redirect('language/setup')->with('error', 'English is defauly language and cannot be deleted');
-            }
-            language::destroy($id);
-            return redirect('language/setup')->with('success', 'Language deleted successfully');
-        } else {
-            return redirect('language/setup')->with('error', 'Failed to delete Language');
+        if (!$language) {
+            throw new Exception('Language not found');
         }
+
+        // Delete related Translations
+        Translate::where('name', $language->code)->delete();
+
+        // Delete Language
+        $language->delete();
+
+        DB::commit();
+        return redirect()->back()->with('success', 'Language deleted successfully');
+    } catch (Exception $e) {
+        DB::rollBack();
+        \Log::error('Error in deleting Language and Translates: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
     }
+}
 
 
 
@@ -366,98 +419,98 @@ class LanguageController extends Controller
         ));
     }
     public function saveStepTranslation(Request $request, $languageId)
-{
-    try {
-        DB::beginTransaction();
+    {
+        try {
+            DB::beginTransaction();
 
-        // ✅ Validate input
-        $validated = $request->validate([
-            'translations' => 'array',
+            // ✅ Validate input
+            $validated = $request->validate([
+                'translations' => 'array',
 
-        ]);
+            ]);
 
-        $translations = $validated['translations']; // User-submitted translations
+            $translations = $validated['translations']; // User-submitted translations
 
-        if (empty($translations)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'No translations provided'
-            ], 400);
-        }
+            if (empty($translations)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No translations provided'
+                ], 400);
+            }
 
-        // Step 1: Get only the relevant existing translations from the database
-        $keys = array_keys($translations); // Extract the keys from user input
-        $existingTranslations = Translate::where('name', $languageId)
-            ->whereIn('key', $keys)
-            ->get()
-            ->keyBy('key'); // Organize by 'key' for quick lookups
+            // Step 1: Get only the relevant existing translations from the database
+            $keys = array_keys($translations); // Extract the keys from user input
+            $existingTranslations = Translate::where('name', $languageId)
+                ->whereIn('key', $keys)
+                ->get()
+                ->keyBy('key'); // Organize by 'key' for quick lookups
 
-        $updates = [];
-        $insertions = [];
+            $updates = [];
+            $insertions = [];
 
-        // Step 2: Loop through request data and check if updates or insertions are needed
-        foreach ($translations as $key => $newText) {
-            if (isset($existingTranslations[$key])) {
-                $storedText = $existingTranslations[$key]->text;
+            // Step 2: Loop through request data and check if updates or insertions are needed
+            foreach ($translations as $key => $newText) {
+                if (isset($existingTranslations[$key])) {
+                    $storedText = $existingTranslations[$key]->text;
 
-                // ✅ Only update if the new text is different from the stored text
-                if ($storedText !== $newText) {
-                    $updates[] = [
-                        'id' => $existingTranslations[$key]->id,
-                        'text' => $newText
+                    // ✅ Only update if the new text is different from the stored text
+                    if ($storedText !== $newText) {
+                        $updates[] = [
+                            'id' => $existingTranslations[$key]->id,
+                            'text' => $newText
+                        ];
+                    }
+                } else {
+                    // ✅ If the translation does not exist, prepare it for insertion
+                    $insertions[] = [
+                        'key' => $key,
+                        'name' => $languageId,
+                        'text' => $newText,
+                        'created_at' => now(),
+                        'updated_at' => now()
                     ];
                 }
-            } else {
-                // ✅ If the translation does not exist, prepare it for insertion
-                $insertions[] = [
-                    'key' => $key,
-                    'name' => $languageId,
-                    'text' => $newText,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ];
             }
-        }
 
-        // Step 3: Perform batch updates (only for changed values)
-        if (!empty($updates)) {
-            foreach (array_chunk($updates, 500) as $chunk) {
-                foreach ($chunk as $update) {
-                    Translate::where('id', $update['id'])->update(['text' => $update['text']]);
+            // Step 3: Perform batch updates (only for changed values)
+            if (!empty($updates)) {
+                foreach (array_chunk($updates, 500) as $chunk) {
+                    foreach ($chunk as $update) {
+                        Translate::where('id', $update['id'])->update(['text' => $update['text']]);
+                    }
                 }
             }
-        }
 
-        // Step 4: Perform batch insertions (for new values)
-        if (!empty($insertions)) {
-            foreach (array_chunk($insertions, 500) as $chunk) {
-                Translate::insert($chunk);
+            // Step 4: Perform batch insertions (for new values)
+            if (!empty($insertions)) {
+                foreach (array_chunk($insertions, 500) as $chunk) {
+                    Translate::insert($chunk);
+                }
             }
+
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Translations saved successfully',
+                'updated' => count($updates),
+                'inserted' => count($insertions)
+            ], 200);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error saving translations',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        DB::commit();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Translations saved successfully',
-            'updated' => count($updates),
-            'inserted' => count($insertions)
-        ], 200);
-
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Validation failed',
-            'errors' => $e->errors()
-        ], 422);
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Error saving translations',
-            'error' => $e->getMessage()
-        ], 500);
     }
-}
 
 
     private function getPageFromKey($key)
@@ -548,9 +601,9 @@ class LanguageController extends Controller
     // export csv template for import with the key values pre-filled
     public function export_csv_format()
     {
-        $columns = ['key','text', 'translated_text'];
+        $columns = ['text', 'translated_text'];
 
-        $query = Translate::select('key', 'text')->where('name','en');
+        $query = Translate::select('text')->where('name','en');
 
         $style = (new StyleBuilder())
             ->setFontBold()
@@ -563,7 +616,7 @@ class LanguageController extends Controller
         $query->chunk(5000, function ($translates) use ($writer) {
             foreach ($translates as $translate) {
                 $values = [];
-                $values[] = $translate->key;
+
                 $values[] = $translate->text;
                 $writer->addRow($values);
             }
