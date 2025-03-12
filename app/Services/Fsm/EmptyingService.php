@@ -989,7 +989,8 @@ class EmptyingService
                         $application->emptying_status = false;
                         $application->save();
                     }
-                    return redirect()->back()->withInput()->with('error', "Emptying service is already done for application $application->id");
+                    return redirect()->back()->withInput()->with('error', __("Emptying service is already done for application") . $application->id);
+
                 }
                 // Assign service provider and user ID to the emptying
                 $emptying->service_provider_id = $application->service_provider_id;
@@ -1019,7 +1020,7 @@ class EmptyingService
                             $application->emptying_status = false;
                             $application->save();
                         }
-                        return redirect()->back()->withInput()->with('error', "Images already exist!");
+                        return redirect()->back()->withInput()->with('error', __("Images already exist!"));
                     }
     
                     // Assign image paths to emptying
@@ -1032,7 +1033,7 @@ class EmptyingService
                         $application->emptying_status = false;
                         $application->save();
                     }
-                    return redirect()->back()->withInput()->with('error', "Error! Invalid image format.");
+                    return redirect()->back()->withInput()->with('error', __("Error! Invalid image format."));
                 }
     
                 // Save emptying
@@ -1051,10 +1052,10 @@ class EmptyingService
                 $application->save();
             }
             DB::rollBack();
-            return redirect()->back()->withInput()->with('error', "Error! Emptying couldn't be created. " . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', __("Error! Emptying couldn't be created. ") . $e->getMessage());
         }
     
-        return redirect(route('application.index'))->with('success', 'Emptying Service Details created successfully');
+        return redirect(route('application.index'))->with('success', __('Emptying Service Details created successfully'));
     }
     
 
@@ -1088,12 +1089,12 @@ class EmptyingService
                             $emptying->receipt_image = $filename_receipt;
                         } catch (\Throwable $th) {
                             DB::rollBack(); 
-                            return redirect()->back()->withInput()->with('error', "Error! Unable to save images.");
+                            return redirect()->back()->withInput()->with('error', __("Error! Unable to save images."));
                         }
 
                     } else {
                         DB::rollBack(); 
-                        return redirect()->back()->withInput()->with('error', "Error! Invalid image format.");
+                        return redirect()->back()->withInput()->with('error', __("Error! Invalid image format."));
                     }
 
 
@@ -1105,17 +1106,17 @@ class EmptyingService
                             $filename_house = $application->bin . '.' . $extension_house;
                             $storeHouseImg = Image::make($request->house_image)->save(Storage::disk('local')->path('/public/emptyings/houses/' . $filename_house), 50);
                             if (!Storage::disk('local')->exists('/public/emptyings/houses/' . $filename_house)) {
-                                return redirect()->back()->withInput()->with('error', "Error! Unable to save house image.");
+                                return redirect()->back()->withInput()->with('error', __("Error! Unable to save house image."));
                             }
                             $emptying->house_image = $filename_house;
                         } catch (\Throwable $th) {
                             DB::rollBack(); 
-                            return redirect()->back()->withInput()->with('error', "Error! Unable to save images.");
+                            return redirect()->back()->withInput()->with('error', __("Error! Unable to save images."));
                         }
 
                     } else {
                         DB::rollBack(); 
-                        return redirect()->back()->withInput()->with('error', "Error! Invalid image format.");
+                        return redirect()->back()->withInput()->with('error', __("Error! Invalid image format."));
                     }
                 }
                 $emptying->save();
@@ -1123,9 +1124,9 @@ class EmptyingService
             }
         } catch (\Throwable $e) {
             DB::rollBack(); 
-            return redirect()->back()->withInput()->with('error', 'Failed to update Emptying');
+            return redirect()->back()->withInput()->with('error', __('Failed to update Emptying'));
         }
-        return redirect(route('application.index'))->with('success', 'Emptying updated successfully');
+        return redirect(route('application.index'))->with('success', __('Emptying updated successfully'));
     }
 
     /**
@@ -1147,7 +1148,7 @@ class EmptyingService
                 ->sortByDesc('created_at')
                 ->reverse();
         } catch (\Throwable $e) {
-            return redirect(route('emptying.index'))->with('error', 'Failed to generate history.');
+            return redirect(route('emptying.index'))->with('error', __('Failed to generate history.'));
         }
         return view('fsm.emptying.history', compact('emptying', 'revisions'));
     }

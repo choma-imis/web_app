@@ -41,7 +41,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <label for="ward" class="col-md-2 col-form-label">{{ __("Ward Number") }}</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="ward">
-                                            <option value="">{{ __("Select Ward Number") }}</option>
+                                            <option value="">{{ __("Ward Number") }}</option>
                                             @foreach($ward as $key)
                                                 <option value="{{ $key }}">{{ $key }}</option>
                                             @endforeach
@@ -68,7 +68,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <label for="status" class="col-md-2 col-form-label">{{ __("Status") }}</label>
                                     <div class="col-md-2">
                                         <select class="form-control chosen-select" id="status" name="status">
-                                            <option value="">{{ __("Select Status") }}</option>
+                                            <option value="">{{ __("Status") }}</option>
                                             <option value="true">Operational</option>
                                             <option value="false">Not Operational</option>
                                         </select>

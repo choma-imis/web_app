@@ -209,7 +209,7 @@ class SludgeCollectionController extends Controller
             $application->sludge_collection_status = true;
             $application->save();
         }
-        return redirect('fsm/application')->with('success','Sludge collection created successfully');
+        return redirect('fsm/application')->with('success',__('Sludge collection created successfully'));
     }
 
     /**
@@ -260,7 +260,7 @@ class SludgeCollectionController extends Controller
         {
             if($sludgeCollection->created_at->diffInDays(today()) > 1)
             {
-                return redirect('fsm/sludge-collection')->with('error','Cannot edit Sludge Collection Information 24 hours after creation. Please contact Sanitation Department for support');
+                return redirect('fsm/sludge-collection')->with('error',__('Cannot edit Sludge Collection Information 24 hours after creation. Please contact Sanitation Department for support'));
             }
         }
         if ($sludgeCollection) {
@@ -327,7 +327,7 @@ class SludgeCollectionController extends Controller
 
             }
           
-            return redirect('fsm/application')->with('success','Sludge collection updated successfully');
+            return redirect('fsm/application')->with('success',__('Sludge collection updated successfully'));
 
     }
 
@@ -352,7 +352,7 @@ class SludgeCollectionController extends Controller
             {
                 if($sludgeCollection->created_at->diffInDays(today()) > 1)
                 {
-                    return redirect('fsm/sludge-collection')->with('error','Cannot delete Sludge Collection Information 24 hours after creation. Please contact Sanitation Department for support');
+                    return redirect('fsm/sludge-collection')->with('error',__('Cannot delete Sludge Collection Information 24 hours after creation. Please contact Sanitation Department for support'));
                 }
             }
             // updating applicaiton->sludge_collection_status
@@ -362,7 +362,7 @@ class SludgeCollectionController extends Controller
             $sludgeCollection->delete();
             return redirect('fsm/sludge-collection')->with('success','Sludge Collection deleted successfully');
         } else {
-            return redirect('fsm/sludge-collection')->with('error','Failed to delete Sludge Collection');
+            return redirect('fsm/sludge-collection')->with('error',__('Failed to delete Sludge Collection'));
         }
     }
 

@@ -93,7 +93,7 @@ class EmployeeInfoController extends Controller
         $data = $request->only(['service_provider_id', 'name', 'gender', 'contact_number', 'dob', 'address', 'employee_type', 'year_of_experience', 'wage', 'license_number', 'license_issue_date', 'training_status', 'employment_start', 'status', 'employment_end']);
         $employeeInfos = $this->employeeInfoService->storeOrUpdate($id = null, $data);
 
-        return redirect('fsm/employee-infos')->with('success', 'Employee Information created successfully');
+        return redirect('fsm/employee-infos')->with('success', __('Employee Information created successfully'));
     }
 
     /**
@@ -155,9 +155,9 @@ class EmployeeInfoController extends Controller
 
             $employeeInfos = $this->employeeInfoService->storeOrUpdate($employeeInfo->id, $data);
 
-            return redirect('fsm/employee-infos')->with('success', 'Employee Information updated successfully');
+            return redirect('fsm/employee-infos')->with('success', __('Employee Information updated successfully'));
         } else {
-            return redirect('fsm/employee-infos')->with('error', 'Failed to update Employee Info');
+            return redirect('fsm/employee-infos')->with('error', __('Failed to update Employee Info'));
         }
     }
 
@@ -173,12 +173,12 @@ class EmployeeInfoController extends Controller
 
         if ($employeeInfos) {
             if ($employeeInfos->emptyings1()->exists() || $employeeInfos->emptyings2()->exists()) {
-                return redirect('fsm/employee-infos')->with('error', 'Cannont delete Employee Information that has associated Applicaiton Information');
+                return redirect('fsm/employee-infos')->with('error', __('Cannont delete Employee Information that has associated Applicaiton Information'));
             }
             $employeeInfos->delete();
-            return redirect('fsm/employee-infos')->with('success', 'Employee Information deleted successfully');
+            return redirect('fsm/employee-infos')->with('success', __('Employee Information deleted successfully'));
         } else {
-            return redirect('fsm/employee-infos')->with('error', 'Failed to delete Employee Information');
+            return redirect('fsm/employee-infos')->with('error', __('Failed to delete Employee Information'));
         }
     }
 
