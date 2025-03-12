@@ -216,7 +216,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             $('#service_provider_id').empty();
 
             // Add a default "Select" option
-            $('#service_provider_id').append('<option value="">Service Provider</option>');
+            $('#service_provider_id').append('<option value="">{{ __("Service Provider Name") }}</option>');
 
             // Append options to the select dropdown
             $.each(response, function (id, name) {
@@ -433,7 +433,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         };
                     },
                 },
-                placeholder: 'Street Name/ Street Code',
+                placeholder:'{{ __('Street Name / Street Code') }}',
                 allowClear: true,
                 closeOnSelect: true,
                 width: '100%'

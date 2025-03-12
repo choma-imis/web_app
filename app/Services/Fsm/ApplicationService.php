@@ -290,13 +290,13 @@ class ApplicationService
                     autoComplete: "off",
                 ),
                 new FormField(
-                    label: __('Street Name/ Street Code'),
+                    label: __('Street Name / Street Code'),
                     labelFor: 'road_code',
                     labelClass: 'col-md-2 col-form-label ',
                     inputType: 'multiple-select',
                     inputId: 'road_code',
                     selectValues: [],
-                    placeholder: __('Street Name/ Street Code'),
+                    placeholder: __('Street Name / Street Code'),
                 ),
                 new FormField(
                     label: __('Proposed Emptying Date'),
