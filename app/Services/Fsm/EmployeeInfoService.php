@@ -173,7 +173,7 @@ class EmployeeInfoService {
             __('Employee Contact Number'),
             __('Date of Birth'),
             __('Address'),
-            __('Employee Designation'),
+            __('Designation'),
             __('Working Experience (Years)'),
             __('Monthly Remuneration'),
             __('Driving License Number'),

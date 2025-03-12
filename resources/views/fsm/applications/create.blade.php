@@ -195,7 +195,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             method: 'GET',
             success: function (response) {
                 $('#service_provider_id').empty();
-                $('#service_provider_id').append('<option value="">Select a Service Provider</option>');
+                $('#service_provider_id').append('<option value="">Service Provider Name</option>');
                 $.each(response, function (id, name) {
                     $('#service_provider_id').append('<option value="' + id + '">' + name + '</option>');
                 });

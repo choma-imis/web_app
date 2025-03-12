@@ -988,7 +988,7 @@ class ApplicationService
         $previous_application_status = Application::where('containment_id',$request->containment_id)->where('emptying_status',false)->whereNULL('deleted_at')->exists();
         if($previous_application_status)
         {
-            return redirect()->back()->withInput()->with('error',"Error! Containment already has running Application. ");
+            return redirect()->back()->withInput()->with('error', __("Error! Containment already has running Application. "));
         }
         $application = '';
         if ($request->validated()){
@@ -1029,11 +1029,11 @@ class ApplicationService
                     $application->save();
                 });
             } catch (\Throwable $e) {
-                return redirect()->back()->withInput()->with('error',"Error! Application couldn't be created. ".$e);
+                return redirect()->back()->withInput()->with('error',__("Error! Application couldn't be created. ").$e);
             }
         }
 
-        return redirect(route('application.index'))->with('success','Application created successfully');
+        return redirect(route('application.index'))->with('success',__('Application created successfully'));
     }
 
     /**
@@ -1073,9 +1073,9 @@ class ApplicationService
             }
             $application->save();
         } catch (\Throwable $e) {
-            return redirect()->back()->withInput()->with('error','Failed to update Application' . $e);
+            return redirect()->back()->withInput()->with('error',__('Failed to update Application') . $e);
         }
-        return redirect(route('application.index'))->with('success','Application updated successfully');
+        return redirect(route('application.index'))->with('success',__('Application updated successfully'));
     }
 
     /**
@@ -1098,7 +1098,7 @@ class ApplicationService
                 ->sortByDesc('created_at')
                 ->reverse();
         } catch (\Throwable $e) {
-            return redirect(route('application.index'))->with('error','Failed to generate history.');
+            return redirect(route('application.index'))->with('error',__('Failed to generate history.'));
         }
         return view('fsm.applications.history',compact('application','revisions'));
     }
@@ -1501,7 +1501,7 @@ class ApplicationService
             } catch (Throwable $e) {
                 // Handle exceptions
                 return JsonResponse::fromJsonString(json_encode([
-                    "error" => "Error getting building details!",
+                    "error" => __("Error getting building details!"),
                     "details" => $e->getMessage()
                 ]), 500);
             }
