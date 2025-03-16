@@ -94,7 +94,7 @@ class SwmServicePaymentController extends Controller
      */
     public function create()
     {
-        $page_title = "Import Solid Waste Information Support System";
+        $page_title = __("Import Solid Waste Information Support System");
         return view('swmpayment-info.create', compact('page_title'));
     }
     /**
@@ -171,7 +171,7 @@ class SwmServicePaymentController extends Controller
 
                 }
                 else{
-                    $message = 'Building Tax Payments Not Imported From CSV.';
+                    $message = __('Building Tax Payments Not Imported From CSV.');
                 }
 
         }

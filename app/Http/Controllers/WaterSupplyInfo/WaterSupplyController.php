@@ -39,7 +39,7 @@ class WaterSupplyController extends Controller
      */
     public function index()
     {
-        $page_title = "Water Supply Payments";
+        $page_title = __("Water Supply Payments");
         $wards = Ward::getInAscOrder();
         $dueYears = DueYear::getInAscOrder();
         return view('watersupply-info.index', compact('page_title','wards', 'dueYears'));
@@ -79,7 +79,7 @@ class WaterSupplyController extends Controller
      */
     public function create()
     {
-        $page_title = "Import Water Supply";
+        $page_title = __("Import Water Supply");
         return view('watersupply-info.create', compact('page_title'));
     }
 
@@ -158,7 +158,7 @@ class WaterSupplyController extends Controller
 
                 }
                 else{
-                    $message = 'Water Supply Payments Not Imported From CSV.';
+                    $message = __('Water Supply Payments Not Imported From CSV.');
                 }
 
         }

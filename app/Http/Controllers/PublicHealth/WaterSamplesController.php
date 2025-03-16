@@ -70,7 +70,7 @@ class WaterSamplesController extends Controller
     {
         $data = $request->all();
         $this->waterSamplesService->storeOrUpdate($id = null, $data);
-        return redirect('publichealth/water-samples')->with('success','Water Samples created successfully');
+        return redirect('publichealth/water-samples')->with('success', __('Water Samples created successfully'));
     }
 
    
@@ -134,9 +134,9 @@ class WaterSamplesController extends Controller
            
             $data = $request->all();
             $this->waterSamplesService->storeOrUpdate($id,$data);
-            return redirect('publichealth/water-samples')->with('success','Water Samples updated successfully');
+            return redirect('publichealth/water-samples')->with('success', __('Water Samples updated successfully'));
         } else {
-            return redirect('publichealth/water-samples')->with('error','Failed to update Water Samples');
+            return redirect('publichealth/water-samples')->with('error', __('Failed to update Water Samples'));
         }
     }
 
@@ -151,9 +151,9 @@ class WaterSamplesController extends Controller
         $waterSamples = WaterSamples::find($id);
         if ($waterSamples) {
             $waterSamples->delete();
-            return redirect('publichealth/water-samples')->with('success', 'Water Samples Information deleted successfully');
-        } else {
-            return redirect('publichealth/water-samples')->with('error', 'Failed to delete Water Samples Information');
+            return redirect('publichealth/water-samples')->with('success', __('Water Samples Information deleted successfully'));
+        } else { 
+            return redirect('publichealth/water-samples')->with('error', __('Failed to delete Water Samples Information'));
         }
        
     }

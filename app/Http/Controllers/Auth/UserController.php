@@ -102,11 +102,11 @@ class UserController extends Controller
         try {
         $this->userService->storeOrUpdate($id = null,$data);
         DB::commit();
-        return redirect('auth/users')->with('success','User created successfully');
+        return redirect('auth/users')->with('success', __('User created successfully'));
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error updating password: ' . $e->getMessage());
-            return redirect()->back()->with('error','User could not be created');
+            return redirect()->back()->with('error', __('User could not be created'));
         }
     }
 
