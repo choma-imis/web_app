@@ -188,7 +188,7 @@ class BuildingSurveyController extends Controller
     }
 
     public function approve($id){
-        $page_title = "Approve Building Structure";
+        $page_title = __("Approve Building Structure");
 
         $structure_type = StructureType::orderBy('type', 'asc')->pluck('type', 'id')->all();
         $water_source = WaterSource::orderBy('source', 'asc')->pluck('source', 'id')->all();

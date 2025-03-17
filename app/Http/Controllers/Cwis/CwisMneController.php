@@ -75,7 +75,7 @@ class CwisMneController extends Controller
                     ->distinct()
                     ->orderby('year', 'desc')->pluck('year');
 
-        $page_title = "CWIS Indicators Monitoring and Evaluation";
+        $page_title = __("CWIS Indicators Monitoring and Evaluation");
 
         $subCategory_titles = DB::Table('cwis.data_cwis as d')
                     ->leftJoin('cwis.data_source as ds', 'ds.id', '=', 'd.source_id')
@@ -183,7 +183,7 @@ class CwisMneController extends Controller
 
         $currentYear = date('Y');
         $newsurveyear = cwis_mne::latest()->selectRaw("year + 1 as newyear")->limit(1)->get();
-        $page_title = "Data Framework for Monitoring and Evaluation";
+        $page_title = __("Data Framework for Monitoring and Evaluation");
 
         // Fetch unique indicator codes
         $indicator_list = DataSource::orderBy('indicator_code')

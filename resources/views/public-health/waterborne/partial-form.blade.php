@@ -55,7 +55,7 @@
     <div class="form-group required row">
         {!! Form::label('infected_disease', __('Infected Disease'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('infected_disease', $enumValues, null, ['class' => 'form-control chosen-select', 'placeholder' => __('--- Choose Infected Disease ---')]) !!}
+            {!! Form::select('infected_disease', $enumValues, null, ['class' => 'form-control chosen-select', 'placeholder' => __('Choose Infected Disease')]) !!}
         </div>
     </div>
 

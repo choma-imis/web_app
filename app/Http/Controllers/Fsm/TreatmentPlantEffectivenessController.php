@@ -31,7 +31,7 @@ class TreatmentPlantEffectivenessController extends Controller
 
     public function index()
     {
-        $page_title = "Treatment Plant Efficiency Standard";
+        $page_title = __("Treatment Plant Efficiency Standard");
         $pickYearResults = TreatmentPlantEffectiveness::distinct()->get('year');
         return view('fsm.treatment-plant-effectiveness.index', compact('page_title', 'pickYearResults'));
     }
@@ -49,7 +49,7 @@ class TreatmentPlantEffectivenessController extends Controller
     }
     public function create()
     {
-        $page_title = "Add Treatment Plant Efficiency Standard";
+        $page_title = __("Add Treatment Plant Efficiency Standard");
         if(Auth::user()->treatment_plant_id)
         {
         $treatmentPlants = TreatmentPlant::Operational()->orderBy('id')->where('id',Auth::user()->treatment_plant_id)->pluck('name', 'id');
@@ -90,7 +90,7 @@ class TreatmentPlantEffectivenessController extends Controller
         $treatmentPlanteffective = TreatmentPlantEffectiveness::find($id);
         $status = TreatmentPlantStatus::getDescription($treatmentPlanteffective->status);
         if ($treatmentPlanteffective) {
-            $page_title = "Treatment Plant Efficiency Standard Details";
+            $page_title = __("Treatment Plant Efficiency Standard Details");
             return view('fsm/treatment-plant-effectiveness.show', compact('page_title', 'treatmentPlanteffective', 'status'));
         } else {
             abort(404);
@@ -114,7 +114,7 @@ class TreatmentPlantEffectivenessController extends Controller
         $treatmentPlants = TreatmentPlant::Operational()->orderBy('id')->pluck('name', 'id');
         }
         if ($info) {
-            $page_title = "Edit Treatment Plant Efficiency Standard";
+            $page_title = __("Edit Treatment Plant Efficiency Standard");
             return view('fsm.treatment-plant-effectiveness.edit', compact('page_title','info', 'treatmentPlants'));
         } else {
             abort(404);

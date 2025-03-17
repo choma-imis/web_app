@@ -3,7 +3,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 {{--Extend the main layout--}}
 @extends('layouts.dashboard')
 {{--Add sections for the main layout--}}
-@section('title', 'Add Emptying Service Details')
+@section('title', __('Add Emptying Service Details'))
 {{--Add sections for the index layout--}}
 
 {{--Include the layout inside the main content section--}}
