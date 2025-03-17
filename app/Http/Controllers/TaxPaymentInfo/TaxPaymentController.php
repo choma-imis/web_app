@@ -87,7 +87,7 @@ class TaxPaymentController extends Controller
      */
     public function create()
     {
-        $page_title = "Import Property Tax Collection Information Support System";
+        $page_title = __("Import Property Tax Collection Information Support System");
         return view('taxpayment-info.create', compact('page_title'));
     }
     /**
@@ -164,7 +164,7 @@ class TaxPaymentController extends Controller
 
                 }
                 else{
-                    $message = 'Building Tax Payments Not Imported From CSV.';
+                    $message = __('Building Tax Payments Not Imported From CSV.');
                 }
 
         }

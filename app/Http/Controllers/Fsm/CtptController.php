@@ -211,7 +211,7 @@ class CtptController extends Controller
                 $ct_connected_building = BuildToilet::where('toilet_id', $id)->whereNULL('deleted_at')->count();
                 if($ct_connected_building != 0 )
                 {
-                    return redirect('fsm/ctpt')->with('error', __('Cannot delete Community Toilet that has associated Building Informaiton'));
+                    return redirect('fsm/ctpt')->with('error', __('Cannot delete Community Toilet that has associated Building Information'));
                 }  
             }  
             $ctpt->delete();
