@@ -36,7 +36,7 @@
             @endif
           </div>           
           <div class=" text-right">
-            <button type="submit" id = "filter" class="ml-1 btn btn-info">Filter</button>
+            <button type="submit" id = "filter" class="ml-1 btn btn-info">{{ __('Filter') }}</button>
             <a href="{{ action('Fsm\KpiDashboardController@index')}}" id="reset" class="ml-1 btn btn-info reset">Reset</a> 
           </div> 
         </div>

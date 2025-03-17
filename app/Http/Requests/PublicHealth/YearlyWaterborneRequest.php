@@ -27,14 +27,14 @@ class YearlyWaterborneRequest extends FormRequest
     public function messages()
     {
         return [
-            'infected_disease.required' => 'The Infected Disease Name is required.',
-            'year.required' => 'The Year is required.',
-            'male_cases.required' => 'Number of Male Cases required',
-            'female_cases.required' => 'Number of Female Cases required',
-            'other_cases.required' => 'Number of Other Cases required',
-            'male_cases.numeric' => 'Number of Male Cases should be number',
-            'female_cases.numeric' => 'Number of Female Cases should be number',
-            'other_cases.numeric' => 'Number of Other Cases should be number',
+            'infected_disease.required' => __('The Infected Disease Name is required.'),
+            'year.required' => __('The Year is required.'),
+            'male_cases.required' => __('Number of Male Cases required.'),
+            'female_cases.required' => __('Number of Female Cases required.'),
+            'other_cases.required' => __('Number of Other Cases required.'),
+            'male_cases.numeric' => __('Number of Male Cases should be number.'),
+            'female_cases.numeric' => __('Number of Female Cases should be number.'),
+            'other_cases.numeric' => __('Number of Other Cases should be number.'),
 
             // 'total_no_of_cases.required' => 'The Total Number Cases is required.',
         ];
