@@ -554,8 +554,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             @endif
 
             @if(Auth::user()->hasanyPermissionInGroup(['Users','Roles','Language']) || Auth::user()->hasRole('Super Admin'))
-            <li class="nav-item {{ request()->is('auth/*') ? 'menu-is-opening menu-open' : '' }}">
-                <a href="#" class="nav-link {{ request()->is('auth/*') ? 'active' : '' }}">
+            <li class="nav-item {{ request()->is('auth/*','language/*') ? 'menu-is-opening menu-open' : '' }}">
+                <a href="#" class="nav-link {{ request()->is('auth/*','language/*') ? 'active' : '' }}">
                     <i class="nav-icon fa-solid fa-gear"></i>
                     <p>
                         {{__('Settings')}}<i class="right fas fa-angle-left"></i>
@@ -602,7 +602,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             <li class="nav-item">
                                 <a href="{{ action('Language\LanguageController@index') }}" class="nav-link {{ request()->is('language/*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>{{__('Language')}}</p>
+                                    <p>{{__('Languages')}}</p>
                                 </a>
                             </li>
                             @endcan

@@ -56,20 +56,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
         </div>
     </div>
-
-
-
-
-
-
     <div class="form-group row required">
-        {!! Form::label('short', 'Short ', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('short', 'Short', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
             {!! Form::text('short', null, ['class' => 'form-control', 'placeholder' => 'Short' ]) !!}
         </div>
     </div>
     <div class="form-group row required">
-        {!! Form::label('code', 'Code ', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('code', 'Code', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
             {!! Form::text('code', null, ['class' => 'form-control', 'placeholder' => 'Code' ]) !!}
         </div>
@@ -77,7 +71,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="form-group row required">
         {!! Form::label('status', 'Status', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('status', ['1' => 'Active', '0' => 'Disabled'], null, ['class' => 'form-control', 'placeholder' => 'Select Status']) !!}
+            {!! Form::select('status', ['1' => 'Active', '0' => 'Disabled'], null, ['class' => 'form-control', 'placeholder' => 'Status']) !!}
         </div>
     </div>
 
