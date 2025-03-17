@@ -49,8 +49,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                                     </div>
                                                 </div>
                                                 <div class="card-footer text-right">
-                                                    <button type="submit" class="btn btn-info">Filter</button>
-                                                    <button type="reset" class="btn btn-info reset">Reset</button>
+                                                    <button type="submit" class="btn btn-info">{{ __('Filter') }}</button>
+                                                    <button type="reset" class="btn btn-info reset">{{ __('Reset') }}</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -102,7 +102,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <div class="message"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
                 </div>
             </div>
         </div>
