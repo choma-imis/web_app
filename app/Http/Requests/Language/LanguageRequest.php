@@ -42,7 +42,6 @@ class LanguageRequest extends FormRequest
 {
     return [
         'name' => 'required',
-
         'short' => 'required',
         'status' => 'required',
         'code' => 'required|unique:pgsql.language.languages,code',
@@ -53,8 +52,10 @@ class LanguageRequest extends FormRequest
     public function update()
     {
         return [
-
-
+            'name' => 'required',
+            'short' => 'required',
+            'status' => 'required',
+            'code' => 'required|unique:pgsql.language.languages,code',
         ];
     }
 }

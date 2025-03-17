@@ -149,12 +149,6 @@ class LanguageController extends Controller
         return back();
     }
 
-
-
-
-
-
-
     /**
      * Fetch and format data for DataTables.
      *
@@ -595,7 +589,7 @@ class LanguageController extends Controller
 
           }
           DB::commit();
-          return redirect('language/setup')->with('success', "Translations have been imported sucessfully. Generate the translation file to reflect changes.");
+          return redirect('language/setup')->with('success', "The translations file has been imported successfully. Select the 'Generate Language' button to apply the changes.");
       }
 
     // export csv template for import with the key values pre-filled
