@@ -286,7 +286,7 @@ class ContainmentController extends Controller
         $containment = Containment::find($id);
 
         if ($containment) {
-            $page_title = __("Building Connected to Containment: ") . $containment->id;
+            $page_title = __("Building Connected to Containment") . ": " . $containment->id;
             $buildings = $containment->buildings;
 
             return view('fsm.containments.listBuilding', compact('page_title', 'containment', 'buildings'));

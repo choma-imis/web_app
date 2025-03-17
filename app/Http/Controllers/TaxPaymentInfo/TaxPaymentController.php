@@ -40,7 +40,7 @@ class TaxPaymentController extends Controller
      */
     public function index()
     {
-        $page_title = "Property Tax Collection";
+        $page_title = __("Property Tax Collection");
         $wards = Ward::getInAscOrder();
         $dueYears = DueYear::getInAscOrder();
 

@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Import Property Tax Collection Information Support System')
+@section('title', __('Import Property Tax Collection Information Support System'))
 @section('content')
 @include('layouts.components.error-list')
 @include('layouts.components.success-alert')

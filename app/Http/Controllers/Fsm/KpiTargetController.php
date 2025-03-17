@@ -48,7 +48,7 @@ class KpiTargetController extends Controller
      */
     public function index()
     {
-        $page_title = "KPI Target";
+        $page_title = __("KPI Target");
          // Fetch distinct years 
         $years = KpiTarget::distinct()->pluck('year')->sortDesc()->all();
          // Retrieve all indicator from the database,ordered by their 'id' column in ascending order
@@ -77,7 +77,7 @@ class KpiTargetController extends Controller
      */
     public function create()
     {
-        $page_title = "Add KPI Target";
+        $page_title = __("Add KPI Target");
         $indicators = KeyPerformanceIndicator::orderBy('id', 'asc')->pluck('indicator','id')->all();
         return view('fsm/kpi-target.create', compact('page_title', 'indicators'));
     }
@@ -108,7 +108,7 @@ class KpiTargetController extends Controller
         // Find the KPI target with the given ID
         $kpi = KpiTarget::find($id);
         if ($kpi) {
-            $page_title = "Edit KPI Target";
+            $page_title = __("Edit KPI Target");
             return view('fsm.kpi-target.edit', compact('page_title', 'kpi', 'indicators'));
         } else {
             abort(404);
@@ -150,7 +150,7 @@ class KpiTargetController extends Controller
         $indicators = KeyPerformanceIndicator::where('id','=',$kpi->indicator_id)->pluck('indicator', 'id')->first();
         
         if ($kpi) {
-            $page_title = "KPI Target Details";
+            $page_title = __("KPI Target Details");
             return view('fsm/kpi-target.show', compact('page_title', 'kpi', 'indicators'));
         } else {
             abort(404);
@@ -184,7 +184,7 @@ class KpiTargetController extends Controller
     {
         $kpi = KpiTarget::find($id);
         if ($kpi) {
-            $page_title = "KPI Target History";
+            $page_title = __("KPI Target History");
             return view('fsm/kpi-target.history', compact('page_title', 'kpi'));
         } else {
             abort(404);

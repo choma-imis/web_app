@@ -2,7 +2,7 @@
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 @extends('layouts.maps')
-@section('title', 'Map')
+@section('title', __('Map'))
 @section('content')
 
     <div class="content-wrapper map-container">
