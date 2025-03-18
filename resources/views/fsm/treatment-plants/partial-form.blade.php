@@ -192,7 +192,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                class="form-control"
                name="password_confirmation"
                id="password_confirmation"
-               placeholder="Confirm Password">
+               placeholder="{{__('Confirm Password')}}">
 
         <!-- Confirm Password Requirements -->
         <div id="confirm-password-error" class="mt-1" style="display: none; color: red;">

@@ -168,7 +168,7 @@ class SewerLineService {
     $sewers = $query->get();
     if ($sewers->isEmpty()) {
         // No data found, handle accordingly
-        return response()->json(['message' => 'No data found for the given filters'], 404);
+        return response()->json(['message' => __('No data found for the given filters.')], 404);
     }
 
     $style = (new StyleBuilder())

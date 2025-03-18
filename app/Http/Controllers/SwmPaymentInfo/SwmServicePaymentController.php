@@ -112,7 +112,7 @@ class SwmServicePaymentController extends Controller
             else {
                 return true;
             }
-        }, 'File must be csv format');
+        }, "{{ __('File must be csv format.') }}" );
         $this->validate($request,
                 ['csvfile' => 'required|file_extension:csv'],
                 ['required' => 'The csv file is required.'],
