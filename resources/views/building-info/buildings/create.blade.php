@@ -10,7 +10,7 @@
             'files' => true,
            
         ]) !!}
-        @include('building-info.buildings.partial-form', ['submitButtomText' => 'Save'])
+        @include('building-info.buildings.partial-form', ['submitButtomText' => __('Save')])
         {!! Form::close() !!}
     </div><!-- /.card -->
 @stop

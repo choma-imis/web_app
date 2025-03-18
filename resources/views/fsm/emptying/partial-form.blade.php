@@ -3,7 +3,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 <div class="col-sm-12 col-md-8 col-lg-8">
     <div class="card">
         <div class="card-header">
-            Customer Details
+            __('Customer Details')
         </div>
         <div class="card-body">
             <div class="form-group row">
@@ -50,7 +50,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     </div>
     <div class="card">
         <div class="card-header">
-            Applicant Details
+            __('Applicant Details')
             @if(empty($application))
             <div class="clearfix float-right">
                 <div class="icheck-primary d-inline">
@@ -97,7 +97,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     </div>
     <div id="building-if-address" style="display: none" class="card">
         <div class="card-header">
-            Building Details
+            __('Building Details')
         </div>
         <div class="card-body">
             <div class="form-group row">
@@ -144,7 +144,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     </div>
     <div id="building-if-not-address" style="display: none" class="card">
         <div class="card-header">
-            Building Details
+            __('Building Details')
         </div>
         <div class="card-body">
             <div class="form-group row">

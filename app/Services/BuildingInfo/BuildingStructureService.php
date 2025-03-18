@@ -1051,26 +1051,26 @@ class BuildingStructureService
                 }
 
                 if (auth()->user()->can('Edit Building Structure')) {
-                    $content .= '<a title="Edit" href="' . action("BuildingInfo\BuildingController@edit", [$model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-edit"></i></a> ';
+                    $content .= '<a title="' . __("Edit") . '" href="' . action("BuildingInfo\BuildingController@edit", [$model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-edit"></i></a> ';
                 }
 
                 if (auth()->user()->can('View Building Structure')) {
-                    $content .= '<a title="Detail" href="' . action("BuildingInfo\BuildingController@show", [$model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-list"></i></a> ';
+                    $content .= '<a title="' . __("Detail") . '" href="' . action("BuildingInfo\BuildingController@show", [$model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-list"></i></a> ';
                 }
 
                 if (auth()->user()->can('View Building Structures History')) {
-                    $content .= '<a title="History" href="' . action("BuildingInfo\BuildingController@history", [$model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-history"></i></a> ';
+                    $content .= '<a title="' . __("History") . '" href="' . action("BuildingInfo\BuildingController@history", [$model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-history"></i></a> ';
                 }
 
                 if (auth()->user()->can('Delete Building Structure')) {
-                    $content .= '<a href="#" title="Delete" class="delete btn btn-danger btn-sm mb-1 "  ><i class="fas fa-trash"></i></a> ';
+                    $content .= '<a href="#" title="' . __("Delete") . '" class="delete btn btn-danger btn-sm mb-1 "  ><i class="fas fa-trash"></i></a> ';
                 }
 
                 if (auth()->user()->can('View Building On Map')) {
-                    $content .= '<a title="Map" href="' . action("MapsController@index", ['layer' => 'buildings_layer', 'field' => 'bin', 'val' => $model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-map-marker"></i></a> ';
+                    $content .= '<a title="' . __("Map") . '" href="' . action("MapsController@index", ['layer' => 'buildings_layer', 'field' => 'bin', 'val' => $model->bin]) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-map-marker"></i></a> ';
                 }
                 if (auth()->user()->can('View Nearest Road To Building On Map')) {
-                    $content .= '<a title="Nearest Road" href="' . action("MapsController@index", ['layer' => 'buildings_layer', 'field' => 'bin', 'val' => $model->bin, 'action' => 'building-road']) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-road"></i></a> ';
+                    $content .= '<a title="' . __("Nearest Road") . '" href="' . action("MapsController@index", ['layer' => 'buildings_layer', 'field' => 'bin', 'val' => $model->bin, 'action' => 'building-road']) . '" class="btn btn-info btn-sm mb-1"  ><i class="fas fa-road"></i></a> ';
                 }
 
                 $content .= \Form::close();

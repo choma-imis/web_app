@@ -81,12 +81,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
     @elseif(!Auth::user()->hasRole('Municipality - Executive'))
         @include('errors.list')
         {!! Form::open(['url' => 'cwis/cwis/cwis-df-mne', 'class' => 'form-horizontal']) !!}
-            @include('cwis/cwis-df-mne.partial-form', ['submitButtonText' => 'Save'])
+            @include('cwis/cwis-df-mne.partial-form', ['submitButtonText' => __('Save')])
         {!! Form::close() !!}
     @else
         @include('errors.list')
         {!! Form::open(['url' => 'cwis/cwis/cwis-df-mne', 'class' => 'form-horizontal']) !!}
-            @include('cwis/cwis-df-mne.partial-form', ['submitButtonText' => 'Save'])
+            @include('cwis/cwis-df-mne.partial-form', ['submitButtonText' => __('Save')])
         {!! Form::close() !!}
     @endif
 

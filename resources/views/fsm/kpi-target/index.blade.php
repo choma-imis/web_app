@@ -20,7 +20,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
  @endcan
 
         <a href="#" class="btn btn-info float-right" data-toggle="collapse" data-target="#collapseFilter"
-            aria-expanded="false" aria-controls="collapseFilter">Show Filter</a>
+            aria-expanded="false" aria-controls="collapseFilter">{{ __('Show Filter') }}</a>
     </div><!-- /.card-header -->
     <div class="card-body">
         <div class="row">

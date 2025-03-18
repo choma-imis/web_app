@@ -23,7 +23,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                     <a class="btn btn-info float-right" id="headingOne" type="button" data-toggle="collapse"
                         data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Show Filter
+                        {{ __('Show Filter') }}
                     </a>
                 </div><!-- /.card-header -->
                 <div class="card-body">

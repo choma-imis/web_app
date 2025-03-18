@@ -31,7 +31,7 @@
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             @endcan
-                                            <button type="submit" class="btn btn-danger btn-xs delete" title="Delete"
+                                            <button type="submit" class="btn btn-danger btn-xs delete" title="' . __("Delete") . '"
                                                 @if (!auth()->user()->hasRole('Super Admin') && !auth()->user()->hasRole('Municipality - Super Admin')) disabled @endif>
                                                 &nbsp;<i class="fa fa-trash"></i>&nbsp;
                                             </button>
