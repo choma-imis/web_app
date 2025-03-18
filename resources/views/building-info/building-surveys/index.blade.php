@@ -250,9 +250,9 @@
 
             $('#headingOne').click(function() {
 
-                if ($(this).text() == 'Hide Filter') {
+                if ($(this).text() == __('Hide Filter') ) {
                     $('#mydiv').slideDown("slow");
-                } else if ($(this).text() == 'Show Filter') {
+                } else if ($(this).text() == __('Show Filter') ) {
                     $('#mydiv').slideUp("slow");
                 }
             });

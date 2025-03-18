@@ -12,7 +12,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
             <a class="btn btn-info float-right" id="headingOne" type="button" data-toggle="collapse" data-target="#collapseOne"
                 aria-expanded="true" aria-controls="collapseOne">
-                Show Filter
+                {{ __('Show Filter') }}
             </a>
             @can('Export Containments')
                 <a href="#" id="export" class="btn btn-info">{{ __("Export to CSV") }}</a>

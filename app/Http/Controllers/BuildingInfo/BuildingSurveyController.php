@@ -96,7 +96,7 @@ class BuildingSurveyController extends Controller
                     $content .= '<a title="Download Building KML File" href="' . action("BuildingInfo\BuildingSurveyController@download", [$model->kml]) . '" class="btn btn-info btn-sm mb-1"  download><i class="fas fa-download"></i></a> ';
                 }
                 if (Auth::user()->can('Delete Building Survey')) {
-                    $content .= '<a title="Delete" class="delete btn btn-danger btn-sm mb-1" ><i class="fas fa-trash"></i></a> ';
+                    $content .= '<a title="' . __("Delete") . '" class="delete btn btn-danger btn-sm mb-1" ><i class="fas fa-trash"></i></a> ';
                 }
 
                 $content .= \Form::close();

@@ -19,7 +19,7 @@
 	</div><!-- /.card-header -->
 	@include('errors.list')
 	{!! Form::open(['action'=> 'Cwis\CwisMneController@store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
-		@include('cwis/cwis-df-mne.partial-form', ['submitButtomText' => 'Save'])
+		@include('cwis/cwis-df-mne.partial-form', ['submitButtomText' => __('Save')])
 	{!! Form::close() !!}
 </div><!-- /.card -->
 @stop
