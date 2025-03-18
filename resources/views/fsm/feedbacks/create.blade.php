@@ -36,24 +36,24 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 </div>
             </div>
             <div class="form-group row required">
-                <label class="col-sm-3 control-label" for="fsm_service_quality">Are you satisfied with the Service Quality?</label>
+                <label class="col-sm-3 control-label" for="fsm_service_quality">{{__('Are you satisfied with the Service Quality?')}}</label>
                 <div class="col-sm-6">
                     <label class="radio-inline">
-                        <input value="1" name="fsm_service_quality" type="radio" id="fsm_service_quality"> Yes
+                        <input value="1" name="fsm_service_quality" type="radio" id="fsm_service_quality"> {{__('Yes')}}
                     </label>
                     <label class="radio-inline">
-                        <input value="0" name="fsm_service_quality" type="radio" id="fsm_service_quality"> No
+                        <input value="0" name="fsm_service_quality" type="radio" id="fsm_service_quality"> {{__('No')}}
                     </label>
                 </div>
             </div>
             <div class="form-group row required">
-                <label class="col-sm-3 control-label" for="wear_ppe">Did the sanitation workers wear PPE during desludging?</label>
+                <label class="col-sm-3 control-label" for="wear_ppe">{{__('Did the sanitation workers wear PPE during desludging?')}}</label>
                 <div class="col-sm-6">
                     <label class="radio-inline">
-                        <input value="1" name="wear_ppe" type="radio" id="wear_ppe"> Yes
+                        <input value="1" name="wear_ppe" type="radio" id="wear_ppe"> {{__('Yes')}}
                     </label>
                     <label class="radio-inline">
-                        <input value="0" name="wear_ppe" type="radio" id="wear_ppe"> No
+                        <input value="0" name="wear_ppe" type="radio" id="wear_ppe"> {{__('No')}}
                     </label>
                 </div>
             </div>
