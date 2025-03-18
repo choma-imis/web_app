@@ -45,11 +45,11 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="form-group row">
                                         <label for="date_from" class="control-label col-md-2"> {{__("Date From")}}</label>
                                         <div class="col-md-2">
-                                            <input type="date" class="form-control" id="date_from" placeholder=" {{__("Date From")}}" onclick = 'this.showPicker()'/>
+                                            <input type="date" class="form-control" id="date_from" placeholder="{{__('Date From')}}" onclick = 'this.showPicker()'/>
                                         </div>
                                         <label for="date_to" class="control-label col-md-2"> {{__("Date To")}}</label>
                                         <div class="col-md-2">
-                                            <input type="date" class="form-control" id="date_to" placeholder=" {{__("Date To")}}" onclick = 'this.showPicker()'/>
+                                            <input type="date" class="form-control" id="date_to" placeholder="{{__('Date To')}}" onclick = 'this.showPicker()'/>
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">

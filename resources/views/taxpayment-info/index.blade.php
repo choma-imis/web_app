@@ -57,7 +57,7 @@
                                          <label for="bin" class="control-label col-md-2">{{__('BIN')}}</label>
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" id="bin"
-                                                    placeholder="{{__("BIN")}}" 
+                                                    placeholder="{{__('BIN')}}" 
                                                     oninput = "this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); "/> <!-- Allow only alphabetic and numeric characters -->
                                             </div> 
                                                                                    
@@ -66,7 +66,7 @@
                                         <label for="tax_code" class="control-label col-md-2">{{__('Tax Code')}}</label>
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" id="tax_code"
-                                                    placeholder="{{__("Tax Code")}}" 
+                                                    placeholder="{{__('Tax Code')}}" 
                                                     oninput = "this.value = this.value.replace(/[^a-zA-Z0-9-]/g, ''); "/> <!-- Allow only alphabetic characters, numbers, and the hyphen (-) -->
                                             </div>
                                     </div>

@@ -37,19 +37,19 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         <label for="name" class="col-md-2 col-form-label ">{{__('Toilet Name')}}</label>
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" id="name"
-                                                    placeholder="{{__("Toilet Name")}}" />
+                                                    placeholder="{{__('Toilet Name')}}" />
                                             </div>
                                             <label for="bin" class="control-label col-md-2">{{__('BIN')}}</label>
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" id="bin"
-                                                    placeholder="{{__("BIN")}}" 
+                                                    placeholder="{{__('BIN')}}" 
                                                     oninput = "this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); "/> <!-- Allow only alphabetic and numeric characters -->
                                             </div>
 
                                             <label for="house_address" class="control-label col-md-2">{{__('House Number')}}</label>
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" id="house_address"
-                                                    placeholder="{{__("House Number")}}" 
+                                                    placeholder="{{__('House Number')}}" 
                                                     oninput = "this.value = this.value.replace(/[^a-zA-Z0-9-]/g, ''); "/> <!-- Allow only alphabetic characters, numbers, and the hyphen (-) -->
                                             </div>
                                            
@@ -78,7 +78,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             <label for="caretaker_name" class="col-md-2 col-form-label ">{{__('Caretaker Name')}}</label>
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" id="caretaker_name"
-                                                    placeholder="{{__("Caretaker Name")}}" />
+                                                    placeholder="{{__('Caretaker Name')}}" />
                                             </div>
                                            
                                         </div>
