@@ -1,7 +1,7 @@
 <!-- Last Modified Date: 18-04-2024
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 @extends('layouts.dashboard')
-@section('title', 'Login Activity')
+@section('title', __('Login Activity'))
 @section('content')
 <div class="col-md-12">
 <div class="card card-info">

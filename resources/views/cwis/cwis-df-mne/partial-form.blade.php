@@ -185,6 +185,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
     <!-- Static Button Logic -->
     <!-- <div class="footer">
         {!! Form::hidden('year', $year) !!}
-        {!! Form::submit('Save', ['class' => 'btn btn-info']) !!}
+        {!! Form::submit(__('Save'), ['class' => 'btn btn-info']) !!}
     </div> -->
 </div>

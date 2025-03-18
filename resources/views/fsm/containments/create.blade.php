@@ -12,8 +12,8 @@
 		@include('fsm.containments.partial-form', ['submitButtomText' => 'Save'])
 	<div class="card-footer">
 
-    <a href="{{ action('BuildingInfo\BuildingController@index') }}" class="btn btn-info">Back to List</a>
-    {!! Form::submit('Save', ['class' => 'btn btn-info']) !!}
+    <a href="{{ action('BuildingInfo\BuildingController@index') }}" class="btn btn-info">{{ __('Back to List') }}</a>
+    {!! Form::submit(__('Save'), ['class' => 'btn btn-info']) !!}
 
 
 

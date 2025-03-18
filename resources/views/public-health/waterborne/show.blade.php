@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <h4>No. of Cases</h4>
+            <h4>{{__('No. of Cases')}}</h4>
             <div class="form-group row">
                  {!! Form::label(null,__('Male'),['class' => 'col-sm-3 control-label']) !!}
                  <div class="col-sm-6">
@@ -45,7 +45,7 @@
                  </div>
              </div>
 
-             <h4>No. of Fatalities</h4>
+             <h4>{{__('No. of Fatalities')}}</h4>
              <div class="form-group row">
                   {!! Form::label(null,__('Male'),['class' => 'col-sm-3 control-label']) !!}
                   <div class="col-sm-6">

@@ -96,7 +96,7 @@ class BuildingSurveyController extends Controller
                     $content .= '<a title="Download Building KML File" href="' . action("BuildingInfo\BuildingSurveyController@download", [$model->kml]) . '" class="btn btn-info btn-sm mb-1"  download><i class="fas fa-download"></i></a> ';
                 }
                 if (Auth::user()->can('Delete Building Survey')) {
-                    $content .= '<a title="Delete" class="delete btn btn-danger btn-sm mb-1" ><i class="fas fa-trash"></i></a> ';
+                    $content .= '<a title="' . __("Delete") . '" class="delete btn btn-danger btn-sm mb-1" ><i class="fas fa-trash"></i></a> ';
                 }
 
                 $content .= \Form::close();
@@ -188,7 +188,7 @@ class BuildingSurveyController extends Controller
     }
 
     public function approve($id){
-        $page_title = "Approve Building Structure";
+        $page_title = __("Approve Building Structure");
 
         $structure_type = StructureType::orderBy('type', 'asc')->pluck('type', 'id')->all();
         $water_source = WaterSource::orderBy('source', 'asc')->pluck('source', 'id')->all();

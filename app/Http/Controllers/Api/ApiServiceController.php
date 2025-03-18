@@ -52,7 +52,7 @@ class ApiServiceController extends Controller
             'data' => [
                 'application' => $application
             ],
-            'message' => 'Application Details.'
+            'message' => __("Application Details")
         ]);
     }
     

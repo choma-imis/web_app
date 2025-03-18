@@ -49,7 +49,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL) -->
                                         <td>
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id]]) !!}
                                             @can('Edit User')
-                                                <a title="Edit" href="{{ action('Auth\UserController@edit', [$user->id]) }}"
+                                                <a title="' . __("Edit") . '" href="{{ action('Auth\UserController@edit', [$user->id]) }}"
                                                     class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
                                             @endcan
                                             @can('View User')
@@ -63,7 +63,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL) -->
                                                     class="btn btn-info btn-xs"><i class="fa-solid fa-right-to-bracket"></i></a>
                                             @endcan
                                             @can('Delete User')
-                                                <button title="Delete" type="submit"
+                                                <button title="' . __("Delete") . '" type="submit"
                                                     class="btn btn-danger btn-xs delete">&nbsp;<i
                                                         class="fa fa-trash"></i>&nbsp;</button>
                                             @endcan

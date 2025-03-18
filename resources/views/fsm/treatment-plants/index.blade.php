@@ -161,7 +161,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 <div class="message"></div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
                             </div>
                         </div>
                     </div>

@@ -20,7 +20,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
  @endcan
 
         <a href="#" class="btn btn-info float-right" data-toggle="collapse" data-target="#collapseFilter"
-            aria-expanded="false" aria-controls="collapseFilter">Show Filter</a>
+            aria-expanded="false" aria-controls="collapseFilter">{{ __('Show Filter') }}</a>
     </div><!-- /.card-header -->
     <div class="card-body">
         <div class="row">
@@ -54,8 +54,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         </div>
 
                                     <div class="card-footer text-right">
-                                        <button type="submit" class="btn btn-info">Filter</button>
-                                        <button type="reset" id="reset-filter" class="btn btn-info reset">Reset</button>
+                                        <button type="submit" class="btn btn-info">{{ __('Filter') }}</button>
+                                        <button type="reset" id="reset-filter" class="btn btn-info reset">{{ __('Reset') }}</button>
                                     </div>
                                 </form>
                             </div>

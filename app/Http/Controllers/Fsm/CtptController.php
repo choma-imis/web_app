@@ -255,7 +255,7 @@ class CtptController extends Controller
     {
         $toilet = Ctpt::find($id);
         if ($toilet) {
-            $page_title = "Building Connected to Toilet: " . $toilet->id;
+            $page_title = __("Building Connected to Toilet") . ": " . $toilet->id;
             $buildings = $toilet->buildings;
             return view('fsm.ct-pt.listBuilding', compact('page_title', 'toilet', 'buildings'));
         } else {
@@ -271,7 +271,7 @@ class CtptController extends Controller
     public function addBuildings($id)
     {
         $toilet = Ctpt::find($id);
-        $page_title = "Add Buildings to Toilet: " . $toilet->id;
+        $page_title = __("Add Buildings to Toilet") . ": " . $toilet->id;
         return view('fsm.ct-pt.addBuildings', compact('page_title', 'toilet'));
     }
      /**

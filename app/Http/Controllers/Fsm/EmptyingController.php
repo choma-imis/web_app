@@ -121,7 +121,7 @@ class EmptyingController extends Controller
             }
         }
         if ($emptying) {
-            $page_title = "Edit Emptying Service Details";
+            $page_title = __("Edit Emptying Service Details");
             $formFields = $this->emptyingService->getEditFormFields($emptying);
             $formAction = $this->emptyingService->getEditFormAction($emptying);
             $indexAction = url()->previous();

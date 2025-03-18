@@ -2,7 +2,7 @@
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 @extends('layouts.maps')
-@section('title', 'Map')
+@section('title', __('Map'))
 @section('content')
 
     <div class="content-wrapper map-container">
@@ -200,7 +200,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         {!! Form::number('carrying_width',null,['class' => 'form-control', 'placeholder' => __('Carrying Width (m)'),'min' => 1]) !!}
                                     </div>
                                     <div class="add-road-form-group">
-                                        {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_road_submit_btn']) !!}
+                                        {!! Form::button(__('Save'), ['class' => 'btn btn-info','id'=>'add_road_submit_btn']) !!}
                                     </div>
                             </div>
                         </div>
