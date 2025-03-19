@@ -95,7 +95,7 @@ class ApiServiceController extends Controller
         return [
             'success' => true,
             'data' => $serviceProviders,
-            'message' => __('Service Providers.')
+            'message' => __('Service Providers')
         ];
     }
 

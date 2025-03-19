@@ -52,15 +52,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
         <form method="GET" action="{{ url('cwis/cwis-df-mne/export-mne-csv')}}" class="form-inline ml-auto">
 
             @if($show_add_cwis_button)
-            <a href="{{ action('Cwis\CwisMneController@createIndex', ['year' =>  $minyear, 'placeholder' => '{{__('Enter value in percent.')}}','displayText' => '{{__('quantitative')}}' ]) }}" 
+            <a href="{{ action('Cwis\CwisMneController@createIndex', ['year' =>  $minyear, 'placeholder' => __('Enter value in percent.'),'displayText' => __('quantitative') ]) }}" 
             class="btn btn-info ml-2" id="addCwisData">{{__('Add CWIS Data')}}</a>
             @else
             @if($pickyear[0] == $currentYear && !Auth::user()->hasRole('Municipality - Executive'))
                 {{-- No action needed, nothing will be shown --}}
             @elseif($pickyear[0] < $lastYear && !Auth::user()->hasRole('Municipality - Executive'))
-             <a href="{{ action('Cwis\CwisMneController@createIndex', ['year' => $slugyear[0], 'placeholder' => '{{__('Enter value in percent.')}}','displayText' => '{{__('quantitative')}}' ]) }}" class="btn btn-info ml-2" id="addCwisData">{{__('Add CWIS Data')}}</a>
+             <a href="{{ action('Cwis\CwisMneController@createIndex', ['year' => $slugyear[0], 'placeholder' => __('Enter value in percent.'),'displayText' => __('quantitative') ]) }}" class="btn btn-info ml-2" id="addCwisData">{{__('Add CWIS Data')}}</a>
             @elseif($pickyear[0] ==  $lastYear && !Auth::user()->hasRole('Municipality - Executive'))
-                <a href="#" class="btn  ml-2" id="addCwisData" style="background-color:#C9D7EA" data-toggle="tooltip" title="{{__('This will be enabled in January') . $nextYear ">{{__('Add CWIS Data')}}</a>
+                <a href="#" class="btn  ml-2" id="addCwisData" style="background-color:#C9D7EA" data-toggle="tooltip" title="{{ __('This will be enabled in January') . $nextYear }}">{{__('Add CWIS Data')}}</a>
             @endif
             @can('Export CWIS')
             <button type="submit" id="export" class="btn btn-info" style="margin-left: 1%" >{{__('Export to Excel')}}</button>

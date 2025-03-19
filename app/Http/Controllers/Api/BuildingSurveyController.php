@@ -197,7 +197,7 @@ class BuildingSurveyController extends Controller
         return [
             'success' => true,
             'data' => '',
-            'message' => __('Service Providers.'),
+            'message' => __('Service Providers'),
         ];
     }
   

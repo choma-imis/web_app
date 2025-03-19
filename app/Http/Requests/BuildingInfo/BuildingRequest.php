@@ -129,7 +129,7 @@ class BuildingRequest extends FormRequest
                     return true;
                 }
             },
-            'Building Footprint (KML) file must be kml format.') }}"
+            "{{ __('Building Footprint (KML) file must be kml format.') }}"
         );
         $use_cat = $this->input('use_category_id');
         return [
