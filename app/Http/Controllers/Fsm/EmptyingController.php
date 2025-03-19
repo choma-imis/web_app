@@ -230,7 +230,7 @@ class EmptyingController extends Controller
             $containment->save();
             return redirect('fsm/emptying')->with('success',__('Emptying deleted successfully.'));
         } catch (\Exception $e) {
-            return redirect('fsm/emptying')->with('error',__('Failed to delete Emptying'));
+            return redirect('fsm/emptying')->with('error',__('Failed to delete Emptying.'));
         }
     }
 
@@ -246,7 +246,7 @@ class EmptyingController extends Controller
      try {
             $this->emptyingService->export($request);
         } catch (\Throwable $e) {
-            return redirect(route('emptying.index'))->with('error',__('Failed to export emptyings'));
+            return redirect(route('emptying.index'))->with('error',__('Failed to export emptyings.'));
         }
     }
 }

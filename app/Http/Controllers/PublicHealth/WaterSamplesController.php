@@ -136,7 +136,7 @@ class WaterSamplesController extends Controller
             $this->waterSamplesService->storeOrUpdate($id,$data);
             return redirect('publichealth/water-samples')->with('success', __('Water Samples updated successfully.'));
         } else {
-            return redirect('publichealth/water-samples')->with('error', __('Failed to update Water Samples'));
+            return redirect('publichealth/water-samples')->with('error', __('Failed to update Water Samples.'));
         }
     }
 

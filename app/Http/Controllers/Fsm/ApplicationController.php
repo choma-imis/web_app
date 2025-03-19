@@ -198,7 +198,7 @@ class ApplicationController extends Controller
       try {
         $this->applicationService->export($request);
         } catch (\Throwable $e) {
-            return redirect(route('application.index'))->with('error',__('Failed to export applications'));
+            return redirect(route('application.index'))->with('error',__('Failed to export applications.'));
         }
     }
     /**

@@ -138,7 +138,7 @@ class DrainController extends Controller
             $this->drainService->storeOrUpdate($drain->code,$data);
             return redirect('utilityinfo/drains')->with('success','Drain Network updated successfully.');
         } else {
-            return redirect('utilityinfo/drains')->with('error',__('Failed to update drain'));
+            return redirect('utilityinfo/drains')->with('error',__('Failed to update drain.'));
         }
     }
 

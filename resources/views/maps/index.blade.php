@@ -3822,13 +3822,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
              * Message to show when the user is drawing a polygon.
              * @type {string}
              */
-            var continuePolygonMsg = "{{ __('Click to continue drawing the polygon') }}";
+            var continuePolygonMsg = "{{ __('Click to continue drawing the polygon.') }}";
 
             /**
              * Message to show when the user is drawing a line.
              * @type {string}
              */
-            var continueLineMsg = "{{ __('Click to continue drawing the line') }}";
+            var continueLineMsg = "{{ __('Click to continue drawing the line.') }}";
 
             /**
              * Handle pointer move.
@@ -9587,7 +9587,7 @@ $.ajax({
                                     removeAjaxLoader();
                                 });
                             } else {
-                                displayAjaxErrorModal("{{ __('No Results Found') }}");
+                                displayAjaxErrorModal("{{ __('No Results Found.') }}");
                             }
                         },
                         error: function (dataResponse) {
@@ -9675,7 +9675,7 @@ $.ajax({
                                     removeAjaxLoader();
                                 });
                             } else {
-                                displayAjaxErrorModal("{{ __('No Results Found') }}");
+                                displayAjaxErrorModal("{{ __('No Results Found.') }}");
                             }
                         },
                         error: function (data) {
@@ -10815,7 +10815,7 @@ $.ajax({
                 } else {
                     var startDate = moment().format('YYYY-MM-DD');
                     var endDate = moment().add(days, 'days').format('YYYY-MM-DD');
-                    var message = '{{ __('Number of containments proposed to be emptied in the next few days') }}' + ': ' + days ;
+                    var message = '{{ __('Number of containments proposed to be emptied in the next few days:') }}' + ' ' + days ;
 
                     displayProposedEmptyingContainments(startDate, endDate, message);
                 }
@@ -10827,7 +10827,7 @@ $.ajax({
             $('#proposed_emptying_week_form').submit(function () {
                 var startDate = moment().format('YYYY-MM-DD');
                 var endDate = moment().add(7, 'days').format('YYYY-MM-DD');
-                var message = '{{ __('Number of containments proposed to be emptied next week') }}:';
+                var message = '{{ __('Number of containments proposed to be emptied next week:') }}';
 
                 displayProposedEmptyingContainments(startDate, endDate, message);
 

@@ -100,7 +100,7 @@ class WaterborneService
     {
         $yearlyWaterborne = YearlyWaterborne::find($id);
         if (!$yearlyWaterborne) {
-            return redirect('publichealth/waterborne')->with('error', __('Failed to update Yearly Waterborne'));
+            return redirect('publichealth/waterborne')->with('error', __('Failed to update Yearly Waterborne.'));
         }
         $fields = ['infected_disease', 'year', 'notes'];
         $totalCases = 0;

@@ -407,7 +407,7 @@ class BuildingController extends Controller
             $containments = $building->containments->toArray();
 
             $popContentsHtml = empty($containments)
-                ? __('No Containment Found')
+                ? __('No Containment Found.')
                 : $this->popUpContentHtml($containments);
 
             return [

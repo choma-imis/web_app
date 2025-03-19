@@ -181,7 +181,7 @@ class CtptServiceClass{
         $info->geom = DB::raw("ST_GeomFromText('".$centroid[0]->central_point."', 4326)");
        
         $info->save();
-        return redirect('fsm/ctpt')->with('success', __('Public / Community Toilets Added Successfully'));
+        return redirect('fsm/ctpt')->with('success', __('Public / Community Toilets Added Successfully.'));
     }
 
     public function updateCtptData($request, $id)
@@ -221,9 +221,9 @@ class CtptServiceClass{
             $info->geom = DB::raw("ST_GeomFromText('".$centroid[0]->central_point."', 4326)");
             $info->save();
 
-            return redirect('fsm/ctpt')->with('success', __('Public / Community Toilets Updated Successfully'));
+            return redirect('fsm/ctpt')->with('success', __('Public / Community Toilets Updated Successfully.'));
         } else {
-            return redirect('fsm/ctpt')->with('error', __('Failed to update CT / PT General info'));
+            return redirect('fsm/ctpt')->with('error', __('Failed to update CT / PT General info.'));
         }
 
     }

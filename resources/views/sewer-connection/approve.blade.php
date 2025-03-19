@@ -73,7 +73,7 @@ $(document).ready(function() {
                     // Handle error response
                     swal({
                         title: "Warning!",
-                        text: "{{__('Building not found')}}",
+                        text: "{{__('Building not found.')}}",
                         icon: "warning",
                         closeOnClickOutside: false, // Prevent close on outside click
                     }).then((result) => {

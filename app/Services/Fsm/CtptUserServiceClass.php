@@ -81,7 +81,7 @@ class CtptUserServiceClass
             $info->toilet_id = $request->toilet_id ? $request->toilet_id : null;
             $info->save();
 
-            return redirect('fsm/ctpt-users')->with('success', __('PT Users Log Added Successfully'));
+            return redirect('fsm/ctpt-users')->with('success', __('PT Users Log Added Successfully.'));
         }
     }
 
@@ -95,7 +95,7 @@ class CtptUserServiceClass
             $info->save();
             return redirect('fsm/ctpt-users')->with('success', __('PT Users Log Updated successfully.'));
         } else {
-            return redirect('fsm/ctpt-users')->with('error', __('Failed to update info'));
+            return redirect('fsm/ctpt-users')->with('error', __('Failed to update info.'));
         }
     }
 

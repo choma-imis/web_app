@@ -434,7 +434,7 @@ class LanguageController extends Controller
             if (empty($translations)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => __('No translations provided.')
+                    'message' => 'No translations provided.'
                 ], 400);
             }
 
@@ -506,7 +506,7 @@ class LanguageController extends Controller
             DB::rollBack();
             return response()->json([
                 'status' => 'error',
-                'message' => __('Error saving translations.'),
+                'message' => 'Error saving translations.',
                 'error' => $e->getMessage()
             ], 500);
         }

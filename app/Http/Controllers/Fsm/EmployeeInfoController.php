@@ -157,7 +157,7 @@ class EmployeeInfoController extends Controller
 
             return redirect('fsm/employee-infos')->with('success', __('Employee Information updated successfully.'));
         } else {
-            return redirect('fsm/employee-infos')->with('error', __('Failed to update Employee Info'));
+            return redirect('fsm/employee-infos')->with('error', __('Failed to update Employee Info.'));
         }
     }
 

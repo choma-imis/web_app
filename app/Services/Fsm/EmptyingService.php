@@ -989,7 +989,7 @@ class EmptyingService
                         $application->emptying_status = false;
                         $application->save();
                     }
-                    return redirect()->back()->withInput()->with('error', __("Emptying service is already done for application") . $application->id);
+                    return redirect()->back()->withInput()->with('error', __("Emptying service is already done for application ID:") . $application->id);
 
                 }
                 // Assign service provider and user ID to the emptying
@@ -1124,7 +1124,7 @@ class EmptyingService
             }
         } catch (\Throwable $e) {
             DB::rollBack(); 
-            return redirect()->back()->withInput()->with('error', __('Failed to update Emptying'));
+            return redirect()->back()->withInput()->with('error', __('Failed to update Emptying.'));
         }
         return redirect(route('application.index'))->with('success', __('Emptying updated successfully.'));
     }

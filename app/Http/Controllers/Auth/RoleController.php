@@ -147,7 +147,7 @@ class RoleController extends Controller
             return redirect('auth/roles')->with('success', __('Role updated successfully.'));
         }
         else {
-            return redirect('auth/roles')->with('error', __('Failed to update role'));
+            return redirect('auth/roles')->with('error', __('Failed to update role.'));
         }
     }
 
@@ -167,7 +167,7 @@ class RoleController extends Controller
             return redirect('auth/roles')->with('success', __('Role deleted successfully.'));
         }
         else {
-            return redirect('auth/roles')->with('error', __('Failed to delete role'));
+            return redirect('auth/roles')->with('error', __('Failed to delete role.'));
         }
     }
 

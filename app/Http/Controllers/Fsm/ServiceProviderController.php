@@ -153,7 +153,7 @@ class ServiceProviderController extends Controller
             $this->serviceProviderService->storeOrUpdate($serviceProvider->id,$data);
             return redirect('fsm/service-providers')->with('success',__('Service Provider updated successfully.'));
         } else {
-            return redirect('fsm/service-providers')->with('error',__('Failed to update Servie Provider'));
+            return redirect('fsm/service-providers')->with('error',__('Failed to update Servie Provider.'));
         }
     }
 

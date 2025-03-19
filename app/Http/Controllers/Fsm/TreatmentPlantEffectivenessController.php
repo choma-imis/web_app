@@ -136,7 +136,7 @@ class TreatmentPlantEffectivenessController extends Controller
             $this->treatmentPlantEffectivenessService->storeOrUpdate($info->id,$data);
             return redirect('fsm/treatment-plant-effectiveness')->with('success','info updated successfully.');
         } else {
-            return redirect('fsm/treatment-plant-effectiveness')->with('error','Failed to update info');
+            return redirect('fsm/treatment-plant-effectiveness')->with('error','Failed to update info.');
         }
     }
 

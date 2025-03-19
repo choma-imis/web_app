@@ -238,7 +238,7 @@ class FeedbackController extends Controller{
         $application = Application::find($request->application_id);
         // Check if feedback for the application already exists
         if (Feedback::where('application_id', $request->application_id)->exists() && $application->feedback_status) {
-            return redirect('fsm/application')->with('error', __('Feedback for this application already exists'));
+            return redirect('fsm/application')->with('error', __('Feedback for this application already exists.'));
         }
         $feedback = new Feedback;
         $feedback->application_id = $request->application_id? $request->application_id : null;
@@ -254,7 +254,7 @@ class FeedbackController extends Controller{
         $feedback->save();
         $application->feedback_status = TRUE;
         $application->save();
-            return redirect('fsm/application')->with('success',__('Feedback Details Created Successfully'));
+            return redirect('fsm/application')->with('success',__('Feedback Details Created Successfully.'));
 
     }
     

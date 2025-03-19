@@ -144,7 +144,7 @@ class VacutugTypeController extends Controller
             $this->vacutugTypeService->storeOrUpdate($vacutugType->id,$data);
             return redirect('fsm/desludging-vehicles')->with('success',__('Desludging Vehicle updated successfully.'));
         } else {
-            return redirect('fsm/desludging-vehicles')->with('error',__('Failed to update Desludging Vehicle'));
+            return redirect('fsm/desludging-vehicles')->with('error',__('Failed to update Desludging Vehicle.'));
         }
     }
 

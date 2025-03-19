@@ -150,10 +150,10 @@ class CtptUserController extends Controller
         $pt_user_log = CtptUsers::find($id);
         if ($pt_user_log) {
             $pt_user_log->delete();
-            return redirect('fsm/ctpt-users')->with('success', __('PT Users Log Deleted Successfully'));
+            return redirect('fsm/ctpt-users')->with('success', __('PT Users Log Deleted Successfully.'));
             }
         else {
-            return redirect('fsm/ctpt-users')->with('error', __('Failed to delete PT Users Log'));
+            return redirect('fsm/ctpt-users')->with('error', __('Failed to delete PT Users Log.'));
         }
     }
 

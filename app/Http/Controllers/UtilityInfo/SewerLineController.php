@@ -124,7 +124,7 @@ class SewerLineController extends Controller
             $this->sewerLineService->storeOrUpdate($sewerLine->code,$data);
             return redirect('utilityinfo/sewerlines')->with('success',__('Sewer Network updated successfully.'));
         } else {
-            return redirect('utilityinfo/sewerlines')->with('error',__('Failed to update drain'));
+            return redirect('utilityinfo/sewerlines')->with('error',__('Failed to update drain.'));
         }
     }
 

@@ -38,7 +38,7 @@ class ApiServiceController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => false,
-                'message' => __('No Application found for ID') . $application_id ,
+                'message' => __('No Application found for ID:') . $application_id ,
             ], 404); // Return 404 if application not found
         } catch (\Throwable $th) {
             return response()->json([

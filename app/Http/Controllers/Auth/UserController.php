@@ -106,7 +106,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error updating password: ' . $e->getMessage());
-            return redirect()->back()->with('error', __('User could not be created'));
+            return redirect()->back()->with('error', __('User could not be created.'));
         }
     }
 
@@ -208,7 +208,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error updating user: ' . $e->getMessage());
-            return redirect()->back()->with('error', __('User could not be updated'));
+            return redirect()->back()->with('error', __('User could not be updated.'));
         }
     }
 
@@ -248,7 +248,7 @@ class UserController extends Controller
                 User::destroy($id);
             return redirect('auth/users')->with('success', __('User deleted successfully.'));
         } else {
-            return redirect('auth/users')->with('error', __('User could not be deleted'));
+            return redirect('auth/users')->with('error', __('User could not be deleted.'));
         }
     }
 
