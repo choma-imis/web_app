@@ -137,7 +137,7 @@ class TreatmentPlantTestController extends Controller
         $info = TreatmentPlantTest::find($id);
         if ($info) {
             $info->delete();
-            return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test deleted successfully'));
+            return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test deleted successfully.'));
         } else {
             return redirect('fsm/treatment-plant-test')->with('error',__('Failed to delete Performance Efficiency Test'));
         }

@@ -60,7 +60,7 @@ class ApplicationRequest extends FormRequest
             'ward.min' => __('The Ward must be at least 1.'),
             'customer_name' => '',
             'customer_gender' => '',
-            'customer_contact.integer' => __('The owner contact must be an integer'),
+            'customer_contact.integer' => __('The owner contact must be an integer.'),
             'applicant_name.required' => __('The Applicant Name is required.'),
             'applicant_gender.required' => __('The Applicant Gender is required.'),
             'applicant_contact.required' => __('The Applicant Contact (Phone) is required.'),

@@ -169,7 +169,7 @@ class BuildingSurveyController extends Controller
                 }
             }
             $buildingSurvey->delete();
-            return redirect('building-info/building-surveys')->with('success','Building Survey deleted successfully');
+            return redirect('building-info/building-surveys')->with('success','Building Survey deleted successfully.');
         } else {
             return redirect('building-info/building-surveys')->with('error','Failed to delete Building Survey');
         }

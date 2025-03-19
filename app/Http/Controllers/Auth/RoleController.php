@@ -92,7 +92,7 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
-        return redirect('auth/roles')->with('success', __('Role created successfully'));
+        return redirect('auth/roles')->with('success', __('Role created successfully.'));
     }
 
     /**
@@ -144,10 +144,10 @@ class RoleController extends Controller
             $role->save();
             $role->syncPermissions($request->input('permission'));
 
-            return redirect('auth/roles')->with('success', __('Role updated successfully'));
+            return redirect('auth/roles')->with('success', __('Role updated successfully.'));
         }
         else {
-            return redirect('auth/roles')->with('error', __('Failed to update role'));
+            return redirect('auth/roles')->with('error', __('Failed to update role.'));
         }
     }
 
@@ -164,10 +164,10 @@ class RoleController extends Controller
         if($role && $role->name != 'Super Admin') {
             $role->delete();
 
-            return redirect('auth/roles')->with('success', __('Role deleted successfully'));
+            return redirect('auth/roles')->with('success', __('Role deleted successfully.'));
         }
         else {
-            return redirect('auth/roles')->with('error', __('Failed to delete role'));
+            return redirect('auth/roles')->with('error', __('Failed to delete role.'));
         }
     }
 

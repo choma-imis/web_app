@@ -164,7 +164,7 @@ class TreatmentPlantController extends Controller
         if ($treatmentPlant) {
             $data = $request->all();
             $this->treatmentPlantService->storeOrUpdate($treatmentPlant->id,$data);
-            return redirect('fsm/treatment-plants')->with('success','Treatment plant updated successfully');
+            return redirect('fsm/treatment-plants')->with('success','Treatment plant updated successfully.');
         } else {
             return redirect('fsm/treatment-plants')->with('error','Failed to update treatment plant');
         }

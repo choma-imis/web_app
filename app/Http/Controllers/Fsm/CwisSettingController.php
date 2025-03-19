@@ -43,7 +43,7 @@ class CwisSettingController extends Controller
 
         $data = $request->all();
         $result = $this->cwissetting->storeOrUpdate($data);
-        return redirect('fsm/cwis-setting')->with('success', __('Site Setting updated successfully'));
+        return redirect('fsm/cwis-setting')->with('success', __('Site Setting updated successfully.'));
     }
 
 }

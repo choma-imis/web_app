@@ -146,9 +146,9 @@ class YearlyWaterborneController extends Controller
 
         if ($Waterborne) {
             $Waterborne->delete();
-            return redirect('publichealth/waterborne')->with('success', __('Waterborne Cases Information deleted successfully'));
+            return redirect('publichealth/waterborne')->with('success', __('Waterborne Cases Information deleted successfully.'));
         } else {
-            return redirect('publichealth/waterborne')->with('error', __('Failed to delete Waterborne Cases Information'));
+            return redirect('publichealth/waterborne')->with('error', __('Failed to delete Waterborne Cases Information.'));
         }
     }
 

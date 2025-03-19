@@ -61,7 +61,7 @@ class WaterSupplysRequest extends Request
         return [
             'name.regex' => __('The name field should contain only contain letters and spaces.'),
             'diameter.numeric' => __('The Diameter must be a number.'),
-            'length.numeric' => __('The Length(m) must be a number.'),
+            'length.numeric' => __('The Length (m) must be a number.'),
             'name.string' => __('This Project Name must be a string.'),
             ];
     }

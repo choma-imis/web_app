@@ -165,10 +165,10 @@ class HelpDeskController extends Controller
         if ($helpDesk) {
             $data = $request->all();
             $this->helpDeskService->storeOrUpdate($helpDesk->id,$data);
-            return redirect('fsm/help-desks')->with('success', __('Help Desk updated successfully!'));
+            return redirect('fsm/help-desks')->with('success', __('Help Desk updated successfully.'));
         } else {
             Flash::error('Failed to update help desks');
-            return redirect('fsm/help-desks')->with('error', __('Failed to update help desks!'));
+            return redirect('fsm/help-desks')->with('error', __('Failed to update help desks.'));
         }
     }
 
@@ -183,12 +183,12 @@ class HelpDeskController extends Controller
         $helpDesk = HelpDesk::find($id);
         if ($helpDesk) {
             if($helpDesk->users()->exists()){
-                return redirect('fsm/help-desks')->with('error', __('Cannot delete Help Desk that has associated User Information'));
+                return redirect('fsm/help-desks')->with('error', __('Cannot delete Help Desk that has associated User Information.'));
             }
             $helpDesk->delete();
-            return redirect('fsm/help-desks')->with('success', __('Help Desk deleted successfully'));
+            return redirect('fsm/help-desks')->with('success', __('Help Desk deleted successfully.'));
         } else {
-            return redirect('fsm/help-desks')->with('error', __('Failed to delete help desks'));
+            return redirect('fsm/help-desks')->with('error', __('Failed to delete help desks.'));
         }
     }
     

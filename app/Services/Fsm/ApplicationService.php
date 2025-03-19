@@ -1033,7 +1033,7 @@ class ApplicationService
             }
         }
 
-        return redirect(route('application.index'))->with('success',__('Application created successfully'));
+        return redirect(route('application.index'))->with('success',__('Application created successfully.'));
     }
 
     /**
@@ -1073,9 +1073,9 @@ class ApplicationService
             }
             $application->save();
         } catch (\Throwable $e) {
-            return redirect()->back()->withInput()->with('error',__('Failed to update Application') . $e);
+            return redirect()->back()->withInput()->with('error',__('Failed to update Application.') . $e);
         }
-        return redirect(route('application.index'))->with('success',__('Application updated successfully'));
+        return redirect(route('application.index'))->with('success',__('Application updated successfully.'));
     }
 
     /**

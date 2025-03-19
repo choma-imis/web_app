@@ -92,7 +92,7 @@ class WaterborneService
         $yearlyWaterborne->total_no_of_cases = $totalCases;
         $yearlyWaterborne->total_no_of_fatalities = $totalFatalities;
         $yearlyWaterborne->save();
-        return redirect('publichealth/waterborne')->with('success', __('Waterborne Cases Information created successfully'));
+        return redirect('publichealth/waterborne')->with('success', __('Waterborne Cases Information created successfully.'));
     }
 
 
@@ -100,7 +100,7 @@ class WaterborneService
     {
         $yearlyWaterborne = YearlyWaterborne::find($id);
         if (!$yearlyWaterborne) {
-            return redirect('publichealth/waterborne')->with('error', __('Failed to update Yearly Waterborne'));
+            return redirect('publichealth/waterborne')->with('error', __('Failed to update Yearly Waterborne.'));
         }
         $fields = ['infected_disease', 'year', 'notes'];
         $totalCases = 0;
@@ -121,7 +121,7 @@ class WaterborneService
         $yearlyWaterborne->total_no_of_cases = $totalCases;
         $yearlyWaterborne->total_no_of_fatalities = $totalFatalities;
         $yearlyWaterborne->save();
-        return redirect('publichealth/waterborne')->with('success', __('Waterborne Cases Information updated successfully'));
+        return redirect('publichealth/waterborne')->with('success', __('Waterborne Cases Information updated successfully.'));
     }
 
 
