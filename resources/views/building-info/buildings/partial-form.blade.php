@@ -9,7 +9,7 @@
             ]) !!}
 
             <div class="col-sm-5">
-                <a title="Preview Building Location" data-toggle="modal" data-target="#kml-previewer"
+                <a title="' . __("Preview Building Location") . '" data-toggle="modal" data-target="#kml-previewer"
                     data-id="{{ $buildingSurvey->kml }}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
             </div>
         </div>

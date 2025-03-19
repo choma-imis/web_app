@@ -167,7 +167,7 @@ class TreatmentPlantTestService
         $treatmentPlant->remarks = $data['remarks'] ? $data['remarks'] : null;
         $treatmentPlant->user_id = Auth::user()->id;
         $treatmentPlant->save();
-        return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test created successfully'));
+        return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test created successfully.'));
     }
 
     public function updateTpt($request, $id)
@@ -186,7 +186,7 @@ class TreatmentPlantTestService
 
             $treatmentPlant->save();
 
-            return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test updated successfully'));
+            return redirect('fsm/treatment-plant-test')->with('success', __('Performance Efficiency Test updated successfully.'));
         } else {
             return redirect('fsm/treatment-plant-test')->with('Error', __('Failed to Updated Performance Efficiency Test'));
         }

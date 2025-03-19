@@ -34,7 +34,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="form-group">
         {!! Form::label('password_confirmation',__('Confirm Password'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password">
+            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="{{__('Confirm Password')}}">
         </div>
     </div>
     <div class="form-group"> 

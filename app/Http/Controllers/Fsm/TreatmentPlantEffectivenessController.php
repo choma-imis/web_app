@@ -75,7 +75,7 @@ class TreatmentPlantEffectivenessController extends Controller
         }
         else{
         $this->treatmentPlantEffectivenessService->storeOrUpdate($id = null,$data);
-        return redirect('fsm/treatment-plant-effectiveness')->with('success','Info created successfully');
+        return redirect('fsm/treatment-plant-effectiveness')->with('success','Info created successfully.');
         }
     }
 
@@ -134,9 +134,9 @@ class TreatmentPlantEffectivenessController extends Controller
         if ($info) {
             $data = $request->all();
             $this->treatmentPlantEffectivenessService->storeOrUpdate($info->id,$data);
-            return redirect('fsm/treatment-plant-effectiveness')->with('success','info updated successfully');
+            return redirect('fsm/treatment-plant-effectiveness')->with('success','info updated successfully.');
         } else {
-            return redirect('fsm/treatment-plant-effectiveness')->with('error','Failed to update info');
+            return redirect('fsm/treatment-plant-effectiveness')->with('error','Failed to update info.');
         }
     }
 
@@ -151,7 +151,7 @@ class TreatmentPlantEffectivenessController extends Controller
         $info = TreatmentPlantEffectiveness::find($id);
         if ($info) {
             $info->delete();
-            return redirect('fsm/treatment-plant-effectiveness')->with('success','Performance Efficiency Test deleted successfully');
+            return redirect('fsm/treatment-plant-effectiveness')->with('success','Performance Efficiency Test deleted successfully.');
             }
         else {
             return redirect('fsm/treatment-plant-effectiveness')->with('error','Failed to delete Performance Efficiency Test');

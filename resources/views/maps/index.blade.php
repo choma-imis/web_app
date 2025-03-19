@@ -153,19 +153,19 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <div xclass="form-group">
                             <div class="input-group">
                                 <a href="#" id="add_road_start_control" class="btn btn-default map-control" data-toggle="tooltip"
-                                   data-placement="bottom" title="Add"><i class="fa fa-circle-plus fa-fw"></i></a>
+                                   data-placement="bottom" title="{{ __('Add') }}"><i class="fa fa-circle-plus fa-fw"></i></a>
                                 <a href="#" id="add_road_undo_last_point_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Undo last point"><i class="fa fa-clock-rotate-left fa-fw"></i></a>
+                                   data-placement="bottom" title="{{ __('Undo last point') }}"><i class="fa fa-clock-rotate-left fa-fw"></i></a>
                                 <a href="#" id="add_road_undo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Undo"><i class="fa fa-rotate-left fa-fw"></i></a>
+                                   data-placement="bottom" title="{{ __('Undo') }}"><i class="fa fa-rotate-left fa-fw"></i></a>
                                 <a href="#" id="add_road_redo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Redo"><i class="fa fa-rotate-right fa-fw"></i></a>
+                                   data-placement="bottom" title="{{ __('Redo') }}"><i class="fa fa-rotate-right fa-fw"></i></a>
                                 <a href="#" id="add_road_edit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Edit"><i class="fa fa-pen-to-square fa-fw"></i></a>
+                                   data-placement="bottom" title="{{ __('Edit') }}"><i class="fa fa-pen-to-square fa-fw"></i></a>
                                 <a href="#" id="add_road_delete_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Remove all drawn lines"><i class="fa fa-trash fa-fw"></i></a>
+                                   data-placement="bottom" title="{{ __('Remove all drawn lines') }}"><i class="fa fa-trash fa-fw"></i></a>
                                 <a href="#" id="add_road_submit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Save"><i class="fa fa-floppy-disk fa-fw"></i></a>
+                                   data-placement="bottom" title="{{ __('Save') }}"><i class="fa fa-floppy-disk fa-fw"></i></a>
                             </div>
                             <div class="add-road-form" style="display: none">
                                 <div>
@@ -493,7 +493,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <div role="tabpanel" class="tab-pane fade" id="analysis-tab">
                         <!-- Service Providers Tools -->
                         @can('Service Delivery Map Tools')
-                            <span data-toggle="tooltip" data-placement="bottom" title="Service Delivery">
+                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Service Delivery') }}">
                             <a id="servicedelivery_control" class="btn btn-default collapse-control" role="button"
                             data-toggle="collapse" href="#collapse_service_delivery" aria-expanded="false"
                             aria-controls="collapse_service_delivery"><i class="fa-brands fa-servicestack"></i>{{ __('Service Delivery Tools') }}</a>
@@ -503,7 +503,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="card-body">
                                         @can('Applications Map Tools')
                                             <!-- find application -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Applications">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Applications') }}">
                                                     <a id="applicationcontainments_control" class="btn btn-default collapse-control collapsed" role="button" data-toggle="collapse" href="#collapse_find_appications" aria-expanded="false" aria-controls="collapse_find_appications"><i
                                                     class="fa fa-file-text"></i>{{ __('Applications') }}</a>
                                                 </span>
@@ -577,7 +577,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         @can('Emptied Applications Not Reached to TP Map Tools')
                                             <!-- find emptied applications that have not reached to treatment-plants -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Emptied Applications that have not reached to Treatment Plant">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Emptied Applications that have not reached to Treatment Plant') }}">
                                                 <a id="applications_not_tp" class="btn btn-default collapse-control collapsed" role="button" data-toggle="collapse" href="#collapse_applications_not_tp" aria-expanded="false" aria-controls="collapse_find_tax_due_buildings"><i class="fa-solid fa-calendar-xmark"></i>{{ __('Emptied Applications not reached to Treatment Plant') }}</a>
                                             </span>
                                             <div class="collapse" id="collapse_applications_not_tp">
@@ -625,7 +625,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         @can('Containments Proposed To Be Emptied Map Tools')
                                             <!-- find containment proposed to be emptied-->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Containments proposed to be emptied">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Containments proposed to be emptied') }}">
                                                 <a id="containments_proposed_to_be_emptied" class="btn btn-default collapse-control" role="button" data-toggle="collapse"  href="#collapse_proposed_emptying_containments" aria-expanded="false" aria-controls="collapse_proposed_emptying_containments"><i class="fa fa-square" aria-hidden="true"></i>{{ __('Containments proposed to be emptied') }}</a>
                                             </span>
                                             <div class="collapse" id="collapse_proposed_emptying_containments">
@@ -673,7 +673,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         @can('Service Feedback Map Tools')
                                             <!-- feedback chart -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Generate Feedback Chart within Custom Boundary">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Generate Feedback Chart within Custom Boundary') }}">
                                                 <a href="#" id="feedback_control" class="btn btn-default map-control"><i
                                                 class="fa fa-list-alt"></i>{{ __('Service Feedback') }}</a>
                                             </span>
@@ -685,7 +685,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                         @can('General Map Tools')
                             <!-- General Tools -->
-                            <span data-toggle="tooltip" data-placement="bottom" title="General Tools">
+                            <span data-toggle="tooltip" data-placement="bottom" title= "General Tools">
                                 <a id="generaltools_control" class="btn btn-default collapse-control" role="button"
                                 data-toggle="collapse" href="#collapse_general_tools" aria-expanded="false"
                                 aria-controls="collapse_general_tools"><i class="fa-brands fa-servicestack"></i>{{ __('General Tools') }}</a>
@@ -695,7 +695,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="card-body">
                                         @can('Building by Structure Map Tools')
                                             <!-- Find Building By structure -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Buildings by Structure Type">
+                                            <span data-toggle="tooltip" data-placement="bottom" title= "Buildings by Structure Type">
                                                 <a class="btn btn-default collapse-control" role="button" data-toggle="collapse" href="#collapse_building_structype_filter" aria-expanded="false" aria-controls="collapse_building_structype_filter"><i class="fa fa-building"></i>{{ __('Buildings by Structure Type') }}</a>
                                             </span>
                                             <div class="collapse" id="collapse_building_structype_filter">
@@ -717,7 +717,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         @can('Property Tax Map Tools')
                                             <!-- Building by Tax Payments -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Property Tax Collection Status">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Property Tax Collection Status') }}">
                                                 <a class="btn btn-default collapse-control" role="button" data-toggle="collapse" href="#collapse_building_tax_status" aria-expanded="false" aria-controls="collapse_building_tax_status"><i class="fa fa-building"></i>{{ __('Property Tax Collection Status') }}</a>
                                             </span>
                                             <div class="collapse" id="collapse_building_tax_status">
@@ -756,7 +756,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         @can('Water Payment Status Map Tools')
                                             <!-- water supply payments -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Water Payment Status">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Water Payment Status') }}">
                                                 <a class="btn btn-default collapse-control" role="button" data-toggle="collapse" href="#collapse_water_supply_status" aria-expanded="false" aria-controls="collapse_building_tax_status"><i class="fa fa-building"></i>{{ __('Water Payment Status') }}</a>
                                             </span>
                                             <div class="collapse" id="collapse_water_supply_status">
@@ -798,9 +798,9 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         @can('Solid Waste Payment Status Map Tools')
                                             <!-- Swm -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Solid Waste Payment Status">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Solid Waste Payment Status') }}">
                                                 <a class="btn btn-default collapse-control" role="button" data-toggle="collapse" href="#collapse_swm" aria-expanded="false" aria-controls="collapse_building_tax_status"><i class="fa fa-building"></i>{{ __('Solid Waste Payment Status') }}</a>
-                                            </span>
+                                            </span> 
                                             <div class="collapse" id="collapse_swm">
                                                 <div class="card">
                                                     <div class="card-body">
@@ -844,7 +844,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                         @can('Data Export Map Tools')
                             <!-- Data Export Tools -->
-                            <span data-toggle="tooltip" data-placement="bottom" title="Data Export">
+                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Data Export') }}">
                                 <a id="dataexporttools_control" class="btn btn-default collapse-control" role="button"
                                 data-toggle="collapse" href="#collapse_data_export_tools" aria-expanded="false"
                                 aria-controls="collapse_data_export_tools"><i class="fa-solid fa-file-export"></i>{{ __('Data Export Tools') }}</a>
@@ -854,7 +854,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="card-body">
                                         @can('Filter by Wards Map Tools')
                                             <!-- filter by wards -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Filter by Wards">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Filter by Wards') }}">
                                                 <a class="btn btn-default collapse-control" role="button" data-toggle="collapse"
                                                 href="#collapse_ward_filter" aria-expanded="false"
                                                 aria-controls="collapse_ward_filter"><i class="fa fa-map"></i>{{ __('Filter by Wards') }}</a>
@@ -898,14 +898,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         @can('Export Data Map Tools')
                                             <!-- export data set -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Export Data Set within Custom Boundary">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Export Data Set within Custom Boundary') }}">
                                                 <a href="#" id="export_control" class="btn btn-default map-control"><i class="fa-solid fa-file-export"></i>{{ __('Export Data Set') }}</a>
                                             </span>
                                         @endcan
 
                                         @can('Owner Information Map Tools')
                                             <!-- Building Owner Information -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title="Building Owner Information within Custom Boundary">
+                                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Building Owner Information within Custom Boundary') }}">
                                                 <a href="#" id="update_tax_zone" class="btn btn-default map-control"><i
                                                     class="fa fa-database"></i>{{ __('Building Owner Information') }}</a>
                                             </span>
@@ -917,7 +917,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                         @can('Decision Map Tools')
                             <!-- Decision Tools -->
-                            <span data-toggle="tooltip" data-placement="bottom" title="Decision Tools">
+                            <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Decision Tools') }}">
                                     <a id="decisiontools_control" class="btn btn-default collapse-control" role="button"
                                     data-toggle="collapse" href="#collapse_decision_tools" aria-expanded="false"
                                     aria-controls="collapse_decision_tools"><i class="fa-solid fa-calendar-check"></i>{{ __('Decision Tools') }}</a>
@@ -927,7 +927,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="card-body">
                                             @can('Tax Due Map Tools')
                                                 <!-- find tax due buildings(Commented - Might be needed in the future) -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Tax Due Buildings">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Tax Due Buildings') }}">
                                                     <a id="duebuildings_control" class="btn btn-default collapse-control collapsed"
                                                     role="button" data-toggle="collapse" href="#collapse_find_tax_due_buildings"
                                                     aria-expanded="false" aria-controls="collapse_find_tax_due_buildings"><i class="fa-solid fa-building-circle-exclamation"></i>{{ __('Tax Due Buildings') }}</a>
@@ -958,42 +958,42 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                             @can('Sewer Potential Map Tools')
                                                 <!-- find sewer potential buildings -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings Potential to Connect to Sewer">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Buildings Potential to Connect to Sewer') }}">
                                                     <a href="#" id="drainpotential_control" class="btn btn-default map-control"><i class="fa-solid fa-building"></i>{{ __('Sewers Potential Buildings') }}</a>
                                                 </span>
                                             @endcan
 
                                             @can('Buildings to Sewer Map Tools')
                                                 <!-- find building to sewer -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings Connected to Sewer">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Buildings Connected to Sewer') }}">
                                                     <a href="#" id="drainbuildings_control" class="btn btn-default map-control"><i class="fa fa-building"></i>{{ __('Buildings to Sewer') }}</a>
                                                 </span>
                                             @endcan
 
                                             @can('Buildings to Road Map Tools')
                                                 <!-- find buildings connecet to road -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings Connected to Road">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Buildings Connected to Road') }}">
                                                     <a href="#" id="roadbuildings_control" class="btn btn-default map-control"><i class="fa fa-building"></i>{{ __('Buildings to Road') }}</a>
                                                 </span>
                                             @endcan
 
                                             @can('Hard to Reach Buildings Map Tools')
                                                 <!-- find Hard to Reach Buildings -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings that are Hard to Reach">
-                                                    <a href="#" id="road_inaccessible_control" class="btn btn-default map-control"><i class="fa-brands fa-buffer"  title="Hard to Reach Building"></i>{{ __('Hard to Reach Buildings') }}</a>
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Buildings that are Hard to Reach') }}">
+                                                    <a href="#" id="road_inaccessible_control" class="btn btn-default map-control"><i class="fa-brands fa-buffer"  title="{{ __('Hard to Reach Building') }}"></i>{{ __('Hard to Reach Buildings') }}</a>
                                                 </span>
                                             @endcan
 
                                             @can('Building Close to Water Bodies Map Tools')
                                                  <!-- find Building Close to Water Bodies -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings that are close to Water Bodies">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Buildings that are close to Water Bodies') }}">
                                                     <a href="#" id="waterbody_inaccessible_control" class="btn btn-default map-control"><i class="fa-solid fa-water"></i>{{ __('Building Close to Water Bodies') }}</a>
                                                 </span>
                                             @endcan
 
                                             @can('Community Toilets Map Tools')
                                                  <!-- find Buildings using Community Toilets -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings that use Community Toilet">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings that use Community Toilet') }}">
                                                     <a href="#" id="ptct_network" class="btn btn-default map-control" ><i class="fa-solid fa-bezier-curve"></i>{{ __('Buildings using Community Toilets') }}</a>
                                                 </span>
                                             @endcan
@@ -1001,7 +1001,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @can('Area Population Map Tools')
                                                 <!-- area population -->
                                                 <span data-toggle="tooltip" data-placement="bottom"
-                                                    title="Estimate Population within Custom Boundary">
+                                                    title="{{ __('Estimate Population within Custom Boundary') }}">
                                                     <a href="#" id="areapopulation_control" class="btn btn-default map-control" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-bars" aria-hidden="true"></i>{{ __('Area Population') }}</a>
                                                 </span>
                                             @endcan
@@ -1009,7 +1009,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @can('Summary Information Buffer Map Tools')
                                                 <!-- Summary Information -->
                                                 <span data-toggle="tooltip" data-placement="bottom"
-                                                title="Generate Information of Buildings and Containment within Custom Boundary with Buffer">
+                                                title="{{ __('Generate Information of Buildings and Containment within Custom Boundary with Buffer') }}">
                                                     <a href="#" id="report_control_summary_buffer" class="btn btn-default map-control"><i
                                                     class="fa fa-list-alt"></i>{{ __('Summary Information Buffer Filter') }}</a>
                                                 </span>
@@ -1018,7 +1018,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @can('Summary Information Water Bodies Map Tools')
                                                 <!-- water bodies buffer -->
                                                 <span data-toggle="tooltip" data-placement="bottom"
-                                                    title="Generate Information of Buildings and Containment within Selected Water Body with Buffer">
+                                                    title="{{ __('Generate Information of Buildings and Containment within Selected Water Body with Buffer') }}">
                                                     <a href="#" id="buildingswaterbodies_control" class="btn btn-default map-control"><i class="fa-solid fa-building"></i>{{ __('Water Bodies Buffer Summary Information') }}</a>
                                                 </span>
                                             @endcan
@@ -1026,7 +1026,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @can('Summary Information Wards Map Tools')
                                                 <!-- by wards -->
                                                 <span data-toggle="tooltip" data-placement="bottom"
-                                                    title="Generate Information of Buildings and Containment within Selected Ward">
+                                                    title="{{ __('Generate Information of Buildings and Containment within Selected Ward') }}">
                                                     <a href="#" id="buildingswards_control" class="btn btn-default map-control"><i class="fa-solid fa-building"></i>{{ __('Wards Summary Information') }}</a>
                                                 </span>
                                             @endcan
@@ -1034,7 +1034,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @can('Summary Information Road Map Tools')
                                                 <!-- road buffer -->
                                                 <span data-toggle="tooltip" data-placement="bottom"
-                                                    title="Generate Information of Buildings and Containment within Selected Road with Buffer">
+                                                    title="{{ __('Generate Information of Buildings and Containment within Selected Road with Buffer">
                                                     <a href="#" id="buildingsroads_control" class="btn btn-default map-control"><i class="fa-solid fa-building"></i>{{ __('Road Buffer Summary Information') }}</a>
                                                 </span>
                                             @endcan
@@ -1042,7 +1042,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @can('Summary Information Point Map Tools')
                                                 <!-- point buffer -->
                                                 <span data-toggle="tooltip" data-placement="bottom"
-                                                    title="Generate Information of Buildings and Containment within Selected Point with Buffer">
+                                                    title="{{ __('Generate Information of Buildings and Containment within Selected Point with Buffer') }}">
                                                     <a href="#" id="pointbuffer_control" class="btn btn-default map-control"><i
                                                     class="fa fa-building"></i>{{ __('Point Buffer Summary Information') }}</a>
                                                 </span>
@@ -3822,13 +3822,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
              * Message to show when the user is drawing a polygon.
              * @type {string}
              */
-            var continuePolygonMsg = "{{ __('Click to continue drawing the polygon') }}";
+            var continuePolygonMsg = "{{ __('Click to continue drawing the polygon.') }}";
 
             /**
              * Message to show when the user is drawing a line.
              * @type {string}
              */
-            var continueLineMsg = "{{ __('Click to continue drawing the line') }}";
+            var continueLineMsg = "{{ __('Click to continue drawing the line.') }}";
 
             /**
              * Handle pointer move.
@@ -9587,7 +9587,7 @@ $.ajax({
                                     removeAjaxLoader();
                                 });
                             } else {
-                                displayAjaxErrorModal("{{ __('No Results Found') }}");
+                                displayAjaxErrorModal("{{ __('No Results Found.') }}");
                             }
                         },
                         error: function (dataResponse) {
@@ -9675,7 +9675,7 @@ $.ajax({
                                     removeAjaxLoader();
                                 });
                             } else {
-                                displayAjaxErrorModal("{{ __('No Results Found') }}");
+                                displayAjaxErrorModal("{{ __('No Results Found.') }}");
                             }
                         },
                         error: function (data) {
@@ -10815,7 +10815,7 @@ $.ajax({
                 } else {
                     var startDate = moment().format('YYYY-MM-DD');
                     var endDate = moment().add(days, 'days').format('YYYY-MM-DD');
-                    var message = '{{ __('Number of containments proposed to be emptied in the next few days') }}' + ': ' + days ;
+                    var message = '{{ __('Number of containments proposed to be emptied in the next few days:') }}' + ' ' + days ;
 
                     displayProposedEmptyingContainments(startDate, endDate, message);
                 }
@@ -10827,7 +10827,7 @@ $.ajax({
             $('#proposed_emptying_week_form').submit(function () {
                 var startDate = moment().format('YYYY-MM-DD');
                 var endDate = moment().add(7, 'days').format('YYYY-MM-DD');
-                var message = '{{ __('Number of containments proposed to be emptied next week') }}:';
+                var message = '{{ __('Number of containments proposed to be emptied next week:') }}';
 
                 displayProposedEmptyingContainments(startDate, endDate, message);
 

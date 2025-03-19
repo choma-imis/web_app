@@ -82,7 +82,7 @@ class LanguageController extends Controller
                 $generate = $this->generate_lang_file($lang, $content, 'update');
                 if ($generate && $generate->status == true) {
                     // $this->add_setting('lang_last_generate_' . $lang, time());
-                    return redirect('language/setup')->with('success', 'Language file generated successfully');
+                    return redirect('language/setup')->with('success', 'Language file generated successfully.');
                 } else {
                     return redirect('language/setup')->with('error', 'Failed to generate the language file.');
                 }
@@ -254,7 +254,7 @@ class LanguageController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect('language/setup')->with('success', 'Language Added successfully');
+            return redirect('language/setup')->with('success', 'Language Added successfully.');
         } catch (Exception $e) {
             DB::rollBack();
             \Log::error('Error in storing Language and Translates: ' . $e->getMessage());
@@ -341,7 +341,7 @@ class LanguageController extends Controller
         if ($language) {
             $data = $request->all();
             $this->storeOrUpdate($language->id, $data);
-            return redirect('language/setup')->with('success', 'Language updated successfully');
+            return redirect('language/setup')->with('success', 'Language updated successfully.');
         } else {
             return redirect('language/setup')->with('error', 'Failed to update Language');
         }
@@ -368,7 +368,7 @@ class LanguageController extends Controller
         $language->delete();
 
         DB::commit();
-        return redirect()->back()->with('success', 'Language deleted successfully');
+        return redirect()->back()->with('success', 'Language deleted successfully.');
     } catch (Exception $e) {
         DB::rollBack();
         \Log::error('Error in deleting Language and Translates: ' . $e->getMessage());
@@ -428,7 +428,7 @@ class LanguageController extends Controller
             if (empty($translations)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'No translations provided'
+                    'message' => 'No translations provided.'
                 ], 400);
             }
 
@@ -485,7 +485,7 @@ class LanguageController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'success',
-                'message' => 'Translations saved successfully',
+                'message' => __('Translations saved successfully.'),
                 'updated' => count($updates),
                 'inserted' => count($insertions)
             ], 200);
@@ -493,14 +493,14 @@ class LanguageController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed',
+                'message' => __('Validation failed.'),
                 'errors' => $e->errors()
             ], 422);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'status' => 'error',
-                'message' => 'Error saving translations',
+                'message' => 'Error saving translations.',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -523,13 +523,13 @@ class LanguageController extends Controller
           Validator::extend('file_extension', function ($attribute, $value, $parameters, $validator) {
               // Check if the file's extension matches the allowed extensions
               return in_array($value->getClientOriginalExtension(), $parameters);
-          }, 'File must be CSV format');
+          }, "{{ __('File must be CSV format.') }}" );
           // Validate the request with custom messages
           $this->validate($request, [
               'csvfile' => 'required|file_extension:csv', // The custom file extension validation rule
           ], [
               'required' => 'The CSV file is required.',
-              'file_extension' => 'File must be CSV format',  // Error message for the custom validation rule
+              'file_extension' => 'File must be CSV format.',  // Error message for the custom validation rule
           ]);
 
           if ($request->hasFile('csvfile')) {
@@ -538,13 +538,13 @@ class LanguageController extends Controller
               $headings = (new HeadingRowImport)->toArray($request->file('csvfile'));
               $heading_row_errors = array();
               if (!in_array("key", $headings[0][0])) {
-                  $heading_row_errors['key'] = "Heading row : key is required";
+                  $heading_row_errors['key'] = "Heading row : key is required.";
               }
               if (!in_array("text", $headings[0][0])) {
-                  $heading_row_errors['text'] = "Heading row : text is required";
+                  $heading_row_errors['text'] = "Heading row : text is required.";
               }
               if (!in_array("translated_text", $headings[0][0])) {
-                  $heading_row_errors['translated_text'] = "Heading row : translated_text is required";
+                  $heading_row_errors['translated_text'] = "Heading row : translated_text is required.";
               }
               if (count($heading_row_errors) > 0) {
                   return back()->withErrors($heading_row_errors);

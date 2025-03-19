@@ -115,7 +115,7 @@ class SewerConnectionService {
             
         } else {
             // Return a JSON response indicating that the building with the given bin was not found
-            return response()->json(['status' => 'error', 'message' => 'Building not found'], 404);
+            return response()->json(['status' => 'error', 'message' => __('Building not found.')], 404);
         }
     }
     
@@ -140,7 +140,7 @@ class SewerConnectionService {
             return response()->json(['wkt_geom' => $geom]);
         } else {
             // Return a JSON response indicating that the building with the given bin was not found
-            return response()->json(['status' => 'error', 'message' => 'Building not found'], 404);
+            return response()->json(['status' => 'error', 'message' => __('Building not found.')], 404);
         }
     }
 
@@ -163,7 +163,7 @@ class SewerConnectionService {
             return response()->json(['wkt_geom' => $wktGeom]);
         } else {
             // Return a JSON response indicating that the sewer line with the given code was not found
-            return response()->json(['status' => 'error', 'message' => 'Sewer line not found'], 404);
+            return response()->json(['status' => 'error', 'message' => __('Sewer line not found.')], 404);
         }
     }
     

@@ -107,7 +107,7 @@ class LowIncomeCommunityServiceClass
         if (!empty($ward)) {
             $lic->geom = DB::raw("ST_Multi(ST_GeomFromText('" . $request->geom . "', 4326))");
             $lic->save();
-            return redirect('layer-info/low-income-communities')->with('success', 'Low Income Community added successfully');
+            return redirect('layer-info/low-income-communities')->with('success', 'Low Income Community added successfully.');
         } else {
             return redirect('layer-info/low-income-communities/create')
                 ->with('error', 'Failed to find the ward for the selected area')
@@ -176,7 +176,7 @@ class LowIncomeCommunityServiceClass
                 $lic->save();
             }
 
-            return redirect('layer-info/low-income-communities')->with('success', 'Low Income Community updated successfully');
+            return redirect('layer-info/low-income-communities')->with('success', 'Low Income Community updated successfully.');
         } else {
             return redirect('layer-info/low-income-communities')->with('error', 'Failed to update Low Income Community');
         }

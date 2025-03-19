@@ -36,13 +36,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         <label for="name" class="col-md-2 col-form-label ">{{__('Toilet Name')}}</label>
                                             <div class="col-md-2">
                                                 <input type="text" class="form-control" id="toilet_id"
-                                                    placeholder="{{__("Toilet Name")}}" />
+                                                    placeholder="{{__('Toilet Name')}}" />
                                             </div>
                                             
                                             <label for="date" class="col-md-2 col-form-label ">{{__('Date')}}</label>
                                             <div class="col-md-2">
                                                 <input type="date" class="form-control" id="date"
-                                                    placeholder="{{__("Date")}}" onclick = 'this.showPicker();'/>
+                                                    placeholder="{{__('Date')}}" onclick = 'this.showPicker();'/>
                                             </div>
                                            
                                         </div>

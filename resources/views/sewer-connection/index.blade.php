@@ -234,11 +234,11 @@ $(function() {
                 sewerLayer.getSource().addFeature(sewerFeature);
                 addExtraLayer('sewer_layer', 'Sewer Layer', sewerLayer);
             } else {
-                swal({ title: "Warning!", text: "{{__('Sewer information not found')}}", icon: "warning" })
+                swal({ title: "Warning!", text: "{{__('Sewer information not found.')}}", icon: "warning" })
                     .then(() => { $('#exampleModal').modal('hide'); });
             }
         }).fail(function() {
-            swal({ title: "Error!", text: "{{__('An error occurred while fetching data')}}", icon: "error" })
+            swal({ title: "Error!", text: "{{__('An error occurred while fetching data.')}}", icon: "error" })
                 .then(() => { $('#exampleModal').modal('hide'); });
         });
 

@@ -103,7 +103,7 @@ class BuildingRequest extends FormRequest
             'construction_year' => __('Cant Select Future Value.'),
             'sanitation_system_id.required_if' => __('Toilet Connection is required.'),
             //containment message for validation
-            'type_id.required_if' => __('Containment Type is required when Toilet Connection  Septic or Pit/Holding.'),
+            'type_id.required_if' => __('Containment Type is required when Toilet Connection Septic or Pit/Holding.'),
             'defecation_place.required_if' => __('Defecation Place is required.'),
             'build_contain.required_if' => __('BIN of Pre-Connected Building is required.'),
             // 'construction_date.required_if'=>'Containment Construction date  required.',
@@ -129,7 +129,7 @@ class BuildingRequest extends FormRequest
                     return true;
                 }
             },
-            'Building Footprint (KML) file must be kml format'
+            "{{ __('Building Footprint (KML) file must be kml format.') }}"
         );
         $use_cat = $this->input('use_category_id');
         return [
@@ -229,7 +229,7 @@ class BuildingRequest extends FormRequest
             } else {
                 return true;
             }
-        }, 'File must be kml format');
+        }, "{{ __('File must be kml format.') }}" );
         return [
             //  compulsory fields
             // Owner Information

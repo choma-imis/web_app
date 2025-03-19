@@ -55,7 +55,7 @@ class SewerLineRequest extends Request
     {
         return [
             'name.regex' => __('The name field should contain only contain letters and spaces.'),
-            'length.numeric' => __('The Length(m) must be a number.'),
+            'length.numeric' => __('The Length (m) must be a number.'),
             'location.string' => __('The Location must be a string.'),
             'diameter.numeric' => __('The Diameter must be a number.'),
             ];

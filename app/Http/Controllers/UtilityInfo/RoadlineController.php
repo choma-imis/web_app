@@ -66,7 +66,7 @@ class RoadlineController extends Controller
     {
         $data = $request->all();
         $this->roadlineService->storeOrUpdate($id = null,$data);
-        return redirect('utilityinfo/roadlines')->with('success',__('Road created successfully'));
+        return redirect('utilityinfo/roadlines')->with('success',__('Road created successfully.'));
     }
 
     /**
@@ -134,7 +134,7 @@ class RoadlineController extends Controller
         if ($roadline) {
             $data = $request->all();
             $this->roadlineService->storeOrUpdate($roadline->code,$data);
-            return redirect('utilityinfo/roadlines')->with('success',__('Road Network updated successfully'));
+            return redirect('utilityinfo/roadlines')->with('success',__('Road Network updated successfully.'));
         } else {
             return redirect('utilityinfo/roadlines')->with('error',__('Failed to update road'));
         }
@@ -151,21 +151,21 @@ class RoadlineController extends Controller
         $roadline = Roadline::find($id);
         if ($roadline) {
             if ($roadline->buildings()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Building Information'));
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Building Information.'));
             } 
             if($roadline->sewers()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Sewer Information'));
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Sewer Information.'));
             } 
             if($roadline->drains()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Drain Information'));
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Drain Information.'));
             } 
             if($roadline->water_supply()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Water Supply Network Information'));
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Water Supply Network Information.'));
             } 
             $roadline->delete();
-            return redirect('utilityinfo/roadlines')->with('success',__('Road deleted successfully'));
+            return redirect('utilityinfo/roadlines')->with('success',__('Road deleted successfully.'));
         } else {
-            return redirect('utilityinfo/roadlines')->with('error',__('Failed to delete road'));
+            return redirect('utilityinfo/roadlines')->with('error',__('Failed to delete road.'));
         }
     }
 
