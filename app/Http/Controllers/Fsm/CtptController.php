@@ -203,7 +203,7 @@ class CtptController extends Controller
                 $pt_log_status = CtptUsers::where('toilet_id',$ctpt->id)->count();
                 if($pt_log_status != 0 )
                 {
-                    return redirect('fsm/ctpt')->with('error', __('Cannot delete Public Toilet that has associated PT Users Log'));
+                    return redirect('fsm/ctpt')->with('error', __('Cannot delete Public Toilet that has associated PT Users Log.'));
                 }
             }
             elseif(KeywordMatcher::matchKeywords($ctpt->type, ["community"]) != false )
@@ -211,13 +211,13 @@ class CtptController extends Controller
                 $ct_connected_building = BuildToilet::where('toilet_id', $id)->whereNULL('deleted_at')->count();
                 if($ct_connected_building != 0 )
                 {
-                    return redirect('fsm/ctpt')->with('error', __('Cannot delete Community Toilet that has associated Building Information'));
+                    return redirect('fsm/ctpt')->with('error', __('Cannot delete Community Toilet that has associated Building Information.'));
                 }  
             }  
             $ctpt->delete();
-            return redirect('fsm/ctpt')->with('success', __('Public / Community Toilets Deleted successfully'));
+            return redirect('fsm/ctpt')->with('success', __('Public / Community Toilets Deleted successfully.'));
         } else {
-            return redirect('fsm/ctpt')->with('error', __('Failed to delete Public / Community Toilets'));
+            return redirect('fsm/ctpt')->with('error', __('Failed to delete Public / Community Toilets.'));
         }
     }
 
@@ -255,7 +255,7 @@ class CtptController extends Controller
     {
         $toilet = Ctpt::find($id);
         if ($toilet) {
-            $page_title = __("Building Connected to Toilet") . ": " . $toilet->id;
+            $page_title = __("Building Connected to Toilet:")  . $toilet->id;
             $buildings = $toilet->buildings;
             return view('fsm.ct-pt.listBuilding', compact('page_title', 'toilet', 'buildings'));
         } else {
@@ -313,9 +313,9 @@ class CtptController extends Controller
                 $buildings[0]->bin => ['main_building' => '1'],
             ]);
             }
-            return redirect('fsm.ct-pt/' . $id . '/buildings')->with('success', __('Buildings added to this toilet'));
+            return redirect('fsm.ct-pt/' . $id . '/buildings')->with('success', __('Buildings added to this toilet.'));
         } else {
-            return redirect('fsm.ct-pt/' . $id . '/buildings')->with('error', __('Failed to add buildings'));
+            return redirect('fsm.ct-pt/' . $id . '/buildings')->with('error', __('Failed to add buildings.'));
         }
     }
 
@@ -334,7 +334,7 @@ class CtptController extends Controller
             }
             return redirect('fsm.ct-pt/' . $id . '/buildings')->with('success', __('Building deleted successfully.'));
         } else {
-            return redirect('fsm.ct-pt/' . $id . '/buildings')->with('error', __('Failed to delete building'));
+            return redirect('fsm.ct-pt/' . $id . '/buildings')->with('error', __('Failed to delete building.'));
         }
     }
     /**

@@ -93,9 +93,9 @@ class ServiceProviderController extends Controller
              $data['name'] = $data['company_name'];
              
              $this->userService->storeOrUpdate($id = null,$data);
-             $successMessage = __('Service Provider and Service Provider - Admin User created successfully');
+             $successMessage = __('Service Provider and Service Provider - Admin User created successfully.');
         } else {
-            $successMessage = __('Service Provider created successfully');
+            $successMessage = __('Service Provider created successfully.');
 
         }
         return redirect('fsm/service-providers')->with('success',$successMessage);
@@ -151,7 +151,7 @@ class ServiceProviderController extends Controller
         if ($serviceProvider) {
             $data = $request->all();
             $this->serviceProviderService->storeOrUpdate($serviceProvider->id,$data);
-            return redirect('fsm/service-providers')->with('success',__('Service Provider updated successfully'));
+            return redirect('fsm/service-providers')->with('success',__('Service Provider updated successfully.'));
         } else {
             return redirect('fsm/service-providers')->with('error',__('Failed to update Servie Provider'));
         }
@@ -173,25 +173,25 @@ class ServiceProviderController extends Controller
                 $applicationsCount =  $serviceProvider->applications()->count();
                 if($applicationsCount > 0)
                     {
-                        return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated Applicaiton Information'));
+                        return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated Applicaiton Information.'));
                     }
             }
             if($serviceProvider->users()->exists()){
-                return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated User Information'));
+                return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated User Information.'));
             }
             if($serviceProvider->vacutugTypes()->exists()){
-                return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated Desludging Vehicle Information'));
+                return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated Desludging Vehicle Information.'));
             }
             if($serviceProvider->employees()->exists()){
-                return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated Employee Information'));
+                return redirect('fsm/service-providers')->with('error',__('Cannot delete Service Provider that has associated Employee Information.'));
             }
             $serviceProvider->delete();
             
-            return redirect('fsm/service-providers')->with('success',__('Service Provider deleted successfully'));
+            return redirect('fsm/service-providers')->with('success',__('Service Provider deleted successfully.'));
             
         } else 
         {
-            return redirect('fsm/service-providers')->with('error',__('Failed to delete service provider'));
+            return redirect('fsm/service-providers')->with('error',__('Failed to delete service provider.'));
         }
     }
     

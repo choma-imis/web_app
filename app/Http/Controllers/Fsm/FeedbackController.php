@@ -181,14 +181,14 @@ class FeedbackController extends Controller{
         $feedback = Feedback::find($id);
         if(Auth::user()->hasRole('Municipality - Help Desk') || Auth::user()->hasRole('Service Provider - Help Desk')) {
             if($feedback->user_id != Auth::user()->id) {
-                return redirect('fsm/application')->with('error',__('Cannot update Feedback not created by current User'));
+                return redirect('fsm/application')->with('error',__('Cannot update Feedback not created by current User.'));
             }
         }
         if( !(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Sanitation Department')) )
         {
             if($feedback->created_at->diffInDays(today()) > 1)
             {
-                return redirect('fsm/application')->with('error',__('Cannot update Feedback Information 24 hours after creation. Please contact Sanitation Department for support'));
+                return redirect('fsm/application')->with('error',__('Cannot update Feedback Information 24 hours after creation. Please contact Sanitation Department for support.'));
             }
         }
         $application = Application::find($feedback->application_id);
@@ -224,7 +224,7 @@ class FeedbackController extends Controller{
         
         $application->feedback_status = TRUE;
         $application->save();
-            return redirect('fsm/application')->with('success',__('Feedback Details updated successfully'));
+            return redirect('fsm/application')->with('success',__('Feedback Details updated successfully.'));
 
     }
     /**
@@ -278,7 +278,7 @@ class FeedbackController extends Controller{
             {
                 if($feedback->created_at->diffInDays(today()) > 1)
                 {
-                    return redirect('fsm/sludge-collection')->with('error',__('Cannot delete Feedback Information 24 hours after creation. Please contact Sanitation Department for support'));
+                    return redirect('fsm/sludge-collection')->with('error',__('Cannot delete Feedback Information 24 hours after creation. Please contact Sanitation Department for support.'));
                 }
             }
             // updating applicaiton->sludge_collection_status
@@ -286,7 +286,7 @@ class FeedbackController extends Controller{
             $application->feedback_status=false;
             $application->save();
             $feedback->delete();
-            return redirect('fsm/feedback')->with('success',__('Feedback deleted successfully'));
+            return redirect('fsm/feedback')->with('success',__('Feedback deleted successfully.'));
         } else {
             return redirect('fsm/feedback')->with('error',__('Failed to delete feedback'));
         }

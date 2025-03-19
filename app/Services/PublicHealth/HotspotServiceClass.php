@@ -143,7 +143,7 @@ class HotspotServiceClass
                     $Hotspots->save();
 
                     DB::commit(); // Commit the transaction
-                    return redirect('publichealth/hotspots')->with('success', __('Waterborne Hotspot created successfully'));
+                    return redirect('publichealth/hotspots')->with('success', __('Waterborne Hotspot created successfully.'));
                 } else {
                     DB::rollBack(); // Rollback if geom is not within the city boundary
                     return redirect('publichealth/hotspots/create')->with('error', __('The selected area should be within the City Boundary'))->withInput();
@@ -219,7 +219,7 @@ class HotspotServiceClass
                     return redirect('publichealth/hotspots/' . $id . '/edit')->with('error', __('The selected area should be within the City Boundary'))->withInput();
                 }
             }
-            return redirect('publichealth/hotspots')->with('success', __('Waterborne Hotspot updated successfully'));
+            return redirect('publichealth/hotspots')->with('success', __('Waterborne Hotspot updated successfully.'));
         } else {
             return redirect('publichealth/hotspots')->with('error', __('Failed to update Hotspot Identifications'))->withInput();;
         }

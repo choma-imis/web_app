@@ -160,19 +160,19 @@ class ApplicationController extends Controller
         try {
             $application = Application::findOrFail($id);
             if($application->emptying()->exists()){
-                return redirect('fsm/application')->with('error',__('Cannot delete Application that has associated Emptying Information'));
+                return redirect('fsm/application')->with('error',__('Cannot delete Application that has associated Emptying Information.'));
             }
             if($application->sludge_collection()->exists()){
-                return redirect('fsm/application')->with('error',__('Cannot delete Application that has associated Sludge Collection Information'));
+                return redirect('fsm/application')->with('error',__('Cannot delete Application that has associated Sludge Collection Information.'));
             }
             if($application->feedback()->exists()){
-                return redirect('fsm/application')->with('error',__('Cannot delete Application that has associated Feedback Information'));
+                return redirect('fsm/application')->with('error',__('Cannot delete Application that has associated Feedback Information.'));
             }
             $application->delete();
         } catch (\Throwable $e) {
-            return redirect('fsm/application')->with('error',__('Failed to delete Application'));
+            return redirect('fsm/application')->with('error',__('Failed to delete Application.'));
         }
-        return redirect('fsm/application')->with('success',__('Application deleted successfully'));
+        return redirect('fsm/application')->with('success',__('Application deleted successfully.'));
 
     }
 

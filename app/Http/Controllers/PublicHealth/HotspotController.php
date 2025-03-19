@@ -136,7 +136,7 @@ class HotspotController extends Controller
         $Hotspots = Hotspots::find($id);
         if ($Hotspots) {
                 $Hotspots->delete();
-                return redirect('publichealth/hotspots')->with('success', __('Waterborne Hotspot deleted successfully'));
+                return redirect('publichealth/hotspots')->with('success', __('Waterborne Hotspot deleted successfully.'));
         } else {
             return redirect('publichealth/hotspots')->with('error', __('Failed to delete Hotspot Identification'));
         }

@@ -92,7 +92,7 @@ class KpiTargetController extends Controller
 {
         $data = $request->all();
         $this->kpiService->storeOrUpdate(null, $data);
-        return redirect('fsm/kpi-targets')->with('success', 'KPI Target created successfully');
+        return redirect('fsm/kpi-targets')->with('success', 'KPI Target created successfully.');
     
 }
     /**
@@ -130,7 +130,7 @@ class KpiTargetController extends Controller
             $data = $request->all();
       
             $this->kpiService->storeOrUpdate($kpi->id,$data);
-            return redirect('fsm/kpi-targets')->with('success','KPI Target updated successfully');
+            return redirect('fsm/kpi-targets')->with('success','KPI Target updated successfully.');
         } else {
             return redirect('fsm/kpi-targets')->with('error','Failed to update KPI Target');
         }
@@ -168,7 +168,7 @@ class KpiTargetController extends Controller
         $kpi = KpiTarget::find($id);
         if ($kpi) {
             $kpi->delete();
-            return redirect('fsm/kpi-targets')->with('success','KPI Target deleted successfully');
+            return redirect('fsm/kpi-targets')->with('success','KPI Target deleted successfully.');
         } else {
             return redirect('fsm/kpi-targets')->with('error','Failed to delete kPI Target');
         }

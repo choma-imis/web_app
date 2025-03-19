@@ -64,7 +64,7 @@ class SewerLineController extends Controller
     {
         $data = $request->all();
         $this->sewerLineService->storeOrUpdate($id = null,$data);
-        return redirect('utilityinfo/sewerlines')->with('success',__('Sewer Line created successfully'));
+        return redirect('utilityinfo/sewerlines')->with('success',__('Sewer Line created successfully.'));
     }
 
     /**
@@ -122,7 +122,7 @@ class SewerLineController extends Controller
         if ($sewerLine) {
             $data = $request->all();
             $this->sewerLineService->storeOrUpdate($sewerLine->code,$data);
-            return redirect('utilityinfo/sewerlines')->with('success',__('Sewer Network updated successfully'));
+            return redirect('utilityinfo/sewerlines')->with('success',__('Sewer Network updated successfully.'));
         } else {
             return redirect('utilityinfo/sewerlines')->with('error',__('Failed to update drain'));
         }
@@ -139,15 +139,15 @@ class SewerLineController extends Controller
         $sewerLine = SewerLine::find($id);
         if ($sewerLine) {
             if ($sewerLine->buildings()->exists()) {
-                return redirect('utilityinfo/sewerlines')->with('error',__('Cannot delete Sewer that is associated with Building Information'));
+                return redirect('utilityinfo/sewerlines')->with('error',__('Cannot delete Sewer that is associated with Building Information.'));
             } 
             if ($sewerLine->SewerConnection()->exists()) {
-                return redirect('utilityinfo/sewerlines')->with('error',__('Cannot delete Sewer that is associated with Sewer Connection Information'));
+                return redirect('utilityinfo/sewerlines')->with('error',__('Cannot delete Sewer that is associated with Sewer Connection Information.'));
             } 
             $sewerLine->delete();
-            return redirect('utilityinfo/sewerlines')->with('success',__('Sewer deleted successfully'));
+            return redirect('utilityinfo/sewerlines')->with('success',__('Sewer deleted successfully.'));
         } else {
-            return redirect('utilityinfo/sewerlines')->with('error',__('Failed to delete sewer'));
+            return redirect('utilityinfo/sewerlines')->with('error',__('Failed to delete sewer.'));
         }
     }
 

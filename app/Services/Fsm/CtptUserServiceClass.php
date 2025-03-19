@@ -93,7 +93,7 @@ class CtptUserServiceClass
             $info->no_female_user = $request->no_female_user ? $request->no_female_user : null;
             $info->date = $request->date ? $request->date : null;
             $info->save();
-            return redirect('fsm/ctpt-users')->with('success', __('PT Users Log Updated successfully'));
+            return redirect('fsm/ctpt-users')->with('success', __('PT Users Log Updated successfully.'));
         } else {
             return redirect('fsm/ctpt-users')->with('error', __('Failed to update info'));
         }

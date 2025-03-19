@@ -1055,7 +1055,7 @@ class EmptyingService
             return redirect()->back()->withInput()->with('error', __("Error! Emptying couldn't be created. ") . $e->getMessage());
         }
     
-        return redirect(route('application.index'))->with('success', __('Emptying Service Details created successfully'));
+        return redirect(route('application.index'))->with('success', __('Emptying Service Details created successfully.'));
     }
     
 
@@ -1126,7 +1126,7 @@ class EmptyingService
             DB::rollBack(); 
             return redirect()->back()->withInput()->with('error', __('Failed to update Emptying'));
         }
-        return redirect(route('application.index'))->with('success', __('Emptying updated successfully'));
+        return redirect(route('application.index'))->with('success', __('Emptying updated successfully.'));
     }
 
     /**

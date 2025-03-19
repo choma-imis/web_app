@@ -102,7 +102,7 @@ class UserController extends Controller
         try {
         $this->userService->storeOrUpdate($id = null,$data);
         DB::commit();
-        return redirect('auth/users')->with('success', __('User created successfully'));
+        return redirect('auth/users')->with('success', __('User created successfully.'));
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Error updating password: ' . $e->getMessage());
@@ -201,7 +201,7 @@ class UserController extends Controller
             $data = $request->all();
             $this->userService->storeOrUpdate($user->id,$request);
             DB::commit(); 
-            return redirect('auth/users')->with('success', __('User updated successfully'));
+            return redirect('auth/users')->with('success', __('User updated successfully.'));
             } else {
                 abort(404);
             }
@@ -246,7 +246,7 @@ class UserController extends Controller
                     return redirect('auth/users')->with('error', __('User has created some records and cannot be deleted; Update Status to Inactive to revoke access'));
                 }
                 User::destroy($id);
-            return redirect('auth/users')->with('success', __('User deleted successfully'));
+            return redirect('auth/users')->with('success', __('User deleted successfully.'));
         } else {
             return redirect('auth/users')->with('error', __('User could not be deleted'));
         }

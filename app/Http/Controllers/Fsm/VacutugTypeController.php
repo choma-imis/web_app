@@ -84,7 +84,7 @@ class VacutugTypeController extends Controller
         $data = $request->all();
         $this->vacutugTypeService->storeOrUpdate(null,$data);
 
-        return redirect('fsm/desludging-vehicles')->with('success',__('Desludging Vehicle created successfully'));
+        return redirect('fsm/desludging-vehicles')->with('success',__('Desludging Vehicle created successfully.'));
     }
 
     /**
@@ -142,7 +142,7 @@ class VacutugTypeController extends Controller
         if ($vacutugType) {
             $data = $request->all();
             $this->vacutugTypeService->storeOrUpdate($vacutugType->id,$data);
-            return redirect('fsm/desludging-vehicles')->with('success',__('Desludging Vehicle updated successfully'));
+            return redirect('fsm/desludging-vehicles')->with('success',__('Desludging Vehicle updated successfully.'));
         } else {
             return redirect('fsm/desludging-vehicles')->with('error',__('Failed to update Desludging Vehicle'));
         }
@@ -160,14 +160,14 @@ class VacutugTypeController extends Controller
         if ($VacutugType) {
             if($VacutugType->sludgeCollections()->exists())
             {
-                return redirect('fsm/desludging-vehicles')->with('error',__('Cannot delete Desludging Vehicle that has associated Sludge Collection Information'));
+                return redirect('fsm/desludging-vehicles')->with('error',__('Cannot delete Desludging Vehicle that has associated Sludge Collection Information.'));
 
             }
             $VacutugType->delete();
-            return redirect('fsm/desludging-vehicles')->with('success',__('Desludging Vehicle deleted successfully'));
+            return redirect('fsm/desludging-vehicles')->with('success',__('Desludging Vehicle deleted successfully.'));
 
         } else {
-            return redirect('fsm/desludging-vehicles')->with('error',__('Failed to delete Desludging Vehicle'));
+            return redirect('fsm/desludging-vehicles')->with('error',__('Failed to delete Desludging Vehicle.'));
         }
     }
 
