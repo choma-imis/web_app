@@ -12,38 +12,38 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <div class="card-body">
 
             <div class="form-group row">
-                {!! Form::label('Treatmant Plant Name',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('Treatment Plant Name'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantName[0],['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('Sample Date',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('Sample Date'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->date,['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('temperature',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('temperature'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->temperature,['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('pH',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('pH'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->ph,['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('COD',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('COD'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->cod,['class' => 'form-control']) !!}
                 </div>
             </div>
 
             <div class="form-group row">
-                {!! Form::label('BOD',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('BOD'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->bod,['class' => 'form-control']) !!}
                 </div>
@@ -51,20 +51,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 
             <div class="form-group row">
-                {!! Form::label('TSS',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('TSS'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->tss,['class' => 'form-control']) !!}
                 </div>
             </div>
 
             <div class="form-group row">
-                {!! Form::label('ecoli',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('ecoli'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->ecoli,['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row ">
-        {!! Form::label('remarks', 'Remark', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label(__('remarks'), 'Remark', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->remarks,['class' => 'form-control']) !!}
                 </div>

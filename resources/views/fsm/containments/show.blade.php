@@ -117,7 +117,7 @@
         <div class="form-group row">
             {!! Form::label('next_emptying_date', __('Next Empting Date '),array('class'=>'col-sm-2 control-label')) !!}
             <div class="col-sm-3">
-            {!! Form::label($containment->next_emptying_date,null,['class' => 'form-control col-sm-10', 'placeholder' => 'Next Empting  Date']) !!}
+            {!! Form::label($containment->next_emptying_date,null,['class' => 'form-control col-sm-10', 'placeholder' => 'Next Emptying  Date']) !!}
             </div>
         </div>
 

@@ -174,7 +174,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
   
     <div class="form-group row " id="children_facility">
         {!! Form::label('children_facility',__('Separate Facility for Children'),['class' => 'col-sm-3 control-label']) !!}
-        <div class=col-sm-4>
+        <div class=col-sm-4>                    
             {!! Form::select('children_facility',  [true => 'Yes', false => 'No'], null, ['class' => 'form-control chosen-select children_facility', 'placeholder' => __('Separate Facility for Children')]) !!}
         </div>
     </div>
@@ -217,9 +217,9 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="form-group row " id="frequency_of_fee_collected" style = 'display:none'>
    
         {!! Form::label('frequency_of_fee_collected', __('Frequency of Fee Collection'), ['class' => 'col-sm-3 control-label']) !!}
-        <div class=col-sm-4>
+        <div class=col-sm-4>                            
             {!! Form::select('frequency_of_fee_collected', [], null, ['class' => 'form-control ', 'placeholder' => __('Frequency of Fee Collection'), 'id' => 'frequency_select']) !!}
-        </div>
+        </div>                                                                                                        
     </div>  
 
 

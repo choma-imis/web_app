@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-header">
             @can('Add Low Income Community')
-                <a href="{{ action('LayerInfo\LowIncomeCommunityController@create') }}" class="btn btn-info">{{ ("Add Low Income Community") }}</a>
+                <a href="{{ action('LayerInfo\LowIncomeCommunityController@create') }}" class="btn btn-info">{{ __("Add Low Income Community") }}</a>
             @endcan
             @can('Export Low Income Communities')
                 <a href="#" id="export" class="btn btn-info">{{ __('Export to CSV') }}</a>
