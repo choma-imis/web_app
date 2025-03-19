@@ -271,7 +271,7 @@ class FeedbackController extends Controller{
         if ($feedback) {
             if(Auth::user()->hasRole('Municipality - Help Desk') || Auth::user()->hasRole('Service Provider - Help Desk')) {
                 if($feedback->user_id != Auth::user()->id) {
-                    return redirect('fsm/sludge-collection')->with('error',__('Cannot delete Feedback not created by current User'));
+                    return redirect('fsm/sludge-collection')->with('error',__('Cannot delete Feedback not created by current User.'));
                 }
             }
             if( !(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Municipality - Sanitation Department')) )
@@ -288,7 +288,7 @@ class FeedbackController extends Controller{
             $feedback->delete();
             return redirect('fsm/feedback')->with('success',__('Feedback deleted successfully.'));
         } else {
-            return redirect('fsm/feedback')->with('error',__('Failed to delete feedback'));
+            return redirect('fsm/feedback')->with('error',__('Failed to delete feedback.'));
         }
     }
     

@@ -74,7 +74,7 @@ class EmptyingServiceController extends Controller
                 'data' => [
                     'applications' => $applications
                 ],
-                'message' => __('Applications retrieved successfully'),
+                'message' => __('Applications retrieved successfully.'),
             ]);
         } catch (\Throwable $th) {
             return response()->json([
