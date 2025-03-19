@@ -14,6 +14,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 {!! Form::label('Upload Translation File',null,['class' => 'col-sm-3 control-label', 'style'=>'padding-top:3px;']) !!}
                 <div class="col-sm-3">
                 {!! Form::file('csvfile', ['id' => 'csvfile', 'onchange' => 'validateFileExtension(this, "fileHint", "csv")']) !!}
+                <br>
                 <small id="fileHint">Please select a CSV file.</small> <br>
                 <small id="fileHeaderHint">Please ensure CSV file headers match with provided template.</small>
                 </div>
