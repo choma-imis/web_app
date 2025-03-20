@@ -176,12 +176,12 @@ class LanguageController extends Controller
 
                 // Edit Button
                 if (Auth::user()->can('Edit Language')) {
-                    $content .= '<a title="' . __("Edit") . '" href="' . action("Language\LanguageController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
+                    $content .= '<a title="Edit" href="' . action("Language\LanguageController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
                 }
 
                 // Detail Button
                 if (Auth::user()->can('View Language')) {
-                    $content .= '<a title="' . __("Detail") . '" href="' . action("Language\LanguageController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
+                    $content .= '<a title="Detail" href="' . action("Language\LanguageController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
                 }
 
                 // Add Translations Button
@@ -204,7 +204,7 @@ class LanguageController extends Controller
                 // Delete Button (Last)
                 if (Auth::user()->can('Delete Language')) {
                     $content .= \Form::open(['method' => 'DELETE', 'route' => ['setup.destroy', $model->id], 'class' => 'd-inline']);
-                    $content .= '<button type="submit" class="btn btn-danger btn-sm mb-1 delete" title="' . __("Delete") . '"><i class="fa fa-trash"></i></button>';
+                    $content .= '<button type="submit" class="btn btn-danger btn-sm mb-1 delete" title="Delete"><i class="fa fa-trash"></i></button>';
                     $content .= \Form::close();
                 }
 
@@ -491,7 +491,7 @@ class LanguageController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'success',
-                'message' => __('Translations saved successfully.'),
+                'message' => 'Translations saved successfully.',
                 'updated' => count($updates),
                 'inserted' => count($insertions)
             ], 200);
@@ -499,7 +499,7 @@ class LanguageController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => __('Validation failed.'),
+                'message' => 'Validation failed.',
                 'errors' => $e->errors()
             ], 422);
         } catch (\Exception $e) {
@@ -529,7 +529,7 @@ class LanguageController extends Controller
           Validator::extend('file_extension', function ($attribute, $value, $parameters, $validator) {
               // Check if the file's extension matches the allowed extensions
               return in_array($value->getClientOriginalExtension(), $parameters);
-          }, "{{ __('File must be CSV format.') }}" );
+          }, 'File must be CSV format.' );
           // Validate the request with custom messages
           $this->validate($request, [
               'csvfile' => 'required|file_extension:csv', // The custom file extension validation rule
