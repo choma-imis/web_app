@@ -53,13 +53,25 @@ class LanguageController extends Controller
         return view("language.index", compact('languages', 'page_title'));
     }
 
-
-
     public function generate_translate($code)
+    {
+        $translate1 = $this->generate_translate_platform($code, 'web');
+        $translate2 = $this->generate_translate_platform($code, 'mobile');
+        if ($translate1) {
+            redirect('language/setup')->with('success', 'Sorry! Unable find the language');
+        }else if ($translate2) {
+            redirect('language/setup')->with('success', 'Sorry! Unable find the language');
+        }
+        else{
+            redirect('language/setup')->with('error', 'Sorry! Unable find the language');
+        }
+    }
+
+    public function generate_translate_platform($code, $platform)
     {
         $lang = $code;
         if ($this->is_lang_exist($lang)) {
-            $translate = $this->get_translation('en', false);
+            $translate = $this->get_translation('en', false, $platform);
             $output = [];
             foreach ($translate as $base) {
                 $key = $base->key;
@@ -79,7 +91,7 @@ class LanguageController extends Controller
 
                 $content = json_encode($output, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-                $generate = $this->generate_lang_file($lang, $content, 'update');
+                $generate = $this->generate_lang_file($lang, $content, 'update', $platform);
                 if ($generate && $generate->status == true) {
                     // $this->add_setting('lang_last_generate_' . $lang, time());
                     return redirect('language/setup')->with('success', 'Language file generated successfully.');
@@ -95,11 +107,18 @@ class LanguageController extends Controller
         return $result;
     }
 
-    public function get_translation($lang = 'base', $only = true)
+    public function get_translation($lang = 'base', $only = true, $platform)
     {
         $get_only = ($only == true) ? ['key', 'name', 'text', 'load'] : ['key', 'name', 'text', 'pages', 'group', 'panel', 'load'];
-        return Translate::where('name', $lang)->get($get_only);
+
+        if($platform='mobile'){
+            return Translate::where('name', $lang)->where('panel', 'mobile_api')->get($get_only);
+        }
+        else{
+            return Translate::where('name', $lang)->get($get_only);
+        }
     }
+
     // function to return translation values by key
     public function get_by_key($key, $lang = 'base')
     {
@@ -112,23 +131,27 @@ class LanguageController extends Controller
         return ($get_lang) ? true : false;
     }
     // sub function that stores the file in correct path
-    public function generate_lang_file($lang, $content, $action = 'update')
+    public function generate_lang_file($lang, $content, $action = 'update', $platform)
     {
-
         // dd($lang, $content);
         $result = ['status' => false];
 
+        if($platform='mobile'){
+            $file_name = $lang . '.json';
+            $lang_file = lang_path('api/' . $file_name);
+        }
+        else{
+            $file_name = $lang . '.json';
+            $lang_file = lang_path($file_name);
+        }
+
         if ($action === 'store') {
-            $lang_file = lang_path($lang . '.json');
             if (File::exists($lang_file)) {
 
                 File::delete($lang_file);
             }
             File::put($lang_file, $content);
         } else {
-
-            $file_name = $lang . '.json';
-            $lang_file = lang_path($file_name);
             if (File::isWritable(lang_path())) {
                 if (File::exists($lang_file)) {
 
