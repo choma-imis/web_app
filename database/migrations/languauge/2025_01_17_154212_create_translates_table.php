@@ -19,7 +19,7 @@ class CreateTranslatesTable extends Migration
             $table->text('text')->nullable();
             $table->string('pages')->default('global');
             $table->string('group')->default('system');
-            $table->string('panel')->default('any');
+            $table->string('platform')->default('any');
             $table->boolean('load')->default(false);
             $table->timestamps();
         });

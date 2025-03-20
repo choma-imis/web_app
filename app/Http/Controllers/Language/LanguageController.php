@@ -109,10 +109,10 @@ class LanguageController extends Controller
 
     public function get_translation($lang = 'base', $only = true, $platform)
     {
-        $get_only = ($only == true) ? ['key', 'name', 'text', 'load'] : ['key', 'name', 'text', 'pages', 'group', 'panel', 'load'];
+        $get_only = ($only == true) ? ['key', 'name', 'text', 'load'] : ['key', 'name', 'text', 'pages', 'group', 'platform', 'load'];
 
         if($platform='mobile'){
-            return Translate::where('name', $lang)->where('panel', 'mobile_api')->get($get_only);
+            return Translate::where('name', $lang)->where('platform', 'mobile')->get($get_only);
         }
         else{
             return Translate::where('name', $lang)->get($get_only);
@@ -278,7 +278,7 @@ class LanguageController extends Controller
                     'name'  => $data['code'] ?? null,
                     'pages' => $translate->pages,
                     'group' => $translate->group,
-                    'panel' => $translate->panel,
+                    'platform' => $translate->platform,
                     'load'  => $translate->load,
                 ]);
             }
