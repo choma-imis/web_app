@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BuildingSurveyController;
 use App\Http\Controllers\Api\SewerConnectionController;
 use App\Http\Controllers\Api\EmptyingServiceController;
+use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\BuildingInfo\BuildingController;
 use App\Http\Controllers\BuildingSearchController;
 use Illuminate\Http\Request;
@@ -120,6 +121,15 @@ Route::group([
         });
         Route::post('/save-sewerconnection',[SewerConnectionController::class,'saveSewerConnections']);
         
+    });
+    Route::group([
+        'name' => 'language',
+        'prefix' => 'language',
+        'namespace' => 'Language',
+        'middleware' => 'auth'
+    ], function () {
+        Route::get('/lang', [LanguageController::class,'index']);
+        Route::get('/translation/{lang}', [LanguageController::class,'getTranslations']);
     });
     Route::prefix('revamp')->group(function() {
         Route::get('/collection', [BuildingSearchController::class,'getAll']);

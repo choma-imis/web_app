@@ -53,13 +53,25 @@ class LanguageController extends Controller
         return view("language.index", compact('languages', 'page_title'));
     }
 
-
-
     public function generate_translate($code)
+    {
+        $translate1 = $this->generate_translate_platform($code, 'web');
+        $translate2 = $this->generate_translate_platform($code, 'mobile');
+        if ($translate1) {
+            redirect('language/setup')->with('success', 'Sorry! Unable find the language');
+        }else if ($translate2) {
+            redirect('language/setup')->with('success', 'Sorry! Unable find the language');
+        }
+        else{
+            redirect('language/setup')->with('error', 'Sorry! Unable find the language');
+        }
+    }
+
+    public function generate_translate_platform($code, $platform)
     {
         $lang = $code;
         if ($this->is_lang_exist($lang)) {
-            $translate = $this->get_translation('en', false);
+            $translate = $this->get_translation('en', false, $platform);
             $output = [];
             foreach ($translate as $base) {
                 $key = $base->key;
@@ -79,7 +91,7 @@ class LanguageController extends Controller
 
                 $content = json_encode($output, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-                $generate = $this->generate_lang_file($lang, $content, 'update');
+                $generate = $this->generate_lang_file($lang, $content, 'update', $platform);
                 if ($generate && $generate->status == true) {
                     // $this->add_setting('lang_last_generate_' . $lang, time());
                     return redirect('language/setup')->with('success', 'Language file generated successfully.');
@@ -95,11 +107,18 @@ class LanguageController extends Controller
         return $result;
     }
 
-    public function get_translation($lang = 'base', $only = true)
+    public function get_translation($lang = 'base', $only = true, $platform)
     {
-        $get_only = ($only == true) ? ['key', 'name', 'text', 'load'] : ['key', 'name', 'text', 'pages', 'group', 'panel', 'load'];
-        return Translate::where('name', $lang)->get($get_only);
+        $get_only = ($only == true) ? ['key', 'name', 'text', 'load'] : ['key', 'name', 'text', 'pages', 'group', 'platform', 'load'];
+
+        if($platform='mobile'){
+            return Translate::where('name', $lang)->where('platform', 'mobile')->get($get_only);
+        }
+        else{
+            return Translate::where('name', $lang)->get($get_only);
+        }
     }
+
     // function to return translation values by key
     public function get_by_key($key, $lang = 'base')
     {
@@ -112,23 +131,27 @@ class LanguageController extends Controller
         return ($get_lang) ? true : false;
     }
     // sub function that stores the file in correct path
-    public function generate_lang_file($lang, $content, $action = 'update')
+    public function generate_lang_file($lang, $content, $action = 'update', $platform)
     {
-
         // dd($lang, $content);
         $result = ['status' => false];
 
+        if($platform='mobile'){
+            $file_name = $lang . '.json';
+            $lang_file = lang_path('api/' . $file_name);
+        }
+        else{
+            $file_name = $lang . '.json';
+            $lang_file = lang_path($file_name);
+        }
+
         if ($action === 'store') {
-            $lang_file = lang_path($lang . '.json');
             if (File::exists($lang_file)) {
 
                 File::delete($lang_file);
             }
             File::put($lang_file, $content);
         } else {
-
-            $file_name = $lang . '.json';
-            $lang_file = lang_path($file_name);
             if (File::isWritable(lang_path())) {
                 if (File::exists($lang_file)) {
 
@@ -170,12 +193,12 @@ class LanguageController extends Controller
 
                 // Edit Button
                 if (Auth::user()->can('Edit Language')) {
-                    $content .= '<a title="' . __("Edit") . '" href="' . action("Language\LanguageController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
+                    $content .= '<a title="Edit" href="' . action("Language\LanguageController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
                 }
 
                 // Detail Button
                 if (Auth::user()->can('View Language')) {
-                    $content .= '<a title="' . __("Detail") . '" href="' . action("Language\LanguageController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
+                    $content .= '<a title="Detail" href="' . action("Language\LanguageController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
                 }
 
                 // Add Translations Button
@@ -198,7 +221,7 @@ class LanguageController extends Controller
                 // Delete Button (Last)
                 if (Auth::user()->can('Delete Language')) {
                     $content .= \Form::open(['method' => 'DELETE', 'route' => ['setup.destroy', $model->id], 'class' => 'd-inline']);
-                    $content .= '<button type="submit" class="btn btn-danger btn-sm mb-1 delete" title="' . __("Delete") . '"><i class="fa fa-trash"></i></button>';
+                    $content .= '<button type="submit" class="btn btn-danger btn-sm mb-1 delete" title="Delete"><i class="fa fa-trash"></i></button>';
                     $content .= \Form::close();
                 }
 
@@ -249,7 +272,7 @@ class LanguageController extends Controller
                     'name'  => $data['code'] ?? null,
                     'pages' => $translate->pages,
                     'group' => $translate->group,
-                    'panel' => $translate->panel,
+                    'platform' => $translate->platform,
                     'load'  => $translate->load,
                 ]);
             }
@@ -485,7 +508,7 @@ class LanguageController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'success',
-                'message' => __('Translations saved successfully.'),
+                'message' => 'Translations saved successfully.',
                 'updated' => count($updates),
                 'inserted' => count($insertions)
             ], 200);
@@ -493,7 +516,7 @@ class LanguageController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => __('Validation failed.'),
+                'message' => 'Validation failed.',
                 'errors' => $e->errors()
             ], 422);
         } catch (\Exception $e) {
@@ -523,7 +546,7 @@ class LanguageController extends Controller
           Validator::extend('file_extension', function ($attribute, $value, $parameters, $validator) {
               // Check if the file's extension matches the allowed extensions
               return in_array($value->getClientOriginalExtension(), $parameters);
-          }, "{{ __('File must be CSV format.') }}" );
+          }, 'File must be CSV format.' );
           // Validate the request with custom messages
           $this->validate($request, [
               'csvfile' => 'required|file_extension:csv', // The custom file extension validation rule

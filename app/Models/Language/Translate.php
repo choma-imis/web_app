@@ -10,5 +10,5 @@ class Translate extends Model
     use HasFactory;
     protected $table = 'language.translates';
 
-    protected $fillable = ['key', 'name', 'text', 'pages', 'group', 'panel', 'load'];
+    protected $fillable = ['key', 'name', 'text', 'pages', 'group', 'platform', 'load'];
 }
