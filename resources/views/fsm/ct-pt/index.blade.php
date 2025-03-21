@@ -14,7 +14,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="card">
         <div class="card-header">
             @can('Add PT/CT Toilet')
-                <a href="{{ action('Fsm\CtptController@create') }}" class="btn btn-info">{{__('Add Public / Community Toilet')}}s</a>
+                <a href="{{ action('Fsm\CtptController@create') }}" class="btn btn-info">{{__('Add Public / Community Toilets')}}</a>
             @endcan
             @can('Export PT/CT Toilets')
                 <a href="#" id="export" class="btn btn-info">{{__('Export to CSV')}}</a>
@@ -84,8 +84,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         </div>
 
                                         <div class="form-group row">
-                                        <label for="sanitary_supplies_disposal_facility" class="col-md-2 col-form-label ">{{__('Sanitary Supplies &
-                                                Disposal Facility')}}</label>
+                                        <label for="sanitary_supplies_disposal_facility" class="col-md-2 col-form-label ">{{__('Sanitary Supplies & Disposal Facility')}}</label>
                                             <div class="col-md-2">
                                                 <select class="form-control" id="sanitary_supplies_disposal_facility"
                                                     name="sanitary_supplies_disposal_facility">

@@ -5,9 +5,9 @@
 	<div class="card-header bg-white">
 
 	<div class="form-inline">
-		<a href="{{ action('Cwis\CwisMneController@index') }}" class="btn btn-info float-left">Back to List</a>
+		<a href="{{ action('Cwis\CwisMneController@index') }}" class="btn btn-info float-left">{{__('Back to List')}}</a>
 		<div class="form-group float-right text-right ml-auto">
-			<label for="year_new">Year</label>
+			<label for="year_new">{{__('Year')}}</label>
 			<select class="form-control" id="year_new" name="year_new">
 				
 					<option value= "{{$year}}"> {{$year}} </option>

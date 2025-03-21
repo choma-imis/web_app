@@ -16,13 +16,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('customer_name',__('Applicant  Name'),['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('customer_name',__('Applicant Name'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::label(null,$feedback->customer_name,['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('customer_gender',__('Applicant  Gender'),['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('customer_gender',__('Applicant Gender'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::label(null,$feedback->customer_gender=='Male'?'Male':($feedback->customer_gender=='Female'?'Female':''),['class' => 'form-control']) !!}
                 </div>

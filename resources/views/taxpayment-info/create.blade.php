@@ -10,7 +10,7 @@
 
         <div class="card-body">
             <div class="form-group row">
-                {!! Form::label('Upload Property Tax Collection Information Support System File',null,['class' => 'col-sm-3 control-label', 'style'=>'padding-top:3px;']) !!}
+                {!! Form::label(__('Upload Property Tax Collection Information Support System File'),null,['class' => 'col-sm-3 control-label', 'style'=>'padding-top:3px;']) !!}
                 <div class="col-sm-3">
                     {!! Form::file('csvfile') !!}
                 </div>

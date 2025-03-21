@@ -11,7 +11,7 @@
         <div class="col-sm-5">
             {!! Form::select('type_id', $containment_type, null, [
                 'class' => 'form-control col-sm-10',
-                'placeholder' => 'Containment Type',
+                'placeholder' => __('Containment Type'),
             ]) !!}
         </div>
     </div>
@@ -22,7 +22,7 @@
             <div class="col-sm-5">
                 {!! Form::select('sewer_code', $sewer_code, $containment_building->sewer_code, [
                     'class' => 'form-control col-sm-10 sewer_code',
-                    'placeholder' => 'Sewer Code',
+                    'placeholder' => __('Sewer Code'),
                     'id' => 'sewer_code',
                 ]) !!}
             </div>
@@ -33,7 +33,7 @@
             <div class="col-sm-5">
                 {!! Form::select('sewer_code', $sewer_code, $containment_building->sewer_code, [
                     'class' => 'form-control col-sm-10 sewer_code',
-                    'placeholder' => 'Sewer Code',
+                    'placeholder' => __('Sewer Code'),
                     'id' => 'sewer_code',
                 ]) !!}
             </div>
@@ -46,7 +46,7 @@
             <div class="col-sm-5">
                 {!! Form::select('drain_code', $drain_code, $containment_building->drain_code, [
                     'class' => 'form-control col-sm-10 drain_code',
-                    'placeholder' => 'Drain Code',
+                    'placeholder' => __('Drain Code'),
                     'id' => 'drain_code',
                 ]) !!}
             </div>
@@ -57,7 +57,7 @@
             <div class="col-sm-5">
                 {!! Form::select('drain_code', $drain_code, $containment_building->drain_code, [
                     'class' => 'form-control col-sm-10 drain_code',
-                    'placeholder' => 'Drain Code',
+                    'placeholder' => __('Drain Code'),
                     'id' => 'drain_code',
                 ]) !!}
             </div>
@@ -84,7 +84,7 @@
             <div class="col-sm-5">
                 {!! Form::text('pit_diameter', null, [
                     'class' => 'form-control col-sm-10',
-                    'placeholder' => 'Pit Diameter (m)',
+                    'placeholder' => __('Pit Diameter (m)'),
                    'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*?)\\..*/g, '$1')", // Allow decimal values
 
                 ]) !!}
@@ -95,7 +95,7 @@
             <div class="col-sm-5">
                 {!! Form::text('pit_depth', null, [
                     'class' => 'form-control col-sm-10',
-                    'placeholder' => 'Pit Depth (m)',
+                    'placeholder' => __('Pit Depth (m)'),
                    'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*?)\\..*/g, '$1')", // Allow decimal values
                 ]) !!}
             </div>
@@ -107,7 +107,7 @@
             <div class="col-sm-5">
                 {!! Form::text('tank_length', null, [
                     'class' => 'form-control col-sm-10',
-                    'placeholder' => 'Tank Length (m)',
+                    'placeholder' => __('Tank Length (m)'),
                    'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*?)\\..*/g, '$1')", // Allow decimal values
 
                 ]) !!}
@@ -118,7 +118,7 @@
             <div class="col-sm-5">
                 {!! Form::text('tank_width', null, [
                     'class' => 'form-control col-sm-10',
-                    'placeholder' => 'Tank Width (m)',
+                    'placeholder' => __('Tank Width (m)'),
                    'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*?)\\..*/g, '$1')", // Allow decimal values
                 ]) !!}
             </div>
@@ -128,7 +128,7 @@
             <div class="col-sm-5">
                 {!! Form::text('depth', null, [
                     'class' => 'form-control col-sm-10',
-                    'placeholder' => 'Tank Depth (m)',
+                    'placeholder' => __('Tank Depth (m)'),
                    'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*?)\\..*/g, '$1')", // Allow decimal values
 
                 ]) !!}
@@ -140,7 +140,7 @@
         <div class="col-sm-5">
             {!! Form::text('size', null, [
                 'class' => 'form-control col-sm-10',
-                'placeholder' => 'Containment Volume (m³)(Enter Dimensions to auto calculate)',
+                'placeholder' => __('Containment Volume (m³)(Enter Dimensions to auto calculate)'),
                'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*?)\\..*/g, '$1')", // Allow decimal values
 
             ]) !!}
@@ -156,7 +156,7 @@
                     'Outside the house' => 'Outside the house',
                 ],
                 null,
-                ['class' => 'form-control col-sm-10', 'placeholder' => 'Containment Location'],
+                ['class' => 'form-control col-sm-10', 'placeholder' => __('Containment Location')],
             ) !!}
         </div>
     </div>
@@ -169,7 +169,7 @@
             <div class="col-sm-5">
                 {!! Form::select('septic_criteria', [true => 'Yes', false => 'No'], null, [
                     'class' => 'form-control col-sm-10',
-                    'placeholder' => 'Septic Tank Standard Compliance',
+                    'placeholder' => __('Septic Tank Standard Compliance'),
                 ]) !!}
             </div>
         </div>
@@ -180,7 +180,7 @@
             {!! Form::date('construction_date', null, [
                 'class' => 'form-control col-sm-10',
                 'autocomplete' => 'off',
-                'placeholder' => 'Containment Construction Date',
+                'placeholder' => __('Containment Construction Date'),
                 'max' => now()->format('Y-m-d'),
                 'onclick' => 'this.showPicker();'
             ]) !!}
