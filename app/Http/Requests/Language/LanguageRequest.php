@@ -30,6 +30,7 @@ class LanguageRequest extends FormRequest
         'code.required' => 'Language Code required.',
         'status.required' => 'Language Status required.',
         'code.unique' => 'Language Code already exists.',
+        'code.regex' => 'Language Code must contain only letters and be up to 4 characters.',
         ];
     }
 
@@ -44,7 +45,7 @@ class LanguageRequest extends FormRequest
         'name' => 'required',
         'short' => 'required',
         'status' => 'required',
-        'code' => 'required|unique:pgsql.language.languages,code',
+        'code' => 'required|regex:/^[a-zA-Z]{1,4}$/|unique:pgsql.language.languages,code',
     ];
 }
 
@@ -55,7 +56,7 @@ class LanguageRequest extends FormRequest
             'name' => 'required',
             'short' => 'required',
             'status' => 'required',
-            'code' => 'required|unique:pgsql.language.languages,code',
+            'code' => 'required|regex:/^[a-zA-Z]{1,4}$/|unique:pgsql.language.languages,code',
         ];
     }
 }

@@ -67,7 +67,7 @@
     <h3 class="mt-3">{{ __('Building Information') }}  </h3>
 
     <!-- Main Building Identifier -->
-    <div class="form-group row required" id="main_building">
+    <div class="form-group row required" id="main-building">
         {!! Form::label('main_building', __('Main Building'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
             {!! Form::select('main_building', [true => __('Yes'), false => __('No')], null, [
@@ -362,7 +362,7 @@
         </div>
     </div>
 
-    <div class="form-group row" id="lic_status">
+    <div class="form-group row" id="lic-status">
         {!! Form::label('lic_status', __('Located In LIC'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
             {!! Form::select('lic_status', [true => __('Yes'), false => __('No')], null, [

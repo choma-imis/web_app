@@ -27,11 +27,11 @@
                                             {{ method_field('DELETE') }}
                                             @can('Edit Role')
                                                 <a href="{{ url('auth/roles/' . $role->id . '/edit') }}"
-                                                    class="btn btn-info btn-xs" title="Edit">
+                                                    class="btn btn-info btn-xs" title={{__("Edit")}}>
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             @endcan
-                                            <button type="submit" class="btn btn-danger btn-xs delete" title="' . __("Delete") . '"
+                                             <button type="submit" class="btn btn-danger btn-xs delete" title=" {{__("Delete")}} "
                                                 @if (!auth()->user()->hasRole('Super Admin') && !auth()->user()->hasRole('Municipality - Super Admin')) disabled @endif>
                                                 &nbsp;<i class="fa fa-trash"></i>&nbsp;
                                             </button>

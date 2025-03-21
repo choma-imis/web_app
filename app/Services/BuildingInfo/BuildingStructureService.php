@@ -1047,7 +1047,7 @@ class BuildingStructureService
                 $content = \Form::open(['method' => 'DELETE', 'route' => ['buildings.destroy', $model->bin]]);
 
                 if (auth()->user()->can('View Containments Connected to Buildings')) {
-                    $content .= '<a title="View Containments Connected to Building" data-id="' . $model->bin . '" class="containment btn btn-info btn-sm mb-1" data-toggle="modal" data-target="#containmentsModal"><i class="fa-solid fa-building"></i></a> ';
+                    $content .= '<a title="'.__("View Containments Connected to Building"). '" data-id="' . $model->bin . '" class="containment btn btn-info btn-sm mb-1" data-toggle="modal" data-target="#containmentsModal"><i class="fa-solid fa-building"></i></a> ';
                 }
 
                 if (auth()->user()->can('Edit Building Structure')) {
