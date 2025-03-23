@@ -70,7 +70,7 @@
     <div class="form-group row required" id="main-building">
         {!! Form::label('main_building', __('Main Building'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
-            {!! Form::select('main_building', [true => __('Yes'), false => __('No')], null, [
+            {!! Form::select('main_building', [true => 'Yes', false => 'No'], null, [
                 'class' => 'form-control col-sm-10',
                 'placeholder' => __('Main Building'),
             ]) !!}
@@ -355,7 +355,7 @@
     <div class="form-group row required" id="low_income_hh">
         {!! Form::label('low_income_hh', __('Is Low Income House'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
-            {!! Form::select('low_income_hh', [true => __('Yes'), false => __('No')], null, [
+            {!! Form::select('low_income_hh', [true => 'Yes', false => 'No'], null, [
                 'class' => 'form-control col-sm-10',
                 'placeholder' => __('Is Low Income House'),
             ]) !!}
@@ -365,7 +365,7 @@
     <div class="form-group row" id="lic-status">
         {!! Form::label('lic_status', __('Located In LIC'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
-            {!! Form::select('lic_status', [true => __('Yes'), false => __('No')], null, [
+            {!! Form::select('lic_status', [true => 'Yes', false => 'No'], null, [
                 'class' => 'form-control col-sm-10',
                 'placeholder' => __('Located In LIC'),
             ]) !!}
@@ -424,7 +424,7 @@
     <div class="form-group row" id="well-presence">
         {!! Form::label('well_presence_status', __('Well in Premises'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
-            {!! Form::select('well_presence_status', [true => __('Yes'), false => __('No')], null, [
+            {!! Form::select('well_presence_status', [true => 'Yes', false => 'No'], null, [
                 'class' => 'form-control col-sm-10',
                 'placeholder' => __('Well in Premises'),
             ]) !!}
@@ -463,7 +463,7 @@
     <div class="form-group row required" id="toilet-presence">
         {!! Form::label('toilet_status', __('Presence of Toilet'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
-            {!! Form::select('toilet_status', [true => __('Yes'), false => __('No')], null, [
+            {!! Form::select('toilet_status', [true => 'Yes', false => 'No'], null, [
                 'class' => 'form-control col-sm-10',
                 'placeholder' => __('Presence of Toilet'),
                 'id' => 'toilet_status',
