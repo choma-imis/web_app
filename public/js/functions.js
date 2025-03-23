@@ -127,9 +127,10 @@ function createUser() {
 function dynamicBuildingForm() {
     // display/ hide building_associated field
     $('#main_building').on('change', function () {
-        if ($("#main_building :selected").text() == "Yes") {
+        var mainBuilding = $("#main_building").val();
+        if (mainBuilding == "1") {
             $('#building_associated').hide();
-        } else if ($("#main_building :selected").text() == "No") {
+        } else if (mainBuilding == "0") {
 
             $('#building_associated').show();
         }
@@ -140,7 +141,8 @@ function dynamicBuildingForm() {
 
     // show lic name when id_lic field is yes
     $('#lic_status').on('change', function () {
-        if ($("#lic_status :selected").text() == "Yes") {
+        var licStatus = $("#lic_status").val();
+        if (licStatus == "1") {
             $('#lic_id').show();
         } else {
             $('#lic_id').hide();
@@ -160,7 +162,8 @@ function dynamicBuildingForm() {
 
     // hide distance from well if well presence is No and sanitaiton technology is containment
     $('#well-presence').on('change', function () {
-        if ($("#well-presence :selected").text() == "Yes") {
+        var wellPresence = $("#well_presence_status").val();
+        if (wellPresence == "1") {
             $('#distance-from-well').show();
         } else {
             $('#distance-from-well').hide();
@@ -170,47 +173,47 @@ function dynamicBuildingForm() {
     // hides if toilet presence No
     // shows if toilet presence Yes
     // hides everything is nothing is selected
-    $('#toilet-presence').on('change', function () {
-        if ($("#toilet-presence :selected").text() == "Yes") {
-            $('#toilet-info').show();
-            if ($("#use_category_id :selected").text() == "Community Toilet" ||  $("#use_category_id :selected").text() == "Public Toilet") {
-                $('#shared-toilet-popn').hide();
-                $('#shared-toilet').hide();
-            }
-            else{
-                $('#shared-toilet-popn').show();
-                $('#shared-toilet').show();
-            }
-            $('#toilet-connection').show();
-            $('#defecation-place').hide();
-            $('#ctpt-toilet').hide();
+    $('#toilet_status').on('change', function () {
+    var toiletPresence = $("#toilet_status").val(); 
+    if (toiletPresence == "1") {  
+        $('#toilet-info').show();
+        var useCategory = $("#use_category_id").val();  
+        if (useCategory == "Community Toilet" || useCategory == "Public Toilet") {
+            $('#shared-toilet-popn').hide();
+            $('#shared-toilet').hide();
+        }
+        else {
+            $('#shared-toilet-popn').show();
+            $('#shared-toilet').show();
+        }
+        $('#toilet-connection').show();
+        $('#defecation-place').hide();
+        $('#ctpt-toilet').hide();
+    } 
+    else if (toiletPresence == "0") {  
+        $('#defecation-place').show();
+        $('#toilet-info').hide();
+        $('#shared-toilet').hide();
+        $('#toilet-connection').hide();
+        $('#shared-toilet-popn').hide();
+        $('#containment-info').hide();
+        $('#containment-id').hide();
+        $('#drain-code').hide();
+        $('#sewer-code').hide();
+    }
+    else {
+        $('#defecation-place').hide();
+        $('#toilet-info').hide();
+        $('#shared-toilet').hide();
+        $('#toilet-connection').hide();
+        $('#shared-toilet-popn').hide();
+        $('#containment-info').hide();
+        $('#containment-id').hide();
+        $('#drain-code').hide();
+        $('#sewer-code').hide();
+    }
+});
 
-        } 
-        else if($("#toilet-presence :selected").text() == "No") 
-        {
-            $('#defecation-place').show();
-            $('#toilet-info').hide();
-            $('#shared-toilet').hide();
-            $('#toilet-connection').hide();
-            $('#shared-toilet-popn').hide();
-            $('#containment-info').hide();
-            $('#containment-id').hide();
-            $('#drain-code').hide();
-            $('#sewer-code').hide();
-        }
-        else
-        {
-            $('#defecation-place').hide();
-            $('#toilet-info').hide();
-            $('#shared-toilet').hide();
-            $('#toilet-connection').hide();
-            $('#shared-toilet-popn').hide();
-            $('#containment-info').hide();
-            $('#containment-id').hide();
-            $('#drain-code').hide();
-            $('#sewer-code').hide();
-        }
-    });
 
     //show ctpt field only when defecation-place is Community Toilet
     $('#defecation-place').on('change', function () {

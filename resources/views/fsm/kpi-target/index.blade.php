@@ -13,10 +13,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 <div class="card">
     <div class="card-header">
     @can('Add KPI Target')
-        <a href="{{ action('Fsm\KpiTargetController@create') }}" class="btn btn-info">Add KPI Target</a>
+        <a href="{{ action('Fsm\KpiTargetController@create') }}" class="btn btn-info">{{__('Add KPI Target')}}</a>
       @endcan
       @can('Export KPI Target')
-      <a href="#" id="export" class="btn btn-info">Export to CSV</a>
+      <a href="#" id="export" class="btn btn-info">{{__('Export to CSV')}}</a>
  @endcan
 
         <a href="#" class="btn btn-info float-right" data-toggle="collapse" data-target="#collapseFilter"
@@ -33,19 +33,19 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 <form class="form-horizontal" id="filter-form">
                                     <div class="form-group row">
 
-                                        <label for="indicators" class="col-md-2 col-form-label ">Indicator</label>
+                                        <label for="indicators" class="col-md-2 col-form-label ">{{__('Indicator')}}</label>
                                         <div class="col-md-2">
                                         <select class="form-control" id="indicator_id" name="indicator_id">
-                                            <option value="">Choose an Indicator</option>
+                                            <option value="">{{__('Choose an Indicator')}}</option>
                                             @foreach($indicators as $value)
                                             <option value="{{$value}}">{{$value}}</option>
                                             @endforeach
                                         </select>
                                         </div>
-                                        <label for="year" class="col-md-2 col-form-label ">Year</label>
+                                        <label for="year" class="col-md-2 col-form-label ">{{__('Year')}}</label>
                                         <div class="col-md-2">
                                         <select class="form-control" id="year" name="year">
-                                            <option value="">Choose a Year</option>
+                                            <option value="">{{__('Choose a Year')}}</option>
                                             @foreach($years as $value)
                                             <option value="{{$value}}">{{$value}}</option>
                                             @endforeach
@@ -70,11 +70,11 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             <table id="data-table" class="table table-bordered table-striped dtr-inline" width="100%">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Indicator</th>
-                    <th>Year</th>
-                    <th>Target (%)</th>
-                    <th>Actions</th>
+                    <th>{{__('ID')}}</th>
+                    <th>{{__('Indicator')}}</th>
+                    <th>{{__('Year')}}</th>
+                    <th>{{__('Target (%)')}}</th>
+                    <th>{{__('Actions')}}</th>
                 </tr>
             </thead>
         </table>
