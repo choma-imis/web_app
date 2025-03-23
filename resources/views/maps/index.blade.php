@@ -1034,7 +1034,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @can('Summary Information Road Map Tools')
                                                 <!-- road buffer -->
                                                 <span data-toggle="tooltip" data-placement="bottom"
-                                                    title="{{ __('Generate Information of Buildings and Containment within Selected Road with Buffer">
+                                                    title="{{ __('Generate Information of Buildings and Containment within Selected Road with Buffer') }}">
                                                     <a href="#" id="buildingsroads_control" class="btn btn-default map-control"><i class="fa-solid fa-building"></i>{{ __('Road Buffer Summary Information') }}</a>
                                                 </span>
                                             @endcan
