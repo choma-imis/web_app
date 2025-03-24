@@ -240,9 +240,42 @@ class CtptServiceClass{
         $caretaker_name = $data['caretaker_name'] ? $data['caretaker_name'] : null;
         $sanitary_supplies_disposal_facility = $data['sanitary_supplies_disposal_facility'] ? $data['sanitary_supplies_disposal_facility'] : null;
 
-        $columns = ['ID','Toilet Type','Toilet Name',
-        'Ward Number', 'Location', 'BIN', 'House Number','Toilet Connection of Building','Containment Connected','Drain Code', 'Sewer Code', 'Distance from Nearest Road (in m)','Status', 'Caretaker Name','Caretaker Gender', 'Caretaker Contact','Owning Institution','Name of Owning Institution', 'Operator and Maintained By','Name of Operate and Maintained by','Total Number of Seats ', 'Total Number of Urinals','Separate Facility for Male and Female','No. of Seats for Male Users','No. of Seats for Female Users ','Separate Facility for People with Disability', 'No. of seats for People with Disability','Separate Facility for Children',
-        'Adherence with Universal Design Principles ','Presence of Indicative Sign', 'Sanitary Supplies and Disposal Facilities', 'Uses Fee Collection', 'Uses Fee Rate', 'Frequency of Fee Collection'];
+        $columns = [
+            __('ID'),
+            __('Toilet Type'),
+            __('Toilet Name'),
+            __('Ward Number'),
+            __('Location'),
+            __('BIN'),
+            __('House Number'),
+            __('Toilet Connection of Building'),
+            __('Containment Connected'),
+            __('Drain Code'),
+            __('Sewer Code'),
+            __('Distance from Nearest Road (in m)'),
+            __('Status'),
+            __('Caretaker Name'),
+            __('Caretaker Gender'),
+            __('Caretaker Contact'),
+            __('Owning Institution'),
+            __('Name of Owning Institution'),
+            __('Operator and Maintained By'),
+            __('Name of Operate and Maintained by'),
+            __('Total Number of Seats'),
+            __('Total Number of Urinals'),
+            __('Separate Facility for Male and Female'),
+            __('No. of Seats for Male Users'),
+            __('No. of Seats for Female Users'),
+            __('Separate Facility for People with Disability'),
+            __('No. of Seats for People with Disability'),
+            __('Separate Facility for Children'),
+            __('Adherence with Universal Design Principles'),
+            __('Presence of Indicative Sign'),
+            __('Sanitary Supplies & Disposal Facilities'),
+            __('Uses Fee Collection'),
+            __('Uses Fee Rate'),
+            __('Frequency of Fee Collection')
+        ];
         $query = Ctpt::select('*')
         ->orderBy('id')
         ->whereNull('deleted_at');

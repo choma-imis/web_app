@@ -142,7 +142,15 @@ class WaterSupplysService
         $code = $data['code'] ? $data['code'] : null;
         $length = $data['length'] ? $data['length'] : null;
         $project_name = $data['project_name'] ? $data['project_name'] : null;
-        $columns = ['Code', 'Road Code', 'Project Name', 'Type' , 'Material Type', 'Diameter (mm)', 'Length (m)'];
+        $columns = [
+            __('Code'),
+            __('Road Code'),
+            __('Project Name'),
+            __('Type'),
+            __('Material Type'),
+            __('Diameter (mm)'),
+            __('Length (m)'),
+        ];
 
         $query = WaterSupplys::select('code', 'road_code', 'project_name', 'type', 'material_type', 'diameter',  'length')
             ->whereNull('deleted_at');
