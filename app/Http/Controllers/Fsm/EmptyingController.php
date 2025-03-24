@@ -138,8 +138,9 @@ class EmptyingController extends Controller
      * @param int $id
      * @return Redirector|RedirectResponse
      */
-    public function update(EmptyingRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        // dd($request->all());
         return $this->emptyingService->updateEmptying($request,$id);
     }
 

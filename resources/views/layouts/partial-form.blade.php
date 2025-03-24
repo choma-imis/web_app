@@ -92,6 +92,7 @@ A dynamic form layout
                                     @endpush
                                 </div>
                                 @endif
+                                
                             @if($field->inputType === 'geom_viewer')
                                     <div class="input-group mb-3">
                                         <div id="map" style="width: 100%;height: 500px">
@@ -130,7 +131,7 @@ A dynamic form layout
                     {!! Form::text($formField->inputId,$formField->inputValue,['class' => $formField->inputClass, 'placeholder' => $formField->placeholder,'disabled' => $formField->disabled,'autocomplete'=>$formField->autoComplete, 'oninput'=>$formField->oninput]) !!}
                 @endif
                 @if($formField->inputType === 'textarea')
-                    {!! Form::textarea($formField->inputId, $formField->inputValue, ['class' => 'form-control', 'rows' => 4, 'cols' => 54, 'style' => 'resize:none']) !!}
+                    {!! Form::textarea($formField->inputId, $formField->inputValue, ['class' => 'form-control', 'placeholder' => $formField->placeholder,'rows' => 4, 'cols' => 54, 'style' => 'resize:none']) !!}
                 @endif
                 @if($formField->inputType === 'number')
                     {!! Form::number($formField->inputId,$formField->inputValue,['class' => $formField->inputClass, 'placeholder' => $formField->placeholder,'disabled' => $formField->disabled, 'oninput'=>$formField->oninput]) !!}

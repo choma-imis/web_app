@@ -3,10 +3,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 @extends('layouts.dashboard')
 @section('title', $page_title)
 @section('content')
+@include('layouts.components.error-list')
+@include('layouts.components.success-alert')
+@include('layouts.components.error-alert')
 
 <div class="card card-info">
     <div class="form-horizontal">
-@include('errors.list')
+
 	{!! Form::model($feedback, ['method' => 'PATCH', 'action' => ['Fsm\FeedbackController@update', $feedback->id], 'class' => 'form-horizontal']) !!}
         <div class="card-body">
             <div class="form-group row">
@@ -39,24 +42,26 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 {!! Form::label('fsm_service_quality',__('Are you satisfied with the Service Quality?'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                 <label class="radio-inline">
-                        {{ Form::radio('fsm_service_quality',true,false) }}  Yes
+                {{ Form::radio('fsm_service_quality', '1', false) }} Yes
                 </label>
                 <label class="radio-inline">
-                    {{ Form::radio('fsm_service_quality',false,false) }}  No
+                {{ Form::radio('fsm_service_quality', '0', false) }} No
                 </label>
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('wear_ppe',__('Did the sanitation workers wear PPE during desludging?'),['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('wear_ppe', __('Did the sanitation workers wear PPE during desludging?'), ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     <label class="radio-inline">
-                        {{ Form::radio('wear_ppe',true,false) }}  Yes
+                    {{ Form::radio('wear_ppe', '1', false) }} Yes
+
                     </label>
                     <label class="radio-inline">
-                        {{ Form::radio('wear_ppe',false,false) }}  No
+                    {{ Form::radio('wear_ppe', '0', false) }} No
                     </label>
                 </div>
             </div>
+
             <div class="form-group row">
                 {!! Form::label('comments',__('Comments'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
