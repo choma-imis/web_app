@@ -53,25 +53,13 @@ class LanguageController extends Controller
         return view("language.index", compact('languages', 'page_title'));
     }
 
-    public function generate_translate($code)
-    {
-        $translate1 = $this->generate_translate_platform($code, 'web');
-        $translate2 = $this->generate_translate_platform($code, 'mobile');
-        if ($translate1) {
-            redirect('language/setup')->with('success', 'Sorry! Unable find the language');
-        }else if ($translate2) {
-            redirect('language/setup')->with('success', 'Sorry! Unable find the language');
-        }
-        else{
-            redirect('language/setup')->with('error', 'Sorry! Unable find the language');
-        }
-    }
 
-    public function generate_translate_platform($code, $platform)
+
+    public function generate_translate($code)
     {
         $lang = $code;
         if ($this->is_lang_exist($lang)) {
-            $translate = $this->get_translation('en', false, $platform);
+            $translate = $this->get_translation('en', false);
             $output = [];
             foreach ($translate as $base) {
                 $key = $base->key;
@@ -91,10 +79,10 @@ class LanguageController extends Controller
 
                 $content = json_encode($output, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-                $generate = $this->generate_lang_file($lang, $content, 'update', $platform);
+                $generate = $this->generate_lang_file($lang, $content, 'update');
                 if ($generate && $generate->status == true) {
                     // $this->add_setting('lang_last_generate_' . $lang, time());
-                    return redirect('language/setup')->with('success', 'Language file generated successfully.');
+                    return redirect('language/setup')->with('success', 'Language file generated successfully');
                 } else {
                     return redirect('language/setup')->with('error', 'Failed to generate the language file.');
                 }
@@ -107,18 +95,11 @@ class LanguageController extends Controller
         return $result;
     }
 
-    public function get_translation($lang = 'base', $only = true, $platform)
+    public function get_translation($lang = 'base', $only = true)
     {
         $get_only = ($only == true) ? ['key', 'name', 'text', 'load'] : ['key', 'name', 'text', 'pages', 'group', 'platform', 'load'];
-
-        if($platform='mobile'){
-            return Translate::where('name', $lang)->where('platform', 'mobile')->get($get_only);
-        }
-        else{
-            return Translate::where('name', $lang)->get($get_only);
-        }
+        return Translate::where('name', $lang)->get($get_only);
     }
-
     // function to return translation values by key
     public function get_by_key($key, $lang = 'base')
     {
@@ -131,27 +112,23 @@ class LanguageController extends Controller
         return ($get_lang) ? true : false;
     }
     // sub function that stores the file in correct path
-    public function generate_lang_file($lang, $content, $action = 'update', $platform)
+    public function generate_lang_file($lang, $content, $action = 'update')
     {
+
         // dd($lang, $content);
         $result = ['status' => false];
 
-        if($platform='mobile'){
-            $file_name = $lang . '.json';
-            $lang_file = lang_path('api/' . $file_name);
-        }
-        else{
-            $file_name = $lang . '.json';
-            $lang_file = lang_path($file_name);
-        }
-
         if ($action === 'store') {
+            $lang_file = lang_path($lang . '.json');
             if (File::exists($lang_file)) {
 
                 File::delete($lang_file);
             }
             File::put($lang_file, $content);
         } else {
+
+            $file_name = $lang . '.json';
+            $lang_file = lang_path($file_name);
             if (File::isWritable(lang_path())) {
                 if (File::exists($lang_file)) {
 
@@ -171,6 +148,12 @@ class LanguageController extends Controller
         $_key = Cookie::queue(Cookie::make('app_language', $lang, (60 * 24 * 365)));
         return back();
     }
+
+
+
+
+
+
 
     /**
      * Fetch and format data for DataTables.
@@ -277,7 +260,7 @@ class LanguageController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect('language/setup')->with('success', 'Language Added successfully.');
+            return redirect('language/setup')->with('success', 'Language Added successfully');
         } catch (Exception $e) {
             DB::rollBack();
             \Log::error('Error in storing Language and Translates: ' . $e->getMessage());
@@ -364,7 +347,7 @@ class LanguageController extends Controller
         if ($language) {
             $data = $request->all();
             $this->storeOrUpdate($language->id, $data);
-            return redirect('language/setup')->with('success', 'Language updated successfully.');
+            return redirect('language/setup')->with('success', 'Language updated successfully');
         } else {
             return redirect('language/setup')->with('error', 'Failed to update Language');
         }
@@ -391,7 +374,7 @@ class LanguageController extends Controller
         $language->delete();
 
         DB::commit();
-        return redirect()->back()->with('success', 'Language deleted successfully.');
+        return redirect()->back()->with('success', 'Language deleted successfully');
     } catch (Exception $e) {
         DB::rollBack();
         \Log::error('Error in deleting Language and Translates: ' . $e->getMessage());
@@ -451,7 +434,7 @@ class LanguageController extends Controller
             if (empty($translations)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'No translations provided.'
+                    'message' => 'No translations provided'
                 ], 400);
             }
 
@@ -508,7 +491,7 @@ class LanguageController extends Controller
             DB::commit();
             return response()->json([
                 'status' => 'success',
-                'message' => 'Translations saved successfully.',
+                'message' => 'Translations saved successfully',
                 'updated' => count($updates),
                 'inserted' => count($insertions)
             ], 200);
@@ -516,14 +499,14 @@ class LanguageController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed.',
+                'message' => 'Validation failed',
                 'errors' => $e->errors()
             ], 422);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'status' => 'error',
-                'message' => 'Error saving translations.',
+                'message' => 'Error saving translations',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -546,13 +529,13 @@ class LanguageController extends Controller
           Validator::extend('file_extension', function ($attribute, $value, $parameters, $validator) {
               // Check if the file's extension matches the allowed extensions
               return in_array($value->getClientOriginalExtension(), $parameters);
-          }, 'File must be CSV format.' );
+          }, 'File must be CSV format');
           // Validate the request with custom messages
           $this->validate($request, [
               'csvfile' => 'required|file_extension:csv', // The custom file extension validation rule
           ], [
               'required' => 'The CSV file is required.',
-              'file_extension' => 'File must be CSV format.',  // Error message for the custom validation rule
+              'file_extension' => 'File must be CSV format',  // Error message for the custom validation rule
           ]);
 
           if ($request->hasFile('csvfile')) {
@@ -561,13 +544,13 @@ class LanguageController extends Controller
               $headings = (new HeadingRowImport)->toArray($request->file('csvfile'));
               $heading_row_errors = array();
               if (!in_array("key", $headings[0][0])) {
-                  $heading_row_errors['key'] = "Heading row : key is required.";
+                  $heading_row_errors['key'] = "Heading row : key is required";
               }
               if (!in_array("text", $headings[0][0])) {
-                  $heading_row_errors['text'] = "Heading row : text is required.";
+                  $heading_row_errors['text'] = "Heading row : text is required";
               }
               if (!in_array("translated_text", $headings[0][0])) {
-                  $heading_row_errors['translated_text'] = "Heading row : translated_text is required.";
+                  $heading_row_errors['translated_text'] = "Heading row : translated_text is required";
               }
               if (count($heading_row_errors) > 0) {
                   return back()->withErrors($heading_row_errors);
@@ -612,7 +595,7 @@ class LanguageController extends Controller
 
           }
           DB::commit();
-          return redirect('language/setup')->with('success', "The translations file has been imported successfully. Select the 'Generate Language' button to apply the changes.");
+          return redirect('language/setup')->with('success', "Translations have been imported sucessfully. Generate the translation file to reflect changes.");
       }
 
     // export csv template for import with the key values pre-filled

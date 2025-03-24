@@ -1,6 +1,6 @@
 <?php
 // Last Modified Date: 20-03-2025
-// Developed By: Innovative Solution Pvt. Ltd. (ISPL)  
+// Developed By: Innovative Solution Pvt. Ltd. (ISPL)
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Cookie;
 use DB;
 use DataTables;
 use Auth;
+
+
 use Box\Spout\Writer\Style\Color;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Box\Spout\Writer\WriterFactory;
@@ -23,49 +25,42 @@ use Maatwebsite\Excel\HeadingRowImport;
 use Illuminate\Support\Facades\Validator;
 use App\Imports\TranslateImport;
 
+
 class LanguageController extends Controller
 {
-   
-    /**
 
-     * Display a list of the translation.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function headerDropdown()
     {
-        $languages = Language::where('status',true)->pluck( 'name','code');
-
-        // Load translation
-        if ($languages) {
-            return response()->json([
-                'translation' => $languages
-            ]);
-        }
-
-        return response()->json([
-            'error' => 'Language not found.'
-        ], 404);
+        $activeLang = Language::where('status', 1)->pluck('short');
+        return response()->json(['languages' => $activeLang]);
     }
-    
-    public function getTranslations(Request $request)
-    {
-        // Get the requested language, default to English ('en')
-        $lang = $request->lang;
 
-        // Check if the language exists in the resources/lang folder
-        $langPath = resource_path("lang/api/{$lang}.json");
 
-        if (!File::exists($langPath)) {
-            return response()->json(['error' => 'Language not supported.'], 404);
-        }
 
-        // Load the translations
-        $translations = json_decode(File::get($langPath), true);
 
-        return response()->json([
-            'language' => $lang,
-            'translations' => $translations,
+    public function getTranslation($lang_id)
+{
+    $translations = DB::table('language.translates as t')
+        ->join('language.translates as en_translations', function ($join) {
+            $join->on('t.key', '=', 'en_translations.key')
+                 ->where('en_translations.name', '=', 'en');
+        })
+        ->where('t.name', $lang_id)
+        ->where('t.platform', 'mobile') // Filter only mobile platform
+        ->where('en_translations.platform', 'mobile') // Ensure English translations are also for mobile
+        ->get([
+            'en_translations.text as english_text', // English text
+            't.text as translated_text'  // Translated text
         ]);
+
+    // Convert list to key-value format
+    $formattedTranslations = [];
+    foreach ($translations as $translation) {
+        $formattedTranslations[$translation->english_text] = $translation->translated_text;
     }
+
+    return response()->json($formattedTranslations);
+}
+
+
 }
