@@ -28,7 +28,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="form-group row">
                                         <label for="application_id" class="control-label col-md-2"> {{__("Application ID")}}</label>
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" id="application_id" placeholder="Application ID"
+                                            <input type="text" class="form-control" id="application_id" placeholder="{{__("Application ID")}}"
                                             oninput = "this.value = this.value.replace(/[^0-9]/g, ''); "/> <!-- Allow only numeric characters (0-9) -->
                                         </div>
                                         <label for="ward_select" class="control-label col-md-2"> {{__("Ward Number")}}</label>
@@ -154,7 +154,7 @@ $(function() {
         if ((date_from !== '') && (date_to === '')) {
 
             Swal.fire({
-                title: '{{ __('Date To is Required') }}',
+                title: "{{ __('Date To is Required') }}",
                         text: "{{ __('Please Select Date To!') }}",
                         icon: 'warning',
                         showCancelButton: false,
@@ -168,7 +168,7 @@ $(function() {
         if ((date_from === '') && (date_to !== '')) {
 
                     Swal.fire({
-                        title:'{{ __('Date To is Required') }}',
+                        title:"{{ __('Date To is Required') }}",
                         text: "{{ __('Please Select Date From!') }}",
                         icon: 'warning',
                         showCancelButton: false,

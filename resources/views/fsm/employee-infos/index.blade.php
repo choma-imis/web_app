@@ -46,7 +46,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <label for="employee_type" class="col-md-2 col-form-label text-right">{{ __("Designation") }}</label>
                     <div class="col-md-2">
                         <select class="form-control" id="employee_type">
-                            <option value="">Designation</option>
+                            <option value="">{{ __("Designation") }}</option>
                             <option value="Management">Management</option>
                             <option value="Driver">Driver</option>
                             <option value="Cleaner/Emptier">Cleaner/Emptier</option>
@@ -66,7 +66,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <label for="status" class="col-md-2 col-form-label text-right">{{ __("Status") }}</label>
                     <div class="col-md-2">
                         <select class="form-control chosen-select" id="status" name="status">
-                            <option value="">Status</option>
+                            <option value="">{{ __("Status") }}</option>
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
                         </select>

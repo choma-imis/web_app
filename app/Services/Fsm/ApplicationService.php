@@ -988,7 +988,7 @@ class ApplicationService
         $previous_application_status = Application::where('containment_id',$request->containment_id)->where('emptying_status',false)->whereNULL('deleted_at')->exists();
         if($previous_application_status)
         {
-            return redirect()->back()->withInput()->with('error', __("Error! Containment already has running Application. "));
+            return redirect()->back()->withInput()->with('error', __("Error! Containment already has running Application."));
         }
         $application = '';
         if ($request->validated()){

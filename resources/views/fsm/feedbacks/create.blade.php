@@ -11,26 +11,26 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 {!! Form::open(['url' => 'fsm/feedback', 'files' => true, 'class' => 'form-horizontal']) !!}
         <div class="card-body">
             <div class="form-group row">
-                {!! Form::label('application_id','Application ID',['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('application_id',__('Application ID'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     
                     {!! Form::text('application_id',$application->id,['class' => 'form-control','readonly' => true]) !!}
                 </div>
             </div>
             <div class="form-group row required">
-                {!! Form::label('customer_name','Applicant Name',['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('customer_name', __('Applicant Name'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('customer_name',$application->applicant_name,['class' => 'form-control','readonly' => true]) !!}
                 </div>
             </div>
             <div class="form-group row required">
-                {!! Form::label('customer_gender','Applicant Gender',['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('customer_gender',__('Applicant Gender'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('customer_gender',$application->applicant_gender,['class' => 'form-control','placeholder'=>'Select Gender','readonly' => true]) !!}
                 </div>
             </div>
             <div class="form-group row required">
-                {!! Form::label('customer_number','Applicant Contact Number',['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('customer_number',__('Applicant Contact Number'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('customer_number',$application->applicant_contact,['class' => 'form-control','readonly' => true]) !!}
                 </div>
@@ -60,7 +60,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
           
             <div class="form-group row">
-                {!! Form::label('comments',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('comments',__('Comments'),['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::textarea('comments', null,['class' => 'form-control']) !!}
                 </div>

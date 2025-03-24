@@ -26,7 +26,7 @@ class ApplicationRequest extends FormRequest
     {
        
         return [
-            'road_code' => 'required',
+            'road_code' => request()->isMethod('post') ? 'required' : 'nullable',
             'bin' => request()->isMethod('post') ? 'required' : 'nullable',
             'ward' => 'nullable|integer|min:1',
             'customer_name' => '',

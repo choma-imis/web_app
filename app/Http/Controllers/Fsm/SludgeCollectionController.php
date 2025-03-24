@@ -360,7 +360,7 @@ class SludgeCollectionController extends Controller
             $application->sludge_collection_status=false;
             $application->save();
             $sludgeCollection->delete();
-            return redirect('fsm/sludge-collection')->with('success','Sludge Collection deleted successfully.');
+            return redirect('fsm/sludge-collection')->with('success',__('Sludge Collection deleted successfully'));
         } else {
             return redirect('fsm/sludge-collection')->with('error',__('Failed to delete Sludge Collection.'));
         }

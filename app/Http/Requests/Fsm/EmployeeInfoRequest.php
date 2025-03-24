@@ -61,6 +61,9 @@ class EmployeeInfoRequest extends FormRequest
             'status.required'=>__('The Status is required.'),
             'employment_end.required_if'=>__('The Job End Date is required when Status is Inactive.'),
             'employment_end.after' => __('The Job End Date must be a date after Job Start Date.'),
+            'employment_end.after' => __('The Job End Date must be a date after Job Start Date.'),
+            'license_number.unique'=>__('The license plate number has already been taken.'),
+
         ];
     }
 

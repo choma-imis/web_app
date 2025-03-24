@@ -220,6 +220,7 @@ class FeedbackController extends Controller{
         $feedback->wear_ppe = (bool)$request->wear_ppe;
         $feedback->comments = $request->comments ? $request->comments : null;
         $feedback->service_provider_id = $application->service_provider_id;
+
         $feedback->save();
         
         $application->feedback_status = TRUE;
@@ -303,7 +304,16 @@ class FeedbackController extends Controller{
         $ward = $_GET['ward'] ?? null;
         $date_from = $_GET['date_from'] ?? null;
         $date_to = $_GET['date_to'] ?? null;
-        $columns = ['Application ID','Applicant Name','Applicant Gender','Applicant Contact Number','Are you satisfied with the Service Quality?','Did the sanitation workers wear PPE during desludging?','Comments'];
+        $columns = [
+            __('Application ID'),
+            __('Applicant Name'),
+            __('Applicant Gender'),
+            __('Applicant Contact Number'),
+            __('Are you satisfied with the Service Quality?'),
+            __('Did the sanitation workers wear PPE during desludging?'),
+            __('Comments')
+        ];
+        
         $query = DB::table('fsm.feedbacks AS f')
             ->join('auth.users AS u', 'f.user_id', '=', 'u.id')
             ->join('fsm.applications AS a', 'f.application_id', '=', 'a.id')
