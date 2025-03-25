@@ -27,7 +27,7 @@ class MunicipalityITAdminSeeder extends Seeder
             $createdRole = Role::updateOrCreate($role);
             switch ($createdRole->name) {
                 case 'Municipality - IT Admin':
-                    
+
                     $createdRole->givePermissionTo(Permission::all()->whereIn('group', [
                         'Building Dashboard',
                         'Dashboard',
@@ -70,7 +70,7 @@ class MunicipalityITAdminSeeder extends Seeder
                     $createdRole->givePermissionTo(Permission::all()->whereIn('group', [
                         'Treatment Plant Efficiency Standards'
                     ])->whereIn('type', ['View']));
-                    
+
                     //CT/PT
                     $createdRole->givePermissionTo(Permission::all()->whereIn('group', ['PT/CT Toilets','PT Users Logs'])
                         ->whereIn('type', ['View', 'List', 'Export', 'History', 'View on map'])
@@ -186,6 +186,20 @@ class MunicipalityITAdminSeeder extends Seeder
                             'Delete',
                             'Activity'
                         ]));
+
+                    //Language Module
+                    $createdRole->givePermissionTo(Permission::all()->whereIn('group', ['Language'])
+                    ->whereIn('type', [
+                        'List',
+                        'View',
+                        'Add',
+                        'Edit',
+                        'Delete',
+                        'Import'
+                    ]));
+
+
+
 
                     break;
             }

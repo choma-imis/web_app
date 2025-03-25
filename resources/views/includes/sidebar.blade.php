@@ -592,7 +592,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 </ul>
                 <ul class="nav nav-treeview">
                             <li class="nav-item {{ request()->is('language/*') ? 'menu-is-opening menu-open' : '' }}"><a href="#" class="nav-link {{ request()->is('language/*') ? 'active subnav' : '' }}">
-                            <i class="fa-solid fa-users"></i>
+                                <i class="fa-solid fa-language"></i>
                             <p>
                                {{__("Language Settings")}}<i class="right fas fa-angle-left"></i>
                             </p>
