@@ -72,7 +72,7 @@ class CtptUserServiceClass
         ->where('deleted_at', null)
         ->exists()) {
             return redirect('fsm/ctpt-users')
-            ->with('error', 'The record of toilet' . $request->toilet_id . ' for the year ' . $request->date . 'already exists!!');
+            ->with('error', __('The record of toilet') . $request->toilet_id . __('for the year') . $request->date .__( 'already exists!!'));
         } else {
             $info = new CtptUsers();
             $info->no_male_user = $request->no_male_user ? $request->no_male_user : null;
@@ -104,7 +104,7 @@ class CtptUserServiceClass
 
         $toilet_name = $_GET['toilet_id'] ?? null;
         $date = $_GET['date'] ?? null;
-        $columns = ['ID','Toilet Name','Date','No. of Male Users (daily)', 'No. of Female Users (daily)'];
+        $columns = [__('ID'),__('Toilet Name'),__('Date'),__('No. of Male Users (daily)'), __('No. of Female Users (daily)')];
         $query = DB::table('fsm.ctpt_users as ctpt')
             ->leftJoin('fsm.toilets as t', 'ctpt.toilet_id', '=', 't.id')
             ->select('ctpt.id as id',

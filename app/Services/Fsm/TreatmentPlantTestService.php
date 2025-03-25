@@ -218,7 +218,17 @@ class TreatmentPlantTestService
         $phMax = TreatmentPlantPerformanceTest::value('ph_max');
         $tssStandard = TreatmentPlantPerformanceTest::value('tss_standard');
 
-        $columns = ['Treatment Plant', 'Sample Date', 'Temperature °C', 'pH', 'COD (mg/I)', 'BOD (mg/l)', 'TSS (mg/l)', 'Ecoli', 'Remark'];
+        $columns = [
+            __('Treatment Plant'),
+            __('Sample Date'),
+            __('Temperature °C'),
+            __('pH'),
+            __('COD (mg/I)'),
+            __('BOD (mg/l)'),
+            __('TSS (mg/l)'),
+            __('Ecoli'),
+            __('Remark'),
+        ];
 
         $query = TreatmentPlantTest::select('treatment_plant_id', 'date', 'temperature', 'ph', 'cod', 'bod', 'tss', 'ecoli', 'remarks')
             ->whereNull('deleted_at');

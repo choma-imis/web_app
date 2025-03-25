@@ -112,7 +112,7 @@ class WaterSamplesService
         $sample_location = $data['sample_location'] ? $data['sample_location'] : null;
         $water_coliform_test_result = $data['water_coliform_test_result'] ? $data['water_coliform_test_result'] : null;
 
-        $columns = ['ID', 'Sample Date', 'Sample Location','Water Coliform Test Result', 'Longitude', 'Latitude'];
+        $columns = [__('ID'), __('Sample Date'), __('Sample Location'),__('Water Coliform Test Result'), __('Longitude'), __('Latitude')];
 
         $query = WaterSamples::select('id', 'sample_date', 'sample_location','water_coliform_test_result',DB::raw("ST_X(geom) as longitude"),DB::raw("ST_Y(geom) as latitude"))->whereNull('deleted_at');
         if (!empty($sample_date)) {

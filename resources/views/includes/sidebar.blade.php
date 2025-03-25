@@ -591,6 +591,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 </ul>
                 <ul class="nav nav-treeview">
+
                     @can('List Languages')
                     <li class="nav-item">
                         <a href="{{ action('Language\LanguageController@index') }}" class="nav-link {{ request()->is('language/*') ? 'active' : '' }}">

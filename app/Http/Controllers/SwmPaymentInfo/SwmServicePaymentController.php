@@ -112,7 +112,7 @@ class SwmServicePaymentController extends Controller
             else {
                 return true;
             }
-        }, "{{ __('File must be csv format.') }}" );
+        }, __('File must be csv format.') );
         $this->validate($request,
                 ['csvfile' => 'required|file_extension:csv'],
                 ['required' => 'The csv file is required.'],
@@ -162,7 +162,7 @@ class SwmServicePaymentController extends Controller
                     $import = new SwmImport();
                     $import->import($location.$filename);
 
-                    $message = 'Successfully Imported SWM Service Payments From CSV.';
+                    $message = __('Successfully Imported SWM Service Payments From CSV.');
                     \DB::statement("select swm_info.fnc_swmpaymentstatus()");
 
                     \DB::statement('select swm_info.fnc_updonimprt_gridnward_swm()');
@@ -192,7 +192,15 @@ class SwmServicePaymentController extends Controller
         $bin = $_GET['bin'] ?? null;
         $tax_code = $_GET['tax_code'] ?? null;
 
-        $columns = ['SWM Customer ID', 'BIN', 'Tax Code', 'Ward', 'Customer Name', 'Customer Contact', 'Due Years'];
+        $columns = [
+            __('SWM Customer ID'),
+            __('BIN'),
+            __('Tax Code'),
+            __('Ward'),
+            __('Customer Name'),
+            __('Customer Contact'),
+            __('Due Years')
+        ];
 
         $query = DB::table('swm_info.swmservice_payment_status AS pmt')
                                 ->leftjoin('swm_info.due_years AS due', 'due.value', '=', 'pmt.due_year')
@@ -248,7 +256,12 @@ class SwmServicePaymentController extends Controller
     }
     public function exportunmatched()
     {
-        $columns = ['SWM Customer ID', 'Customer Name', 'Customer Contact', 'Last Payment date'];
+        $columns = [
+            __('SWM Customer ID'),
+            __('Customer Name'),
+            __('Customer Contact'),
+            __('Last Payment date')
+        ];
 
         $query = DB::table('swm_info.swmservice_payments AS pmt')
                  ->leftjoin('building_info.buildings as b', 'pmt.swm_customer_id', '=', 'b.swm_customer_id')
