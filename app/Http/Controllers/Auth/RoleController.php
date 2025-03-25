@@ -50,7 +50,7 @@ class RoleController extends Controller
     public function searchPermission(Request $request, $id)
     {
         $search = $request->search;
-        $page_title = __('Edit Role');
+        $page_title = __('Edit Role'); 
         $role = Role::find($id);
        $permission = DB::select("SELECT * FROM permissions WHERE LOWER(permissions.name) LIKE LOWER('%" . $search . "%')");
 

@@ -105,7 +105,7 @@ class TaxPaymentController extends Controller
             else {
                 return true;
             }
-        }, "{{ __('File must be csv format.') }}" );
+        }, __('File must be csv format.') );
         $this->validate($request,
                 ['csvfile' => 'required|file_extension:csv'],
                 ['required' => 'The csv file is required.'],
@@ -155,7 +155,7 @@ class TaxPaymentController extends Controller
                     $import = new TaxImport();
                     $import->import($location.$filename);
 
-                    $message = 'Successfully Imported Building Tax Payments From CSV.';
+                    $message = __('Successfully Imported Building Tax Payments From CSV.');
                     \DB::statement("select taxpayment_info.fnc_taxpaymentstatus()");
 
                     \DB::statement('select taxpayment_info.fnc_updonimprt_gridnward_tax()');
@@ -183,7 +183,14 @@ class TaxPaymentController extends Controller
         $tax_code = $_GET['tax_code'] ?? null;
         $bin = $_GET['bin'] ?? null;
 
-        $columns = ['Tax Code', 'BIN', 'Ward', 'Owner Name', 'Owner Contact', 'Due Years'];
+        $columns = [
+            __('Tax Code'),
+            __('BIN'),
+            __('Ward'),
+            __('Owner Name'),
+            __('Owner Contact'),
+            __('Due Years')
+        ];
 
         $query = DB::table('taxpayment_info.tax_payment_status AS tax')
                                 ->leftjoin('taxpayment_info.due_years AS due', 'due.value', '=', 'tax.due_year')
@@ -232,7 +239,12 @@ class TaxPaymentController extends Controller
     }
     public function exportunmatched()
     {
-        $columns = ['Tax Code', 'Owner Name', 'Owner Contact', 'Last Payment date'];
+        $columns = [
+            __('Tax Code'),
+            __('Owner Name'),
+            __('Owner Contact'),
+            __('Last Payment date')
+        ];
 
         $query = DB::table('taxpayment_info.tax_payments AS tax')
                  ->leftjoin('building_info.buildings as b', 'tax.tax_code', '=', 'b.tax_code')

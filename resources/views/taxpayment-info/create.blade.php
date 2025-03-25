@@ -18,7 +18,7 @@
         </div><!-- /.card-body -->
         <div class="card-footer">
             <a href="{{ route('tax-payment.index') }}" class="btn btn-info">{{ __('Back to List') }}</a>
-            {!! Form::submit('Upload', ['class' => 'btn btn-info']) !!}
+            {!! Form::submit(__('Upload'), ['class' => 'btn btn-info']) !!}
         </div><!-- /.card-footer -->
     {!! Form::close() !!}
 
