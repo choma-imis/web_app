@@ -41,17 +41,17 @@ class LanguageController extends Controller
     public function getTranslation($lang_id)
 {
     $translations = DB::table('language.translates as t')
-        ->join('language.translates as en_translations', function ($join) {
-            $join->on('t.key', '=', 'en_translations.key')
-                 ->where('en_translations.name', '=', 'en');
-        })
-        ->where('t.name', $lang_id)
-        ->where('t.platform', 'mobile') // Filter only mobile platform
-        ->where('en_translations.platform', 'mobile') // Ensure English translations are also for mobile
-        ->get([
-            'en_translations.text as english_text', // English text
-            't.text as translated_text'  // Translated text
-        ]);
+    ->join('language.translates as en_translations', function ($join) {
+        $join->on('t.key', '=', 'en_translations.key')
+             ->where('en_translations.name', '=', 'en');
+    })
+    ->where('t.name', $lang_id)
+    ->where('t.platform', 'mobile') // Filter only mobile platform
+    ->where('en_translations.platform', 'mobile') // Ensure English translations are also for mobile
+    ->get([
+        'en_translations.text as english_text', // English text
+        DB::raw('TRIM(t.text) as translated_text') // Trimmed translated text
+    ]);
 
     // Convert list to key-value format
     $formattedTranslations = [];
