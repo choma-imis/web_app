@@ -178,7 +178,14 @@ class TreatmentPlantService
             $type = $data['type'] ? $data['type'] : null;
     
 
-            $columns = ['Name', 'Capacity Per Day (m3)',  'Caretaker Name', 'Caretaker Number',  'Status','Treatment Plant Type'];
+            $columns = [
+            __('Name'),
+            __('Capacity Per Day (m3)'),
+            __('Caretaker Name'),
+            __('Caretaker Number'),
+            __('Status'),
+            __('Treatment Plant Type'),
+        ];
             $query = TreatmentPlant::select( 'name', 'capacity_per_day', 'caretaker_name', 'caretaker_number', 'status','type')
                 ->whereNull('deleted_at');
 

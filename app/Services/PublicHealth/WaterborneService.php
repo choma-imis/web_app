@@ -130,7 +130,7 @@ class WaterborneService
     {
         $infected_disease = request('infected_disease') ?? null;
         $year = request('year') ?? null;
-        $columns = ['ID', 'Infected Disease', 'Year', 'No. of Cases', 'No. of Fatalities','Notes'];
+        $columns = [__('ID'), __('Infected Disease'), __('Year'), __('No. of Cases'), __('No. of Fatalities'),__('Notes')];
         $query = YearlyWaterborne::select('id', 'infected_disease', 'year', 'total_no_of_cases', 'total_no_of_fatalities','notes')->whereNull('deleted_at');
         if (!empty($year)) {
             $query->where('year', $year);

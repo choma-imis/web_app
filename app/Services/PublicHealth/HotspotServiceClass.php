@@ -217,7 +217,7 @@ class HotspotServiceClass
                     $Hotspots->save();
                 } else {
                     return redirect('publichealth/hotspots/' . $id . '/edit')->with('error', __('The selected area should be within the City Boundary.'))->withInput();
-                }
+                }                                                                                
             }
             return redirect('publichealth/hotspots')->with('success', __('Waterborne Hotspot updated successfully.'));
         } else {
@@ -263,7 +263,7 @@ class HotspotServiceClass
         $searchData = $data['searchData'] ? $data['searchData'] : null;
         $disease = $data['disease'] ? $data['disease'] : null;
         $hotspot_location = $data['hotspot_location'] ? $data['hotspot_location'] : null;
-        $columns = ['Infected Disease', 'Hotspot Location', 'Date', 'No. of Cases','Male Cases','Female Cases','Other Cases','No of Fatalities','Male Fatalities','Female Fatalities','Other Fatalities','Notes'];
+        $columns = [__('Infected Disease'), __('Hotspot Location'), __('Date'), __('No. of Cases'),__('Male Cases'),__('Female Cases'),__('Other Cases'),__('No. of Fatalities'),__('Male Fatalities'),__('Female Fatalities'),__('Other Fatalities'),__('Notes')];
         $query = Hotspots::select('disease', 'hotspot_location', 'date', 'no_of_cases','male_cases','female_cases','other_cases', 'no_of_fatalities','male_fatalities','female_fatalities','other_fatalities','notes')->whereNull('deleted_at');
 
         if (!empty($disease)) {

@@ -128,7 +128,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             <th>{{ __('Toilet Type')}}</th>
                             <th>{{ __('Ward Number')}}</th>
                             <th>{{ __('Caretaker Name')}}</th>
-                            <th>{{ __('Sanitary Supplies Disposal Facility')}}</th>
+                            <th>{{ __('Sanitary Supplies & Disposal Facility')}}</th>
                             <th>{{ __('Status')}}</th>
                             <th>{{ __('Actions')}}</th>
 

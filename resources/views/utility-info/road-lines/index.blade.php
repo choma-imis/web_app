@@ -34,7 +34,7 @@
                                     <div class="form-group row">
                                     <label for="code" class="col-md-2 col-form-label ">{{ __('Code')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="code" placeholder="Code" oninput="validateAlphanumeric(this)" />
+                                            <input type="text" class="form-control" id="code" placeholder={{__("Code")}} oninput="validateAlphanumeric(this)" />
                                         </div>
                                         <label for="code" class="col-md-2 col-form-label ">{{ __('Hierarchy')}}</label>
                                         <div class="col-md-2" >
@@ -59,11 +59,11 @@
                                     <div class="form-group row">
                                         <label for="name" class="col-md-2 col-form-label ">{{ __('Road Name')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="name" placeholder="Road Name" />
+                                            <input type="text" class="form-control" id="name" placeholder={{__("Road Name")}} />
                                         </div>
                                         <label for="carrying_width" class="col-md-2 col-form-label ">{{ __('Carrying Width')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="carrying_width" placeholder="Carrying Width" />
+                                            <input type="text" class="form-control" id="carrying_width" placeholder={{__("Carrying Width")}} />
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">

@@ -145,7 +145,15 @@ class DrainService {
         $searchData = $data['searchData'] ? $data['searchData'] : null;
         $code = $data['code'] ? $data['code'] : null;
         $cover_type = $data['cover_type'] ? $data['cover_type'] : null;
-        $columns = ['Code','Road Code', 'Cover Type', 'Surface Type', 'Width (mm)', 'Length (m)','Treatment Plant'];
+        $columns = [
+            __('Code'),
+            __('Road Code'),
+            __('Cover Type'),
+            __('Surface Type'),
+            __('Width (mm)'),
+            __('Length (m)'),
+            __('Treatment Plant'),
+        ];
         $query = Drain::select('drains.code', 'drains.road_code', 'drains.cover_type', 'drains.surface_type', 'drains.size', 'drains.length', 'fsm.treatment_plants.name as Treatment Plant')
         ->leftJoin('fsm.treatment_plants', 'drains.treatment_plant_id', '=', 'fsm.treatment_plants.id')
         ->whereNull('drains.deleted_at');
