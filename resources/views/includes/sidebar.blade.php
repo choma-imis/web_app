@@ -591,25 +591,17 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 </ul>
                 <ul class="nav nav-treeview">
-                            <li class="nav-item {{ request()->is('language/*') ? 'menu-is-opening menu-open' : '' }}"><a href="#" class="nav-link {{ request()->is('language/*') ? 'active subnav' : '' }}">
-                            <i class="fa-solid fa-users"></i>
-                            <p>
-                               Language Settings<i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            @can('List Languages')
-                            <li class="nav-item">
-                                <a href="{{ action('Language\LanguageController@index') }}" class="nav-link {{ request()->is('language/*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Languages</p>
-                                </a>
-                            </li>
-                            @endcan
-                        </ul>
-                    </li>
 
+                    @can('List Languages')
+                    <li class="nav-item">
+                        <a href="{{ action('Language\LanguageController@index') }}" class="nav-link {{ request()->is('language/*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-language"></i>
+                            <p>{{__('Languages')}}</p>
+                        </a>
+                    </li>
+                    @endcan
                 </ul>
+
             </li>
             @endif
 
