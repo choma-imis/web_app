@@ -35,6 +35,9 @@ class YearlyWaterborneRequest extends FormRequest
             'male_cases.numeric' => __('Number of Male Cases should be number.'),
             'female_cases.numeric' => __('Number of Female Cases should be number.'),
             'other_cases.numeric' => __('Number of Other Cases should be number.'),
+            'male_fatalities.lte' => __('The Male Fatalities should be less than Male Cases.'),
+            'female_fatalities.lte' => __('The Female Fatalities should be less than Female Cases.'),
+            'other_fatalities.lte' => __('The Other Fatalities should be less than Other Cases.'),
 
             // 'total_no_of_cases.required' => 'The Total Number Cases is required.',
         ];
@@ -48,9 +51,9 @@ class YearlyWaterborneRequest extends FormRequest
             'male_cases' => ['required', 'numeric', 'min:0', new AtLeastOneFieldRequired],
             'female_cases' => ['required', 'numeric', 'min:0', new AtLeastOneFieldRequired],
             'other_cases' => ['required', 'numeric', 'min:0', new AtLeastOneFieldRequired],
-            'male_fatalities' => ['nullable','numeric', 'min:0', new FatalitiesLessThanCases('male_cases')],
-            'female_fatalities' => ['nullable','numeric', 'min:0', new FatalitiesLessThanCases('female_cases')],
-            'other_fatalities' => ['nullable','numeric', 'min:0', new FatalitiesLessThanCases('other_cases')],
+            'male_fatalities' => ['nullable', 'numeric', 'min:0', 'lte:male_cases'],
+            'female_fatalities' => ['nullable', 'numeric', 'min:0', 'lte:female_cases'],
+            'other_fatalities' => ['nullable', 'numeric', 'min:0', 'lte:other_cases'],
 
         ];
     }

@@ -392,6 +392,7 @@ class LanguageController extends Controller
         // Get English source translations
         $sourceTranslations = DB::table('language.translates')
         ->where('name', 'en')
+        ->where('platform', '!=', 'mobile')
         ->select('key', 'text', 'pages')
         ->distinct('key')
         ->get()

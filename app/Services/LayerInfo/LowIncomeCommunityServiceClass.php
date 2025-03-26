@@ -216,19 +216,20 @@ class LowIncomeCommunityServiceClass
         $searchData = $data['searchData'] ? $data['searchData'] : null;
         $community_name = $data['community_name'] ?? null;
         $columns = [
-            'ID',
-            'Community Name',
-            'No. of Buildings',
-            'Population',
-            'No. of Households',
-            'Male Population',
-            'Female Population',
-            'Other Population',
-            'No. of Septic Tanks',
-            'No. of Holding Tanks',
-            'No. of Pits',
-            'No. of Sewer Connections',
-            'No. of Community Toilets'
+            __('ID'),
+            __('Community Name'),
+            __('No. of Buildings'),
+            __('Population'),
+            __('No. of Households'),
+            __('Male Population'),
+            __('Female Population'),
+            __('Other Population'),
+            __('No. of Septic Tanks'),
+            __('No. of Holding Tanks'),
+            __('No. of Pits'),
+            __('No. of Sewer Connections'),
+            __('No. of Community Toilets'),
+
         ];
         $query = LowIncomeCommunity::select(
             'id',

@@ -90,9 +90,9 @@ class TreatmentPlantController extends Controller
         if(!is_null($request->create_user))
         {
              $this->userService->storeOrUpdate($id = null,$data);
-             $successMessage = 'Treatment plant and user created successfully';
+             $successMessage = __('Treatment plant and user created successfully');
         } else {
-             $successMessage = 'Treatment plant created successfully';
+             $successMessage = __('Treatment plant created successfully');
         }
 
         return redirect('fsm/treatment-plants')->with('success',$successMessage);
@@ -164,9 +164,9 @@ class TreatmentPlantController extends Controller
         if ($treatmentPlant) {
             $data = $request->all();
             $this->treatmentPlantService->storeOrUpdate($treatmentPlant->id,$data);
-            return redirect('fsm/treatment-plants')->with('success','Treatment plant updated successfully.');
+            return redirect('fsm/treatment-plants')->with('success',__('Treatment plant updated successfully.'));
         } else {
-            return redirect('fsm/treatment-plants')->with('error','Failed to update treatment plant');
+            return redirect('fsm/treatment-plants')->with('error',__('Failed to update treatment plant'));
         }
     }
 
