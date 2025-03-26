@@ -50,7 +50,7 @@ $(document).ready(function() {
                             }
                         },
                     
-                    placeholder: {{__('House Number / BIN')}},
+                    placeholder: '{{ __('House Number / BIN') }}',
                     allowClear: true,
                     closeOnSelect: true,
                     width: '100%',

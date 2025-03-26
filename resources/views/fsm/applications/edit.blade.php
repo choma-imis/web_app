@@ -36,9 +36,6 @@ An Edit Layout for all forms
                     $("input[name='applicant_name']").val($("input[name=customer_name]").val());
                     $("#applicant_gender").val($("#customer_gender").val());
                     $("input[name='applicant_contact']").val($("input[name=customer_contact]").val());
-//                    $("input[name='applicant_name']").attr('disabled','disabled');
-//                    $("#applicant_gender").attr('disabled','disabled');
-//                    $("input[name='applicant_contact']").attr('disabled','disabled');
                 } else {
                     $("input[name='applicant_name']").val('');
                     $("#applicant_gender").val('');
@@ -162,7 +159,9 @@ An Edit Layout for all forms
                 onAddressChange();
             }
 
-            $('#bin').on('change',onAddressChange)
+            $('#bin').on('change',onAddressChange);
         });
+
+   
     </script>
 @endpush
