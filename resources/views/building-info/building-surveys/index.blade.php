@@ -180,7 +180,7 @@
                     event.preventDefault();
                     Swal.fire({
                         title: '{{ __('Are you sure?') }}',
-                        text: '{{ __("You won't be able to revert this!") }}',
+                        text: "{!! __('You won\'t be able to revert this!') !!}",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
