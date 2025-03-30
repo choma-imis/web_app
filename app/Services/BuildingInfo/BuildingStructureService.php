@@ -166,10 +166,10 @@ class BuildingStructureService
                 }
             }
             DB::commit();
-            return redirect('building-info/buildings')->with('success', "Building created successfully ");
+            return redirect('building-info/buildings')->with('success', __("Building created successfully"));
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect('building-info/buildings')->with('error', "Building could not be created ");
+            return redirect('building-info/buildings')->with('error', __("Building could not be created"));
         }
     }
 
@@ -333,13 +333,13 @@ class BuildingStructureService
                     $xml = new DOMDocument();
                     $xml->load($filepath);
                 } else {
-                    return Redirect::back()->with('error', "Failed to update building structure :  kml file not found");
+                    return Redirect::back()->with('error', __("Failed to update building structure : kml file not found"));
                 }
             }
         } else if ($type == 'update') {
             $xml = new DOMDocument();
             if (@$xml->load($request->geom) == false) {
-                return Redirect::back()->with('error', "Failed to update building structure due to invalid kml file");
+                return Redirect::back()->with('error', __("Failed to update building structure due to invalid kml file"));
             } else {
                 $xml->load($request->geom);
             }
@@ -566,7 +566,7 @@ class BuildingStructureService
 
             if ($err == 'containment_mismatch') {
                 DB::rollback();
-                return Redirect::back()->with('error', "Sanitation System does not match with existing containment data, please update containment information and try again");
+                return Redirect::back()->with('error', __("Sanitation System does not match with existing containment data, please update containment information and try again"));
             } else if ($err == 'false') {
                 // no error so do nothing
             }
@@ -588,10 +588,10 @@ class BuildingStructureService
             // store owner
             $this->storeOwnerInfo($request);
             DB::commit();
-            return Redirect("building-info/buildings")->with('success', "Building Information updated successfully");
+            return Redirect("building-info/buildings")->with('success', __("Building Information updated successfully"));
         } catch (\Exception $e) {
             DB::rollback();
-            return Redirect("building-info/buildings")->with('error', "Failed to update building structure " . $e);
+            return Redirect("building-info/buildings")->with('error', __("Failed to update building structure") . $e);
         }
     }
 

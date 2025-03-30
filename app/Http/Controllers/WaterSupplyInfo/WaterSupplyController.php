@@ -102,7 +102,7 @@ class WaterSupplyController extends Controller
         },  __('File must be csv format.') );
         $this->validate($request,
                 ['csvfile' => 'required|file_extension:csv'],
-                ['required' => 'The csv file is required.'],
+                ['required' => __('The csv file is required.')],
         );
 
         if (!$request->hasfile('csvfile')) {

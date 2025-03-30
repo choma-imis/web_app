@@ -37,11 +37,11 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
                   <div class="form-group row">
                     <label for="code" class="col-md-2 col-form-label "> {{ __('Code') }}</label>
                     <div class="col-md-2">
-                      <input type="text" class="form-control" id="code" placeholder={{__("Code")}} oninput="validateAlphanumeric(this)"/>
+                      <input type="text" class="form-control" id="code" placeholder="{{__("Code")}}" oninput="validateAlphanumeric(this)"/>
                     </div>
                     <label for="road_code" class="col-md-2 col-form-label "> {{ __('Road Code') }}</label>
                     <div class="col-md-2">
-                      <input type="text" class="form-control" id="road_code" placeholder={{__("Road Code")}} oninput="validateAlphanumeric(this)"/>
+                      <input type="text" class="form-control" id="road_code" placeholder="{{__("Road Code")}}" oninput="validateAlphanumeric(this)"/>
                     </div>
                     <label for="location" class="col-md-2 col-form-label "> {{ __('Location') }}</label>
                     <div class="col-md-2">

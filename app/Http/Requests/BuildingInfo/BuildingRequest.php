@@ -38,24 +38,16 @@ class BuildingRequest extends FormRequest
             'floor_count.required' => __('Number of Floors is required.'),
             'tax_code.required' => __('Tax Code/Holding ID is required.'),
             'road_code.required' => __('Road Code is required.'),
-            'structure_type_id.required' => __('Structure Type is required.'),
             'functional_use_id.required' => __('Functional Use of Building is required.'),
             'house_number.unique' => __('The House Number is Already Taken.'),
-
             'main_building.required' => __('The Main Building status required.'),
             'building_associated_to.required_if' => __('BIN of Main Building required.'),
             'ward.required' => __('Ward Number required.'),
-            'tax_code.required' => __('Tax Code/Holding ID required.'),
-            'road_code.required' => __('Road Code required.'),
-            'structure_type_id.required' => __('Structure Type  required.'),
+            'structure_type_id.required' => __('Structure Type required.'),
             'functional_use_id.required' => __('Functional Use of Building  required.'),
             'house_number.unique' => __('The House Number is Taken.'),
             'main_building.required' => __('The Main Building status required.'),
             'building_associated_to.required_if' => __('BIN of Main Building required.'),
-            'ward.required' => __('Ward Number required.'),
-            'tax_code.required' => __('Tax Code/Holding ID required.'),
-            'road_code.required' => __('Road Code  required.'),
-            'structure_type_id.required' => __('Structure Type  required.'),
             'functional_use_id.required' => __('Functional Use of Building  required.'),
             'house_number.unique' => __('The House Number is Taken.'),
             //population Validation
@@ -116,6 +108,7 @@ class BuildingRequest extends FormRequest
             'build_contain.required_if' => __('BIN of Pre-Connected Building is required.'),
             // 'construction_date.required_if'=>'Containment Construction date  required.',
             'pit_shape.required_if' => __('Pit shape is required.'),
+            'house_image.image' => __('The house image must be an image.'),
 
         ];
     }

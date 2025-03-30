@@ -74,7 +74,7 @@
                     'Rectangular' => 'Rectangular'
                 ],
                 'Rectangular',
-                ['class' => 'form-control col-sm-10', 'placeholder' => 'Pit Shape'],
+                ['class' => 'form-control col-sm-10', 'placeholder' => __('Pit Shape')],
             ) !!}
         </div>
     </div>

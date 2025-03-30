@@ -34,12 +34,12 @@
                                     <div class="form-group row">
                                     <label for="code" class="col-md-2 col-form-label ">{{ __('Code')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="code" placeholder={{__("Code")}} oninput="validateAlphanumeric(this)" />
+                                            <input type="text" class="form-control" id="code" placeholder= "{{__("Code")}}" oninput="validateAlphanumeric(this)" />
                                         </div>
                                         <label for="code" class="col-md-2 col-form-label ">{{ __('Hierarchy')}}</label>
                                         <div class="col-md-2" >
                                             <select class="form-control" id="road_hier_select">
-                                                <option value="">Hierarchy</option>
+                                                <option value="">{{__('Hierarchy')}}</option>
                                                 <option value="Strategic Urban Road">Strategic Urban Road</option>
                                                 <option value="Feeder Road">Feeder Road</option>
                                                 <option value="Other Road">Other Road</option>
@@ -48,7 +48,7 @@
                                          <label for="code" class="col-md-2 col-form-label ">{{ __('Surface Type')}}</label>
                                         <div class="col-md-2" >
                                             <select class="form-control" id="surface_type">
-                                                <option value="">Surface Type</option>
+                                                <option value="">{{__('Surface Type')}}</option>
                                                 <option value="Earthen">Earthen</option>
                                                 <option value="Gravelled">Gravelled</option>
                                                 <option value="Metalled">Metalled</option>
@@ -59,11 +59,11 @@
                                     <div class="form-group row">
                                         <label for="name" class="col-md-2 col-form-label ">{{ __('Road Name')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="name" placeholder={{__("Road Name")}} />
+                                            <input type="text" class="form-control" id="name" placeholder="{{__("Road Name")}}" />
                                         </div>
                                         <label for="carrying_width" class="col-md-2 col-form-label ">{{ __('Carrying Width')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="carrying_width" placeholder={{__("Carrying Width")}} />
+                                            <input type="text" class="form-control" id="carrying_width" placeholder="{{ __('Carrying Width')}}" />
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">

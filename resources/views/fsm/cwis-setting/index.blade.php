@@ -22,7 +22,7 @@
             ]) !!}
             <div class="form-group row">
                 <div class="col-sm-3" style="color:grey">
-                    <small><i class="fa-regular fa-clock"></i> Last Updated: {{ $updated ?? '' }}</small>
+                    <small><i class="fa-regular fa-clock"></i> {{__('Last Updated')}}: {{ $updated ?? '' }}</small>
                 </div>
             </div>
             
