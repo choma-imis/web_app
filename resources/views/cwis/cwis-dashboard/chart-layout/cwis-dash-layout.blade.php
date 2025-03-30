@@ -211,17 +211,17 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
         
             <div class="modal-body text-center">
                 <p>
-                    Some indicators have been calculated as <strong>NaN</strong> (Not a Number) or <strong>NA</strong> (Not Available).
+                    {{__('Some indicators have been calculated as')}} <strong>NaN</strong> {{__('(Not a Number)')}} or <strong>NA</strong> {{__('(Not Available)')}}.
                 </p>
                 <p>
-                    This happens due to one or more of the following reasons:
+                    {{__('This happens due to one or more of the following reasons')}}:
                 </p>
                 <ul class="text-left">
-                    <li><strong>NA:</strong> Occurs when the numerator or denominator is missing.</li>
-                    <li><strong>NaN:</strong> Happens when:
+                    <li><strong>NA:</strong>{{__('Occurs when the numerator or denominator is missing')}}.</li>
+                    <li><strong>NaN:</strong> {{__('Happens when')}}:
                         <ul>
-                            <li>The denominator is zero (division by zero).</li>
-                            <li>Both the numerator and denominator are zero (undefined result).</li>
+                            <li>{{__('The denominator is zero')}} {{__('(division by zero)')}}.</li>
+                            <li>{{__('Both the numerator and denominator are zero')}} {{__('(undefined result)')}}.</li>
                         </ul>
                     </li>
                 </ul>

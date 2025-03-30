@@ -178,7 +178,12 @@ class KpiService {
         $indicator_id = $data['indicator_id'] ? $data['indicator_id'] : null;
         $year = $data['year'] ? $data['year'] : null;
       
-        $columns = ['ID', 'Indicator', 'Year', 'Target (%)'];
+        $columns = [
+            __('ID'),
+            __('Indicator'),
+            __('Year'),
+            __('Target (%)'),
+        ];
 
         $query = KpiTarget::select('id', 'indicator_id', 'year', 'target')->whereNull('deleted_at');
     

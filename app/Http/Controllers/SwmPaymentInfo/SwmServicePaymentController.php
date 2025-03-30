@@ -115,12 +115,12 @@ class SwmServicePaymentController extends Controller
         }, __('File must be csv format.') );
         $this->validate($request,
                 ['csvfile' => 'required|file_extension:csv'],
-                ['required' => 'The csv file is required.'],
+                ['required' => __('The csv file is required.')],
         );
 
         if (!$request->hasfile('csvfile')) {
 
-            return redirect('swm-payment/data')->with('error','The csv file is required.');
+            return redirect('swm-payment/data')->with('error',__('The csv file is required.'));
         }
         if ($request->hasFile('csvfile')) {
 

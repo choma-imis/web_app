@@ -239,9 +239,9 @@ class CwisMneController extends Controller
                 $cwis_mne->save();
             }
 
-            return redirect('cwis/cwis/cwis-df-mne')->with('success','CWIS updated successfully.');
+            return redirect('cwis/cwis/cwis-df-mne')->with('success',__('CWIS updated successfully.'));
         }
-        return redirect('cwis/cwis/cwis-df-mne')->with('error','Failed to update Data.');
+        return redirect('cwis/cwis/cwis-df-mne')->with('error',__('Failed to update Data.'));
     }
     public function exportMneCsv(Request $request)
     {
