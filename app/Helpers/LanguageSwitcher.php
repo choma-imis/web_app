@@ -31,7 +31,7 @@ class LanguageSwitcher
         $languages = Language::where('status', 'true')->get();
 
         foreach ($languages as $lng) {
-            $text .= '<a class="dropdown-item" href="' . route('lang.switch') . '?lang=' . $lng->code . '" style="padding: 8px 15px; font-size: 13px;">' . strtoupper($lng->short) . '</a>';
+            $text .= '<a class="dropdown-item" href="' . route('lang.switch') . '?lang=' . $lng->code . '" style="padding: 8px 15px; font-size: 13px;">' . strtoupper($lng->code) . '</a>';
         }
 
         $text .= '</div></li>';
