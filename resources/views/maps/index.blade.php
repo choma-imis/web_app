@@ -46,13 +46,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <a href="#" id="associatedtomain_control" class="btn btn-default map-control"
                            data-toggle="tooltip" data-placement="bottom" title="Find Associated Buildings"><img src="{{ asset('img/svg/imis-icons/associated_building.svg')}}" style="height:24px;"alt="Associated Buildings Icon"></a>
 
-                        @can('Add Roads Map Tools')
-                        <a href="#" id="add_road_control" class="btn btn-default map-control"
-                           data-toggle="tooltip" data-placement="bottom" title="Add roads"><i class="fa-solid fa-road-circle-check"></i></a>
-                        @endcan
+
                       <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
                            data-placement="bottom" title="Remove Markers"><i class="fa fa-trash fa-fw"></i></a>
 
+                        <a href="#" id="get_location" class="btn btn-default map-control"
+
+                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Associated Buildings Icon"> </a>
                     </ul>
 
                 </div>
@@ -2910,6 +2910,69 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 $('#layer-select-box').hide();
             }
 
+             // Add handler to get current location click
+             $('#get_location').click(function (e) {
+                e.preventDefault();
+                disableAllControls();
+                $('.map-control').removeClass('map-control-active');
+                currentControl = '';
+            
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showLoc, errHand);
+                }
+                });
+                 function showLoc(pos) {
+                    latt = pos.coords.latitude;
+                    long = pos.coords.longitude;
+                    
+                displayAjaxLoader();
+                $.ajax({
+                    url: "{{url('/maps/check-location-within-boundary')}}",
+                    type: 'get',
+                    data: {
+                        latt: latt,
+                        long: long,
+                    },
+                    success: function (data) {
+                        if (data.length > 0) {
+                                
+                                displayPointByCoordinates(latt, long);
+                                removeAjaxLoader();
+                            }
+                         else {
+                             displayAjaxErrorModal('Your current location is outside the municipality boundary');
+                        }
+                        
+                    },
+                    error: function (data) {
+                        displayAjaxError();
+                    }
+                })
+                    
+                }
+
+                    function errHand(err) {
+                    switch (err.code) {
+                        case err.PERMISSION_DENIED:
+                        result.innerHTML =
+                            "The application doesn't have the permission" +
+                            "to make use of location services";
+                        break;
+                        case err.POSITION_UNAVAILABLE:
+                        result.innerHTML = "The location of the device is uncertain";
+                        break;
+                        case err.TIMEOUT:
+                        result.innerHTML = "The request to get user location timed out";
+                        break;
+                        case err.UNKNOWN_ERROR:
+                        result.innerHTML =
+                            "Time to fetch location information exceeded" +
+                            "the maximum timeout interval";
+                        break;
+                    }
+                    }
+           
+                    
             // Add handler to zoom in button click
             $('#zoomin_control').click(function (e) {
                 e.preventDefault();
