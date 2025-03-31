@@ -49,10 +49,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                       <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
                            data-placement="bottom" title="Remove Markers"><i class="fa fa-trash fa-fw"></i></a>
+                           <a href="#" id="wms_layer" class="btn btn-default map-control"
+                           data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i
+                                    class="fas fa-layer-group"></i></a>
 
                         <a href="#" id="get_location" class="btn btn-default map-control"
 
-                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Associated Buildings Icon"> </a>
+                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Locate Me"> </a>
                     </ul>
 
                 </div>
@@ -1544,6 +1547,48 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
         </div>
     </div>
+
+    <div class="modal fade" id="wmsModal" tabindex="-1" role="dialog" aria-labelledby="wmsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="wmsModalLabel">Please Enter URL</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mt-3" id="wmsAddress">
+                </input>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="wmsURL">OK</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="getLayerModal" tabindex="-1" role="dialog" aria-labelledby="getLayerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="getLayerModalLabel">Select a layer to be displayed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select class="form-control mt-3" id="mapLayer">
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script type="text/javascript">
         // Google Map
         var gmap;
@@ -5810,6 +5855,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     map.addInteraction(draw);
                 }
             });
+
+             //Add handler to find wms_layer click
+             $('#wms_layer').click(function (e) {
+                e.preventDefault();
+                disableAllControls();
+                $('.map-control').removeClass('map-control-active');
+                currentControl = '';
+                $("#wmsModal").modal('show');
+            });
+
             // Handler for building structype checkbox change
             $('#building_structype_checkbox_container').on('change', 'input[type=checkbox]', function () {
 
@@ -11384,6 +11439,60 @@ $.ajax({
                     }
                 });
             }
+
+                        //WMS URL importing
+                        var parser = new ol.format.WMSCapabilities();
+
+                    var wmsUrl = document.getElementById("wmsURL");
+                    var mapLayer = document.getElementById("mapLayer");
+                    wmsUrl.addEventListener("click", function() {
+                    var wmsAddress = document.getElementById("wmsAddress").value;
+
+                    fetch(wmsAddress)
+                    .then(function(response) {
+                        console.log("ffff",resp[onse]);
+                        return response.text();
+                    })
+                    .then(function(text) {
+                    $("#wmsModal").modal("hide");
+                    var result = parser.read(text);
+                    let layers = result.Capability.Layer.Layer;
+                    let i;
+                    $("#getLayerModal").modal();
+                    let layerName = [];
+                    mapLayer.options.length = 0;
+                    for (i = 0; i < layers.length; i++) {
+                        layerName[i] = layers[i].Name;
+                        var option = document.createElement("option");
+                        option.text = option.value = layers[i].Name;
+                        mapLayer.add(option);
+                    }
+                    var wms_gurl = wmsAddress.split("?")[0];
+
+                    mapLayer.addEventListener("change", function() {
+                        const source = new ol.source.TileWMS({
+                            url: wms_gurl,
+                            params: {
+                                layers: mapLayer.value,
+                                authkey: authkey,
+                                TILED: true
+                            },
+                            crossOrigin: "anonymous",
+                            serverType: "geoserver",
+                            attributions: "This is from getcapabilities"
+                        });
+                        const layer = new ol.layer.Tile({
+                            source: source,
+                            visible: true
+                        });
+                        map.addLayer(layer);
+                    });
+                    })
+                    .catch(function(err) {
+                        alert("Enter Valid URL");
+                    });
+                    });
+
 
             function updateMapSize() {
                 map.updateSize();
