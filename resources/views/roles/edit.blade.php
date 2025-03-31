@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Edit Role')
+@section('title', __('Edit Role'))
 @section('content')
 <div class="box box-info">
 <div class="box-header with-border">

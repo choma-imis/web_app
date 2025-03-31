@@ -68,7 +68,7 @@ class LowIncomeCommunityServiceClass
     // If geom is not provided or validation fails, don't update the data
     if (empty($request->geom)) {
         return redirect('layer-info/low-income-communities/create')
-            ->with('error', 'Failed to Add Low Income Community')
+            ->with('error', __('Failed to Add Low Income Community'))
             ->withInput();  // Retain the user's input
     }
 
@@ -107,16 +107,16 @@ class LowIncomeCommunityServiceClass
         if (!empty($ward)) {
             $lic->geom = DB::raw("ST_Multi(ST_GeomFromText('" . $request->geom . "', 4326))");
             $lic->save();
-            return redirect('layer-info/low-income-communities')->with('success', 'Low Income Community added successfully.');
+            return redirect('layer-info/low-income-communities')->with('success', __('Low Income Community added successfully.'));
         } else {
             return redirect('layer-info/low-income-communities/create')
-                ->with('error', 'Failed to find the ward for the selected area')
+                ->with('error', __('Failed to find the ward for the selected area'))
                 ->withInput(); // Retain the user's input
         }
     } else {
         // If the geometry is not within the boundary, show an error
         return redirect('layer-info/low-income-communities/create')
-            ->with('error', 'The selected area should be within the Municipality Boundary')
+            ->with('error', __('The selected area should be within the Municipality Boundary'))
             ->withInput(); // Retain the user's input
     }
 }
@@ -168,7 +168,7 @@ class LowIncomeCommunityServiceClass
                 } else {
                     // Retain input on error
                     return redirect('layer-info/low-income-communities/' . $id . '/edit')
-                        ->with('error', 'The selected area should be within the Municipality Boundary')
+                        ->with('error', __('The selected area should be within the Municipality Boundary'))
                         ->withInput(); // Retain the user's input
                 }
             } else {
@@ -176,9 +176,9 @@ class LowIncomeCommunityServiceClass
                 $lic->save();
             }
 
-            return redirect('layer-info/low-income-communities')->with('success', 'Low Income Community updated successfully.');
+            return redirect('layer-info/low-income-communities')->with('success', __('Low Income Community updated successfully.'));
         } else {
-            return redirect('layer-info/low-income-communities')->with('error', 'Failed to update Low Income Community');
+            return redirect('layer-info/low-income-communities')->with('error', __('Failed to update Low Income Community.'));
         }
     }
 

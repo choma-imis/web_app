@@ -175,7 +175,7 @@ class CwisMneController extends Controller
 
         // Redirect with a success message
         return redirect('cwis/cwis/cwis-df-mne/?year=' . $year)
-            ->with('success', 'CWIS data updated successfully.');
+            ->with('success', __('CWIS data updated successfully.'));
     }
 
     public function createIndex(Request $request)

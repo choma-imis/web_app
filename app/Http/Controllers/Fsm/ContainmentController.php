@@ -123,10 +123,10 @@ class ContainmentController extends Controller
             // updating building fields
             $this->buildingStructureService->updateBuildingFromContainment($request);
             DB::commit();
-            return redirect('building-info/buildings/'.$id.'/edit')->with('success', "Containment created successfully");
+            return redirect('building-info/buildings/'.$id.'/edit')->with('success', __("Containment created successfully"));
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('error', "Containmemt could not be created " . $e);
+            return redirect()->back()->with('error', __("Containment could not be created") . $e);
         }
     }
 
@@ -195,10 +195,10 @@ class ContainmentController extends Controller
             // updating building fields
             $this->buildingStructureService->updateBuildingFromContainment($request);
             DB::commit();
-            return redirect('fsm/containments')->with('success', "Containment updated successfully");
+            return redirect('fsm/containments')->with('success', __("Containment updated successfully"));
         } catch (Exception $e) {
             DB::rollback();
-            return redirect('fsm/containments')->with('error', "Containment could not be updated " . $e);
+            return redirect('fsm/containments')->with('error', __("Containment could not be updated") . $e);
         }
     }
 
@@ -251,18 +251,18 @@ class ContainmentController extends Controller
             {
                 if ($containment->buildings()->exists())
                 {
-                    return redirect('fsm/containments')->with('error', "Failed to delete Containment, it is Associated with Building Information");
+                    return redirect('fsm/containments')->with('error', __("Failed to delete Containment, it is Associated with Building Information"));
                 }
                 else
                 {
                     $containment->delete();
                     DB::commit();
-                    return redirect('fsm/containments')->with('success', "Containment Deleted Successfully");
+                    return redirect('fsm/containments')->with('success', __("Containment Deleted Successfully"));
                 }
             }
         } catch (\Exception $e) {
                     DB::rollback();
-                    return redirect('fsm/containments')->with('error', "Failed to Delete Containment");
+                    return redirect('fsm/containments')->with('error', __("Failed to Delete Containment"));
                 }
     }
 
@@ -323,7 +323,7 @@ class ContainmentController extends Controller
                 // not allow deletion if containment has running application i.e. emptying status is false
                 if($emptyingStatusContain != true )
                 {
-                    return redirect()->back()->with('error', 'Cannot delete Containment that has running Application (Emptying not completed).');
+                    return redirect()->back()->with('error', __('Cannot delete Containment that has running Application (Emptying not completed).'));
                 }
             }
             // removing the connection between the building and containment, if there are no running applications
@@ -372,30 +372,30 @@ class ContainmentController extends Controller
             // controlling redirect according to URL
             if(KeywordMatcher::matchKeywords(url()->previous(),["containment"]))
             {
-                return redirect("fsm/containments")->with('success', 'Containment Connection and Containment Deleted Successfully.');
+                return redirect("fsm/containments")->with('success', __('Containment Connection and Containment Deleted Successfully.'));
             }
             else
             {
-                return redirect()->back()->with('success', 'Containment Connection and Containment Deleted Successfully.');
+                return redirect()->back()->with('success', __('Containment Connection and Containment Deleted Successfully.'));
             }
         }
         if(KeywordMatcher::matchKeywords(url()->previous(),["containment"]))
         {
-            return redirect("fsm/containments")->with('success', 'Containment Connection Deleted Successfully.');
+            return redirect("fsm/containments")->with('success', __('Containment Connection Deleted Successfully.'));
         }
         else
         {
-            return redirect()->back()->with('success', 'Containment Connection Deleted Successfully.');
+            return redirect()->back()->with('success', __('Containment Connection Deleted Successfully.'));
         }
     }  catch (Exception $e) {
         DB::rollback();
         if(KeywordMatcher::matchKeywords(url()->previous(),["containment"]))
         {
-            return redirect("fsm/containments")->with('error', 'Failed to Delete Containment');
+            return redirect("fsm/containments")->with('error', __('Failed to Delete Containment'));
         }
         else
         {
-            return redirect()->back()->with('error', 'Failed to Delete Containment');
+            return redirect()->back()->with('error', __('Failed to Delete Containment'));
         }
     }
     }
