@@ -14,10 +14,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="card">
         <div class="card-header">
             @can('Add Language')
-            <a href="{{ action('Language\LanguageController@create') }}" class="btn btn-info">Add Language</a>
+            <a href="{{ action('Language\LanguageController@create') }}" class="btn btn-info">{{ __('Add Language') }}</a>
             @endcan
             @can('Export Translation CSV')
-                <a href="{{ action('Language\LanguageController@export_csv_format') }}" class="btn btn-info">Download CSV Template for Import</a>
+                <a href="{{ action('Language\LanguageController@export_csv_format') }}" class="btn btn-info">{{ __('Download CSV Template for Import') }}</a>
             @endcan
         </div><!-- /.card-header -->
 
@@ -26,11 +26,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 <table id="data-table" class="table table-bordered table-striped dtr-inline" width="100%">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Short</th>
-                            <th>Language Code</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{ __('Language') }}</th>
+                            <th>{{ __('Language Code') }}</th>
+                            <th>{{ __('Status') }}</th>
+                            <th>{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                 </table>
@@ -60,10 +59,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             data: 'name',
                             name: 'name'
                         },
-                        {
-                            data: 'short',
-                            name: 'short',
-                        },
+
                         {
                             data: 'code',
                             name: 'code'

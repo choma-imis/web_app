@@ -13,18 +13,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 
             <div class="form-group row">
-                {!! Form::label('Name',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('Language',null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$language->name,['class' => 'form-control']) !!}
                 </div>
             </div>
-        
-            <div class="form-group row">
-                {!! Form::label('Short',null,['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-3">
-                    {!! Form::label(null,$language->short,['class' => 'form-control']) !!}
-                </div>
-            </div>
+
+
             <div class="form-group row">
                 {!! Form::label('Code',null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">

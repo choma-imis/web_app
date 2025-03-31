@@ -24,13 +24,13 @@ class LanguageRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Language Name required.',
+            'name.required' => __('Language Name required.'),
 
-        'short.required' => 'Language Short required.',
-        'code.required' => 'Language Code required.',
-        'status.required' => 'Language Status required.',
-        'code.unique' => 'Language Code already exists.',
-        'code.regex' => 'Language Code must contain only letters and be up to 4 characters.',
+
+        'code.required' => __('Language Code required.'),
+        'status.required' => __('Language Status required.'),
+        'code.unique' => __('Language Code already exists.'),
+        'code.regex' => __('Language Code must contain only letters and be up to 4 characters.'),
         ];
     }
 
@@ -43,7 +43,7 @@ class LanguageRequest extends FormRequest
 {
     return [
         'name' => 'required',
-        'short' => 'required',
+        // 'short' => 'required',
         'status' => 'required',
         'code' => 'required|regex:/^[a-zA-Z]{1,4}$/|unique:pgsql.language.languages,code',
     ];
@@ -54,7 +54,7 @@ class LanguageRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'short' => 'required',
+            // 'short' => 'required',
             'status' => 'required',
             'code' => 'required|regex:/^[a-zA-Z]{1,4}$/|unique:pgsql.language.languages,code',
         ];
