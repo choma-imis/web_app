@@ -93,6 +93,7 @@ class KpiTargetRequest extends FormRequest
             'year.digits' => __('The Year must be in 20** format.'),
             'target.required' => __('The Target (%) is required.'),
             'target.integer' => __('The Target (%) must be an integer.'),
+            'target.max' => __('The target must not be greater than 100.'),
         ];
     }
 }

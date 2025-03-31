@@ -147,7 +147,15 @@ class RoadlineService {
         $name = $data['name'] ? $data['name'] : null;
         $carrying_width = $data['carrying_width'] ? $data['carrying_width'] : null;
 
-        $columns = ['Code', 'Road Name', 'Hierarchy', 'Right of Way (m)' , 'Carrying Width (m)', 'Surface Type', 'Road Length (m)'];
+        $columns = [
+            __('Code'),
+            __('Road Name'),
+            __('Hierarchy'),
+            __('Right of Way (m)'),
+            __('Carrying Width (m)'),
+            __('Surface Type'),
+            __('Road Length (m)'),
+        ];
 
         $query = Roadline::select('code', 'name', 'hierarchy', 'right_of_way', 'carrying_width', 'surface_type', 'length')
             ->whereNull('deleted_at');

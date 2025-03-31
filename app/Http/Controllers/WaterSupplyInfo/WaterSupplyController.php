@@ -99,10 +99,10 @@ class WaterSupplyController extends Controller
             else {
                 return true;
             }
-        }, "{{ __('File must be csv format.') }}" );
+        },  __('File must be csv format.') );
         $this->validate($request,
                 ['csvfile' => 'required|file_extension:csv'],
-                ['required' => 'The csv file is required.'],
+                ['required' => __('The csv file is required.')],
         );
 
         if (!$request->hasfile('csvfile')) {
@@ -149,7 +149,7 @@ class WaterSupplyController extends Controller
                     $import = new WaterSupplyImport();
                     $import->import($location.$filename);
                     
-                    $message = 'Successfully Imported Water Supply Payments From CSV.';
+                    $message = __('Successfully Imported Water Supply Payments From CSV.');
                     \DB::statement("select watersupply_info.fnc_watersupplystatus()");
 
                     \DB::statement('select watersupply_info.fnc_updonimprt_gridnward_watersupply()');
@@ -174,7 +174,15 @@ class WaterSupplyController extends Controller
     {
         $ward = $_GET['ward'] ?? null;
         $due_year = $_GET['due_year'] ?? null;
-        $columns = ['Water Customer ID', 'BIN', 'Tax Code', 'Ward', 'Customer Name', 'Customer Contact', 'Due Years'];
+        $columns = [
+            __('Water Customer ID'),
+            __('BIN'),
+            __('Tax Code'),
+            __('Ward'),
+            __('Customer Name'),
+            __('Customer Contact'),
+            __('Due Years')
+        ];
 
         $query = DB::table('watersupply_info.watersupply_payment_status AS pmt')
                                 ->leftjoin('watersupply_info.due_years AS due', 'due.value', '=', 'pmt.due_year')
@@ -218,7 +226,12 @@ class WaterSupplyController extends Controller
     }
     public function exportunmatched()
     {
-        $columns = ['Water Customer ID', 'Customer Name', 'Customer Contact', 'Last Payment date'];
+        $columns = [
+            __('Water Customer ID'),
+            __('Customer Name'),
+            __('Customer Contact'),
+            __('Last Payment date')
+        ];
 
         $query = DB::table('watersupply_info.watersupply_payments AS pmt')
                  ->leftjoin('building_info.buildings as b', 'pmt.water_customer_id', '=', 'b.water_customer_id')

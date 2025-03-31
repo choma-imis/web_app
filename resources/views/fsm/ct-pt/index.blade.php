@@ -128,7 +128,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             <th>{{ __('Toilet Type')}}</th>
                             <th>{{ __('Ward Number')}}</th>
                             <th>{{ __('Caretaker Name')}}</th>
-                            <th>{{ __('Sanitary Supplies Disposal Facility')}}</th>
+                            <th>{{ __('Sanitary Supplies & Disposal Facility')}}</th>
                             <th>{{ __('Status')}}</th>
                             <th>{{ __('Actions')}}</th>
 
@@ -219,13 +219,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     var form = $(this).closest("form");
                     event.preventDefault();
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                     title: "{{__('Are you sure?')}}",
+                    text: "{!! __('You won\'t be able to revert this!') !!}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "{{ __('Yes, delete it!') }}",
+                    cancelButtonText: '{{ __('Cancel') }}',
                     }).then((result) => {
                         if (result.isConfirmed) {
                             form.submit();

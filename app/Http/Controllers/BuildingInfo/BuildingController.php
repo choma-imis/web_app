@@ -363,13 +363,13 @@ class BuildingController extends Controller
         $building = Building::find($id);
         if ($building) {
             if ($building->containments()->exists()) {
-                return redirect('building-info/buildings')->with('error', "Failed to delete Building, it is associated with Containment Information");
+                return redirect('building-info/buildings')->with('error', __("Failed to delete Building, it is associated with Containment Information"));
             } else {
                 $building->delete();
-                return redirect('building-info/buildings')->with('success', "Building Deleted Successfully");
+                return redirect('building-info/buildings')->with('success', __("Building Deleted Successfully"));
             }
         } else {
-            return redirect('building-info/buildings')->with('error', "Failed to Delete Building");
+            return redirect('building-info/buildings')->with('error', __("Failed to Delete Building"));
         }
     }
     public function export()

@@ -34,12 +34,12 @@
                                     <div class="form-group row">
                                     <label for="code" class="col-md-2 col-form-label ">{{ __('Code')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="code" placeholder="Code" oninput="validateAlphanumeric(this)" />
+                                            <input type="text" class="form-control" id="code" placeholder= "{{__("Code")}}" oninput="validateAlphanumeric(this)" />
                                         </div>
                                         <label for="code" class="col-md-2 col-form-label ">{{ __('Hierarchy')}}</label>
                                         <div class="col-md-2" >
                                             <select class="form-control" id="road_hier_select">
-                                                <option value="">Hierarchy</option>
+                                                <option value="">{{__('Hierarchy')}}</option>
                                                 <option value="Strategic Urban Road">Strategic Urban Road</option>
                                                 <option value="Feeder Road">Feeder Road</option>
                                                 <option value="Other Road">Other Road</option>
@@ -48,7 +48,7 @@
                                          <label for="code" class="col-md-2 col-form-label ">{{ __('Surface Type')}}</label>
                                         <div class="col-md-2" >
                                             <select class="form-control" id="surface_type">
-                                                <option value="">Surface Type</option>
+                                                <option value="">{{__('Surface Type')}}</option>
                                                 <option value="Earthen">Earthen</option>
                                                 <option value="Gravelled">Gravelled</option>
                                                 <option value="Metalled">Metalled</option>
@@ -59,11 +59,11 @@
                                     <div class="form-group row">
                                         <label for="name" class="col-md-2 col-form-label ">{{ __('Road Name')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="name" placeholder="Road Name" />
+                                            <input type="text" class="form-control" id="name" placeholder="{{__("Road Name")}}" />
                                         </div>
                                         <label for="carrying_width" class="col-md-2 col-form-label ">{{ __('Carrying Width')}}</label>
                                         <div class="col-md-2" >
-                                            <input type="text" class="form-control" id="carrying_width" placeholder="Carrying Width" />
+                                            <input type="text" class="form-control" id="carrying_width" placeholder="{{ __('Carrying Width')}}" />
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">
@@ -178,12 +178,13 @@
                 event.preventDefault();
                 Swal.fire({
                     title: "{{__('Are you sure?')}}",
-                    text: "{{__('You won\'t be able to revert this!')}}",
+                    text: "{!! __('You won\'t be able to revert this!') !!}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: "{{ __('Yes, delete it!') }}",
+                    cancelButtonText: '{{ __('Cancel') }}',
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();

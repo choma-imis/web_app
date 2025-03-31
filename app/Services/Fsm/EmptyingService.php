@@ -1084,7 +1084,7 @@ class EmptyingService
                             $filename_receipt = $emptying->id . '_' . $emptying->application_id . '_' . $emptying->receipt_number . '_' . $dateTime . '.' . $extension_receipt;
                             $storeReceiptImg = Image::make($request->receipt_image)->save(Storage::disk('local')->path('/public/emptyings/receipts/' . $filename_receipt), 50);
                             if (!Storage::disk('local')->exists('/public/emptyings/receipts/' . $filename_receipt)) {
-                                return redirect()->back()->withInput()->with('error', "Error! Unable to save receipt image.");
+                                return redirect()->back()->withInput()->with('error', __("Error! Unable to save receipt image."));
                             }
                             $emptying->receipt_image = $filename_receipt;
                         } catch (\Throwable $th) {

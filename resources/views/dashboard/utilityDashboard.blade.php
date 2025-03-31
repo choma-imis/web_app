@@ -28,7 +28,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
                 </div> <!--sub col div -->
             </div> <!-- sub row -->
 
-            <h1 style="padding: 15px 0 15px 0;font-size: 18px;">Road Length by Width (m) </h1>
+            <h1 style="padding: 15px 0 15px 0;font-size: 18px;">{{__('Road Length by Width (m)')}}</h1>
             <div class="row">
                 <div class="col-md-2  d-flex">
                     @include('dashboard.countBox._sumRoadWidth3')

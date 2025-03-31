@@ -148,7 +148,14 @@ class SewerLineService {
     $location = $data['location'] ?? null;
     
 
-    $columns = ['Code', 'Road Code', 'Location', 'Length (m)', 'Diameter (mm)', 'Treatment Plant'];
+    $columns = [
+            __('Code'),
+            __('Road Code'),
+            __('Location'),
+            __('Length (m)'),
+            __('Diameter (mm)'),
+            __('Treatment Plant'),
+        ];
 
     $query = SewerLine::select('sewers.code', 'sewers.road_code', 'sewers.location', 'sewers.length', 'sewers.diameter', 'fsm.treatment_plants.name as Treatment Plant')
         ->leftJoin('fsm.treatment_plants', 'sewers.treatment_plant_id', '=', 'fsm.treatment_plants.id')

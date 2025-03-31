@@ -51,27 +51,27 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 <div class="card-body">
 
     <div class="form-group row required">
-        {!! Form::label('name', 'Name', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('name', __('Language'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
+            {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => __('Language')]) !!}
         </div>
     </div>
-    <div class="form-group row required">
+    {{-- <div class="form-group row required">
         {!! Form::label('short', 'Short', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
             {!! Form::text('short', null, ['class' => 'form-control', 'placeholder' => 'Short' ]) !!}
         </div>
-    </div>
+    </div> --}}
     <div class="form-group row required">
-        {!! Form::label('code', 'Code', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('code', __('Code'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::text('code', null, ['class' => 'form-control', 'placeholder' => 'Code' ]) !!}
+            {!! Form::text('code', null, ['class' => 'form-control', 'placeholder' => __('Code') ]) !!}
         </div>
     </div>
     <div class="form-group row required">
-        {!! Form::label('status', 'Status', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('status', __('Status'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::select('status', ['1' => 'Active', '0' => 'Disabled'], null, ['class' => 'form-control', 'placeholder' => 'Status']) !!}
+            {!! Form::select('status', ['1' => 'Active', '0' => 'Disabled'], null, ['class' => 'form-control', 'placeholder' => __('Status')]) !!}
         </div>
     </div>
 
@@ -81,7 +81,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 </div><!-- /.box-body -->
 <div class="card-footer">
-    <a href="{{ action('Language\LanguageController@index') }}" class="btn btn-info">Back to List</a>
-    {!! Form::submit('Save', ['class' => 'btn btn-info']) !!}
+    <a href="{{ action('Language\LanguageController@index') }}" class="btn btn-info">{{ __('Back to List') }}</a>
+    {!! Form::submit(__('Save'), ['class' => 'btn btn-info']) !!}
 
 </div><!-- /.box-footer -->

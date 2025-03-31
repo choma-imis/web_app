@@ -49,11 +49,11 @@ a.skiplink:focus {
                         <div class="form-group row">
                             <label for="sewer_code" class="col-md-2 col-form-label" style=" font-family: 'Open Sans', sans-serif;">{{ __('Sewer Code')}}</label>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" id="sewer_code" placeholder="Sewer Code" oninput="validateAlphanumeric(this)"/>
+                                <input type="text" class="form-control" id="sewer_code" placeholder={{__("Sewer Code" )}} oninput="validateAlphanumeric(this)"/>
                             </div>
                             <label for="bin" class="col-md-2 col-form-label" style=" font-family: 'Open Sans', sans-serif;">{{ __('BIN')}}</label>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" id="bin" placeholder="BIN" oninput="validateAlphanumeric(this)"/>
+                                <input type="text" class="form-control" id="bin" placeholder={{__("BIN")}} oninput="validateAlphanumeric(this)"/>
                             </div>
                         </div>
                         <div class="card-footer text-right">
@@ -132,13 +132,14 @@ $(function() {
             var form = $(this).closest("form");
             event.preventDefault();
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+               title: "{{__('Are you sure?')}}",
+                    text: "{!! __('You won\'t be able to revert this!') !!}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "{{ __('Yes, delete it!') }}",
+                    cancelButtonText: '{{ __('Cancel') }}',
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit();

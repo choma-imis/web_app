@@ -98,7 +98,7 @@
                     <th>{{__('BIN')}}</th>
                     <th>{{__('Owner Name')}}</th>
                     <th>{{__('Years Due')}}</th>
-                    <th>{{('Ward')}}</th>
+                    <th>{{__('Ward')}}</th>
                     </tr>
                 </thead>
             </table>

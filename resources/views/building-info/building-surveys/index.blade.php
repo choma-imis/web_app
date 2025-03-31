@@ -38,7 +38,7 @@
         <div class="card-header">
             <a href="#" class="btn btn-info float-right" id="headingOne" type="button" data-toggle="collapse"
                 data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-               {{__(" Show Filter")}}
+               {{__("Show Filter")}}
             </a>
         </div><!-- /.box-header -->
         <div class="card-body">
@@ -180,12 +180,13 @@
                     event.preventDefault();
                     Swal.fire({
                         title: '{{ __('Are you sure?') }}',
-                        text: '{{ __("You won't be able to revert this!") }}',
+                        text: "{!! __('You won\'t be able to revert this!') !!}",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: '{{ __('Yes, delete it!') }}'
+                        confirmButtonText: '{{ __('Yes, delete it!') }}',
+                        cancelButtonText: '{{ __('Cancel') }}',
                     }).then((result) => {
                         if (result.isConfirmed) {
                             form.submit();
