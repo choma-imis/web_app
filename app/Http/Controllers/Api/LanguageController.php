@@ -46,7 +46,8 @@ class LanguageController extends Controller
              ->where('en_translations.name', '=', 'en');
     })
     ->where('t.name', $lang_id)
-    ->where('t.platform', 'mobile') // Filter only mobile platform
+    ->where('t.platform', 'mobile')
+    ->where('t.group','validation') // Filter only mobile platform
     ->where('en_translations.platform', 'mobile') // Ensure English translations are also for mobile
     ->get([
         'en_translations.text as english_text', // English text
