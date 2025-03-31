@@ -125,14 +125,14 @@ class LowIncomeCommunityController extends Controller
                 if($building_count == 0)
                 {
                     $lic->delete();
-                    return redirect('layer-info/low-income-communities')->with('success','Low Income Community deleted successfully.');
+                    return redirect('layer-info/low-income-communities')->with('success',__('Low Income Community deleted successfully.'));
                 }
                 else
                 {
-                    return redirect('layer-info/low-income-communities')->with('error','Cannot delete Low Income Community that has associated Buildings.');
+                    return redirect('layer-info/low-income-communities')->with('error',__('Cannot delete Low Income Community that has associated Buildings.'));
                 }
             } else {
-                return redirect('layer-info/low-income-communities')->with('error','Failed to delete Low Income Community.');
+                return redirect('layer-info/low-income-communities')->with('error',__('Failed to delete Low Income Community.'));
             }
 {
     $lic = LowIncomeCommunity::find($id);
@@ -140,12 +140,12 @@ class LowIncomeCommunityController extends Controller
         $building_count = Building::where('lic_id', $lic->id)->count();
         if ($building_count == 0) {
             $lic->delete();
-            return redirect('layer-info/low-income-communities')->with('success', 'Low Income Community deleted successfully.');
+            return redirect('layer-info/low-income-communities')->with('success', __('Low Income Community deleted successfully.'));
         } else {
-            return redirect('layer-info/low-income-communities')->with('error', 'Cannot delete Low Income Community that has associated Buildings.');
+            return redirect('layer-info/low-income-communities')->with('error', __('Cannot delete Low Income Community that has associated Buildings.'));
         }
     } else {
-        return redirect('layer-info/low-income-communities')->with('error', 'Failed to delete Low Income Community.');
+        return redirect('layer-info/low-income-communities')->with('error', __('Failed to delete Low Income Community.'));
     }
 }
 }
