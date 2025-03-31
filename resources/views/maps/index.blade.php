@@ -1897,7 +1897,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             var mLayer = {
                 @can('Municipality Map Layer')
                 citypolys_layer: {
-                    name: ' Municipality',
+                    name: '{{ __(" Municipality") }}',
                     styles: {},
                     clipLegend: false,
                     showCount: false,
@@ -1906,7 +1906,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Ward Boundary Map Layer')
                 wardboundary_layer: {
-                    name: 'Ward Boundary',
+                    name: '{{ __("Ward Boundary") }}',
                     styles: {},
                     clipLegend: false,
                     showCount: false,
@@ -1915,25 +1915,25 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Roads Map Layer')
                 roadlines_layer: {
-                    name: 'Road Network',
+                    name: '{{ __("Road Network") }}',
                     styles: {
                         roadlines_layer_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         roadlines_layer_hierarchy: {
-                            name: 'Hierarchy',
+                            name: '{{ __("Hierarchy") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         roadlines_layer_width: {
-                            name: 'Carrying Width (m)',
+                            name: '{{ __("Carrying Width (m)") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         roadlines_layer_surface_type: {
-                            name: 'Surface Type',
+                            name: '{{ __("Surface Type") }}',
                             clipLegend: false,
                             showCount: false,
                         },
@@ -1946,20 +1946,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Sewers Line Map Layer')
                 sewerlines_layer: {
-                    name: 'Sewer Network',
+                    name: '{{ __("Sewer Network") }}',
                     styles: {
                         sewer_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         sewerlines_layer_size: {
-                            name: 'Diameter (mm)',
+                            name: '{{ __("Diameter (mm)") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         sewerlines_layer_length: {
-                            name: 'Length (m)',
+                            name: '{{ __("Length (m)") }}',
                             clipLegend: false,
                             showCount: false
                         },
@@ -1972,20 +1972,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 @can('Drains Map Layer')
                     drains_layer: {
-                    name: 'Drain Network',
+                    name: '{{ __("Drain Network") }}',
                     styles: {
                         drains_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         drain_type: {
-                            name: 'Surface Type',
+                            name: '{{ __("Surface Type") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         drain_covertype : {
-                            name: 'Cover Type',
+                            name: '{{ __("Cover Type") }}',
                             clipLegend: false,
                             showCount: false
                         },
@@ -1997,10 +1997,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('WaterSupply Network Map Layer')
                 watersupply_network_layer: {
-                    name: 'Water Supply Network',
+                    name: '{{ __("Water Supply Network") }}',
                     styles: {
                         watersupply_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}',
                             clipLegend: false,
                             showCount: false
                         },
@@ -2012,7 +2012,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Places Map Layer')
                 places_layer: {
-                    name: 'Places',
+                    name: '{{ __("Places") }}',
                     styles: {},
                     clipLegend: true,
                     showCount: false,
@@ -2021,63 +2021,63 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Buildings Map Layer')
                 buildings_layer: {
-                    name: 'Building',
+                    name: '{{ __("Building") }}',
                     styles: {
                         buildings_layer_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         buildings_layer_structure_type: {
-                            name: 'Structure Type',
+                            name: '{{ __("Structure Type") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         buildings_layer_flrcount: {
-                            name: 'Number of Floors',
+                            name: '{{ __("Number of Floors") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         buildings_layer_functional_use: {
-                            name: 'Functional Use of Building',
+                            name: '{{ __("Functional Use of Building") }}',
                             clipLegend: true,
                             showCount: false
                         },
 
                         buildings_layer_building_associated_to: {
-                            name: 'Associated Building',
+                            name: '{{ __("Associated Building") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         buildings_layer_toilet: {
-                            name: 'Presence of Toilet',
+                            name: '{{ __("Presence of Toilet") }}',
                             clipLegend: false,
                             showCount: false
                         },
 
                         buildings_layer_toilet_connection: {
-                            name: 'Toilet Connection',
+                            name: '{{ __("Toilet Connection") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         buildings_layer_water_source: {
-                            name: 'Main Drinking Water Source',
+                            name: '{{ __("Main Drinking Water Source") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         buildings_layer_well_presence: {
-                            name: 'Well in Premises',
+                            name: '{{ __("Well in Premises") }}',
                             clipLegend: false,
                             showCount: false
                         },
 
                         low_income_houses: {
-                            name: 'Is Low Income House',
+                            name: '{{ __("Is Low Income House") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         building_construction_year: {
-                            name: 'Construction Date',
+                            name: '{{ __("Construction Date") }}',
                             clipLegend: false,
                             showCount: false
                         },
@@ -2089,38 +2089,38 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Containments Map Layer')
                 containments_layer: {
-                    name: 'Containments',
+                    name: '{{ __("Containments") }}',
                     styles: {
                         containments_layer_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}',
                             clipLegend: true,
                             showCount: false
                         },
 
                         containments_layer_type: {
-                            name: 'Type',
+                            name: '{{ __("Type") }}',
                             clipLegend: true,
                             showCount: false,
                         },
 
                         containments_outlet_connection: {
-                            name: 'Outlet Connection',
+                            name: '{{ __("Outlet Connection") }}',
                             clipLegend: true,
                             showCount: false,
                         },
 
                         containments_layer_emptied_status: {
-                            name: 'Emptied Status',
+                            name: '{{ __("Emptied Status") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         containments_layer_no_of_times_emptied: {
-                            name: 'Times Emptied',
+                            name: '{{ __("Times Emptied") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         containments_period_from_construction: {
-                            name: 'Year of Construction',
+                            name: '{{ __("Year of Construction") }}',
                             clipLegend: true,
                             showCount: false
                         },
@@ -2128,13 +2128,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                          *containments_last_emptied_year uses a SQL View made in the GeoServer
                          * */
                         containments_last_emptied_year: {
-                            name: 'Last Emptied Year',
+                            name: '{{ __("Last Emptied Year") }}',
                             clipLegend: true,
                             showCount: false
                         },
 
                         containments_layer_location: {
-                            name: 'Location',
+                            name: '{{ __("Location") }}',
                             clipLegend: false,
                             showCount: false
                         }
@@ -2148,20 +2148,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 @can('Treatment Plants Map Layer')
                 treatmentplants_layer: {
-                    name: 'Treatment Plants',
+                    name: '{{ __("Treatment Plants") }}',
                     styles: {
                         treatmentplants_layer_none: {
-                        name: 'None',
+                        name: '{{ __("None") }}',
                         clipLegend: true,
                         showCount: false
                     },
                     treatmentplants_layer_status: {
-                        name: 'Status',
+                        name: '{{ __("Status") }}',
                         clipLegend: true,
                         showCount: false
                     },
                     treatmentplants_layer_type: {
-                        name: 'Type',
+                        name: '{{ __("Type") }}',
                         clipLegend: true,
                         showCount: false
                     },
@@ -2175,7 +2175,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 @can('Sanitation System Map Layer')
                 sanitation_system_layer: {
-                    name: 'Sanitation System',
+                    name: '{{ __("Sanitation System") }}',
                     styles: {},
                     clipLegend: true,
                     showCount: false,
@@ -2186,15 +2186,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 @can('PT/CT Toilets Map Layer')
                 toilets_layer: {
-                    name: 'Toilets PT/CT',
+                    name: '{{ __("Toilets PT/CT") }}',
                     styles: {
                         toilets_layer_none: {
-                        name: 'None',
+                        name: '{{ __("None") }}',
                         clipLegend: false,
                         showCount: false
                     },
                     toilets_layer_type: {
-                        name: 'Toilet Type',
+                        name: '{{ __("Toilet Type") }}',
                         clipLegend: false,
                         showCount: false
                     },
@@ -2207,15 +2207,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 @can('Public Health Map Layer')
                    waterborne_hotspots_layer:{
-                        name: 'Waterborne Hotspots',
+                        name: '{{ __("Waterborne Hotspots") }}',
                     styles:{
                         waterborne_hotspots_layer_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}',
                             clipLegend: false,
                             showCount: false
                         },
                         infected_disease: {
-                            name: 'Infected Disease',
+                            name: '{{ __("Infected Disease") }}',
                             clipLegend: false,
                             showCount: false
                         },
@@ -2230,7 +2230,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 @can('Water Samples Map Layer')
                 water_samples_layer: {
-                    name: 'Water Samples',
+                    name: '{{ __("Water Samples") }}',
                     styles: {},
                     clipLegend: true,
                     showCount: false,
@@ -2241,7 +2241,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @if(auth()->user()->can('Tax Payment Status Buildings Map Layer') || auth()->user()->can('Water Payment Status Map Layer'))
                 @can('Tax Payment Status Buildings Map Layer')
                  buildings_tax_status_layer:{
-                    name: 'Tax Payment Status',
+                    name: '{{ __("Tax Payment Status") }}',
                     styles:{},
                     clipLegend: true,
                     showCount: false,
@@ -2250,15 +2250,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Water Payment Status Map Layer')
                 buildings_water_payment_status_layer:{
-                        name: 'Water Payment Status',
+                        name: '{{ __("Water Payment Status") }}',
                     styles:{
                         buildings_water_payment_status_layer: {
-                            name: 'Payment Status',
+                            name: '{{ __("Payment Status") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         buildings_water_payment_service_layer: {
-                            name: 'Service Status',
+                            name: '{{ __("Service Status") }}',
                             clipLegend: false,
                             showCount: false
                         },
@@ -2273,15 +2273,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endif
                 @can('Solid Waste Status Map Layer')
                 buildings_swm_payment_status_layer:{
-                        name: 'Solid Waste Service Status',
+                        name: '{{ __("Solid Waste Service Status") }}',
                     styles:{
                         buildings_swm_payment_status_layer: {
-                            name: 'Payment Status',
+                            name: '{{ __("Payment Status") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         buildings_swm_payment_service_layer: {
-                            name: 'Service Status',
+                            name: '{{ __("Service Status") }}',
                             clipLegend: false,
                             showCount: false
                         },
@@ -2294,7 +2294,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Low Income Community Map Layer')
                 low_income_communities_layer: {
-                    name: 'Low Income Community',
+                    name: '{{ __("Low Income Community") }}',
                     styles: {},
                     clipLegend: false,
                     showCount: false,
@@ -2303,96 +2303,96 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Wards Map Layer')
                 wards_layer: {
-                    name: 'Ward Wise Info',
+                    name: '{{ __("Ward Wise Info") }}',
                     styles: {
                         wards_layer_none: {
-                            name: 'None',
+                            name: '{{ __("None") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_build: {
-                            name: 'No. of Buildings',
+                            name: '{{ __("No. of Buildings") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_rcc_framed: {
-                            name: 'No. of RCC Framed',
+                            name: '{{ __("No. of RCC Framed") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_wooden_mud: {
-                            name: 'No. of Wooden/Mud',
+                            name: '{{ __("No. of Wooden/Mud") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_load_bearing: {
-                            name: 'No. of Load Bearing',
+                            name: '{{ __("No. of Load Bearing") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_cgi_sheet: {
-                            name: 'No. of CGI Sheet',
+                            name: '{{ __("No. of CGI Sheet") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_build_directly_to_sewerage_network: {
-                            name: 'No. of Building Connected to Sewerage Network',
+                            name: '{{ __("No. of Building Connected to Sewerage Network") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_contain: {
-                            name: 'No. of Containments',
+                            name: '{{ __("No. of Containments") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_pit_holding_tank: {
-                            name: 'No.of Pit/Holding Tank',
+                            name: '{{ __("No.of Pit/Holding Tank") }}',
                             clipLegend: true,
                             showCount: false
                         },
 
                 wards_layer_no_septic_tank: {
-                            name: 'No.of Septic Tank',
+                            name: '{{ __("No.of Septic Tank") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_total_rdlen: {
-                            name: 'Total Length of Roads (km)',
+                            name: '{{ __("Total Length of Roads (km)") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_bldgtaxpdprprtn: {
-                            name: 'Tax Paid %',
+                            name: '{{ __("Tax Paid %") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_wtrpmntprprtn: {
-                            name: 'Watersupply Payment Paid %',
+                            name: '{{ __("Watersupply Payment Paid %") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_swmsrvpmntprprtn: {
-                            name: 'Solid Waste Payment Paid %',
+                            name: '{{ __("Solid Waste Payment Paid %") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_population_served: {
-                            name: 'Population of Building',
+                            name: '{{ __("Population of Building") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_household_served: {
-                            name: 'Number of Households',
+                            name: '{{ __("Number of Households") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_emptying: {
-                            name: 'No. of Containments Emptied',
+                            name: '{{ __("No. of Containments Emptied") }}',
                             clipLegend: true,
                             showCount: false
                         },
                         wards_layer_no_emptying: {
-                            name: 'No. of Emptying Requests',
+                            name: '{{ __("No. of Emptying Requests") }}',
                             clipLegend: true,
                             showCount: false
                         },
@@ -2405,88 +2405,88 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Summarized Grids Map Layer')
                 grids_layer: {
-                    name: 'Summarized Grids (0.5 km)',
+                    name: '{{ __("Summarized Grids (0.5 km)") }}',
                     styles: {
                         grids_layer_no_build: {
-                    name: 'No. of Buildings',
+                    name: '{{ __("No. of Buildings") }}',
                     clipLegend: true,
                     showCount: false
                 },
 
                 grids_layer_no_contain: {
-                    name: 'No. of Containments',
+                    name: '{{ __("No. of Containments") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_no_rcc_framed: {
-                    name: 'No. of RCC Framed',
+                    name: '{{ __("No. of RCC Framed") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_no_wooden_mud: {
-                    name: 'No. of Wooden/Mud',
+                    name: '{{ __("No. of Wooden/Mud") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_no_load_bearing: {
-                    name: 'No. of Load Bearing',
+                    name: '{{ __("No. of Load Bearing") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_no_cgi_sheet: {
-                    name: 'No. of CGI Sheet',
+                    name: '{{ __("No. of CGI Sheet") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_no_build_directly_to_sewerage_network: {
-                    name: 'No. of Building Connected to Sewerage Network',
+                    name: '{{ __("No. of Building Connected to Sewerage Network") }}',
                     clipLegend: true,
                     showCount: false
                 },
 
                 grids_layer_no_pit_holding_tank: {
-                            name: 'No.of Pit/Holding Tank',
+                            name: '{{ __("No.of Pit/Holding Tank") }}',
                             clipLegend: true,
                             showCount: false
                         },
                 grids_layer_no_septic_tank: {
-                            name: 'No.of Septic Tank',
+                            name: '{{ __("No.of Septic Tank") }}',
                             clipLegend: true,
                             showCount: false
                         },
 
                 grids_layer_total_rdlen: {
-                    name: 'Total Length of Roads (km)',
+                    name: '{{ __("Total Length of Roads (km)") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_bldgtaxpdprprtn: {
-                    name: 'Tax Paid %',
+                    name: '{{ __("Tax Paid %") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_wtrpmntprprtn: {
-                    name: 'Watersupply Payment Paid %',
+                    name: '{{ __("Watersupply Payment Paid %") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_swmsrvpmntprprtn : {
-                    name: 'Solid Waste Payment Paid %',
+                    name: '{{ __("Solid Waste Payment Paid %") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_population_served: {
-                    name: 'Population Served',
+                    name: '{{ __("Population Served") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_household_served: {
-                    name: 'Household Served',
+                    name: '{{ __("Household Served") }}',
                     clipLegend: true,
                     showCount: false
                 },
                 grids_layer_no_emptying: {
-                    name: 'No. of Emptying Requests',
+                    name: '{{ __("No. of Emptying Requests") }}',
                     clipLegend: true,
                     showCount: false
                 },
@@ -2499,7 +2499,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
         @can('Water Body Map Layer')
         waterbodys_layer: {
-            name: 'Water Bodies',
+            name: '{{ __("Water Bodies") }}',
             styles: {},
             clipLegend: true,
             showCount: false,
@@ -2510,7 +2510,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 @can('Land Use Map Layer')
                 landuses_layer: {
-                    name: 'Land Use',
+                    name: '{{ __("Land Use") }}',
                     styles: {},
                     clipLegend: true,
                     showCount: false,
@@ -9859,27 +9859,27 @@ $.ajax({
         function csvdata(outputFormat, selectedLayer, exportLink)
         {
             const layerFilenames = {
-                    'treatmentplants_layer': 'Treatment Plants',
-                    'drains_layer': 'Drain Network',
-                    'roadlines_layer': 'Road Network',
-                    'sewerlines_layer': 'Sewer Network',
-                    'buildings_tax_status_layer': 'Property Tax Collection ISS',
-                    'buildings_water_payment_status_layer': 'Water Supply ISS',
-                    'watersupply_network_layer': 'Water Supply Network',
-                    'wardboundary_layer': 'Ward Boundary',
-                    'water_samples_layer' : 'Water Samples',
-                    'toilets_layer':'Toilets PTCT',
-                    'buildings_layer':'Buildings',
-                    'buildings_swm_payment_status_layer' : 'SWM ISS',
-                    'containments_layer' : 'Containment',
-                    'buildings_layer' : 'Buildings',
-                    'low_income_communities_layer':'Low Income Community',
-                    'grids_layer': 'Summarized Grids',
-                    'landuses_layer': 'Land Use',
-                    'waterbodys_layer': 'Water Bodies',
-                    'places_layer': 'Places',
-                    'sanitation_system_layer': 'Sanitation System',
-                    'waterborne_hotspots_layer': 'Waterborne Hotspots',
+                    'treatmentplants_layer': '{{ __("Treatment Plants") }}',
+                    'drains_layer': '{{ __("Drain Network") }}',
+                    'roadlines_layer': '{{ __("Road Network") }}',
+                    'sewerlines_layer': '{{ __("Sewer Network") }}',
+                    'buildings_tax_status_layer': '{{ __("Property Tax Collection ISS") }}',
+                    'buildings_water_payment_status_layer': '{{ __("Water Supply ISS") }}',
+                    'watersupply_network_layer': '{{ __("Water Supply Network") }}',
+                    'wardboundary_layer': '{{ __("Ward Boundary") }}',
+                    'water_samples_layer' : '{{ __("Water Samples") }}',
+                    'toilets_layer': '{{ __("Toilets PTCT") }}',
+                    'buildings_layer': '{{ __("Buildings") }}',
+                    'buildings_swm_payment_status_layer' : '{{ __("SWM ISS") }}',
+                    'containments_layer' : '{{ __("Containment") }}',
+                    'buildings_layer' : '{{ __("Buildings") }}',
+                    'low_income_communities_layer': '{{ __("Low Income Community") }}',
+                    'grids_layer': '{{ __("Summarized Grids") }}',
+                    'landuses_layer': '{{ __("Land Use") }}',
+                    'waterbodys_layer': '{{ __("Water Bodies") }}',
+                    'places_layer': '{{ __("Places") }}',
+                    'sanitation_system_layer': '{{ __("Sanitation System") }}',
+                    'waterborne_hotspots_layer': '{{ __("Waterborne Hotspots") }}',
 
                 };
 
