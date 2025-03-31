@@ -1049,6 +1049,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                                     class="fa fa-building"></i>Point Buffer Summary Information</a>
                                                 </span>
                                             @endcan
+
+                                            <span data-toggle="tooltip" data-placement="bottom"
+                                          title="Containments emptied monthly">
+                            <a href="#" id="containments_emptied_monthly" class="btn btn-default map-control"><i
+                                        class="fa fa-building"></i>Containments Emptied Info</a>
+                             </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -1323,6 +1330,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <div id="feedback-popup-content"></div>
         <button id="feedback-popup-closer" type="button" class="btn btn-default float-right xol-popup-closer">Close</button>
     </div>
+
+     <!-- Modal -->
+     <div id="containment-report-popup" class="ol-popup" style="display: none;">
+        <div id="containment-report-popup-content"></div>
+
+                        <form method="get" style= "margin-top:12px" action="{{ url("maps/export-containment-report") }}">
+                            <input type="hidden" name="containment_report_polygon" value="" id="containment_report_polygon"/>
+                            <input type="hidden" name="containment_report_year" value="" id="containment_report_year"/>
+                            <strong>Export to:</strong>  <button id="containment-report-popup-export" type="submit" class="btn btn-default">Excel</button>
+
+                            <button id="containment-report-popup-closer" type="button" class="btn btn-default float-right xol-popup-closer">Close</button>
+                        </form>
+    </div>
+
     <!-- Modal -->
     <div id="popup-drain-potential" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -2972,7 +2993,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     }
                     }
            
-                    
+
             // Add handler to zoom in button click
             $('#zoomin_control').click(function (e) {
                 e.preventDefault();
@@ -4760,6 +4781,43 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 return false;
             };
 
+              /**
+             * Elements that make up the popup for report.
+             */
+            var reportContainmentPopupContainer = document.getElementById('containment-report-popup');
+            var reportContainmentPopupContent = document.getElementById('containment-report-popup-content');
+            var reportContainmentPopupCloser = document.getElementById('containment-report-popup-closer');
+
+
+            /**
+             * Create an overlay to anchor the popup to the map.
+             */
+            var reportContainmentPopupOverlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+                element: reportContainmentPopupContainer,
+                autoPan: true,
+                dragging: false,
+                stopEvent: false,
+                autoPanAnimation: {
+                    duration: 250
+                }
+            }));
+
+            $(reportContainmentPopupContainer).show();
+
+            map.addOverlay(reportContainmentPopupOverlay);
+
+
+            /**
+             * Add a click handler to hide the popup for report.
+             * @return {boolean} Don't follow the href.
+             */
+            reportContainmentPopupCloser.onclick = function () {
+                reportContainmentPopupOverlay.setPosition(undefined);
+                reportContainmentPopupCloser.blur();
+                return false;
+            };
+            
+
             /**
              * Elements that make up the popup for feedback.
              */
@@ -5432,6 +5490,189 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     map.addInteraction(draw);
                 }
             });
+
+              // Add handler to containments_emptied_monthly information tool button click
+              $('#containments_emptied_monthly').click(function (e) {
+                e.preventDefault();
+                disableAllControls();
+                $('.map-control').removeClass('map-control-active');
+                if (currentControl == 'containments_emptied_monthly') {
+                    currentControl = '';
+                    // $('#pan_control').addClass('map-control-active');
+                } else {
+                    currentControl = 'containments_emptied_monthly';
+                    $('#containments_emptied_monthly').addClass('map-control-active');
+
+                    if (!eLayer.containments_report_polygon) {
+                        var reportContainmentPolygonLayer = new ol.layer.Vector({
+                            // visible: false,
+                            source: new ol.source.Vector(),
+                            style: new ol.style.Style({
+                                stroke: new ol.style.Stroke({
+                                    color: '#0000FF',
+                                    width: 3
+                                }),
+                            })
+                        });
+
+
+                        addExtraLayer('containments_report_polygon', 'Report Containment Polygon', reportContainmentPolygonLayer);
+                    }
+
+                    // map.removeInteraction(draw);
+                    draw = new ol.interaction.Draw({
+                        source: eLayer.containments_report_polygon.layer.getSource(),
+                        type: 'Polygon'
+                    });
+
+                    draw.on('drawstart', function (evt) {
+                        eLayer.containments_report_polygon.layer.getSource().clear();
+                        reportContainmentPopupOverlay.setPosition(undefined);
+                    });
+                    draw.on('drawend', function (evt) {
+                        // showExtraLayer('feedback_report_polygon');
+                        var format = new ol.format.WKT();
+                        var geom = format.writeGeometry(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+                        $('#containment_report_polygon').val(geom);
+                        $('#containment_report_year').val("All");
+                        displayAjaxLoader();
+                        var url = '{{ url("maps/containment-report") }}';
+                        $.ajax({
+                            url: url,
+                            type: 'post',
+                            data: {geom: geom, "_token": "{{ csrf_token() }}"},
+                            success: function (data) {
+                                if (data['values'] != "") {
+                                    var values = data['values'];
+                                    var valuesAll = data['valuesAll'];
+                                    var values_m_one = data['values_m_one'];
+                                    var values_m_two = data['values_m_two'];
+                                    var values_m_three = data['values_m_three'];
+                                    var values_m_four = data['values_m_four'];
+                                    var colors = data['colors'];
+                                    var borderColor = data['borderColor'];
+                                    var hoverBackgroundColor = data['hoverBackgroundColor'];
+                                    var hoverBorderColor = data['hoverBorderColor'];
+                                    var labels = data['labels'];
+                                    var uniqueContainCodeEmptiedCount = data['year'];
+                                    var feedbackCount = data['feedbackCount'];
+                                    var current_year = data['current_year'];
+                                    var from_year = data['from_year'];
+                                    var html = '<div style="min-width: 500px;">';
+                                        html += '<p class="h4 text-center">Containments Emptied</p>';
+
+                                        // Row for dropdown and button
+                                        html += '<div class="row justify-content-end align-items-center">';
+                                        html += '<form class="form-inline d-flex align-items-center">';
+                                       
+                                        // Year selection dropdown
+                                        html += '<div class="form-group d-flex align-items-center pr-3">';
+                                        html += '<label class="p-2" for="year_select">Select Year</label>';
+                                        html += '<select id="year_select" class="form-control">';
+                                        html += '<option value="All">All Year</option>';
+                                        for (var i = from_year; i <= current_year; i++) {
+                                            html += '<option value="' + i + '">' + i + '</option>';
+                                        }
+                                        html += '</select>';  
+                                       
+                                        html += '</div>';
+                                        html += '<button id="downloadChart" class="btn btn-primary"><i class="fa fa-download"></i> </button>';
+
+                                        html += '</form>';
+                                        html += '</div>';
+
+                                        // Chart canvas row
+                                        html += '<div class="row mt-3">';
+                                        html += '<div class="col-md-12"><canvas id="pie-chart" width="200" height="200"></canvas></div>';
+                                        html += '</div>';
+
+                                        html += '</div>'; // Closing main container div
+
+                                                reportContainmentPopupContent.innerHTML = html;
+                                    var chart = new Chart(document.getElementById("pie-chart"), {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', "Nov", "Dec"],
+                                            datasets: [{
+                                                label: "No. of containments",
+                                                backgroundColor: "rgba(90, 155, 212,0.2)",
+                                                    borderColor: "rgba(90, 155, 212,1)",
+                                                    borderWidth: 1,
+                                                    hoverBackgroundColor: "rgba(90, 155, 212,0.4)",
+                                                    hoverBorderColor: "rgba(90, 155, 212,1)",
+                                                borderWidth: 1,
+                                                data: valuesAll,
+                                                skipNull: true,
+                                            }]
+                                        },
+                                         options : {
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true,
+                                                    userCallback: function(label, index, labels) {
+                                                        // when the floored value is the same as the value we have a whole number
+                                                        if (Math.floor(label) === label) {
+                                                            return label;
+                                                        }
+
+                                                    },
+                                                }
+                                            }],
+                                        },
+                                    }
+                                    });
+                                    // Chart download functionality
+                                    document.getElementById("downloadChart").addEventListener("click", function() {
+                                        var link = document.createElement("a");
+                                        link.href = document.getElementById("pie-chart").toDataURL("image/png");
+                                        link.download = "Containments Emptied.png";
+                                        link.click();
+                                    });
+                                        $( "#year_select" ).change(function() {
+                                       $('#containment_report_year').val($(this).val());
+                                       if($(this).val() == new Date().getFullYear()){
+                                           chart.data.datasets[0].data = values;
+                                       } else if($(this).val() == (new Date().getFullYear())-1){
+                                           chart.data.datasets[0].data = values_m_one;
+                                       } else if($(this).val() == (new Date().getFullYear())-2){
+                                           chart.data.datasets[0].data = values_m_two;
+                                       } else if($(this).val() == (new Date().getFullYear())-3){
+                                           chart.data.datasets[0].data = values_m_three;
+                                       } else if($(this).val() == (new Date().getFullYear())-4){
+                                           chart.data.datasets[0].data = values_m_four;
+                                       } else{
+                                           chart.data.datasets[0].data = valuesAll;
+                                       }
+                                      chart.update();
+                                    });
+                                
+
+                                } else {
+                                    reportContainmentPopupContent.innerHTML = "No Containment data available.";
+                                }
+                                removeAjaxLoader();
+
+                                reportContainmentPopupOverlay.setPosition(evt.feature.getGeometry().getInteriorPoint().getCoordinates());
+                                $('#containments_emptied_monthly').removeClass('map-control-active');
+                                currentControl = '';
+                                map.removeInteraction(draw);
+                            },
+                            error: function (data) {
+                                displayAjaxError();
+                            }
+                        });
+                    
+                       
+                       
+                       
+                    });
+
+                    map.addInteraction(draw);
+                }
+            });
+
+
             //report_control_summary_buffer
             ///DEM Chart
             // Add handler to road building button click
