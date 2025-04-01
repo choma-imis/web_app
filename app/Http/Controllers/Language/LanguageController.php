@@ -82,15 +82,15 @@ class LanguageController extends Controller
                 $generate = $this->generate_lang_file($lang, $content, 'update');
                 if ($generate && $generate->status == true) {
                     // $this->add_setting('lang_last_generate_' . $lang, time());
-                    return redirect('language/setup')->with('success', 'Language file generated successfully');
+                    return redirect('language/setup')->with('success', __('Language file generated successfully'));
                 } else {
-                    return redirect('language/setup')->with('error', 'Failed to generate the language file.');
+                    return redirect('language/setup')->with('error', __('Failed to generate the language file.'));
                 }
             } else {
-                return redirect('language/setup')->with('error', 'Unable to generate language file. Please request system admininstrator to check file permission of your /lang folder.');
+                return redirect('language/setup')->with('error', __(('Unable to generate language file. Please request system admininstrator to check file permission of your /lang folder.')));
             }
         } else {
-            return redirect('language/setup')->with('error', 'Sorry! Unable find the language');
+            return redirect('language/setup')->with('error',__('Sorry! Unable find the language'));
         }
         return $result;
     }
@@ -176,35 +176,36 @@ class LanguageController extends Controller
 
                 // Edit Button
                 if (Auth::user()->can('Edit Language')) {
-                    $content .= '<a title="Edit" href="' . action("Language\LanguageController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
+                    $content .= '<a title="'.__("Edit").'" href="' . action("Language\LanguageController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
                 }
 
                 // Detail Button
                 if (Auth::user()->can('View Language')) {
-                    $content .= '<a title="Detail" href="' . action("Language\LanguageController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
+                    $content .= '<a title="'.__("Detail").'" href="'. action("Language\LanguageController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
                 }
 
                 // Add Translations Button
                 if (Auth::user()->can('Add Translation')) {
-                    $content .= '<a title="Add/Edit Translations" href="' . action("Language\LanguageController@add_translation", [$model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-language" aria-hidden="true"></i></a> ';
+
+                    $content .= '<a title= "'.__("Add/Edit Translations").'" href="' . action("Language\LanguageController@add_translation", [$model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-language" aria-hidden="true"></i></a> ';
                 }
 
                 // Import Translations Button
                 if (Auth::user()->can('Add Translation')) {
-                    $content .= '<a title="Import Translations" href="' . action("Language\LanguageController@create_import", [$model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-upload"></i></a> ';
+                    $content .= '<a title="'.__("Import Translations").'" href="' . action("Language\LanguageController@create_import", [$model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-upload"></i></a> ';
                 }
 
                 // Generate Language Button (Form Submission)
                 if (Auth::user()->can('Generate Translation')) {
                     $content .= \Form::open(['method' => 'POST', 'route' => ['lang.generate', $model->code], 'class' => 'd-inline']);
-                    $content .= '<button type="submit" class="btn btn-info btn-sm mb-1 mr-1" title="Generate Language"><i class="fa fa-cogs"></i></button>';
+                    $content .= '<button type="submit" class="btn btn-info btn-sm mb-1 mr-1" title="'.__("Generate Language").'"><i class="fa fa-cogs"></i></button>';
                     $content .= \Form::close();
                 }
 
                 // Delete Button (Last)
                 if (Auth::user()->can('Delete Language')) {
                     $content .= \Form::open(['method' => 'DELETE', 'route' => ['setup.destroy', $model->id], 'class' => 'd-inline']);
-                    $content .= '<button type="submit" class="btn btn-danger btn-sm mb-1 delete" title="Delete"><i class="fa fa-trash"></i></button>';
+                    $content .= '<button type="submit" class="btn btn-danger btn-sm mb-1 delete" title="'.__("Delete").'"><i class="fa fa-trash"></i></button>';
                     $content .= \Form::close();
                 }
 
@@ -243,11 +244,13 @@ class LanguageController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->all();
-            $languageId = $this->storeOrUpdate(null, $data);
+            $languageId = $this->storeOrUpdate(null, $data); // Remove transaction inside storeOrUpdate
 
             $existingTranslates = Translate::where('name', 'en')->get();
 
-            $sequnece  =  DB::statement("SELECT setval('language.translates_id_seq', (SELECT MAX(id)+1 FROM language.translates))");
+            // Fix sequence issue
+            DB::statement("SELECT setval('language.translates_id_seq', COALESCE((SELECT MAX(id) + 1 FROM language.translates), 1))");
+
             // Insert new records in Translates table
             foreach ($existingTranslates as $translate) {
                 Translate::create([
@@ -259,6 +262,7 @@ class LanguageController extends Controller
                     'load'  => $translate->load,
                 ]);
             }
+
             DB::commit();
             return redirect('language/setup')->with('success', __('Language Added successfully'));
         } catch (Exception $e) {
@@ -267,42 +271,35 @@ class LanguageController extends Controller
             return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
+
     public function storeOrUpdate($id, $data)
-{
-    DB::beginTransaction();
-    try {
-        if (is_null($id)) {
+    {
+        try {
+            if (is_null($id)) {
+                $language = new Language();
+            } else {
+                $language = Language::find($id);
+                if (!$language) {
+                    throw new Exception(__('Language not found'));
+                }
 
-            $language = new Language();
-        } else {
-
-            $language = Language::find($id);
-            if (!$language) {
-                throw new Exception__('Language not found');
+                Translate::where('name', $language->code)->update([
+                    'name' => $data['code'] ?? null
+                ]);
             }
 
+            $language->name = $data['name'] ?? null;
+            $language->label = $data['name'] ?? null;
+            $language->code = $data['code'] ?? null;
+            $language->status = $data['status'] ?? null;
+            $language->save();
 
-            Translate::where('name', $language->code)->update([
-                'name' => $data['code'] ?? null
-            ]);
+            return $language->id;
+        } catch (Exception $e) {
+            throw new Exception(__('Error in storing/updating Language and Translates: ') . $e->getMessage());
         }
-
-
-        $language->name = $data['name'] ?? null;
-        $language->label = $data['name'] ?? null;
-        // $language->short = $data['short'] ?? null;
-        $language->code = $data['code'] ?? null;
-        $language->status = $data['status'] ?? null;
-        $language->save();
-
-        DB::commit();
-        return $language->id;
-    } catch (Exception $e) {
-        DB::rollBack();
-        \Log::error(__('Error in storing/updating Language and Translates:') . $e->getMessage());
-        return null;
     }
-}
+
 
     /**
      * Display the specified resource.
@@ -453,7 +450,7 @@ class LanguageController extends Controller
                 if (isset($existingTranslations[$key])) {
                     $storedText = $existingTranslations[$key]->text;
 
-                    // âœ… Only update if the new text is different from the stored text
+                    //  Only update if the new text is different from the stored text
                     if ($storedText !== $newText) {
                         $updates[] = [
                             'id' => $existingTranslations[$key]->id,
@@ -461,7 +458,7 @@ class LanguageController extends Controller
                         ];
                     }
                 } else {
-                    // âœ… If the translation does not exist, prepare it for insertion
+                    // If the translation does not exist, prepare it for insertion
                     $insertions[] = [
                         'key' => $key,
                         'name' => $languageId,

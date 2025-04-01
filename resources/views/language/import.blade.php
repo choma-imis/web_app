@@ -15,14 +15,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 <div class="col-sm-3">
                 {!! Form::file('csvfile', ['id' => 'csvfile', 'onchange' => 'validateFileExtension(this, "fileHint", "csv")']) !!}
                 <br>
-                <small id="fileHint">Please select a CSV file.</small> <br>
-                <small id="fileHeaderHint">Please ensure CSV file headers match with provided template.</small>
+                <small id="fileHint">{{ __('Please select a CSV file.') }}</small> <br>
+                <small id="fileHeaderHint">{{ __('Please ensure CSV file headers match with provided template.') }}</small>
                 </div>
             </div>
         </div><!-- /.card-body -->
         <div class="card-footer">
-        <a href="{{ action('Language\LanguageController@index') }}" class="btn btn-info">Back to List</a>
-            {!! Form::submit('Upload', ['class' => 'btn btn-info']) !!}
+        <a href="{{ action('Language\LanguageController@index') }}" class="btn btn-info">{{ __('Back to List') }}</a>
+            {!! Form::submit(__('Upload'), ['class' => 'btn btn-info']) !!}
         </div><!-- /.card-footer -->
     {!! Form::close() !!}
 </div><!-- /.card -->
