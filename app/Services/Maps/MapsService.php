@@ -29,6 +29,11 @@ use App\Models\Fsm\Emptying;
 use App\Models\Fsm\Feedback;
 use Schema;
 use App\Models\UtilityInfo\Roadline;
+use App\Models\UtilityInfo\SewerLine;
+use App\Models\UtilityInfo\Drain;
+use App\Models\Fsm\TreatmentPlant;
+
+
 
 class MapsService {
 
@@ -84,7 +89,9 @@ class MapsService {
         $roadHierarchy = Roadline::whereNotNull('hierarchy')->groupBy('hierarchy')->pluck('hierarchy','hierarchy');
          // Fetching road surface types data
         $roadSurfaceTypes = Roadline::whereNotNull('surface_type')->groupBy('surface_type')->pluck('surface_type','surface_type');
-
+        $road_code = Roadline::get(['code', 'name'])->mapWithKeys(function ($item) {
+            return [$item->code => ($item->name ? $item->code . ' - ' . $item->name : $item->code)];
+        })->toArray();
         $bboxValues = DB::select("SELECT 
             (ST_XMin(bbox) || ',' || ST_YMin(bbox) || ',' || ST_XMax(bbox) || ',' || ST_YMax(bbox)) AS bbox_values 
             FROM (
@@ -92,11 +99,18 @@ class MapsService {
             ) AS extent_subquery
         ");
         $bboxstring = $bboxValues[0]->bbox_values;
+        $cover_type = Drain::whereNotNull('cover_type')->groupBy('cover_type')->pluck('cover_type','cover_type');
 
-        return view('maps.index', compact('page_title', 'wards', 'dueYears', 'maxDate',
-            'minDate', 'bldguse', 'usecatg', 'pickWardResults', 'pickDateResults', 'pickStructureResults', 'roadHierarchy', 'roadSurfaceTypes',
-            'bboxstring'
-        ));
+        // $roadCode = Roadline::orderBy('code')->pluck('code', 'code');
+        $treatmentPlants = TreatmentPlant::Operational()->orderBy('id')->pluck('name', 'id');
+        $surface_type = Drain::where('surface_type','!=',null)->groupBy('surface_type')->pluck('surface_type','surface_type');
+
+        $location = SewerLine::whereNotNull('location')->distinct('location')->pluck('location','location')->all();
+        
+        return view('maps.index', compact('page_title', 'wards', 'location','dueYears', 'maxDate','treatmentPlants', 
+        'minDate', 'bldguse', 'usecatg', 'pickWardResults', 'pickDateResults', 'pickStructureResults', 'cover_type','roadHierarchy', 'roadSurfaceTypes','surface_type',
+        'bboxstring','road_code'
+    ));
     }
 
     /**
@@ -1017,6 +1031,41 @@ class MapsService {
 
     }
 
+    public function getMultiplePointBufferBuildingsSummary($distance, $long, $lat)
+    {
+        // dd($distance, $lat, $long);
+       // Query to create a buffer around the specified point
+        $polygon_query = "SELECT  ST_AsText(ST_Buffer(ST_SetSRID(ST_Point(" . $long . "," . $lat . "),4326)::GEOGRAPHY, " . $distance . ")) AS circle_geog";
+        $polygon_result = DB::select($polygon_query);
+        $polygon = $polygon_result[0]->circle_geog;
+        $buildings = array();
+        $popContentsHtml = '';
+          // Query to select buildings within the buffered area
+        $building_query = "SELECT b.bin, ST_AsText(b.geom) AS geom"
+            . " FROM building_info.buildings b, ST_Buffer(ST_SetSRID(ST_Point(" . $long . "," . $lat . "),4326)::GEOGRAPHY, " . $distance . ") AS circle_geog"
+            . " WHERE ST_Intersects(circle_geog::GEOMETRY, b.geom)"
+            . " AND b.drain_code IS NULL";
+        $results1 = DB::select($building_query);
+        foreach ($results1 as $row1) {
+            $building = array();
+            $building['bin'] = $row1->bin;
+            $building['geom'] = $row1->geom;
+            $buildings[] = $building;
+        }
+        // Query to use a function to get point buffer buildings 
+        $buildingQuery = "Select * from fnc_getPointBufferBuildings($long::float, $lat::float, $distance);";
+        $buildingResults = DB::select($buildingQuery);
+        $popContentsHtml = $this->popUpContentHtml($buildingResults);
+
+        return [
+            'buildings' => $buildings,
+            'popContentsHtml' => $popContentsHtml,
+            'polygon' => $polygon
+        ];
+    }
+
+
+
     /**
      * Retrieves information about buildings within a specified buffer zone around a given point.
      *
@@ -1027,6 +1076,7 @@ class MapsService {
      */
     public function getPointBufferBuildingsSummary($distance, $long, $lat)
     {
+        // dd($distance, $lat, $long);
        // Query to create a buffer around the specified point
         $polygon_query = "SELECT  ST_AsText(ST_Buffer(ST_SetSRID(ST_Point(" . $long . "," . $lat . "),4326)::GEOGRAPHY, " . $distance . ")) AS circle_geog";
         $polygon_result = DB::select($polygon_query);
@@ -1597,5 +1647,175 @@ class MapsService {
         ];
 
     }
+
+    public function checkLocationWithinBoundary($latt, $long) {
+        $query = "SELECT * FROM layer_info.citypolys WHERE ST_Intersects(ST_PointFromText('POINT(" . $long . " " . $latt .  ")', 4326), geom)";
+
+        $result = DB::select($query);
+        return $result;
+    }
+
+    public function getIsochroneAreaLayers($distance, $long, $lat)
+    {
+        $polygons = array(); 
+        $buildings = array();
+        $prev_polygon = null;
+        $i = 0;
+        foreach($distance as $dist)
+       {
+       $node_id_query = "WITH parameters AS (
+                SELECT
+                    ".$dist." AS max_cost, 
+                    ST_SetSRID(ST_Point(". $long .", ". $lat."),4326)::geometry AS origin, 
+                    4326 AS srid 
+                ), 
+                nearest_node AS (
+                SELECT
+                    id,
+                    the_geom <-> origin AS distance
+                FROM
+                    utility_info.roadlines_network_noded_vertices_pgr,
+                    parameters
+                ORDER BY
+                    the_geom <-> origin
+                LIMIT 1
+                )
+                SELECT * from nearest_node; ";
+        $node_id = DB::SELECT($node_id_query)[0]->id;
+        $polygon_query = "
+        SELECT ST_asTEXT(ST_setSRID(ST_ConcaveHull(ST_Collect(the_geom), 0.5),4326)) as isochrone
+        FROM (
+            SELECT ST_Transform(ST_setSRID(the_geom, 4326),4326) as the_geom
+            FROM  pgr_drivingdistance('SELECT
+            id::integer AS id, 
+            source::integer AS source, 
+            target::integer AS target,                                    
+            distance::double precision AS cost 
+            FROM utility_info.roadlines_network_noded'::text, ".$node_id."::bigint, 
+            ".$dist/1000 ."::double precision, false)
+            AS dij_result
+        JOIN utility_info.roadlines_network_noded ON dij_result.edge = utility_info.roadlines_network_noded.id
+        ) AS shortest_path";
+        $polygon_result = DB::select($polygon_query);
+        $polygon['id'] = $i;
+        $polygon['geom'] = $polygon_result[0]->isochrone;
+        $polygon['long'] = $long;
+        $polygon['lat'] = $lat;
+        array_push($polygons,$polygon );
+        
+        $popContentsHtml = '';
+      
+        if(!empty($prev_polygon))
+        {
+        $doughnut_polygon_query = "SELECT ST_Difference from ST_Difference(ST_SETSRID('". $polygon_result[0]->isochrone ."'::GEOMETRY,4326),ST_SETSRID('". $prev_polygon."'::GEOMETRY,4326))";
+        $polygon_result[0]->isochrone = DB::select($doughnut_polygon_query)[0]->st_difference;
+        }
+        else
+        {
+        }
+        $building_query = "SELECT b.bin, ST_AsText(b.geom) AS geom"
+        . " FROM building_info.buildings b"
+        . " WHERE ST_Contains(ST_SETSRID('". $polygon_result[0]->isochrone ."'::GEOMETRY,4326), ST_SETsrid(b.geom,4326))"
+        . " AND b.drain_code IS NULL";
+        $results1 = DB::select($building_query);
+     
+        foreach ($results1 as $row1) {
+            $building = array();
+            $building['id'] = $i;
+            $building['bin'] = $row1->bin;
+            $building['geom'] = $row1->geom;
+            array_push($buildings,$building);
+        }
+        $i+=1;
+        if($i == 1)
+        {
+            $prev_polygon = $polygon_result[0]->isochrone;
+        }
+        else
+        {
+            $prev_polygon = DB::select($polygon_query)[0]->isochrone;
+        }
+        }        return [
+            'buildings' => $buildings,
+            'polygon' => $polygons
+        ];
+
+    }
+
+    public function getToiletIsochroneAreaLayers($distance)
+    {
+        
+        $toilet_geom = DB::SELECT("SELECT geom from fsm.toilets where deleted_at is 
+        Null");
+
+                $polygons = array(); 
+                $buildings = array();
+        $i = 0;
+        foreach($toilet_geom as $toilet)
+        {
+        $long = DB::SELECT("SELECT ST_X('$toilet->geom')")[0]->st_x;
+        $lat = DB::SELECT("SELECT ST_Y('$toilet->geom')")[0]->st_y;
+        $node_id_query = "WITH parameters AS (
+                SELECT
+                    ".$distance." AS max_cost, 
+                    ST_SetSRID(ST_Point(". $long .", ". $lat."),4326)::geometry AS origin, 
+                    4326 AS srid 
+                ), 
+                nearest_node AS (
+                SELECT
+                    id,
+                    the_geom <-> origin AS distance
+                FROM
+                    utility_info.roadlines_network_noded_vertices_pgr,
+                    parameters
+                ORDER BY
+                    the_geom <-> origin
+                LIMIT 1
+                )
+                SELECT * from nearest_node; ";
+        $node_id = DB::SELECT($node_id_query)[0]->id;
+        $polygon_query = "
+            SELECT ST_asTEXT(ST_setSRID(ST_ConcaveHull(ST_Collect(the_geom), 0.5),4326)) as isochrone
+            FROM (
+                SELECT ST_Transform(ST_setSRID(the_geom, 4326),4326) as the_geom
+                FROM  pgr_drivingdistance('SELECT
+                id::integer AS id, 
+                source::integer AS source, 
+                target::integer AS target,                                    
+                distance::double precision AS cost 
+                FROM utility_info.roadlines_network_noded'::text, ".$node_id."::bigint, 
+                ".$distance/1000 ."::double precision, false)
+                AS dij_result
+            JOIN utility_info.roadlines_network_noded ON dij_result.edge = utility_info.roadlines_network_noded.id
+            ) AS shortest_path";
+        $polygon_result = DB::select($polygon_query);
+        $polygon['id'] = $i;
+        $polygon['geom'] = $polygon_result[0]->isochrone;
+        $polygon['long'] = $long;
+        $polygon['lat'] = $lat;
+        array_push($polygons,$polygon );
+       
+        $popContentsHtml = '';
+
+        $building_query = "SELECT b.bin, ST_AsText(b.geom) AS geom"
+            . " FROM building_info.buildings b"
+            . " WHERE ST_Contains(ST_SETSRID('". $polygon_result[0]->isochrone ."'::GEOMETRY,4326), ST_SETsrid(b.geom,4326))"
+            . " AND b.drain_code IS NULL";
+        $results1 = DB::select($building_query);
+        foreach ($results1 as $row1) {
+            $building = array();
+            $building['id'] = $i;
+            $building['bin'] = $row1->bin;
+            $building['geom'] = $row1->geom;
+            array_push($buildings,$building );
+        }
+        $i+=1;
+        }
+        return [
+            'buildings' => $buildings,
+            'polygon' => $polygons
+        ];
+    }
+
 
 }

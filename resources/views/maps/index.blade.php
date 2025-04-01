@@ -45,17 +45,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                            data-toggle="tooltip" data-placement="bottom" title="Find Containments Connected to Building"> <img src="{{ asset('img/svg/imis-icons/containment_to_building.svg')}}" style="height:24px;"alt="Containment to Buildings Connected Icon"></a>
                         <a href="#" id="associatedtomain_control" class="btn btn-default map-control"
                            data-toggle="tooltip" data-placement="bottom" title="Find Associated Buildings"><img src="{{ asset('img/svg/imis-icons/associated_building.svg')}}" style="height:24px;"alt="Associated Buildings Icon"></a>
-
-
-                      <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
+                           <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
                            data-placement="bottom" title="Remove Markers"><i class="fa fa-trash fa-fw"></i></a>
                            <a href="#" id="wms_layer" class="btn btn-default map-control"
                            data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i
                                     class="fas fa-layer-group"></i></a>
-
                         <a href="#" id="get_location" class="btn btn-default map-control"
 
-                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Locate Me"> </a>
+                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Associated Buildings Icon"> </a>
                     </ul>
 
                 </div>
@@ -122,6 +119,23 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 </div>
             </div>
+
+            <div id="kml-dragdrop-popup" class="ol-popup" style="display: none;">
+                <a href="#" id="kml-dragdrop-popup-closer" class="ol-popup-closer"></a>
+                <div id="kml-dragdrop-popup-content"></div>
+                @can('Export in KML Drag And Drop')
+                <div id="kml-dragdrop-popup-content-download">
+                    <div><strong>Export to:</strong></div>
+                    <div class="btn-group">
+                        <form method="get" action="{{ url("maps/get-kml-info-report-csv") }}">
+                            <input type="hidden" name="kml_dragdrop_geom" value="" id="kml_dragdrop_geom"/>
+                            <button type="submit" id="kml-dragdrop-export-excel-btn" class="btn btn-default">Excel
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                @endcan
+            </div>
             <div class="text-right">
                 <a href="#" id="map-right-sidebar-toggle" class="btn btn-default">
                     <i class="fa fa-bars"></i>
@@ -150,64 +164,198 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <div id="feature_info_content"></div>
                 </div>
             </div>
-            <div class="box-footer" id="add-road-tool-box" style="display:none;position: absolute;top: 10px;left: 15px;filter: drop-shadow(0 10px 4px rgba(0,0,0,0.2));border-radius: 5px;border: 1px solid #cccccc;">
+            <div class="box-footer" id="add-tool-box" style="display:none;position: absolute;top: 10px;left: 15px;filter: drop-shadow(0 10px 4px rgba(0,0,0,0.2));border-radius: 5px;border: 1px solid #cccccc;">
                 <div id="add-road-tool-box-content">
-                    <form class="form-horizontal" id="add-road-form">
+                  
                         <div xclass="form-group">
                             <div class="input-group">
-                                <a href="#" id="add_road_start_control" class="btn btn-default map-control" data-toggle="tooltip"
+                                <a href="#" id="add_start_control" class="btn btn-default map-control" data-toggle="tooltip"
                                    data-placement="bottom" title="Add"><i class="fa fa-circle-plus fa-fw"></i></a>
-                                <a href="#" id="add_road_undo_last_point_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
+                                <a href="#" id="add_undo_last_point_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Undo last point"><i class="fa fa-clock-rotate-left fa-fw"></i></a>
-                                <a href="#" id="add_road_undo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
+                                <a href="#" id="add_undo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Undo"><i class="fa fa-rotate-left fa-fw"></i></a>
-                                <a href="#" id="add_road_redo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
+                                <a href="#" id="add_redo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Redo"><i class="fa fa-rotate-right fa-fw"></i></a>
-                                <a href="#" id="add_road_edit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
+                                <a href="#" id="add_edit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Edit"><i class="fa fa-pen-to-square fa-fw"></i></a>
-                                <a href="#" id="add_road_delete_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
+                                <a href="#" id="add_delete_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Remove all drawn lines"><i class="fa fa-trash fa-fw"></i></a>
-                                <a href="#" id="add_road_submit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
+                                <a href="#" id="add_submit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Save"><i class="fa fa-floppy-disk fa-fw"></i></a>
                             </div>
-                            <div class="add-road-form" style="display: none">
+                            <!-- Road Form -->
+                            <form class="form-horizontal" id="add-road-form">
+                                <div class="add-road-form" style="display: none">
+                                    <div>
+                                        <hr>
+                                        <h4>Add Road Network</h4>
+                                    </div>
+                                    <div id="add-road-errors" tabindex="1"></div>
+
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('name', 'Road Name <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
+                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Road Name']) !!}
+                                    </div>
+                                    
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('hierarchy', 'Hierarchy', ['class' => 'control-label'], false) !!}
+                                        {!! Form::select('hierarchy', $roadHierarchy, null, ['class' => 'form-control', 'placeholder' => 'Road Hierarchy']) !!}
+                                    </div>
+                                    
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('surface_type', 'Surface Type', ['class' => 'control-label'], false) !!}
+                                        {!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type']) !!}
+                                    </div>
+                                    
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('length', 'Length (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
+                                        {!! Form::number('length', null, ['class' => 'form-control', 'placeholder' => 'Road Length (m)', 'min' => 1]) !!}
+                                    </div>
+                                    
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('right_of_way', 'Right of Way (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
+                                        {!! Form::number('right_of_way', null, ['class' => 'form-control', 'placeholder' => 'Right of Way (m)', 'min' => 1]) !!}
+                                    </div>
+                                    
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('carrying_width', 'Carrying Width (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
+                                        {!! Form::number('carrying_width', null, ['class' => 'form-control', 'placeholder' => 'Carrying Width (m)', 'min' => 1]) !!}
+                                    </div>
+                                    
+                                    <div class="add-road-form-group">
+                                        {!! Form::button('Save', ['class' => 'btn btn-info', 'id' => 'add_road_submit_btn']) !!}
+                                    </div>
+                                </div>
+                            </form>
+
+                     <form class="form-horizontal" id="add-sewer-form">
+                        <div class="add-sewer-form" style="display: none">
                                 <div>
                                     <hr>
-                                    <h4>Add Road Network</h4>
+                                    <h4>Add Sewer Network</h4>
                                 </div>
-                                <div id="add-road-errors" tabindex='1'>
+                                <div id="add-sewer-errors" tabindex='1'>
 
                                 </div>
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('name','Road Name <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('name',null,['class' => 'form-control', 'placeholder' => 'Road Name']) !!}
+                                    <div class="add-sewer-form-group">
+                                    {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
+                                    {!! Form::select('road_code', $road_code, null, ['class' => 'form-control', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
+
                                     </div>
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('hierarchy','Hierarchy',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('hierarchy', $roadHierarchy, null, ['class' => 'form-control', 'placeholder' => 'Road Hierarchy']);!!}
+                                    <div class="add-sewer-form-group">
+                                        {!! Form::label('treatment_plant_id','Treatment Plant<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'placeholder' => 'Road Treatment Plant']);!!}
                                     </div>
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('surface_type','Surface Type',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type']);!!}
-                                    </div>
-                                    <div class="add-road-form-group">
+                                    <div class="add-sewer-form-group">
                                         {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::number('length',null,['class' => 'form-control', 'placeholder' => 'Road Length (m)','min' => 1]) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_sewer', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+
                                     </div>
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('right_of_way','Right of Way (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::number('right_of_way',null,['class' => 'form-control', 'placeholder' => 'Right of Way (m)','min' => 1]) !!}
+                                    <div class="add-sewer-form-group">
+                                        {!! Form::label('location','Location<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('location', $location, null, ['class' => 'form-control', 'placeholder' => 'Location']);!!}
                                     </div>
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('carrying_width','Carrying Width (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::number('carrying_width',null,['class' => 'form-control', 'placeholder' => 'Carrying Width (m)','min' => 1]) !!}
+                                    <div class="add-sewer-form-group">
+                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
+                                       {!! Form::text('diameter',null,['class' => 'form-control', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
                                     </div>
-                                    <div class="add-road-form-group">
-                                        {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_road_submit_btn']) !!}
+                                    <div class="add-sewer-form-group">
+                                        {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_sewer_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
                                     </div>
                             </div>
-                        </div>
+
                     </form>
+
+                    <form class="form-horizontal" id="add-drain-form">
+                        <div class="add-drain-form" style="display: none">
+                                <div>
+                                    <hr>
+                                    <h4>Add Drain Network</h4>
+                                </div>
+                                <div id="add-drain-errors" tabindex='1'>
+
+                                </div>
+                              
+                                    <div class="add-drain-form-group">
+                                    {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
+                                        {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_drain', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
+                                    </div>
+                                    <div class="add-drain-form-group">
+                                        {!! Form::label('cover_type','Cover Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('cover_type', $cover_type, null, ['class' => 'form-control', 'placeholder' => 'Road Cover Type'])!!}
+                                    </div>
+
+                                    <div class="add-drain-form-group">
+                                        {!! Form::label('surface_type','Surface Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type'])!!}
+                                    </div>
+                                    <div class="add-drain-form-group">
+                                        {!! Form::label('size','Width (mm)<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('size', null, ['class' => 'form-control', 'placeholder' => 'Width (mm) ', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '')"]) !!}
+
+                                    </div>
+                                    <div class="add-drain-form-group">
+                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_drain', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+
+                                    </div>
+                                    <div class="add-drain-form-group">
+                                        {!! Form::label('treatment_plant_id','Treatment Plant<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'id' => 'tp_drain','placeholder' => 'Road Treatment Plant']);!!}
+                                    </div>
+                                    <div class="add-drain-form-group">
+                                        {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_drain_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
+                                    </div>
+                            </div>
+                       
+                    </form>
+
+                    <form class="form-horizontal" id="add-watersupply-form">
+                        <div class="add-watersupply-form" style="display: none">
+                                <div>
+                                    <hr>
+                                    <h4>Add Watersupply Network</h4>
+                                </div>
+                                <div id="add-watersupply-errors" tabindex='1'>
+
+                                </div>
+                               
+                                    <div class="add-watersupply-form-group">
+                                    {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
+                                        {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_watersupply', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
+                                    </div>
+                                    <div class="add-watersupply-form-group">
+                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
+                                       {!! Form::text('diameter',null,['class' => 'form-control','id'=>'diameter_watersupply', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
+                                    </div>
+                                    <div class="add-watersupply-form-group">
+                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_watersupply', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+
+                                    </div>
+                                    <div class="add-watersupply-form-group">
+                                        {!! Form::label('project_name','Project Name <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('project_name', null, ['class' => 'form-control', 'placeholder' => 'Project Name']) !!}
+
+                                    </div>
+                                    <div class="add-watersupply-form-group">
+                                        {!! Form::label('type','Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('type', ['Main' => 'Main', 'Secondary' => 'Secondary'], null, ['class' => 'form-control', 'placeholder' => 'Type']);!!}
+                                    </div>
+
+                                    <div class="add-watersupply-form-group">
+                                        {!! Form::label('material_type','Material Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('material_type', ['HDPE' => 'HDPE', 'GI' => 'GI'], null, ['class' => 'form-control', 'placeholder' => 'Material Type'])!!}
+                                    </div>
+                                    <div class="add-watersupply-form-group" >
+                                    {!! Form::button('Save', ['class' => 'btn btn-info', 'id' => 'add_watersupply_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
+
+                                    </div>
+                            </div>
+                       
+                    </form>
+                </div>
                     <div id="feature_info_content"></div>
                 </div>
             </div>
@@ -1058,7 +1206,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             <a href="#" id="containments_emptied_monthly" class="btn btn-default map-control"><i
                                         class="fa fa-building"></i>Containments Emptied Info</a>
                              </span>
-
+                           
+                            <!-- toilet isochrone map -->
+                            <span data-toggle="tooltip" data-placement="bottom"
+                                          title="Generate isochrone information of CTPT by distance traversed (m)">
+                            <a href="#" id="toilet_isochrone_control" class="btn btn-default map-control"><i
+                                        class="fa fa-building"></i>Toilet Isochrone Map</a>
+                             </span>
                                     </div>
                                 </div>
                             </div>
@@ -1166,7 +1320,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         	<strong>Developed by:</strong> <a href="http://www.innovativesolution.com.np">Innovative Solution Pvt. Ltd.</a>
     	</div>
         <strong> Base IMIS <i class="fa-regular fa-copyright"> </i>  2022-{{ \Carbon\Carbon::now()->format('Y') }} by <a href="http://www.innovativesolution.com.np">
-    ISPL</a> & <a href="https://www.gwsc.ait.ac.th/">GWSC-AIT</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1">CC BY-NC-SA 4.0 </a>
+    Innovative Solution Pvt. Ltd.</a> & <a href="https://www.gwsc.ait.ac.th/">Global Water & Sanitation Center-Asian Institute of Technology (GWSC-AIT)</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1">CC BY-NC-SA 4.0 </a>
 </strong>
 
         <!-- Default to the left -->
@@ -1338,7 +1492,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
      <div id="containment-report-popup" class="ol-popup" style="display: none;">
         <div id="containment-report-popup-content"></div>
 
-                        <form method="get" style= "margin-top:12px" action="{{ url("maps/export-containment-report") }}">
+                        <form method="get" style="margin-top: 12px;" action="{{ url("maps/export-containment-report") }}">
                             <input type="hidden" name="containment_report_polygon" value="" id="containment_report_polygon"/>
                             <input type="hidden" name="containment_report_year" value="" id="containment_report_year"/>
                             <strong>Export to:</strong>  <button id="containment-report-popup-export" type="submit" class="btn btn-default">Excel</button>
@@ -1548,6 +1702,44 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         </div>
     </div>
 
+    <div id="popup-toilet-isochrone" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+
+            <!-- Modal content-->
+            <div class="modal-content draggable">
+                <div class="modal-header">
+                    <span class="modal"> Toilet Isochrone Map </span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="form-toilet-isochrone-map">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-4">Estimated Travel Time (minutes)</label>
+                            <input type="text" class="form-control col-md-4" id="toilet-isochrone-time" placeholder="Time in minutes" value="">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-4">Estimated Speed (km/hr)</label>
+                            <input type="text" class="form-control col-md-4" id="toilet-isochrone-speed" placeholder="Speed in km per hour" value="">
+                            <div class="col-md-4">
+                                <input type="hidden" id="isochrone-long-pos" value=""/>
+                                <input type="hidden" id="isochrone-lat-pos" value=""/>
+                                <input type="hidden" id="isochrone-long" value=""/>
+                                <input type="hidden" id="isochrone-lat" value=""/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <a class="btn btn-info float-right" href="#" id="export_toilet_isochrone_csv">Export Excel</a> -->
+                            <button type="submit" class="btn btn-info">Get Information</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+              
+            </div>
+
+        </div>
+    </div>
+
     <div class="modal fade" id="wmsModal" tabindex="-1" role="dialog" aria-labelledby="wmsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -1568,7 +1760,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="getLayerModal" tabindex="-1" role="dialog" aria-labelledby="getLayerModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -1807,6 +1998,124 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     extent: ol.proj.transformExtent([xmin, ymin, xmax, ymax], 'EPSG:4326', 'EPSG:3857')
                 })
             });
+            dragAndDropInteraction.on('addfeatures', function (event) {
+            var format = new ol.format.WKT();
+            var geometries = []; // Store all geometries
+
+            // Loop through all features and convert them to WKT
+            for (var i = 0; i < event.features.length; i++) {
+                var geom = format.writeGeometry(event.features[i].getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+                geometries.push(geom);
+            }
+
+            // Send all geometries to the server for intersection check
+            $.ajax({
+                url: '{{ url("maps/check-geometry") }}',
+                type: 'POST',
+                data: {
+                    geometries: geometries, // Send multiple geometries
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                 
+                    // Check if at least one geometry does NOT intersect
+                    var hasNonIntersection = data.details.some(item => item.intersects === false);
+
+                    if (hasNonIntersection) {
+                        Swal.fire({
+                            icon: 'warning', // Change to 'error' if needed
+                            title: 'Some Features Do Not Intersect',
+                            text: 'Some of the features do not intersect with the city polygons!',
+                            confirmButtonColor: '#d33'
+                        });
+                    }
+                    else{
+                        // Proceed with adding KML if none of the features intersect
+                        if (eLayer.kml_features) {
+                            eLayer.kml_features.layer.getSource().clear();
+                        } else {
+                            var layer = new ol.layer.Vector({
+                                source: new ol.source.Vector()
+                            });
+
+                            addExtraLayer('kml_features', 'KML Features', layer);
+                        }
+
+                        for (var i = 0; i < event.features.length; i++) {
+                        var feature = event.features[i];
+                        var geometry = feature.getGeometry();
+
+                        // Check if the geometry is a Point
+                        if (geometry.getType() === 'Point') {
+
+                            feature.setStyle(new ol.style.Style({
+                                        image: new ol.style.Icon({
+                                            anchor: [0.5, 1],
+                                            src: '{{ url("/")}}/img/marker-green.png'
+                                        })
+                            }));
+                        } else {
+                            // Style for non-point geometries (e.g., polygons, lines)
+                            feature.setStyle(new ol.style.Style({
+                                stroke: new ol.style.Stroke({
+                                    color: '#FF0000',
+                                    width: 3
+                                })
+                            }));
+                        }
+
+                        // Add feature to the layer
+                        eLayer.kml_features.layer.getSource().addFeature(feature);
+                    }
+
+                    map.getView().fit(
+                        eLayer.kml_features.layer.getSource().getExtent(), /** @type {ol.Size} */ (map.getSize())
+                    ); 
+                    
+                    var center = ol.extent.getCenter(eLayer.kml_features.layer.getSource().getExtent());
+
+                        // Send the geometry to get KML summary information
+                        var url1 = '{{ url("maps/get-kml-summary-info") }}';
+                        displayAjaxLoader();
+
+                        $.ajax({
+                            url: url1,
+                            type: 'post',
+                            data: {
+                                geometries: geometries,
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (Response) {
+                                console.log("dfghu",Response);
+                                // Check if response.success is false
+                                if (Response.success === false) {
+                                    displayAjaxErrorModal(Response.responseText);
+                                } else {
+                                    kmlDragDropPopupContent.innerHTML = Response.popContentsHtml;
+                                    kmlDragDropPopupOverlay.setPosition(center);
+                                }
+                                removeAjaxLoader();
+                            },
+                            error: function (error) {
+                                // Show the error modal if AJAX fails
+                                displayAjaxErrorModal(error.statusText + ": The KML file might be invalid! Supported geometry types: POINT,POLYGON.");
+                            }
+                        });
+                   
+                        $('#kml_dragdrop_geom').val(geom);
+                    }
+                },
+
+                error: function(xhr, status, error) {
+                    console.error('Error checking geometry:', error);
+                }
+            });
+        });
+
 
             // Base Layers Object
             var bLayer = {
@@ -2957,8 +3266,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 $('#add-road-inaccessible-box').hide();
                 $('#add-waterbody-inaccessible-box').hide();
                 $('#add-road-tool-box').hide();
-                // map.removeInteraction(removeDrawnRoads);
-              resetAddRoadTool();
+                // map.removeInteraction(removeDrawnFeatures);
+              resetAddTool();
 
                 if (eLayer.measure) {
                     eLayer.measure.layer.getSource().clear();
@@ -2976,8 +3285,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 $('#layer-select-box').hide();
             }
 
-             // Add handler to get current location click
-             $('#get_location').click(function (e) {
+               // Add handler to get current location click
+               $('#get_location').click(function (e) {
                 e.preventDefault();
                 disableAllControls();
                 $('.map-control').removeClass('map-control-active');
@@ -3372,6 +3681,23 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     }
                 });
             });
+
+             // Add handler to toilet isochrone map button click
+             $('#toilet_isochrone_control').click(function (e) {
+                e.preventDefault();
+                disableAllControls();
+                $('.map-control').removeClass('map-control-active');
+                if (currentControl == 'toilet_isochrone_control') {
+                    currentControl = '';
+                    // $('#pan_control').addClass('map-control-active');
+                } else {
+                    currentControl = 'toilet_isochrone_control';
+                    $('#toilet_isochrone_control').addClass('map-control-active');
+                    $('#popup-toilet-isochrone').modal('show');
+
+                }
+            });
+
             // Add handler to length measure button click
             $('#linemeasure_control').click(function (e) {
                 e.preventDefault();
@@ -3403,122 +3729,229 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             });
 
 
-             //*Add road tool start*
+           //*Add road tool start*
 
-            var currentAddRoadControl='',
+           var currentAddControl='',
                 vectorSource,
                 vectorLayer,
                 drawSource,
                 drawLayer,
                 selectInteraction,
-                roadDrawInteraction,
-                roadSnapInteraction,
-                roadDrawnSnapInteraction,
+                layerDrawInteraction,
+                layerSnapInteraction,
+                layerDrawnSnapInteraction,
                 undoInteraction,
                 modifyInteraction,
                 originalRoadFeature,
-                modifiedRoadFeature,
+                modifiedFeature,
                 hasModification = false;
-            $('#add_road_control').click(function (e) {
-                e.preventDefault();
-                disableAllControls();
-                displayAjaxLoader();
-                var allLayers = map.getLayers().getArray();
-                $('.map-control').removeClass('map-control-active');
-                if (currentControl === 'add_road_control') {
-                    $('#add-road-tool-box').hide();
-                    currentControl='';
-                    resetAddRoadTool();
-                    removeAjaxLoader();
-                    disableAllControls();
-                }else {
-                    currentControl = 'add_road_control';
-                    $('#add-road-tool-box').show();
-                    vectorSource = new ol.source.Vector({
-                    url: '<?php echo Config::get("constants.GEOSERVER_URL"); ?>/ows?service=WFS&' +
-                            'version=1.1.0&request=GetFeature&typeName=<?php echo Config::get("constants.GEOSERVER_WORKSPACE"); ?>:roadlines_layer&&CQL_FILTER=deleted_at is null&' +
-                            'SRS=EPSG:4326&outputFormat=json&authkey=9499949e-6318-4ffd-8384-ed94c5d84770',
 
-                        format: new ol.format.GeoJSON(),
-                    });
-                    vectorLayer = new ol.layer.Vector({
-                        background: '#1a2b39',
-                        source: vectorSource,
-                        name: 'add-roads-layer'
-                    });
-                    drawSource = new ol.source.Vector({format: new ol.format.GeoJSON()});
-                    drawLayer = new ol.layer.Vector({
-                        background: '#1a2b39',
-                        source: drawSource,
-                        name: 'add-roads-draw-layer'
-                    });
-                    if (!allLayers.includes('add-roads-layer')) {
-                        map.addLayer(vectorLayer);
-                    }else{
-                        removeAjaxLoader();
-                    }
-                    if (!allLayers.includes('add-roads-draw-layer')) {
-                        map.addLayer(drawLayer);
-                    }
-                    var sourceEventListener = vectorSource.on('change', function(e) {
-                        if (vectorSource.getState() === 'ready') {
-                            vectorSource.un('change', sourceEventListener);
-                            removeAjaxLoader();
-                        }
-                    });
+function handleAddRoadControlClick() {
+                    currentLayerType = 'Road';
+
+                    // Set tool titles or other properties
+                    $('#add_edit_control').attr('title', currentLayerType);
+                    $('#add_submit_road_btn').attr('title', currentLayerType);
+                    $('#add_submit_control').attr('title', currentLayerType);
+                    $('#add_start_control').attr('title',  currentLayerType);
+
+                    handleMapControl(
+                        '#add_road_control',
+                        'add-roads-layer',          // Layer name
+                        'add-tool-box',             // Toolbox ID
+                        'roadlines_layer'           // GeoServer layer
+                    );
+
+                  // Trigger the click event immediately after binding
+            $('#add_road_control').trigger('click');
+        }
+
+        // On page load, check if the hash is #add_road_control
+        if (window.location.hash === '#add_road_control') {
+            handleAddRoadControlClick();
+        }
+
+        function handleAddSewerControlClick() {
+            currentLayerType = 'Sewer';
+
+              // Set tool titles or other properties
+                $('#add_edit_control').attr('title', currentLayerType);
+                $('#add_submit_sewer_btn').attr('title', currentLayerType);
+                $('#add_submit_control').attr('title', currentLayerType);
+                $('#add_start_control').attr('title',  currentLayerType);
+
+                handleMapControl(
+                    '#add_sewer_control',
+                   'add-sewers-layer',          // Layer name
+                     'add-tool-box',             // Toolbox ID
+                      'sewerlines_layer'           // GeoServer layer
+                            );
+                    $('#add_sewer_control').trigger('click');
                 }
-            });
 
+                // On page load, check if the hash is #add_road_control
+                if (window.location.hash === '#add_sewer_control') {
+                    handleAddSewerControlClick();
+                }
+
+
+            function handleAddDrainControlClick() {
+                    currentLayerType = 'Drain';
+
+              // Set tool titles or other properties
+                $('#add_edit_control').attr('title', currentLayerType);
+                $('#add_submit_drain_btn').attr('title', currentLayerType);
+                $('#add_submit_control').attr('title', currentLayerType);
+                $('#add_start_control').attr('title',  currentLayerType);
+
+                handleMapControl(
+                    '#add_drain_control',
+                   'add-drains-layer',          // Layer name
+                     'add-tool-box',             // Toolbox ID
+                      'drains_layer'           // GeoServer layer
+                            );
+                    $('#add_drain_control').trigger('click');
+                }
+
+                // On page load, check if the hash is #add_road_control
+                if (window.location.hash === '#add_drain_control') {
+                    handleAddDrainControlClick();
+                }
+
+
+                function handleAddWatersupplyControlClick() {
+                    currentLayerType = 'Watersupply';
+
+              // Set tool titles or other properties
+                $('#add_edit_control').attr('title', currentLayerType);
+                $('#add_submit_watersupply_btn').attr('title', currentLayerType);
+                $('#add_submit_control').attr('title', currentLayerType);
+                $('#add_start_control').attr('title',  currentLayerType);
+
+                handleMapControl(
+                    '#add_watersupply_control',
+                   'add-watersupplys-layer',          // Layer name
+                     'add-tool-box',             // Toolbox ID
+                      'watersupply_network_layer'           // GeoServer layer
+                            );
+                    $('#add_watersupply_control').trigger('click');
+                }
+
+                // On page load, check if the hash is #add_road_control
+                if (window.location.hash === '#add_watersupply_control') {
+                    handleAddWatersupplyControlClick();
+                }
+
+
+
+
+                function handleMapControl(controlId, layerName, toolBoxId, geoServerLayer) {
+                
+                        disableAllControls();
+                        var allLayers = map.getLayers().getArray();
+                        $('.map-control').removeClass('map-control-active');
+
+                        if (currentControl === controlId) {
+                            $('#' + toolBoxId).hide();
+                            currentControl = '';
+                            resetAddTool();
+                            removeAjaxLoader();
+                            disableAllControls();
+                        } else {
+                            currentControl = controlId;
+                            $('#' + toolBoxId).show();
+
+                            vectorSource = new ol.source.Vector({
+                                url: '<?php echo Config::get("constants.GEOSERVER_URL"); ?>/ows?service=WFS&' +
+                                    'version=1.1.0&request=GetFeature&typeName=<?php echo Config::get("constants.GEOSERVER_WORKSPACE"); ?>:' + geoServerLayer + '&' +
+                                    'CQL_FILTER=deleted_at is null&SRS=EPSG:4326&outputFormat=json&authkey=9499949e-6318-4ffd-8384-ed94c5d84770',
+                                format: new ol.format.GeoJSON(),
+                            });
+
+                            vectorLayer = new ol.layer.Vector({
+                                background: '#1a2b39',
+                                source: vectorSource,
+                                name: layerName
+                            });
+
+                            drawSource = new ol.source.Vector({ format: new ol.format.GeoJSON() });
+                            drawLayer = new ol.layer.Vector({
+                                background: '#1a2b39',
+                                source: drawSource,
+                                name: layerName + '-draw-layer'
+                            });
+
+                            if (!allLayers.some(layer => layer.get('name') === layerName)) {
+                                map.addLayer(vectorLayer);
+                            } else {
+                                removeAjaxLoader();
+                            }
+
+                            if (!allLayers.some(layer => layer.get('name') === layerName + '-draw-layer')) {
+                                map.addLayer(drawLayer);
+                            }
+
+                            var sourceEventListener = vectorSource.on('change', function (e) {
+                                if (vectorSource.getState() === 'ready') {
+                                    vectorSource.un('change', sourceEventListener);
+                                    removeAjaxLoader();
+                                }
+                            });
+                        }
+                }
+
+                
             // Add draw,snap & undo interactions.
-            $('#add_road_start_control').click(function (e) {
+            $('#add_start_control').click(function (e) {
                 e.preventDefault();
-                hideAddRoadForm();
-                //   map.removeInteraction(roadDrawInteraction);
-                if (currentAddRoadControl !== 'Add Road'){
-                    currentAddRoadControl = 'Add Road';
-                    addRoadDrawInteractions();
+                hideAddForm();
+                if (currentAddControl !== 'Add ' + currentLayerType){
+                    currentAddControl = 'Add ' + currentLayerType;
+                    addDrawInteractions();
                 }
             });
 
             //Undo the last drawn point.
-            $('#add_road_undo_last_point_control').click(function (e) {
+            $('#add_undo_last_point_control').click(function (e) {
                 e.preventDefault();
-                hideAddRoadForm();
-                roadDrawInteraction?.removeLastPoint();
+                hideAddForm();
+                layerDrawInteraction?.removeLastPoint();
             });
 
             //Undo the entire drawn line.
-            $('#add_road_undo_control').click(function (e) {
+            $('#add_undo_control').click(function (e) {
                 e.preventDefault();
-                hideAddRoadForm();
+                hideAddForm();
                 undoInteraction?.undo();
             });
 
             //Redo the drawing that was undoed
-            $('#add_road_redo_control').click(function (e) {
+            $('#add_redo_control').click(function (e) {
                 e.preventDefault();
-                hideAddRoadForm();
+                hideAddForm();
                 undoInteraction?.redo();
             });
 
             //Remove the drawn lines.
-            $('#add_road_delete_control').click(function (e) {
+            $('#add_delete_control').click(function (e) {
                 e.preventDefault();
-                hideAddRoadForm();
-                removeDrawnRoads();
+                hideAddForm();
+                removeDrawnFeatures();
             });
 
             //Modify the drawn roads
-            $('#add_road_edit_control').click(function(e){
-                hideAddRoadForm();
-                if (currentAddRoadControl === 'Modify Road'){
-                    currentAddRoadControl='';
-                    removeAllAddRoadInteractions();
-                }else {
-                    if (currentAddRoadControl === 'Add Road') {
+            $('#add_edit_control').click(function(e){
+                e.preventDefault();
+                hideAddForm(); // Hide the add form
+
+                if (currentAddControl === 'Modify ' + currentLayerType) {
+                    currentAddControl = '';
+                    removeAllAddInteractions(); // Remove all interactions (drawing, snapping, etc.)
+                } else {
+                    if (currentAddControl === 'Add ' + currentLayerType ) {
                         Swal.fire({
                             title: 'Are you sure?',
-                            text: "Roads added would be lost!",
+                            text: `${currentLayerType}s added would be lost!`,
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonText: 'Yes',
@@ -3526,106 +3959,38 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             reverseButtons: true
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                removeAllAddRoadInteractions();
-                                removeDrawnRoads();
-                                currentAddRoadControl='Modify Road';
-                                addRoadModifyInteractions();
-                            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                //do nothing
+                                removeAllAddInteractions(); 
+                                removeDrawnFeatures();
+                                currentAddControl = 'Modify ' + currentLayerType;
+                                addModifyInteractions(); // Add modify interactions (e.g., for roads or drains)
                             }
                         });
-                    }else{
-                        currentAddRoadControl='Modify Road';
-                        addRoadModifyInteractions();
+                    } else {
+                        currentAddControl = 'Modify ' + currentLayerType;
+                        addModifyInteractions(); // Add modify interactions
                     }
                 }
             });
 
-            //save the added and modified road
-            $('#add_road_submit_control').click(function (e) {
+           // Save the added and modified feature (Drain, Sewer, Road, etc.)
+            $('#add_submit_control').click(function (e) {
                 e.preventDefault();
-                if (currentAddRoadControl === 'Add Road'){
+
+                // Check if the current control is for adding or modifying
+                if (currentAddControl === 'Add ' + currentLayerType) {
                     let features = drawLayer.getSource().getFeatures();
-                    if(features){
-                        if(features.length < 1 ){
-                            Swal.fire({
-                                title: 'Error',
-                                text : `Please draw a roadline before saving!`,
-                                icon: "warning",
-                            });
-                        }else{
-                            $('.add-road-form').slideToggle();
-                        }
-                    }
-                } else if (currentAddRoadControl === 'Modify Road'){
-                    //If we want to provide all fields update form
-                    /*$('.add-road-form').slideDown();*/
-                    //If we want to provide geom only update
-                    hideAddRoadForm();
-                    if (hasModification){
-                        //If we want to provide all fields update form**********
-                        /*displayAjaxLoader();
-                        var road = modifiedRoadFeature.getProperties();
-                        $('#roadnam').val(road.roadnam);
-                        $('#roadhier').val(road.roadhier);
-                        $('#rdsurf').val(road.rdsurf);
-                        $('#rdlen').val(road.rdlen);
-                        $('#rdwidth').val(road.rdwidth);
-                        $('#rdcarwdth').val(road.rdcarwdth);
-
-                        let lineFormat = new ol.format.WKT();
-                        let geom = lineFormat.writeGeometry(modifiedRoadFeature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                                'Accept': 'application/json'
-                            }
+                    if (features && features.length < 1) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `Please draw a ${currentLayerType.toLowerCase()} before saving!`,
+                            icon: "warning",
                         });
-                        $.ajax({
-                            url: '{{url('/roadlines/update-road')}}', //May need new route and controller here
-                            type: 'post',
-                            data: {
-                                'roadnam' : $('#roadnam').val(),
-                                'roadhier' : $('#roadhier').val(),
-                                'rdsurf' : $('#rdsurf').val(),
-                                'rdlen' : $('#rdlen').val(),
-                                'rdwidth' : $('#rdwidth').val(),
-                                'rdcarwdth' : $('#rdcarwdth').val(),
-                                "geom" : geom
-                            },
-                            success: function (data) {
-                                $('#add-road-errors').empty();
-                                $('.add-road-form').slideUp();
-                                Swal.fire({
-                                    title: 'Success!',
-                                    text: "Road Network updated successfully.",
-                                    icon: 'success',
-                                    confirmButtonText: 'OK!',
-                                });
-                                resetAddRoadTool();
-                                $('#add_road_control').trigger("click");
-                                removeAjaxLoader();
-                            },
-                            error: function (data) {
-                                $('#add-road-errors').empty();
-                                let html = '<ul class="alert alert-danger">';
-                                if (data.responseText) {
-                                    Object.values(JSON.parse(data.responseText).errors).forEach(function (error) {
-                                        html += "<li>" + error[0] + "</li>";
-                                    });
-                                }else{
-                                    html+= "<li>Error</li>";
-                                }
-                                html+='</ul';
-                                $('#add-road-errors').append(html);
-                                $('#add-road-errors').focus();
-                                removeAjaxLoader();
-                            }
-                        });*/
-                        //All fields update End **********
-
-                        //If we want to provide geom only update++++++++++
-
+                    } else {
+                        $('.add-' + currentLayerType.toLowerCase() + '-form').slideToggle();
+                    }
+                } else if (currentAddControl === 'Modify ' + currentLayerType) {
+                    hideAddForm();
+                    if (hasModification) {
                         Swal.fire({
                             title: 'Are you sure?',
                             text: "The changes made will be saved",
@@ -3638,57 +4003,79 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             displayAjaxLoader();
                             if (result.isConfirmed) {
                                 let lineFormat = new ol.format.WKT();
-                                let geom = lineFormat.writeGeometry(modifiedRoadFeature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+                                let geom = lineFormat.writeGeometry(modifiedFeature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+
+                                // Set the appropriate URL based on the layer type (Drain, Sewer, Road)
+                                let updateUrl;
+                                if (currentLayerType === 'Road') {
+                                    formData = {
+                                            'roadcd': modifiedFeature.getProperties().code, 
+                                            "geom": geom
+                                        };
+                                    return_url = '{{ route("roadlines.index") }}';
+                                    updateUrl = '{{ url("/utilityinfo/roadlines/update-road-geom") }}';
+                                    
+                                } else if (currentLayerType === 'Drain') {
+                                    formData = {
+                                            'code': modifiedFeature.getProperties().code, 
+                                            "geom": geom
+                                        };
+                                    return_url = '{{ route("drains.index") }}';
+                                    updateUrl = '{{ url("/utilityinfo/drains/update-drain-geom") }}';
+                                } else if (currentLayerType === 'Sewer') {
+                                    formData = {
+                                            'code': modifiedFeature.getProperties().code, 
+                                            "geom": geom
+                                        };
+                                    return_url = '{{ route("sewerlines.index") }}';
+                                    updateUrl = '{{ url("/utilityinfo/sewerlines/update-sewer-geom") }}';
+
+                                }
+                                else if (currentLayerType === 'Watersupply') {
+                                    formData = {
+                                            'code': modifiedFeature.getProperties().code, 
+                                            "geom": geom
+                                        };
+                                    return_url = '{{ route("watersupplys.index") }}';
+                                    updateUrl = '{{ url("/utilityinfo/watersupplys/update-watersupply-geom") }}';
+
+                                }
+
                                 $.ajaxSetup({
                                     headers: {
                                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                                         'Accept': 'application/json'
                                     }
                                 });
+
                                 $.ajax({
-                                    url: '{{url('/utilityinfo/roadlines/update-road-geom')}}', //May need new route and controller here
+                                    url: updateUrl,  // Dynamic URL based on the layer type
                                     type: 'post',
-                                    data: {
-                                        'roadcd' : modifiedRoadFeature.getProperties().code,
-                                        "geom" : geom
-                                    },
+                                    data:formData,
                                     success: function (data) {
-                                        /*$('#add-road-errors').empty();
-                                        $('.add-road-form').slideUp();
-                                        Swal.fire({
-                                            title: 'Success!',
-                                            text: "Road Network updated successfully.",
-                                            icon: 'success',
-                                            confirmButtonText: 'OK!',
-                                        });
-                                        resetAddRoadTool();
-                                        $('#add_road_control').trigger("click");*/
-                                        removeAjaxLoader();
+                                        removeAjaxLoader(); // Remove the loader before showing the success message
                                         Swal.fire(
                                             'Saved!',
                                             'The changes have been saved.',
-                                            'success',
-                                        );
+                                            'success'
+                                        ).then((result) => {
+                                            // Execute after user clicks 'OK'
+                                            if (result.isConfirmed) {
+                                                // Add loader and redirect after confirmation
+                                                displayAjaxLoader();
+                                              
+                                             window.location.href = return_url;
+                                               
+                                            }
+                                        });
                                     },
                                     error: function (data) {
-                                        /*$('#add-road-errors').empty();
-                                        let html = '<ul class="alert alert-danger">';
-                                        if (data.responseText) {
-                                            Object.values(JSON.parse(data.responseText).errors).forEach(function (error) {
-                                                html += "<li>" + error[0] + "</li>";
-                                            });
-                                        }else{
-                                            html+= "<li>Error</li>";
-                                        }
-                                        html+='</ul';
-                                        $('#add-road-errors').append(html);
-                                        $('#add-road-errors').focus();*/
                                         removeAjaxLoader();
                                         Swal.fire(
                                             'Error',
                                             'There was an error!',
                                             'error'
-                                        )
+                                        );
                                     }
                                 });
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -3697,132 +4084,238 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     'Cancelled',
                                     'The changes have been removed.',
                                     'error'
-                                )
+                                );
                             }
                         });
-
-                        //Geom only update end++++++++++
-
                     } else {
                         Swal.fire({
                             title: 'Nothing to save!',
                             icon: "warning",
                         });
                     }
-
                 } else {
-                    hideAddRoadForm();
+                    hideAddForm();
                     Swal.fire({
                         title: 'Nothing to save!',
                         icon: "warning",
                     });
                 }
-
             });
 
-            //submit the details about road
-            $('#add_road_submit_btn').click(function(e) {
-    e.preventDefault();
-    displayAjaxLoader();
-    let lineFormat = new ol.format.WKT();
-    let geom = lineFormat.writeGeometry(
-        drawSource.getFeatures()[drawSource.getFeatures().length - 1].getGeometry().clone().transform('EPSG:3857', 'EPSG:4326')
-    );
 
-    // Field name mapping for custom error titles
-    let fieldNameMapping = {
-        "name": "Road Name",
-        "length": "Length (m)",
-        "carrying_width": "Carrying Width (m)",
-        "right_of_way": "Right of Way (m)"
-    };
+            function submitDetails(controlType) {
+            // Set the dynamic fields based on control type
+            let formData = {};
+            let geom = null;
+            let fieldNameMapping = {};
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Accept': 'application/json'
-        }
-    });
+            if (controlType === 'road') {
+                geom = getGeometryLayer();
+                fieldNameMapping = {
+                    "name": "Road Name",
+                    "length": "Length (m)",
+                    "carrying_width": "Carrying Width (m)",
+                    "right_of_way": "Right of Way (m)"
+                };
 
-    $.ajax({
-        url: '{{url('/utilityinfo/roadlines/add-road')}}',
-        type: 'post',
-        data: {
-            'name': $('#name').val(),
-            'hierarchy': $('#hierarchy').val(),
-            'surface_type': $('#surface_type').val(),
-            'length': $('#length').val(),
-            'carrying_width': $('#carrying_width').val(),
-            'right_of_way': $('#right_of_way').val(),
-            "geom": geom
-        },
-        success: function(data) {
-            $('#add-road-errors').empty();
-            $('.add-road-form').slideUp();
-            Swal.fire({
-                title: 'Success!',
-                text: "Road(s) added successfully.",
-                icon: 'success',
-                confirmButtonText: 'OK!',
-            });
-            resetAddRoadTool();
-            $('#add_road_control').trigger("click");
-            removeAjaxLoader();
-        },
-        error: function(data) {
-            $('#add-road-errors').empty();
-            let html = '<ul class="alert alert-danger">';
-            if (data.responseText) {
-                let errors = JSON.parse(data.responseText).errors;
-                Object.keys(errors).forEach(function(field) {
-                    let fieldTitle = fieldNameMapping[field] || field; // Use mapped title or default to field
-                    let message = errors[field][0];
+                // Dynamically get the road form data
+                formData = {
+                    'name': $('#name').val(),
+                    'hierarchy': $('#hierarchy').val(),
+                    'surface_type': $('#surface_type').val(),
+                    'length': $('#length').val(),
+                    'carrying_width': $('#carrying_width').val(),
+                    'right_of_way': $('#right_of_way').val(),
+                    "geom": geom
+                };
 
-                    // Replace default field name in error message with the custom title
-                    let customMessage = message.replace(new RegExp(field, "gi"), fieldTitle.toLowerCase());
+                url = '{{url("/utilityinfo/roadlines/add-road")}}';
+                return_url = '{{ route("roadlines.index") }}';
+            } else if (controlType === 'sewer') {
+                geom = getGeometryLayer();
+                fieldNameMapping = {
+                    "road_code": "Road Code",
+                    "treatment_plant_id": "Treatment Plant",
+                    "length": "Length (m)",
+                    "location": "Location",
+                    "diameter": "Diameter (mm)",
 
-                    // Capitalize the first letter of the custom field title
-                    customMessage = `The ${fieldTitle} is required.`;
+                };
 
-                    html += `<li>${customMessage}</li>`;
-                });
-            } else {
-                html += "<li>Error</li>";
+                // Dynamically get the drain form data
+                formData = {
+                    'road_code': $('#road_code').val(),
+                    'treatment_plant_id': $('#treatment_plant_id').val(),
+                    'length': $('#length_sewer').val(),
+                    'location': $('#location').val(),
+                    'diameter': $('#diameter').val(),
+                    "geom": geom
+                };
+
+                
+                url = '{{url("/utilityinfo/sewerlines/add-sewer")}}';
+                return_url = '{{ route("sewerlines.index") }}';
+
+            }else if (controlType === 'drain') {
+                geom = getGeometryLayer();
+                fieldNameMapping = {
+                    "road_code": "Road Code",
+                    "cover_type": "Cover Type",
+                    "surface_type": "Surface Type",
+                    "size": "Width (mm)",
+                    "length": "Length (m)",
+                    "treatment_plant_id": "Treatment Plant",
+                };
+
+                // Dynamically get the drain form data
+                formData = {
+                    'road_code': $('#road_code_drain').val(),
+                    "cover_type": $('#cover_type').val(),
+                    "surface_type": $('#surface_type').val(),
+                    'size': $('#size').val(),
+                    'length': $('#length_drain').val(),
+                    'treatment_plant_id': $('#tp_drain').val(), 
+                    "geom": geom
+                };
+                url = '{{url("/utilityinfo/drains/add-drain")}}';
+                return_url = '{{ route("drains.index") }}';
+
+            }else if (controlType === 'watersupply') {
+                geom = getGeometryLayer();
+                fieldNameMapping = {
+                    "road_code": "Road Code",
+                    "diameter": "Diameter (mm)",
+                    "length": "Length (m)",
+                    "project_name": "Project Name",
+                    "type": "Type",
+                    "material_type": "Material Type",
+                };
+
+                // Dynamically get the drain form data
+                formData = {
+                    'road_code': $('#road_code_watersupply').val(),
+                    "diameter": $('#diameter_watersupply').val(),
+                    "length": $('#length_watersupply').val(),
+                    'project_name': $('#project_name').val(),
+                    'type': $('#type').val(),
+                    'material_type': $('#material_type').val(), 
+                    "geom": geom
+                };
+                url = '{{url("/utilityinfo/watersupplys/add-watersupply")}}';
+                return_url = '{{ route("watersupplys.index") }}';
+
             }
-            html += '</ul>';
-            $('#add-road-errors').append(html);
-            $('#add-road-errors').focus();
-            removeAjaxLoader();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json'
+                }
+            });
+            displayAjaxLoader();
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: formData,
+                success: function(data) {
+                    $('#add-' + controlType + '-errors').empty();
+                    $('.add-' + controlType + '-form').slideUp();
+                    removeAjaxLoader(); 
+                    Swal.fire({
+                        title: 'Success!',
+                        text: `${controlType.charAt(0).toUpperCase() + controlType.slice(1)} added successfully.`,
+                        icon: 'success',
+                        confirmButtonText: 'OK!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = return_url; 
+                             displayAjaxLoader();
+                        }
+                    });
+                },
+                error: function(data) {
+                    $('#add-' + controlType + '-errors').empty();
+                    let html = '<ul class="alert alert-danger">';
+                    if (data.responseText) {
+                        let errors = JSON.parse(data.responseText).errors;
+                        Object.values(errors).forEach(function(field) {
+                            let fieldTitle = fieldNameMapping[field] || field;
+                            let message = errors[field][0];
+
+                            // Replace default field name in error message with the custom title
+                            let customMessage = message.replace(new RegExp(field, "gi"), fieldTitle.toLowerCase());
+                            customMessage = `The ${fieldTitle} is required.`;
+
+                            html += `<li>${customMessage}</li>`;
+                        });
+                    } else {
+                        html += "<li>Error</li>";
+                    }
+                    html += '</ul>';
+                    $('#add-' + controlType + '-errors').append(html);
+                    $('#add-' + controlType + '-errors').focus();
+                    removeAjaxLoader();
+                }
+            });
         }
-    });
-});
 
+        function getGeometryLayer() {
+            let lineFormat = new ol.format.WKT();
+            return lineFormat.writeGeometry(
+                drawSource.getFeatures()[drawSource.getFeatures().length - 1].getGeometry().clone().transform('EPSG:3857', 'EPSG:4326')
+            );
+        }
 
+        // Event listeners for submit buttons
+        $('#add_road_submit_btn').click(function (e) {
+            e.preventDefault();
+            submitDetails('road');
+        });
 
-            function hideAddRoadForm(){
+          $('#add_sewer_submit_btn').click(function (e) {
+            e.preventDefault();
+            submitDetails('sewer');
+        });
+
+        $('#add_drain_submit_btn').click(function (e) {
+            e.preventDefault();
+            submitDetails('drain');
+        });
+
+        $('#add_watersupply_submit_btn').click(function (e) {
+            e.preventDefault();
+            submitDetails('watersupply');
+        });
+        
+            function hideAddForm(){
                 $('.add-road-form').slideUp();
+                $('.add-drain-form').slideUp();
+                $('.add-sewer-form').slideUp();
+                $('.add-watersupply-form').slideUp();
             }
-            function addRoadDrawInteractions() {
+            function addDrawInteractions() {
+
                 map.removeInteraction(modifyInteraction);
                 map.removeInteraction(selectInteraction);
-                roadDrawInteraction = new ol.interaction.Draw({
+                layerDrawInteraction = new ol.interaction.Draw({
                     source: drawSource,
                     type: "MultiLineString",
                 });
-                roadSnapInteraction = new ol.interaction.Snap({source: vectorSource});
-                roadDrawnSnapInteraction = new ol.interaction.Snap({source: drawSource});
+                layerSnapInteraction = new ol.interaction.Snap({source: vectorSource});
+                layerDrawnSnapInteraction = new ol.interaction.Snap({source: drawSource});
                 undoInteraction = new ol.interaction.UndoRedo();
-                map.addInteraction(roadDrawInteraction);
-                map.addInteraction(roadSnapInteraction);
-                map.addInteraction(roadDrawnSnapInteraction);
+                map.addInteraction(layerDrawInteraction);
+                map.addInteraction(layerSnapInteraction);
+                map.addInteraction(layerDrawnSnapInteraction);
                 map.addInteraction(undoInteraction);
-                roadDrawInteraction.on("drawstart",function(e){
-                    hideAddRoadForm();
-                    removeDrawnRoads();
+                layerDrawInteraction.on("drawstart",function(e){
+                    hideAddForm();
+                    removeDrawnFeatures();
                 });
             }
-            function addRoadModifyInteractions() {
-                map.removeInteraction(roadDrawInteraction);
+
+            function addModifyInteractions() {
+                map.removeInteraction(layerDrawInteraction);
                 selectInteraction = new ol.interaction.Select({
                     layers: [drawLayer,vectorLayer],
                     style: new ol.style.Style({
@@ -3838,10 +4331,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 undoInteraction = new ol.interaction.UndoRedo();
                 map.addInteraction(modifyInteraction);
                 map.addInteraction(selectInteraction);
-                roadSnapInteraction = new ol.interaction.Snap({source: vectorSource});
-                roadDrawnSnapInteraction = new ol.interaction.Snap({source: drawSource});
-                map.addInteraction(roadSnapInteraction);
-                map.addInteraction(roadDrawnSnapInteraction);
+                layerSnapInteraction = new ol.interaction.Snap({source: vectorSource});
+                layerDrawnSnapInteraction = new ol.interaction.Snap({source: drawSource});
+                map.addInteraction(layerSnapInteraction);
+                map.addInteraction(layerDrawnSnapInteraction);
                 map.addInteraction(undoInteraction);
 
                 selectInteraction.on('select',function (e) {
@@ -3870,7 +4363,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         hasModification=false;
                                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                                         selectInteraction.getFeatures().clear();
-                                        selectInteraction.getFeatures().push(modifiedRoadFeature);
+                                        selectInteraction.getFeatures().push(modifiedFeature);
                                     }
                                 });
                             }
@@ -3880,32 +4373,32 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 modifyInteraction.on('modifyend', function(e) {
                     hasModification = true;
-                    modifiedRoadFeature = e.features[0];
+                    modifiedFeature = e.features[0];
                 });
                 undoInteraction.clear();
             }
-            function removeDrawnRoads(){
+            function removeDrawnFeatures(){
                 drawLayer.getSource().clear();
             }
-            function removeAllAddRoadInteractions(){
-                map.removeInteraction(roadDrawInteraction);
-                map.removeInteraction(roadSnapInteraction);
-                map.removeInteraction(roadDrawnSnapInteraction);
+            function removeAllAddInteractions(){
+                map.removeInteraction(layerDrawInteraction);
+                map.removeInteraction(layerSnapInteraction);
+                map.removeInteraction(layerDrawnSnapInteraction);
                 map.removeInteraction(undoInteraction);
                 map.removeInteraction(modifyInteraction);
                 map.removeInteraction(selectInteraction);
             }
-            function clearAddRoadlayers(){
+            function clearAddlayers(){
                 if (drawSource){
                     drawSource.clear();
                 }
                 map.removeLayer(vectorLayer);
                 map.removeLayer(drawLayer);
             }
-            function resetAddRoadTool(){
-                currentAddRoadControl='';
-                removeAllAddRoadInteractions();
-                clearAddRoadlayers();
+            function resetAddTool(){
+                currentAddControl='';
+                removeAllAddInteractions();
+                clearAddlayers();
             }
 
             //*Add road tool end*
@@ -5221,7 +5714,40 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 return false;
             };
             @endcan
+ /**
+             * Elements that make up the popup for KML drag and drop.
+             */
+            var kmlDragDropPopupContainer = document.getElementById('kml-dragdrop-popup');
+            var kmlDragDropPopupContent = document.getElementById('kml-dragdrop-popup-content');
+            var kmlDragDropPopupCloser = document.getElementById('kml-dragdrop-popup-closer');
 
+            /**
+             * Create an overlay to anchor the KML drag and drop popup to the map.
+             */
+            var kmlDragDropPopupOverlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+                element: kmlDragDropPopupContainer,
+                autoPan: true,
+                stopEvent: false,
+                autoPanAnimation: {
+                    duration: 250
+                }
+            }));
+
+            $(kmlDragDropPopupContainer).show();
+
+            map.addOverlay(kmlDragDropPopupOverlay);
+
+            /**
+             * Add a click handler to hide the  popup for KML drag and drop.
+             * @return {boolean} Don't follow the href.
+             */
+            kmlDragDropPopupCloser.onclick = function () {
+                kmlDragDropPopupOverlay.setPosition(undefined);
+                kmlDragDropPopupCloser.blur();
+                return false;
+            };
+
+            
             var drag;
 
             /**
@@ -5618,10 +6144,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         for (var i = from_year; i <= current_year; i++) {
                                             html += '<option value="' + i + '">' + i + '</option>';
                                         }
-                                        html += '</select>';  
-                                       
+                                        html += '</select>';
+                                        html += '<button id="downloadChart" class=" btn btn-primary"><i class="fa fa-download"></i></button>';
+
                                         html += '</div>';
-                                        html += '<button id="downloadChart" class="btn btn-primary"><i class="fa fa-download"></i> </button>';
 
                                         html += '</form>';
                                         html += '</div>';
@@ -5671,10 +6197,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     document.getElementById("downloadChart").addEventListener("click", function() {
                                         var link = document.createElement("a");
                                         link.href = document.getElementById("pie-chart").toDataURL("image/png");
-                                        link.download = "Containments Emptied.png";
+                                        link.download = "Containment Emptied Chart.png";
                                         link.click();
                                     });
-                                        $( "#year_select" ).change(function() {
+                                   $( "#year_select" ).change(function() {
                                        $('#containment_report_year').val($(this).val());
                                        if($(this).val() == new Date().getFullYear()){
                                            chart.data.datasets[0].data = values;
@@ -5856,14 +6382,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 }
             });
 
-             //Add handler to find wms_layer click
-             $('#wms_layer').click(function (e) {
+            //Add handler to find wms_layer click
+            $('#wms_layer').click(function (e) {
                 e.preventDefault();
                 disableAllControls();
                 $('.map-control').removeClass('map-control-active');
                 currentControl = '';
                 $("#wmsModal").modal('show');
             });
+            
 
             // Handler for building structype checkbox change
             $('#building_structype_checkbox_container').on('change', 'input[type=checkbox]', function () {
@@ -8237,6 +8764,143 @@ $.ajax({
                 });
             });
 
+
+            $("#export_toilet_isochrone_csv").on('click', function() {
+                var speed = $('#toilet-isochrone-speed').val();
+                var time = $('#toilet-isochrone-time').val();
+                var distance = (speed * time)*16.66667 ;
+                window.location.href = "{!! url('maps/toilet-isochrone-export/?searchData=') !!}" +    
+                "&distance=" + distance ;
+            });  
+
+            
+             // submit function for toilet isochrone map
+             $("#form-toilet-isochrone-map").submit(function (event) {
+                event.preventDefault();
+                var i =0;
+                if (eLayer.toilet_isochrone_polygon) {
+                    eLayer.toilet_isochrone_polygon.layer.getSource().clear();
+                } else {
+                    var layer = new ol.layer.Vector({
+                        // visible: false,
+                        source: new ol.source.Vector(),
+                        style: new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: '#FF0000',
+                                width: 3
+                            })
+                    }),
+                    });
+                    addExtraLayer('toilet_isochrone_polygon', 'Toilets Isochrone Polygon', layer);
+                }
+
+                if (eLayer.toilets_isochrone_buildings) {
+                    eLayer.toilets_isochrone_buildings.layer.getSource().clear();
+                } else {
+                    var layer = new ol.layer.Vector({
+                        // visible: false,
+                        source: new ol.source.Vector(),
+                        style: new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: '#FF0000',
+                                width: 3
+                            })
+                    }),
+                    });
+                    addExtraLayer('toilets_isochrone_buildings', 'Toilets Isochrone Buffer Buildings', layer);
+                }
+                var speed = $('#toilet-isochrone-speed').val();
+                var time = $('#toilet-isochrone-time').val();
+                var urliso = '{{ url("maps/toilet-isochrone") }}';
+
+                var distance = (speed * time)*16.66667 ; //distance calculated in meter per second 
+
+                displayAjaxLoader();
+                $.ajax({
+                    url: urliso,
+                    type: 'get',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        distance: distance,
+                    },
+                    success: function (Response) {
+                        // data1 = Response['buildings'];
+                        // if (data1 && Array.isArray(data1)) {
+                        //     var format = new ol.format.WKT();
+
+                        //     for (var i = 0; i < data1.length; i++) {
+                        //         var feature = format.readFeature(data1[i].geom, {
+                        //             dataProjection: 'EPSG:4326',
+                        //             featureProjection: 'EPSG:3857'
+                        //         });
+
+                        //         feature.setStyle(styleFunction(data1[i].id));
+                        //         eLayer.toilets_isochrone_buildings.layer.getSource().addFeature(feature);
+                        //     }
+                        // }
+                        data2 = Response['polygon'];
+                        if (data2 && Array.isArray(data2)) {
+                            for (var i = 0; i < data2.length; i++) {
+                                var format = new ol.format.WKT();
+                                var featureP = format.readFeature(data2[i].geom, {
+                                    dataProjection: 'EPSG:4326',
+                                    featureProjection: 'EPSG:3857'
+                                });
+                                featureP.setStyle(styleFunction(i));
+                                eLayer.toilet_isochrone_polygon.layer.getSource().addFeature(featureP);
+                        }
+                        }
+                        else
+                        {
+                            var featureP = format.readFeature(data2.geom, {
+                                dataProjection: 'EPSG:4326',
+                                featureProjection: 'EPSG:3857'
+                            });
+                            eLayer.toilet_isochrone_polygon.layer.getSource().addFeature(featureP);
+                        }
+                        showLayer('toilets_layer');
+
+                        $('#popup-toilet-isochrone').modal('hide');
+                        removeAjaxLoader();
+                    },
+                    error: function (data2) {
+                        displayAjaxError();
+                    }
+                });
+                
+             });
+
+             function styleFunction(i, resolution) {
+                i+=1;
+                return(getBikeStyle(i));
+            }
+            var bikeStyleCache = {};
+            function createBikeStyle(id) {
+                //  var strokeColor = randomColor();
+                var strokeColor = '#397B7D' ;
+                var fillColor = strokeColor.slice();
+                fillColor[3] = 0.2;
+                var bikeStyle  = new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: strokeColor,
+                        width: 4,
+                    }),
+                });
+                bikeStyleCache[id] = bikeStyle;
+            }
+            function getBikeStyle(id) {
+                if (!bikeStyleCache[id]) {
+                    createBikeStyle(id);
+                }
+                return(bikeStyleCache[id]);
+            }
+            function randomColor() {
+                var r = Math.floor(Math.random() * 256);
+                var g = Math.floor(Math.random() * 256);
+                var b = Math.floor(Math.random() * 256);
+                var color = [r, g, b];
+                return(color);
+            } 
              $("#form-road-inaccessible").submit(function (event) {
                 event.preventDefault();
                 roadInaccessiblePopupOverlay.setPosition(undefined);
@@ -9152,7 +9816,7 @@ $.ajax({
                 return false;
             };
 
-            //DRAGGABLE OVERLAYS - SUJAL
+            //DRAGGABLE OVERLAYS 
 // Drag interaction
             var ol_Drag = new ol.interaction.DragOverlay({
                 overlays: [
@@ -9169,6 +9833,7 @@ $.ajax({
                     populationPopupOverlay,
                     roadInaccessiblePopupOverlay,
                     feedbackPopupOverlay,
+                    kmlDragDropPopupOverlay,
                 ]
             });
             map.addInteraction(ol_Drag);
@@ -9222,6 +9887,21 @@ $.ajax({
 
             }
 
+
+             // Display popup form isochrone map 
+             function displayPopupToiletIsochrone(evt) {
+                var coordinate = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+                $('#isochrone-long-pos').val(evt.coordinate[0].toFixed(6));
+                $('#isochrone-lat-pos').val(evt.coordinate[1].toFixed(6));
+                $('#isochrone-long').val(coordinate[0].toFixed(6));
+                $('#isochrone-lat').val(coordinate[1].toFixed(6));
+                $('#isochrone_control').removeClass('map-control-active');
+                map.un('singleclick', displayPopupToiletIsochrone);
+                currentControl = "";
+                $('#popup-toilet-isochrone').modal('show');
+
+            }
+            
 
             function displayContainmentBuildings(field, val) {
                 var url = '{{ url("maps/containment-buildings") }}' + '/' + field + '/' + val;
@@ -11439,59 +12119,58 @@ $.ajax({
                     }
                 });
             }
+            //WMS URL importing
+            var parser = new ol.format.WMSCapabilities();
 
-                        //WMS URL importing
-                        var parser = new ol.format.WMSCapabilities();
+            var wmsUrl = document.getElementById("wmsURL");
+            var mapLayer = document.getElementById("mapLayer");
+            wmsUrl.addEventListener("click", function() {
+            var wmsAddress = document.getElementById("wmsAddress").value;
 
-                    var wmsUrl = document.getElementById("wmsURL");
-                    var mapLayer = document.getElementById("mapLayer");
-                    wmsUrl.addEventListener("click", function() {
-                    var wmsAddress = document.getElementById("wmsAddress").value;
+            fetch(wmsAddress)
+            .then(function(response) {
+                console.log("ffff",resp[onse]);
+                return response.text();
+            })
+            .then(function(text) {
+            $("#wmsModal").modal("hide");
+            var result = parser.read(text);
+            let layers = result.Capability.Layer.Layer;
+            let i;
+            $("#getLayerModal").modal();
+            let layerName = [];
+            mapLayer.options.length = 0;
+            for (i = 0; i < layers.length; i++) {
+                layerName[i] = layers[i].Name;
+                var option = document.createElement("option");
+                option.text = option.value = layers[i].Name;
+                mapLayer.add(option);
+            }
+            var wms_gurl = wmsAddress.split("?")[0];
 
-                    fetch(wmsAddress)
-                    .then(function(response) {
-                        console.log("ffff",resp[onse]);
-                        return response.text();
-                    })
-                    .then(function(text) {
-                    $("#wmsModal").modal("hide");
-                    var result = parser.read(text);
-                    let layers = result.Capability.Layer.Layer;
-                    let i;
-                    $("#getLayerModal").modal();
-                    let layerName = [];
-                    mapLayer.options.length = 0;
-                    for (i = 0; i < layers.length; i++) {
-                        layerName[i] = layers[i].Name;
-                        var option = document.createElement("option");
-                        option.text = option.value = layers[i].Name;
-                        mapLayer.add(option);
-                    }
-                    var wms_gurl = wmsAddress.split("?")[0];
-
-                    mapLayer.addEventListener("change", function() {
-                        const source = new ol.source.TileWMS({
-                            url: wms_gurl,
-                            params: {
-                                layers: mapLayer.value,
-                                authkey: authkey,
-                                TILED: true
-                            },
-                            crossOrigin: "anonymous",
-                            serverType: "geoserver",
-                            attributions: "This is from getcapabilities"
-                        });
-                        const layer = new ol.layer.Tile({
-                            source: source,
-                            visible: true
-                        });
-                        map.addLayer(layer);
-                    });
-                    })
-                    .catch(function(err) {
-                        alert("Enter Valid URL");
-                    });
-                    });
+            mapLayer.addEventListener("change", function() {
+                const source = new ol.source.TileWMS({
+                    url: wms_gurl,
+                    params: {
+                        layers: mapLayer.value,
+                        authkey: authkey,
+                        TILED: true
+                    },
+                    crossOrigin: "anonymous",
+                    serverType: "geoserver",
+                    attributions: "This is from getcapabilities"
+                });
+                const layer = new ol.layer.Tile({
+                    source: source,
+                    visible: true
+                });
+                map.addLayer(layer);
+            });
+            })
+            .catch(function(err) {
+                alert("Enter Valid URL");
+            });
+            });
 
 
             function updateMapSize() {
@@ -11554,6 +12233,20 @@ $.ajax({
         document.addEventListener("mouseup", () => {
             isDragging = false;
             document.body.style.userSelect = "auto"; // Re-enable text selection
+        });
+        $('#road_code, #road_code_drain, #road_code_watersupply').select2({
+            ajax: {
+                url: "{{ route('roadlines.get-road-names') }}",
+                data: function (params) {
+                    return {
+                        search: params.term,
+                        page: params.page || 1
+                    };
+                },
+            },
+            placeholder: 'Road Code - Road Name',
+            allowClear: true,
+            closeOnSelect: true,
         });
 
    </script>
