@@ -31,7 +31,7 @@ class LanguageController extends Controller
 
     public function headerDropdown()
     {
-        $activeLang = Language::where('status', 1)->pluck('short');
+        $activeLang = Language::where('status', 1)->pluck('code');
         return response()->json(['languages' => $activeLang]);
     }
 
