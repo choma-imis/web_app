@@ -31,7 +31,7 @@ class LanguageController extends Controller
 
     public function headerDropdown()
     {
-        $activeLang = Language::where('status', 1)->pluck('short');
+        $activeLang = Language::where('status', 1)->pluck('code');
         return response()->json(['languages' => $activeLang]);
     }
 
@@ -47,7 +47,7 @@ class LanguageController extends Controller
     })
     ->where('t.name', $lang_id)
     ->where('t.platform', 'mobile')
-    ->where('t.group','validation') // Filter only mobile platform
+
     ->where('en_translations.platform', 'mobile') // Ensure English translations are also for mobile
     ->get([
         'en_translations.text as english_text', // English text

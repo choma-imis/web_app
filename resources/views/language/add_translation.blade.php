@@ -132,17 +132,15 @@ button:active, button:focus { outline: none; box-shadow: none; }
 
 
                 <hr>
-                <ul>
-                    @foreach($sourceTranslations as $page => $translations)
-                    <li>
-
-                        <a href="#" class="tab-link @if($loop->first) active @endif" data-tab="tab-{{ $loop->index }}">
-
-                            {{ preg_replace('/\bIss\b/i', 'ISS', \Illuminate\Support\Str::title(str_replace('_', ' ', $page))) }}
-                        </a>
-                    </li>
-                @endforeach
-                </ul>
+              <ul>
+        @foreach($sourceTranslations as $page => $translations)
+            <li>
+                <a href="#" class="tab-link @if($loop->first) active @endif" data-tab="tab-{{ $loop->index }}">
+                    {{ $customNames[$page] ?? Str::title(str_replace('_', ' ', $page)) }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
 
             </div>
 

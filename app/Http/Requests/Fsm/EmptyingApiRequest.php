@@ -1,6 +1,6 @@
 <?php
 // Last Modified Date: 18-04-2024
-// Developed By: Innovative Solution Pvt. Ltd. (ISPL)  
+// Developed By: Innovative Solution Pvt. Ltd. (ISPL)
 namespace App\Http\Requests\Fsm;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -43,7 +43,7 @@ class EmptyingApiRequest extends FormRequest
             'service_receiver_contact' => 'required|integer',
             'service_receiver_gender' => 'required',
             'service_receiver_name' => 'required',
-          
+
 
         ];
     }
@@ -80,8 +80,17 @@ class EmptyingApiRequest extends FormRequest
             'emptying_reason.required' => __('The reason for emptying is required.'),
             'service_receiver_contact.required' => __('The service receiver contact Number is required.'),
             'service_receiver_contact.integer' => __('The service receiver contact Number must be number.'),
-            'service_receiver_gender.required' => __('The  service receiver gender is required.'),
-            'service_receiver_name.required' => __('The  service receiver name is required.'),
+            'service_receiver_gender.required' => __('The service receiver gender is required.'),
+            'service_receiver_name.required' => __('The service receiver name is required.'),
+            'volume_of_sludge.gt' => __('The sludge volume must be greater than 0.'),
+            'no_of_trips.gt' => __('The number of trips must be greater than 0.'),
+            'total_cost.gt' => __('The total cost must be greater than 0.'),
+            'driver.integer' => __('The driver name must be a number.'),
+            'emptier1.integer' => __('The emptier1 name must be a number.'),
+            'emptier2.integer' => __('The emptier2 name must be a number.'),
+            'service_receiver_contact.integer' => __('The service receiver contact number must be a number.'),
+
+
 
         ];
     }
