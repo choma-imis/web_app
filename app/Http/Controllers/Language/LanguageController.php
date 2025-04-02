@@ -381,40 +381,91 @@ class LanguageController extends Controller
 
 
 
-
     public function add_translation($languageId)
-    {
-         $pageTitle = __('Add Translations');
+{
+    $pageTitle = __('Add Translations');
 
-        // Get English source translations
-        $sourceTranslations = DB::table('language.translates')
+    // Fetch and group source translations
+    $sourceTranslations = DB::table('language.translates')
         ->where('name', 'en')
-
         ->select('key', 'text', 'pages')
         ->distinct('key')
         ->get()
-        ->sortBy('pages')  // Sorting alphabetically by 'pages'
+        ->sortBy('pages')
         ->groupBy('pages')
         ->map(function ($group) {
-            return collect($group)->sortBy('text');  // Convert to collection and sort alphabetically by 'text'
+            return collect($group)->sortBy('text');
         });
 
+    // Define custom names for pages
+    $customNames = [
+        'Auth' => 'Authentication',
+        'apiservice' => 'API Service',
+        'application' => 'Application ',
+        'building' => 'Buildings',
+        'building_surveyor' => 'Building Surveyor Information',
+        'building_dashboard' => 'Building Dashboard',
+        'building_survey' => 'Building Survey',
+        'containments' => 'Containment IMS',
+        'cwis' => 'CWIS IMS',
+        'cwis_dashboard' => 'CWIS Dashboard',
+        'cwis_setting' => 'CWIS Settings',
+        'dashboard' => 'Dashboard',
+        'desludging_vehicles' => 'Desludging Vehicles',
+        'drain_network' => 'Drainage Network',
+        'employee_information' => 'Employee Information',
+        'emptying' => 'Emptying',
+        'empting_operator' => 'Emptying Operators',
+        'export_data' => 'Data Export',
+        'feedbacks' => 'Feedbacks',
+        'fsm_dashboard' => 'FSM Dashboard',
+        'general' => 'General Information',
+        'help_desks' => 'Help Desk Support',
+        'kpi_dashboard' => 'KPI Dashboard',
+        'kpi_target' => 'KPI Target',
+        'landing' => 'Landing Page',
+        'language' => 'Languages',
+        'low_income_community' => 'Low Income Community',
+        'map' => 'Map Feature',
+        'performance_efficiency_standard' => 'Performance Efficiency Standards',
+        'performance_efficiency_test' => 'Performance Efficiency Testing',
+        'property_tax_collection_iss' => 'Property Tax Collection ISS',
+        'ptct_users_log' => 'PT User Logs',
+        'public_community_toilets' => 'Public Toilets',
+        'road_network' => 'Road Network',
+        'roles' => 'Roles',
+        'service_providers' => 'Service Providers',
+        'sewer_page' => 'Sewer System Overview',
+        'sewer_connection' => 'Sewer Connections',
+        'sewage_network' => 'Sewage Network',
+        'sludge_collection' => 'Sludge Collection',
+        'solid_waste_iss' => 'Solid Waste Management',
+        'treatment_plants' => 'Treatment Plants',
+        'users' => 'Registered Users',
+        'utility_dashboard' => 'Utility Dashboard',
+        'water_samples' => 'Water Sample Data',
+        'water_subsidy' => 'Water Subsidy Program',
+        'water_supply' => 'Water Supply',
+        'water_supply_network' => 'Water Supply Network',
+        'waterborne_cases_information' => 'Waterborne Disease Cases',
+        'waterborne_hotspot' => 'Waterborne Disease Hotspots'
+    ];
 
 
-        // Get existing translations for the target language
-        $existingTranslations = DB::table('language.translates')
-            ->where('name', $languageId)
-            ->pluck('text', 'key')
+    // Get existing translations for the target language
+    $existingTranslations = DB::table('language.translates')
+        ->where('name', $languageId)
+        ->pluck('text', 'key')
+        ->toArray();
 
-            ->toArray();
-
-        return view('language.add_translation', compact(
-            'pageTitle',
-            'languageId',
-            'sourceTranslations',
-            'existingTranslations'
-        ));
-    }
+    return view('language.add_translation', compact(
+        'pageTitle',
+        'languageId',
+        'sourceTranslations',
+        'existingTranslations',
+        'customNames'
+    ));
+}
     public function saveStepTranslation(Request $request, $languageId)
     {
         try {
