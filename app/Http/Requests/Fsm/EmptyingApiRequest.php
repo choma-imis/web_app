@@ -79,7 +79,6 @@ class EmptyingApiRequest extends FormRequest
             'receipt_image.mimetypes' => __('The receipt image type is not supported.'),
             'emptying_reason.required' => __('The reason for emptying is required.'),
             'service_receiver_contact.required' => __('The service receiver contact Number is required.'),
-            'service_receiver_contact.integer' => __('The service receiver contact Number must be number.'),
             'service_receiver_gender.required' => __('The service receiver gender is required.'),
             'service_receiver_name.required' => __('The service receiver name is required.'),
             'volume_of_sludge.gt' => __('The sludge volume must be greater than 0.'),
