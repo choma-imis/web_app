@@ -428,7 +428,7 @@ class LanguageController extends Controller
         'low_income_community' => 'Low Income Community',
         'map' => 'Map Feature',
         'performance_efficiency_standard' => 'Performance Efficiency Standards',
-        'performance_efficiency_test' => 'Performance Efficiency Testing',
+        'performance_efficiency_test' => 'Performance Efficiency Test',
         'property_tax_collection_iss' => 'Property Tax Collection ISS',
         'ptct_users_log' => 'PT User Logs',
         'public_community_toilets' => 'Public Toilets',
@@ -441,14 +441,14 @@ class LanguageController extends Controller
         'sludge_collection' => 'Sludge Collection',
         'solid_waste_iss' => 'Solid Waste Management',
         'treatment_plants' => 'Treatment Plants',
-        'users' => 'Registered Users',
+        'users' => 'User Information Management',
         'utility_dashboard' => 'Utility Dashboard',
-        'water_samples' => 'Water Sample Data',
+        'water_samples' => 'Water Samples',
         'water_subsidy' => 'Water Subsidy Program',
         'water_supply' => 'Water Supply',
         'water_supply_network' => 'Water Supply Network',
-        'waterborne_cases_information' => 'Waterborne Disease Cases',
-        'waterborne_hotspot' => 'Waterborne Disease Hotspots'
+        'waterborne_cases_information' => 'Waterborne Cases Information',
+        'waterborne_hotspot' => 'Waterborne Hotspot'
     ];
 
 
