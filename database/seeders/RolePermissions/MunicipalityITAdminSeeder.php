@@ -32,7 +32,8 @@ class MunicipalityITAdminSeeder extends Seeder
                         'Building Dashboard',
                         'Dashboard',
                         'FSM Dashboard',
-                        'Utility Dashboard'
+                        'Utility Dashboard',
+                        'Language',
                     ]));
                     $createdRole->givePermissionTo(Permission::all()->whereIn('group', [
                         'Building Structures',
@@ -187,16 +188,7 @@ class MunicipalityITAdminSeeder extends Seeder
                             'Activity'
                         ]));
 
-                    //Language Module
-                    $createdRole->givePermissionTo(Permission::all()->whereIn('group', ['Language'])
-                    ->whereIn('type', [
-                        'List',
-                        'View',
-                        'Add',
-                        'Edit',
-                        'Delete',
-                        'Import'
-                    ]));
+
 
 
 

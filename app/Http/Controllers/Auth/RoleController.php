@@ -1,6 +1,6 @@
 <?php
 // Last Modified Date: 08-04-2024
-// Developed By: Innovative Solution Pvt. Ltd. (ISPL)  
+// Developed By: Innovative Solution Pvt. Ltd. (ISPL)
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -50,7 +50,7 @@ class RoleController extends Controller
     public function searchPermission(Request $request, $id)
     {
         $search = $request->search;
-        $page_title = __('Edit Role'); 
+        $page_title = __('Edit Role');
         $role = Role::find($id);
        $permission = DB::select("SELECT * FROM permissions WHERE LOWER(permissions.name) LIKE LOWER('%" . $search . "%')");
 
@@ -219,6 +219,7 @@ class RoleController extends Controller
         $users = Permission::where('group','Users')->orderBy('type')->get();
         $roles = Permission::where('group','Roles')->orderBy('type')->get();
         $api = Permission::where('group','API')->orderBy('type')->get();
+        $language = Permission::where('group','Language')->orderBy('type')->get();
 
         $groupedPermissions = collect([
             'Dashboard' => $dashboard,
@@ -261,13 +262,14 @@ class RoleController extends Controller
             'Users' => $users,
             'Roles' => $roles,
             'API' => $api,
+            'Language' => $language,
         ]);
 
         return $groupedPermissions;
     }
 
     public function getRoles(Request $request){
-       
+
         $type = $request->user_type;
         if($type == "Help Desk"){
         $roles = Role::where('name', "LIKE", "%$type%")
@@ -297,9 +299,9 @@ class RoleController extends Controller
     public function getservRoles(Request $request)
     {
         \Log::info('Request Data:', $request->all()); // Log request data for debugging
-    
+
         $type = $request->user_type;
-    
+
         if ($type == "Help Desk") {
             $roles = collect(['Service Provider - Help Desk']);
         } else {
@@ -307,9 +309,9 @@ class RoleController extends Controller
                          ->where('name', "NOT ILIKE", '%Help Desk%')
                          ->pluck('name', 'name');
         }
-    
+
         $html = '<select name="roles[]" class="form-control chosen-select" id="roles" multiple="true">';
-    
+
         foreach ($roles as $role) {
             if ($request->roles && in_array($role, json_decode($request->roles))) {
                 $html .= '<option value="' . $role . '" selected>' . $role . '</option>';
@@ -317,10 +319,10 @@ class RoleController extends Controller
                 $html .= '<option value="' . $role . '">' . $role . '</option>';
             }
         }
-    
+
         $html .= '</select>';
         return $html;
     }
-    
+
 
 }

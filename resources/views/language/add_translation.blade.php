@@ -150,7 +150,7 @@ button:active, button:focus { outline: none; box-shadow: none; }
                     @csrf
                     @foreach($sourceTranslations as $page => $translations)
                         <div class="tabs-panels @if($loop->first) active @endif" id="tab-{{ $loop->index }}">
-                            <h4> {{ $customNames[$page] ?? Str::title(str_replace('_', ' ', $page)) }}Translations</h4>
+                            <h4> {{ $customNames[$page] ?? Str::title(str_replace('_', ' ', $page)) }} Translations</h4>
                             <hr>
                             <div class="form-fields-container">
                                 @foreach($translations as $translation)

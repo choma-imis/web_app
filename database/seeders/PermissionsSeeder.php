@@ -79,7 +79,7 @@ class PermissionsSeeder extends Seeder
                 "perms" => [
                     [
                         "type" => "List",
-                        "name" => "List Language"
+                        "name" => "List Languages"
                     ],
                     [
                         "type" => "View",
