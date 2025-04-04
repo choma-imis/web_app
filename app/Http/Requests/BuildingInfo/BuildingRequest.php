@@ -130,7 +130,7 @@ class BuildingRequest extends FormRequest
                     return true;
                 }
             },
-            "{{ __('Building Footprint (KML) file must be kml format.') }}"
+            __('Building Footprint (KML) file must be kml format.') 
         );
         $use_cat = $this->input('use_category_id');
         return [
@@ -185,7 +185,7 @@ class BuildingRequest extends FormRequest
             'toilet_status' => ['required',
              function ($attribute, $value, $fail) use ($use_cat) {
                 if (($use_cat == 34 && $value != true) || ($use_cat == 35 && $value != true) ) {
-                    $fail("The Toilet Presence must be Yes when Use Category is Public Toilet or Community Toilet");
+                    $fail(__("The Toilet Presence must be Yes when Use Category is Public Toilet or Community Toilet"));
                 }
             }
             ],
@@ -284,7 +284,7 @@ class BuildingRequest extends FormRequest
             'toilet_status' => ['required',
             function ($attribute, $value, $fail) use ($use_cat) {
                if (($use_cat == 34 && $value != true) || ($use_cat == 35 && $value != true) ) {
-                   $fail("The Toilet Presence must be Yes when Use Category is Public Toilet or Community Toilet");
+                   $fail(__("The Toilet Presence must be Yes when Use Category is Public Toilet or Community Toilet"));
                }
            }
            ],

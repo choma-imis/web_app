@@ -76,7 +76,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <div class="col-sm-3 input-group">
             {!! Form::text('temperature', null, [
                 'class' => 'form-control',
-                'placeholder' => __('Temperature in °C'),
+                'placeholder' => __('Temperature °C'),
                 'oninput' => "this.value = this.value.replace(/(?!^-)[^0-9.]/g, '').replace(/(\\..*?)\\..*/g, '$1')"
             ]) !!}
         </div>

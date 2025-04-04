@@ -209,13 +209,14 @@
                 if ((date_from !== '') && (date_to === '')) {
 
                     Swal.fire({
-                        title: 'Date To is required',
-                        text: "Please Select Date To ",
+                        title: {{__('Date To is required')}},
+                        text: {{__("Please Select Date To")}},
                         icon: 'warning',
                         showCancelButton: false,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'close'
+                        confirmButtonText: {{__('Close')}},
+                        cancelButtonText: '{{ __('Cancel') }}',
                     })
 
                     return false;
@@ -223,13 +224,14 @@
                 if ((date_from === '') && (date_to !== '')) {
 
                     Swal.fire({
-                        title: 'Date From is Required',
-                        text: "Please Select Date From ",
+                        title: {{__('Date From is Required')}},
+                        text: {{__("Please Select Date From")}},
                         icon: 'warning',
                         showCancelButton: false,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Close'
+                        confirmButtonText: {{__('Close')}},
+                        cancelButtonText: '{{ __('Cancel') }}',
                     })
 
                     return false;
