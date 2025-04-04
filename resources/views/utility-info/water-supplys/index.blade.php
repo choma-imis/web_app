@@ -13,6 +13,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 
 	<div class="card">
         <div class="card-header">
+        <a href="{{ action('MapsController@index') }}#add_watersupply_control" class="btn btn-info">Add Water Supply</a>
              @can('Export WaterSupply Network to CSV')
             <a href="" id="export" class="btn btn-info">Export to CSV</a>
             @endcan

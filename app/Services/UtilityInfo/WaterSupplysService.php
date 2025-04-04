@@ -101,20 +101,21 @@ class WaterSupplysService
 
         if (empty($code)) {
 
-            $waterSupplysTemp = DB::select("SELECT ST_AsText(geom) AS geom FROM watersupplys_temp");
-            $geom = ($waterSupplysTemp[0]->geom);
+            // $waterSupplysTemp = DB::select("SELECT ST_AsText(geom) AS geom FROM watersupplys_temp");
+            // $geom = ($waterSupplysTemp[0]->geom);
             $maxcode = WaterSupplys::withTrashed()->max('code');
-            $maxcode = str_replace('W', '', $maxcode);
+            $maxcode = str_replace('WS', '', $maxcode);
+            // $maxcode = (int)$maxcode; 
             $waterSupplys = new WaterSupplys();
             $waterSupplys->user_id = Auth::id();
-            $waterSupplys->code = 'W' . sprintf('%04d', $maxcode + 1);
+            $waterSupplys->code = 'WS' . sprintf('%06d', $maxcode + 1);
             $waterSupplys->road_code = $data['road_code'] ? $data['road_code'] : null;
             $waterSupplys->diameter = $data['diameter'] ? $data['diameter'] : null;
             $waterSupplys->length = $data['length'] ? $data['length'] : null;
             $waterSupplys->project_name = $data['project_name'] ? $data['project_name'] : null;
             $waterSupplys->type = $data['type'] ? $data['type'] : null;
             $waterSupplys->material_type = $data['material_type'] ? $data['material_type'] : null;
-            $waterSupplys->geom = $data['geom'] ? DB::raw("ST_Multi(ST_GeomFromText('" . $geom . "', 4326))") : null;
+            $waterSupplys->geom = $data['geom'] ? DB::raw("ST_Multi(ST_GeomFromText('" . $data['geom'] . "', 4326))") : null;
             $waterSupplys->save();
         } else {
 

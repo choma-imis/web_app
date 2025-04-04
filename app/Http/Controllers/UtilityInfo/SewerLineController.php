@@ -9,6 +9,7 @@ use App\Models\Fsm\TreatmentPlant;
 use App\Models\UtilityInfo\SewerLine;
 use App\Http\Requests\UtilityInfo\SewerLineRequest;
 use App\Services\UtilityInfo\SewerLineService;
+use DB;
 
 class SewerLineController extends Controller
 {
@@ -216,5 +217,29 @@ class SewerLineController extends Controller
         }
 
         return response()->json(['results' =>$json, 'pagination' => ['more' => $more] ]);
+    }
+
+    public function updateSewerGeom(Request $request){
+      
+        $code = $request->code?$request->code:null;
+        if ($code){
+            $sewer = SewerLine::find($code);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'error' => "Couldn't find the required sewer!",
+            ]);
+        }
+
+        $sewer->geom = DB::raw("ST_GeomFromText('". $request->geom . "')");
+        
+        $sewer->save();
+        return response()->json([
+            'success' => true,
+            'data' => [],
+            'error' => "Updated the sewer geometry successfully!",
+        ]);
+
     }
 }

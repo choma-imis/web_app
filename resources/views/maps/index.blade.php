@@ -3781,10 +3781,10 @@ function handleAddRoadControlClick() {
                     currentLayerType = 'Road';
 
                     // Set tool titles or other properties
-                    $('#add_edit_control').attr('title', currentLayerType);
-                    $('#add_submit_road_btn').attr('title', currentLayerType);
-                    $('#add_submit_control').attr('title', currentLayerType);
-                    $('#add_start_control').attr('title',  currentLayerType);
+                    $('#add_edit_control').attr( currentLayerType);
+                    $('#add_submit_road_btn').attr(currentLayerType);
+                    $('#add_submit_control').attr(currentLayerType);
+                    $('#add_start_control').attr(currentLayerType);
 
                     handleMapControl(
                         '#add_road_control',
@@ -3806,10 +3806,10 @@ function handleAddRoadControlClick() {
             currentLayerType = 'Sewer';
 
               // Set tool titles or other properties
-                $('#add_edit_control').attr('title', currentLayerType);
-                $('#add_submit_sewer_btn').attr('title', currentLayerType);
-                $('#add_submit_control').attr('title', currentLayerType);
-                $('#add_start_control').attr('title',  currentLayerType);
+                $('#add_edit_control').attr( currentLayerType);
+                $('#add_submit_sewer_btn').attr( currentLayerType);
+                $('#add_submit_control').attr( currentLayerType);
+                $('#add_start_control').attr(  currentLayerType);
 
                 handleMapControl(
                     '#add_sewer_control',
@@ -3830,10 +3830,10 @@ function handleAddRoadControlClick() {
                     currentLayerType = 'Drain';
 
               // Set tool titles or other properties
-                $('#add_edit_control').attr('title', currentLayerType);
-                $('#add_submit_drain_btn').attr('title', currentLayerType);
-                $('#add_submit_control').attr('title', currentLayerType);
-                $('#add_start_control').attr('title',  currentLayerType);
+                $('#add_edit_control').attr( currentLayerType);
+                $('#add_submit_drain_btn').attr( currentLayerType);
+                $('#add_submit_control').attr( currentLayerType);
+                $('#add_start_control').attr(  currentLayerType);
 
                 handleMapControl(
                     '#add_drain_control',
@@ -3854,10 +3854,10 @@ function handleAddRoadControlClick() {
                     currentLayerType = 'Watersupply';
 
               // Set tool titles or other properties
-                $('#add_edit_control').attr('title', currentLayerType);
-                $('#add_submit_watersupply_btn').attr('title', currentLayerType);
-                $('#add_submit_control').attr('title', currentLayerType);
-                $('#add_start_control').attr('title',  currentLayerType);
+                $('#add_edit_control').attr( currentLayerType);
+                $('#add_submit_watersupply_btn').attr( currentLayerType);
+                $('#add_submit_control').attr( currentLayerType);
+                $('#add_start_control').attr( currentLayerType);
 
                 handleMapControl(
                     '#add_watersupply_control',
@@ -3872,8 +3872,6 @@ function handleAddRoadControlClick() {
                 if (window.location.hash === '#add_watersupply_control') {
                     handleAddWatersupplyControlClick();
                 }
-
-
 
 
                 function handleMapControl(controlId, layerName, toolBoxId, geoServerLayer) {
@@ -4343,6 +4341,39 @@ function handleAddRoadControlClick() {
                     hideAddForm();
                     removeDrawnFeatures();
                 });
+                layerDrawInteraction.on("drawend", function(e) {
+                // Get the geometry of the drawn feature
+                var feature = e.feature;
+                var geometry = feature.getGeometry();
+
+                // Initialize length variable
+                var length = 0;
+
+                // Check the type of geometry and calculate length
+                if (geometry instanceof ol.geom.LineString) {
+                    length = geometry.getLength(); // Get length in meters
+                } else if (geometry instanceof ol.geom.MultiLineString) {
+                    // If it's a MultiLineString, sum the lengths of individual lines
+                    var coordinates = geometry.getCoordinates();
+                    coordinates.forEach(function(coords) {
+                        var lineString = new ol.geom.LineString(coords);
+                        length += lineString.getLength(); // Get length for each line in the MultiLineString
+                    });
+                }
+
+                if (window.location.hash === '#add_sewer_control') {
+                    document.getElementById('length_sewer').value = length.toFixed(2);
+                }else if(window.location.hash === '#add_road_control'){
+                    document.getElementById('length').value = length.toFixed(2);
+                }
+                else if(window.location.hash === '#add_drain_control'){
+                    document.getElementById('length_drain').value = length.toFixed(2);
+                }
+                else if(window.location.hash === '#add_watersupply_control'){
+                    document.getElementById('length_watersupply').value = length.toFixed(2);
+                }
+                
+            });
             }
 
             function addModifyInteractions() {

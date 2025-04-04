@@ -13,6 +13,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 
 <div class="card">
   <div class="card-header">
+  <a href="{{ action('MapsController@index') }}#add_drain_control" class="btn btn-info">Add Drain</a>
     @can('Export Drains to CSV')
     <a href="{{ action('UtilityInfo\DrainController@export') }}" id="export" class="btn btn-info">Export to CSV</a>
     @endcan

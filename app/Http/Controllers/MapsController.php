@@ -1032,13 +1032,6 @@ class MapsController extends Controller
         return $result[0]->geometry_type ?? null;
     }
     
-    // public function checkGeometryType(Request $request){
-    //     // Construct the SQL query to check the geometry type based on the provided geometry
-    //     $checkGeometryQuery = "SELECT ST_GeometryType(ST_GeomFromText('". $request->geom ."')) AS geometry_type;";
-    //     $result = DB::select($checkGeometryQuery);
-    //     return $result[0]->geometry_type;
-    // }
-
     /**
      * Retrieves summary information about road inaccessibility based on provided road width and vacuum range.
      *

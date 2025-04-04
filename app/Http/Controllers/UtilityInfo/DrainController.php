@@ -10,6 +10,7 @@ use App\Models\UtilityInfo\Drain;
 use App\Models\Fsm\TreatmentPlant;
 use App\Http\Requests\UtilityInfo\DrainRequest;
 use App\Services\UtilityInfo\DrainService;
+use DB;
 
 class DrainController extends Controller
 {
@@ -230,5 +231,27 @@ class DrainController extends Controller
 
         return response()->json(['results' =>$json, 'pagination' => ['more' => $more] ]);
     }
+    public function updateDrainGeom(Request $request){
+      
+        $code = $request->code?$request->code:null;
+        if ($code){
+            $drain = Drain::find($code);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'error' => "Couldn't find the required drain!",
+            ]);
+        }
 
+        $drain->geom = DB::raw("ST_GeomFromText('". $request->geom . "')");
+        $drain->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => [],
+            'error' => "Updated the drain geometry successfully!",
+        ]);
+
+    }
 }
