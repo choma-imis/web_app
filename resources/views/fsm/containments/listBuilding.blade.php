@@ -11,10 +11,10 @@
           <table id="data-table" class="table table-bordered table-striped" width="100%">
             <thead>
               <tr>
-                <th>{{ __("BIN ") }}</th>
+                <th>{{ __("BIN") }}</th>
                 <th>{{ __("Tax Code/Holding ID") }}</th>
                 <th>{{ __("Structure Type") }}</th>
-                <th>{{ __("Estimated Area of the Building  (m&#178)") }}</th>
+                <th>{{ __("Estimated Area of the Building (m³)") }}</th>
                 <th>{{ __("Functional Use of Building") }} </th>
                 <th>{{ __("Actions") }}</th>
               </tr>
@@ -63,16 +63,17 @@
 <script>
  $('.delete').on('click', function(e) {
 
-         var form =  $(this).closest("form");
-         event.preventDefault();
-         Swal.fire({
-           title: 'Are you sure?',
-           text: "You won't be able to revert this!",
-           icon: 'warning',
-           showCancelButton: true,
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           confirmButtonText: 'Yes, delete it!'
+         var form = $(this).closest("form");
+                    event.preventDefault();
+                    Swal.fire({
+                    title: "{{__('Are you sure?')}}",
+                    text: "{!! __('You won\'t be able to revert this!') !!}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "{{ __('Yes, delete it!') }}",
+                    cancelButtonText: '{{ __('Cancel') }}',
          }).then((result) => {
            if (result.isConfirmed) {
              form.submit();

@@ -36,7 +36,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         <label for="indicators" class="col-md-2 col-form-label ">{{__('Indicator')}}</label>
                                         <div class="col-md-2">
                                         <select class="form-control" id="indicator_id" name="indicator_id">
-                                            <option value="">{{__('Choose an Indicator')}}</option>
+                                            <option value="">{{__('Indicator')}}</option>
                                             @foreach($indicators as $value)
                                             <option value="{{$value}}">{{$value}}</option>
                                             @endforeach
@@ -45,7 +45,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         <label for="year" class="col-md-2 col-form-label ">{{__('Year')}}</label>
                                         <div class="col-md-2">
                                         <select class="form-control" id="year" name="year">
-                                            <option value="">{{__('Choose a Year')}}</option>
+                                            <option value="">{{__('Year')}}</option>
                                             @foreach($years as $value)
                                             <option value="{{$value}}">{{$value}}</option>
                                             @endforeach

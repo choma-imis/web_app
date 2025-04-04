@@ -47,6 +47,7 @@ class TreatmentPlantTestRequest extends FormRequest
             'tss.required' => __('TSS (mg/l) is required.'),
             'ecoli.required' => __('Ecoli is required.'),
             'temperature.required' => __('Temperature °C is required.'),
+            'ph.between' => __('pH must be between 0 and 14.'),
         ];
     }
 

@@ -58,13 +58,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </div>
 
             <div class="form-group row">
-                {!! Form::label(__('ecoli'),null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('Ecoli'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->ecoli,['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group row ">
-        {!! Form::label(__('remarks'), 'Remark', ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('remarks', __('Remark'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
                     {!! Form::label(null,$treatmentPlantTest->remarks,['class' => 'form-control']) !!}
                 </div>

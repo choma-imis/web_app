@@ -35,7 +35,7 @@
     <div class="col-sm-3">
         {!! Form::text('ecoli_standard', old('ecoli_standard', $data->ecoli_standard ?? 0), [
             'class' => 'form-control',
-            'placeholder' => __('ECOLI Standard'),
+            'placeholder' => __('ECOLI Standard (CFU/100 mL)'),
             'oninput' => "this.value = this.value.replace(/[^0-9]/g, '')"
         ]) !!}
     </div>
