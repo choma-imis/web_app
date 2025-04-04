@@ -60,8 +60,9 @@ button:active, button:focus { outline: none; box-shadow: none; }
     gap: 10px;
 }
 .form-field label {
-    flex: 1;
+    flex: 0 1 200px;
     font-size: 14px;
+    text-align: left;
 }
 .form-field input {
     flex: 2;

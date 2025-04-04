@@ -55,7 +55,7 @@ class TreatmentplantPerformanceTestController extends Controller
     {
         $data = $request->all();
         $this->treatmentplantPerformanceTestService->storeOrUpdate($data);
-        return redirect('fsm/treatment-plant-performance-test')->with('success', ' Performance Efficiency Standards updated successfully.');
+        return redirect('fsm/treatment-plant-performance-test')->with('success', __('Performance Efficiency Standards updated successfully.'));
     }
 
 }
