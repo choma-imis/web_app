@@ -876,6 +876,28 @@ class MapsController extends Controller
         return $results;
     }
 
+  public function getKmlBufferPolygonBuildings(Request $request)
+{
+    $bufferDistancePolygon = 0;
+
+    // Access the array of geometries passed as 'bufferPolygonGeoms'
+    $bufferPolygonGeoms = $request->bufferPolygonGeoms;
+
+    // Initialize an empty array to store results
+    $allResults = [];
+
+ 
+        $results = $this->mapsService->buildingsKmlPopContentPolygon($bufferDistancePolygon, $bufferPolygonGeoms);
+    
+        return [
+           'buildings' => $results['buildings'],
+            'popContentsHtml' => $results['popContentsHtml'],
+            'polygon' => $results['polygon'],
+        ];
+  
+}
+
+
     /**
      * Retrieves buildings within a buffered polygon and their corresponding population content HTML.
      *
@@ -1004,14 +1026,18 @@ class MapsController extends Controller
      */
     public function checkGeometryType(string $geometry)
     {
-        // dd('geometery', $geometry);
         // Use parameterized query to prevent SQL injection
         $checkGeometryQuery = "SELECT ST_GeometryType(ST_GeomFromText(?, 4326)) AS geometry_type;";
-        // dd($checkGeometryQuery);
         $result = DB::select($checkGeometryQuery, [$geometry]);
         return $result[0]->geometry_type ?? null;
     }
     
+    // public function checkGeometryType(Request $request){
+    //     // Construct the SQL query to check the geometry type based on the provided geometry
+    //     $checkGeometryQuery = "SELECT ST_GeometryType(ST_GeomFromText('". $request->geom ."')) AS geometry_type;";
+    //     $result = DB::select($checkGeometryQuery);
+    //     return $result[0]->geometry_type;
+    // }
 
     /**
      * Retrieves summary information about road inaccessibility based on provided road width and vacuum range.
@@ -1260,152 +1286,100 @@ class MapsController extends Controller
     public function getKmlInfoReportCsv(Request $request)
     {
         ob_end_clean();
-        return $this->excel->download(new SummaryInfoMultiSheetExport(request()->kml_dragdrop_geom, 0), 'Summary Information KML Drag and Drop.xlsx');
-    }
     
- public function checkGeometry(Request $request)
-{
-    $geometries = $request->input('geometries'); // Get all geometries
-    $results = [];
-    foreach ($geometries as $geometry) {
-        // Detect geometry type
-        $geometryType = $this->checkGeometryType($geometry);
+        // Get the raw geometry string
+        $geometriesString = $request->input('kml_dragdrop_geom'); 
+        // Split the string by `),POLYGON Z(` while keeping `POLYGON Z(` in the result
+        $geometries = preg_split('/\,POLYGON Z\(/', $geometriesString);
     
-        if (!in_array(strtoupper($geometryType), ['ST_POINT', 'ST_POLYGON', 'ST_LINESTRING'])) {
-            $results[] = [
-                'geometry' => $geometry,
-                'intersects' => false,
-                'message' => 'Unsupported geometry type: ' . $geometryType
-            ];
-            continue;
-        }
-
-        // Query database to check intersection
-        $queryResult = DB::select("SELECT * FROM layer_info.citypolys WHERE ST_Intersects(ST_GeomFromText(?, 4326), geom)", [$geometry]);
-        $results[] = [
-            'geometry' => $geometry,
-            'intersects' => !empty($queryResult)
-        ];
-    }
-
-    return response()->json([
-        'success' => true,
-        'details' => $results
-    ]);
-}
-
-
-
-public function getKmlSummaryInfo(Request $request)
-{
-    $geometries = $request->input('geometries');  // Get geometries from request
-    $results = [];
-    $pointGeometries = [];
-    $polygonGeometries = [];
-
-    // Check if geometries is an array or a single geometry
-    if (is_array($geometries)) {
-        // If there are multiple geometries, iterate through them
-        foreach ($geometries as $geometry) {
-            $geometry_type = $this->checkGeometryType($geometry);
-
-            switch (strtoupper($geometry_type)) {
-                case "ST_POINT":
-                    // Add the geometry to the pointGeometries array
-                    $pointGeometries[] = $geometry;
-                    break;
-
-                case "ST_POLYGON":
-                    // Add the geometry to the polygonGeometries array
-                    $polygonGeometries[] = $geometry;
-                    break;
-
-                default:
-                    $results[] = [
-                        'success' => false,
-                        'message' => 'Invalid Geometry type!',
-                    ];
-                    break;
+        // Add back the missing prefix `POLYGON Z(` to each geometry (except the first one)
+    
+        foreach ($geometries as $key => &$geometry) {
+            if ($key !== 0) {
+                $geometry = 'POLYGON Z(' . $geometry;
             }
+            $geometry = trim($geometry);
         }
 
-        // Process all ST_POINT geometries
-        if (!empty($pointGeometries)) {
-            $latLonQuery = "SELECT ST_X(ST_Centroid(ST_Transform(ST_GeomFromText(?, 4326), 4326))) AS long, 
-                    ST_Y(ST_Centroid(ST_Transform(ST_GeomFromText(?, 4326), 4326))) AS lat";
+        return $this->excel->download(new SummaryInfoMultiSheetExport($geometries, 0), 'Summary Information KML Drag and Drop.xlsx');
+    }
+    
+    
+        public function checkGeometry(Request $request)
+        {
+            $geometries = $request->input('geometries'); // Get all geometries
 
-            $points = []; // Array to store all transformed coordinates
+            $results = [];
+            foreach ($geometries as $geometry) {
+                // Detect geometry type
+                $geometryType = $this->checkGeometryType($geometry);
+            
+                if (!in_array(strtoupper($geometryType), ['ST_POINT', 'ST_POLYGON', 'ST_LINESTRING'])) {
+                    $results[] = [
+                        'geometry' => $geometry,
+                        'intersects' => false,
+                        'message' => 'Unsupported geometry type: ' . $geometryType
+                    ];
+                    continue;
+                }
 
-            foreach ($pointGeometries as $geometry) {
-                // Use prepared statements to avoid SQL injection
-                $latLonQueryResult = DB::select($latLonQuery, [$geometry, $geometry]);
-
-                $points[] = [
-                    'long' => $latLonQueryResult[0]->lat,
-                    'lat' => $latLonQueryResult[0]->long,
+                // Query database to check intersection
+                $queryResult = DB::select("SELECT * FROM layer_info.citypolys WHERE ST_Intersects(ST_GeomFromText(?, 4326), geom)", [$geometry]);
+                $results[] = [
+                    'geometry' => $geometry,
+                    'intersects' => !empty($queryResult)
                 ];
             }
 
-            // Create a single request containing all points
-            $point_request = new Request([
-                'points' => $points,
+            return response()->json([
+                'success' => true,
+                'details' => $results
             ]);
-
-            return $this->getMultiplePointBufferBuildings($point_request);
         }
 
-        // Process all ST_POLYGON geometries
-        if (!empty($polygonGeometries)) {
-            foreach ($polygonGeometries as $geometry) {
-                $polygon_request = new Request([
-                    'bufferPolygonGeom' => $geometry,
-                ]);
-                return $this->getBufferPolygonBuildings($polygon_request);
+
+        public function getKmlSummaryInfo(Request $request)
+        {
+            // Get all the geometries sent in the request
+            $geometries = $request->geometries;
+        
+            $validPolygons = []; // Array to store valid polygons (ST_POLYGON)
+       
+            // Iterate over each geometry
+            foreach ($geometries as $geom) {
+              
+                // Check the geometry type for each geometry
+                $geometry_type = $this->checkGeometryType($geom);
+        
+                // If the geometry type is ST_POLYGON, add it to the validPolygons array
+                if (strtoupper($geometry_type) == "ST_POLYGON") {
+                    $validPolygons[] = $geom;
+                }
             }
-        }
-
-    } else {
-        // Handle the case where there is only a single geometry
-        $geometry_type = $this->checkGeometryType($geometries);
-
-        switch (strtoupper($geometry_type)) {
-            case "ST_POINT":
-                // Use prepared statements to avoid SQL injection
-                $latLonQuery = "SELECT ST_X(ST_Centroid(ST_Transform(ST_GeomFromText(?, 4326), 4326))) AS long, 
-                                        ST_Y(ST_Centroid(ST_Transform(ST_GeomFromText(?, 4326), 4326))) AS lat";
-                $latLonQueryResult = DB::select($latLonQuery, [$geometries, $geometries]);
-
-                $point_request = new Request([
-                    'long' => $latLonQueryResult[0]->lat,
-                    'lat' => $latLonQueryResult[0]->long,
-                ]);
-
-                return $this->getPointBufferBuildings($point_request);
-                break;
-
-            case "ST_POLYGON":
+            // If we have valid polygons, pass them to getBufferPolygonBuildings
+            if (!empty($validPolygons)) {
                 $polygon_request = new Request([
-                    'bufferPolygonGeom' => $geometries,
+                    'bufferPolygonGeoms' => $validPolygons, // Pass the array of polygons
                 ]);
-                return $this->getBufferPolygonBuildings($polygon_request);
-                break;
-
-            default:
+ 
+                // Call the function to get buildings for the polygons
+                return $this->getKmlBufferPolygonBuildings($polygon_request);
+        
+            } 
+            else {
+                // If no valid polygons found, return an error
                 return response()->json([
                     'success' => false,
                     'data' => [
-                        'code' => 500,
-                        'message' => 'Invalid Geometry type!',
-                        'errors' => 'Invalid Geometry type!'
+                        'code' => 200,
+                        'message' => 'No valid ST_POLYGON geometries found!',
+                        'errors' => 'No valid ST_POLYGON geometries to process!'
                     ],
-                    'responseText' => 'Invalid Geometry type!'
-                ], 500);
-                break;
+                    'responseText' => 'No valid ST_POLYGON geometries found!',
+                ], 200);
+            }
         }
-    }
-}
-
-
+        
 
 
     public function getIsochroneArea(Request $request)

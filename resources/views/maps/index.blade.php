@@ -1998,6 +1998,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     extent: ol.proj.transformExtent([xmin, ymin, xmax, ymax], 'EPSG:4326', 'EPSG:3857')
                 })
             });
+
+            //KML Drag and drop
             dragAndDropInteraction.on('addfeatures', function (event) {
             var format = new ol.format.WKT();
             var geometries = []; // Store all geometries
@@ -2027,7 +2029,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         Swal.fire({
                             icon: 'warning', // Change to 'error' if needed
                             title: 'Some Features Do Not Intersect',
-                            text: 'Some of the features do not intersect with the city polygons!',
+                            text: 'Some of the features do not intersect with the municipality.',
                             confirmButtonColor: '#d33'
                         });
                     }
@@ -2076,6 +2078,22 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     
                     var center = ol.extent.getCenter(eLayer.kml_features.layer.getSource().getExtent());
 
+                    if (eLayer.kmlbuildings) {
+                    eLayer.kmlbuildings.layer.getSource().clear();
+                } else {
+                    var layer = new ol.layer.Vector({
+                        // visible: false,
+                        source: new ol.source.Vector(),
+                        style: new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: '#0000FF',
+                                width: 3
+                            }),
+                        })
+                    });
+
+                    addExtraLayer('kmlbuildings', 'KML Buildings', layer);
+                }
                         // Send the geometry to get KML summary information
                         var url1 = '{{ url("maps/get-kml-summary-info") }}';
                         displayAjaxLoader();
@@ -2090,23 +2108,38 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function (Response) {
-                                console.log("dfghu",Response);
+                               
+    
                                 // Check if response.success is false
                                 if (Response.success === false) {
                                     displayAjaxErrorModal(Response.responseText);
                                 } else {
                                     kmlDragDropPopupContent.innerHTML = Response.popContentsHtml;
                                     kmlDragDropPopupOverlay.setPosition(center);
-                                }
+                                    data1 = Response['buildings'];
+                                     if (data1 && Array.isArray(data1)) {
+                                        var format = new ol.format.WKT();
+
+                                        for (var i = 0; i < data1.length; i++) {
+                                            var feature = format.readFeature(data1[i].geom, {
+                                                dataProjection: 'EPSG:4326',
+                                                featureProjection: 'EPSG:3857'
+                                            });
+
+                                            feature.setStyle(styleFunction(data1[i].id));
+                                            eLayer.kmlbuildings.layer.getSource().addFeature(feature);
+                                        }
+                                    }
+                                 }
                                 removeAjaxLoader();
                             },
                             error: function (error) {
                                 // Show the error modal if AJAX fails
-                                displayAjaxErrorModal(error.statusText + ": The KML file might be invalid! Supported geometry types: POINT,POLYGON.");
+                                displayAjaxErrorModal(error.statusText + ": The KML file might be invalid! Supported geometry types: POLYGON.");
                             }
                         });
                    
-                        $('#kml_dragdrop_geom').val(geom);
+                        $('#kml_dragdrop_geom').val(geometries);
                     }
                 },
 
@@ -2115,8 +2148,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 }
             });
         });
-
-
             // Base Layers Object
             var bLayer = {
                 osm: {name: 'OpenStreetMap', type: 'osm'},
@@ -8859,6 +8890,8 @@ $.ajax({
                             eLayer.toilet_isochrone_polygon.layer.getSource().addFeature(featureP);
                         }
                         showLayer('toilets_layer');
+                        showLayer('roadlines_layer');
+
 
                         $('#popup-toilet-isochrone').modal('hide');
                         removeAjaxLoader();
