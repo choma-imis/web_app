@@ -38,7 +38,6 @@ class BuildingRequest extends FormRequest
             'floor_count.required' => __('Number of Floors is required.'),
             'tax_code.required' => __('Tax Code/Holding ID is required.'),
             'road_code.required' => __('Road Code is required.'),
-            'functional_use_id.required' => __('Functional Use of Building is required.'),
             'house_number.unique' => __('The House Number is Already Taken.'),
             'main_building.required' => __('The Main Building status required.'),
             'building_associated_to.required_if' => __('BIN of Main Building required.'),
@@ -48,7 +47,6 @@ class BuildingRequest extends FormRequest
             'house_number.unique' => __('The House Number is Taken.'),
             'main_building.required' => __('The Main Building status required.'),
             'building_associated_to.required_if' => __('BIN of Main Building required.'),
-            'functional_use_id.required' => __('Functional Use of Building  required.'),
             'house_number.unique' => __('The House Number is Taken.'),
             //population Validation
             'diff_abled_male_pop.lte' => __('The Differently Abled Male Population must not exceed the Male Population.'),

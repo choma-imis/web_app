@@ -96,7 +96,7 @@
                         };
                     },
                 },
-                placeholder: 'Sewer Code',
+                placeholder: '{{__('Sewer Code')}}',
                 allowClear: true,
                 closeOnSelect: true,
                 width: '85%',
@@ -116,7 +116,7 @@
                     };
                 },
             },
-            placeholder: 'Drain Code',
+            placeholder: '{{__('Drain Code')}}',
             allowClear: true,
             closeOnSelect: true,
             width: '85%',
