@@ -221,9 +221,9 @@ class TreatmentPlantTestService
         $columns = [
             __('Treatment Plant'),
             __('Sample Date'),
-            __('Temperature °C'),
+            __('Temperature') . ' °C',
             __('pH'),
-            __('COD (mg/I)'),
+            __('COD (mg/l)'),
             __('BOD (mg/l)'),
             __('TSS (mg/l)'),
             __('Ecoli'),

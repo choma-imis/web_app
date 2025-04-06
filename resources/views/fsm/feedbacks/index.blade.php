@@ -169,7 +169,7 @@ $(function() {
         if ((date_from === '') && (date_to !== '')) {
 
                     Swal.fire({
-                        title:"{{ __('Date To is Required') }}",
+                        title:"{{ __('Date From is Required') }}",
                         text: "{{ __('Please Select Date From!') }}",
                         icon: 'warning',
                         showCancelButton: false,

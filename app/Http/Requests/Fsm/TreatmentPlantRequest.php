@@ -46,6 +46,8 @@ class TreatmentPlantRequest extends FormRequest
         'status.required' => __('The Status is required.'),
         'password.required_if' => __('The Password is required when create user is on.'),
         'email.required_if' => __('The Email field is required when create user is on.'),
+        'caretaker_number.min' => __('The caretaker number must be at least 1'),
+        'password.uncompromised' => __('The given password has appeared in a data leak. Please choose a different password.'),
     ];
 }
 

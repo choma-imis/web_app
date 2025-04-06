@@ -180,7 +180,7 @@ class TreatmentPlantService
 
             $columns = [
             __('Name'),
-            __('Capacity Per Day (m3)'),
+            __('Capacity Per Day (m³)'),
             __('Caretaker Name'),
             __('Caretaker Number'),
             __('Status'),

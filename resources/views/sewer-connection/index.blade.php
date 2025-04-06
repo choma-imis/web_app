@@ -49,11 +49,11 @@ a.skiplink:focus {
                         <div class="form-group row">
                             <label for="sewer_code" class="col-md-2 col-form-label" style=" font-family: 'Open Sans', sans-serif;">{{ __('Sewer Code')}}</label>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" id="sewer_code" placeholder={{__("Sewer Code" )}} oninput="validateAlphanumeric(this)"/>
+                                <input type="text" class="form-control" id="sewer_code" placeholder="{{ __('Sewer Code')}}" oninput="validateAlphanumeric(this)"/>
                             </div>
                             <label for="bin" class="col-md-2 col-form-label" style=" font-family: 'Open Sans', sans-serif;">{{ __('BIN')}}</label>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" id="bin" placeholder={{__("BIN")}} oninput="validateAlphanumeric(this)"/>
+                                <input type="text" class="form-control" id="bin" placeholder="{{ __('BIN') }}" oninput="validateAlphanumeric(this)"/>
                             </div>
                         </div>
                         <div class="card-footer text-right">
