@@ -58,7 +58,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="form-group row required">
         {!! Form::label('no_of_trips',__('No. of Trips'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::number('no_of_trips',null,['class' => 'form-control', 'placeholder' => 'No. of Trips','oninput' => "this.value = this.value.replace(/[^0-9]/g, '')"]) !!}
+            {!! Form::number('no_of_trips',null,['class' => 'form-control', 'placeholder' => __('No. of Trips'),'oninput' => "this.value = this.value.replace(/[^0-9]/g, '')"]) !!}
         </div>
     </div>
     

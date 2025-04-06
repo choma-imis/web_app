@@ -250,7 +250,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     var form = $(this).closest("form");
                     event.preventDefault();
                     Swal.fire({
-                     title: "{{__('Are you sure?')}}",
+                    title: "{{__('Are you sure?')}}",
                     text: "{!! __('You won\'t be able to revert this!') !!}",
                     icon: 'warning',
                     showCancelButton: true,
@@ -292,7 +292,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: {{__('Close')}}
                         })
 
                         return false;
@@ -306,7 +306,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: {{__('Close')}}
                         })
 
                         return false;
@@ -320,7 +320,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: {{__('Close')}}
                         });
 
                         return false;
@@ -338,7 +338,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: {{__('Close')}}
                         });
 
                         return false;
@@ -352,7 +352,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: {{__('Close')}}
                         });
 
                         return false;
@@ -367,7 +367,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: {{__('Close')}}
                         });
 
                         return false;
@@ -382,7 +382,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Close'
+                            confirmButtonText: {{__('Close')}}
                         });
 
                         return false;

@@ -34,7 +34,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         <label for="help_desk_id" class="col-md-2 col-form-label ">{{ __('ID') }}</label>
                                         <div class="col-md-2">
                                             <input type="text" class="form-control" id="help_desk_id"
-                                                placeholder="ID" 
+                                                placeholder={{ __("ID")}} 
                                                 oninput = "this.value = this.value.replace(/[^0-9]/g, ''); "/> <!-- Allow only numeric characters (0-9) -->
                                         </div>
                                         <label for="name" class="col-md-2 col-form-label ">{{ __('Name') }}</label>

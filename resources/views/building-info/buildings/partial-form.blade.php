@@ -3,7 +3,7 @@
     <!-- preview building footprint if building is being approved via Building Survey- Approve -->
     @if (!empty($buildingSurvey))
         <div class="form-group row">
-            {!! Form::label('', 'Preview Building Footprint', [
+            {!! Form::label('', __('Preview Building Footprint'), [
                 'class' => 'col-sm-3 control-label',
                 'style' => 'font-family: "Open Sans", sans-serif;',
             ]) !!}

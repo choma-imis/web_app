@@ -153,7 +153,7 @@ class ContainmentService
                     $content .= '<a title="' . __("History") . '" href="' . action("Fsm\ContainmentController@history", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-history"></i></a> ';
                 }
                 if (Auth::user()->can('Delete Building from Containment')) {
-                    $content .= '<a href="#" title="Delete Connection of Containment from Building" class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
+                    $content .= '<a href="#" title= "'. __("Delete Connection of Containment from Building") .'" class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
                 }
                 $content .= \Form::close();
                 return $content;
@@ -181,21 +181,22 @@ class ContainmentService
         $const_date =  $data['const_date'] ? $data['const_date'] : null;
 
         $columns = [
-            'Containment Code',
-            'Containment Type',
-            'Tank Length (m)',
-            'Tank Width (m)',
-            'Depth (m)',
-            'Pit Diameter (m)',
-            'Containment Volume (m³)',
-            'Containment Location',
-            'Septic Tank Standard Compliance',
-            'Construction Date',
-            'Emptied Status',
-            'Last Emptied Date',
-            'Next Emptying Date',
-            'Number of Times Emptied',
-            'Responsible BIN'
+            __('Containment Code'),
+            __('Containment Type'),
+            __('Tank Length (m)'),
+            __('Tank Width (m)'),
+            __('Depth (m)'),
+            __('Pit Diameter (m)'),
+            __('Containment Volume (m³)'),
+            __('Containment Location'),
+            __('Septic Tank Standard Compliance'),
+            __('Construction Date'),
+            __('Emptied Status'),
+            __('Last Emptied Date'),
+            __('Next Emptying Date'),
+            __('Number of Times Emptied'),
+            __('Responsible BIN')
+
         ];
         $query = Containment::select([
             'containments.*',

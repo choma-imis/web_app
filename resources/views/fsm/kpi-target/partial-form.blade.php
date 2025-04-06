@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="form-group row required">
-        {!! Form::label('year','Year',['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('year',__('Year'),['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
             {!! Form::number('year',null,['class' => 'form-control', 'placeholder' => __('Year'),'oninput' => "this.value = this.value < 0 ? '' : this.value"]) !!}
         </div>

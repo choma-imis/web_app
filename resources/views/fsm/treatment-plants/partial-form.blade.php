@@ -89,9 +89,9 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         {!! Form::label('caretaker_gender', __('Caretaker Gender'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-3">
             {!! Form::select('caretaker_gender', [
-                "Male" => __('Male'),
-                "Female" => __('Female'),
-                "Others" => __('Others')
+                "Male" => 'Male',
+                "Female" => 'Female',
+                "Others" => 'Others'
             ], null, ['class' => 'form-control', 'placeholder' => __('Caretaker Gender')]) !!}
         </div>
     </div>
@@ -177,7 +177,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <!-- Error/Requirement Message Container -->
         <div id="password-error" class="mt-1" style="display: none; color: red;">
             <ul style="margin-bottom: 0; padding-left: 1rem;">
-                <li id="char-count">{{'__(The password must be at least 8 characters.)'}}</li>
+                <li id="char-count">{{__('The password must be at least 8 characters.')}}</li>
                 <li id="uppercase-lowercase">{{__('The password must contain at least one uppercase and one lowercase letter.')}}</li>
                 <li id="symbol">{{__('The password must contain at least one symbol.')}}</li>
                 <li id="number">{{__('The password must contain at least one number.')}}</li>

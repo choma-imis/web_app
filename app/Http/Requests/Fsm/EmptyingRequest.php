@@ -66,7 +66,7 @@ class EmptyingRequest extends FormRequest
                          'min:0',
                          function ($attribute, $value, $fail) use ($containmentSize) {
                              if ($value > $containmentSize) {
-                                 $fail("The Sludge Volume (m³) should not be greater than the selected containment size, which is " . ($containmentSize ?: '0') . " m³.");
+                                 $fail(__("The Sludge Volume (m³) should not be greater than the selected containment size, which is") . ($containmentSize ?: '0') . " m³.");
                              }
                          },
                      ],
@@ -103,7 +103,7 @@ class EmptyingRequest extends FormRequest
             'service_receiver_contact.required' => __('The Service Receiver Contact Number is required.'),
             'service_receiver_contact.integer' => __('The Service Receiver Contact Number must be an integer.'),
             'service_receiver_contact.min' => __('The Service Receiver Contact Number must be positive number.'),
-            'emptying_reason.required' => __('The Reason for Emptying  is required.'),
+            'emptying_reason.required' => __('The Reason for Emptying is required.'),
             'volume_of_sludge.required' => __('The Sludge Volume (m³) is required.'),
             'volume_of_sludge.numeric' => __('The Sludge Volume (m³) must be numeric.'),
             'volume_of_sludge.min' => __('The Sludge Volume (m³) Contact Number Plate must be at least 0.'),
