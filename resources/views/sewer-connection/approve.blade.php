@@ -13,8 +13,7 @@
                 </button>
             </div>
             <div class="modal-body">
-              "{{ __('Existing Sanitation of Building will be updated as Sewer Network and corresponding containment
-                connection (if any) will be removed !')}}"
+              "{{ __('Existing Sanitation of Building will be updated as Sewer Network and corresponding containment connection (if any) will be removed !')}}"
                 <br>
 
                 <div style="margin-top:2%; font-weight:bold; text-align:center; font-size:15px">

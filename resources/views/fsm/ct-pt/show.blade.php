@@ -169,7 +169,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     </div>
 
     <div class="form-group row " id="pwd_seats">
-        {!! Form::label('pwd_seats', __('No. of seats for People with Disability'), ['class' => 'col-sm-3 control-label']) !!}
+        {!! Form::label('pwd_seats', __('No. of Seats for People with Disability'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-6">
         {!! Form::label($ctpt->pwd_seats, null,['class' => ' form-control']) !!}
 

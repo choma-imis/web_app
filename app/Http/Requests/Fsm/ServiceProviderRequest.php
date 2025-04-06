@@ -114,7 +114,8 @@ class ServiceProviderRequest extends FormRequest
             'contact_gender.required' => __('The Contact Person Gender is required.'),
             'status.required' => __('The Status is required.'),
             'password.required_if' => __('The Password is required when create user is on.'),
-            'password.confirmed' => __('The Confirm Password does not match the Password.')
+            'password.confirmed' => __('The Confirm Password does not match the Password.'),
+            'password.uncompromised' => __('The given password has appeared in a data leak. Please choose a different password.'),
         ];
     }
 }
