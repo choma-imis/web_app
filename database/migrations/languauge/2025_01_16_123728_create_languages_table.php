@@ -13,13 +13,15 @@ class CreateLanguagesTable extends Migration
      */
     public function up()
     {
-        DB::statement('CREATE schema  IF NOT EXISTS language');
+        DB::statement('CREATE SCHEMA IF NOT EXISTS language');
+
         Schema::create('language.languages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('code')->unique();
             $table->boolean('status')->default(true);
             $table->timestamps();
+            $table->softDeletes(); // Adds `deleted_at` column
         });
     }
 
