@@ -6906,7 +6906,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     removeAjaxLoader();
                                     $('#popup-drain-potential').modal('show');
                                 } else {
-                                    displayAjaxErrorModal(@json(('More than One Sewer lines Found, Please Zoom In or Select another Sewer line')));
+                                    displayAjaxErrorModal(@json(__('More than One Sewer lines Found, Please Zoom In or Select another Sewer line')));
                                 }
                             } else {
                                 displayAjaxErrorModal(@json(__('Sewer Not Found')));
