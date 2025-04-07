@@ -583,7 +583,7 @@
                     cql_param += " AND house_number ILIKE '%" + house_number + "%'";
                 }
                 if (use_category_select) {
-                    cql_param += " AND use_category_id ILIKE '%" + use_category_select + "%'";
+                    cql_param += " AND use_category_id = '" + use_category_select + "'";
                 }
                 if (date_from && date_to) {
                     cql_param += " AND construction_year BETWEEN '" + date_from.trim() + "' AND '" + date_to
