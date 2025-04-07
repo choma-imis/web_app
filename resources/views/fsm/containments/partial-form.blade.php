@@ -68,7 +68,7 @@
         {!! Form::label('pit_shape', __('Pit Shape'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
             {!! Form::select(
-                'pit_shape',
+                __('pit_shape'),
                 [
                     'Cylindrical' => 'Cylindrical',
                     'Rectangular' => 'Rectangular'

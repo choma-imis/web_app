@@ -145,7 +145,7 @@
                     };
                 },
             },
-            placeholder: 'BIN of Main Building',
+            placeholder: '{{__('BIN of Main Building')}}',
             allowClear: true,
             closeOnSelect: true,
             width: '85%',
@@ -165,7 +165,7 @@
                     };
                 },
             },
-            placeholder: 'Road Code - Road Name',
+            placeholder: '{{__('Road Code - Road Name')}}',
             allowClear: true,
             closeOnSelect: true,
             width: '85%',
@@ -186,7 +186,7 @@
                     };
                 },
             },
-            placeholder: 'Water Supply Pipe Line Code',
+            placeholder: '{{__('Water Supply Pipe Line Code')}}',
             allowClear: true,
             closeOnSelect: true,
             width: '85%',
@@ -206,7 +206,7 @@
                         };
                     },
                 },
-                placeholder: 'Sewer Code',
+                placeholder: '{{__('Sewer Code')}}',
                 allowClear: true,
                 closeOnSelect: true,
                 width: '85%',
@@ -226,7 +226,7 @@
                     };
                 },
             },
-            placeholder: 'Drain Code',
+            placeholder: '{{__('Drain Code')}}',
             allowClear: true,
             closeOnSelect: true,
             width: '85%',
@@ -248,7 +248,7 @@
                 };
             },
         },
-        placeholder: 'BIN of Pre Connected Building',
+        placeholder: '{{__('BIN of Pre Connected Building')}}',
         allowClear: true,
         closeOnSelect: true,
         width: '85%',

@@ -202,7 +202,7 @@ $('#sewer_code').prepend('<option selected=""></option>').select2({
                   };
               },
           },
-          placeholder: 'Sewer Code',
+          placeholder: '{{__('Sewer Code')}}',
           allowClear: true,
           closeOnSelect: true,
           width: '85%',
@@ -219,7 +219,7 @@ $('#drain_code').prepend('<option selected=""></option>').select2({
                     };
                 },
             },
-            placeholder: 'Drain Code',
+            placeholder: '{{__('Drain Code')}}',
             allowClear: true,
             closeOnSelect: true,
             width: '85%',
