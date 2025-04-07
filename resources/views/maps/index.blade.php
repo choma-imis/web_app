@@ -695,7 +695,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="card-body">
                                         @can('Building by Structure Map Tools')
                                             <!-- Find Building By structure -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title= "Buildings by Structure Type">
+                                            <span data-toggle="tooltip" data-placement="bottom" title= {{ __('Buildings by Structure Type') }}>
                                                 <a class="btn btn-default collapse-control" role="button" data-toggle="collapse" href="#collapse_building_structype_filter" aria-expanded="false" aria-controls="collapse_building_structype_filter"><i class="fa fa-building"></i>{{ __('Buildings by Structure Type') }}</a>
                                             </span>
                                             <div class="collapse" id="collapse_building_structype_filter">
@@ -993,7 +993,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                             @can('Community Toilets Map Tools')
                                                  <!-- find Buildings using Community Toilets -->
-                                                <span data-toggle="tooltip" data-placement="bottom" title="Find Buildings that use Community Toilet') }}">
+                                                <span data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Buildings that use Community Toilet') }}">
                                                     <a href="#" id="ptct_network" class="btn btn-default map-control" ><i class="fa-solid fa-bezier-curve"></i>{{ __('Buildings using Community Toilets') }}</a>
                                                 </span>
                                             @endcan
@@ -1582,7 +1582,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             }
 
             function displayAjaxError() {
-                displayAjaxErrorModal('An error occurred');
+                displayAjaxErrorModal(@json(__('An error occurred')));
             }
 
             function displayAjaxErrorModal(message) {
@@ -1975,7 +1975,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     name: '{{ __("Drain Network") }}',
                     styles: {
                         drains_none: {
-                            name: '{{ __("None") }}") }}',
+                            name: '{{ __("None") }}',
                             clipLegend: true,
                             showCount: false
                         },
@@ -6313,7 +6313,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                 });
                             } else {
-                                displayAjaxErrorModal('Sewer Not Found');
+                                displayAjaxErrorModal(@json(__('Sewer Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -6445,7 +6445,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                 });
                             } else {
-                                displayAjaxErrorModal('Road Not Found');
+                                displayAjaxErrorModal(@json(__('Road Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -6564,7 +6564,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                 });
                             } else {
-                                displayAjaxErrorModal('Containment Not Found');
+                                displayAjaxErrorModal(@json(__('Containment Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -6687,7 +6687,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                 });
                             } else {
-                                displayAjaxErrorModal('Building Not Found');
+                                displayAjaxErrorModal(@json(__('Building Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -6811,7 +6811,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                 });
                             } else {
-                                displayAjaxErrorModal('Main Building Not Found');
+                                displayAjaxErrorModal(@json(__('Main Building Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -6906,10 +6906,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     removeAjaxLoader();
                                     $('#popup-drain-potential').modal('show');
                                 } else {
-                                    displayAjaxErrorModal('More than One Sewer lines Found, Please Zoom In or Select another Sewer line');
+                                    displayAjaxErrorModal(@json(('More than One Sewer lines Found, Please Zoom In or Select another Sewer line')));
                                 }
                             } else {
-                                displayAjaxErrorModal('Sewer Not Found');
+                                displayAjaxErrorModal(@json(__('Sewer Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -7009,10 +7009,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     removeAjaxLoader();
                                     $('#popup-waterbodies-buildings').modal('show');
                                 } else {
-                                    displayAjaxErrorModal('More than One water bodies Found, Please Zoom In or Select another Water Body');
+                                    displayAjaxErrorModal(@json(__('More than One water bodies Found, Please Zoom In or Select another Water Body')));
                                 }
                             } else {
-                                displayAjaxErrorModal('Water Body Not Found');
+                                displayAjaxErrorModal(@json(__('Water Body Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -7112,10 +7112,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     removeAjaxLoader();
                                     $('#popup-road-buildings').modal('show');
                                 } else {
-                                    displayAjaxErrorModal('More than One Roads Found, Please Zoom In or Select another Road');
+                                    displayAjaxErrorModal(@json(__('More than One Roads Found, Please Zoom In or Select another Road')));
                                 }
                             } else {
-                                displayAjaxErrorModal('Road Not Found');
+                                displayAjaxErrorModal(@json(__('Road Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -7230,7 +7230,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                                 eLayer.buildings_ptct.layer.getSource().addFeature(feature);
                                             }
                                         } else {
-                                            displayAjaxErrorModal('Buildings not found');
+                                            displayAjaxErrorModal(@json(__('Buildings not found')));
                                         }
 
                                         removeAjaxLoader();
@@ -7240,7 +7240,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                 });
                             } else {
-                                displayAjaxErrorModal('PTCT not found');
+                                displayAjaxErrorModal(@json(__('PTCT not found')));
                             }
                         } else {
                             displayAjaxError();
@@ -7343,10 +7343,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                     removeAjaxLoader();
                                 } else {
-                                    displayAjaxErrorModal('More than One wards Found, Please Zoom In or Select another Water Body');
+                                    displayAjaxErrorModal(@json(__('More than One wards Found, Please Zoom In or Select another Water Body')));
                                 }
                             } else {
-                                displayAjaxErrorModal('Ward Not Found');
+                                displayAjaxErrorModal(@json(__('Ward Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -8731,7 +8731,7 @@ $.ajax({
                             } else {
                                 $('#feature_information').html('');
                                 $('#feature-info-popup-closer').click();
-                                displayAjaxErrorModal('Feature Not Found');
+                                displayAjaxErrorModal(@json(__('Feature Not Found')));
                             }
                         } else {
                             displayAjaxError();
@@ -9446,7 +9446,7 @@ $.ajax({
 
                                 removeAjaxLoader();
                             } else {
-                                displayAjaxErrorModal('Building Not Found');
+                                displayAjaxErrorModal(@json(__('Building Not Found')));
                             }
                         },
                         error: function (dataResponse) {
@@ -9587,7 +9587,7 @@ $.ajax({
                                     removeAjaxLoader();
                                 });
                             } else {
-                                displayAjaxErrorModal("{{ __('No Results Found.') }}");
+                                displayAjaxErrorModal(@json(__('No Results Found.')));
                             }
                         },
                         error: function (dataResponse) {
