@@ -30,7 +30,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL) -->
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
-                                @if (!$user->hasRole('Super Admin') && !$user->hasRole('Municipality - Super Admin'))
+                                @if (!$user->hasRole('Super Admin'))
                                     <tr>
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->email }}</td>
