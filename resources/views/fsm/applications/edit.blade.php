@@ -17,7 +17,7 @@ An Edit Layout for all forms
         @include('layouts.components.error-alert')
         <div class="card-body">
             {!! Form::open(['url' => $formAction, 'class' => 'form-horizontal','method'=>'PATCH']) !!}
-            @include('layouts.partial-form', ['submitButtonText' => 'Save'])
+            @include('layouts.partial-form', ['submitButtonText' => __('Save')])
             {!! Form::close() !!}
         </div>
     </div>
@@ -36,7 +36,6 @@ An Edit Layout for all forms
                     $("input[name='applicant_name']").val($("input[name=customer_name]").val());
                     $("#applicant_gender").val($("#customer_gender").val());
                     $("input[name='applicant_contact']").val($("input[name=customer_contact]").val());
-
                 } else {
                     $("input[name='applicant_name']").val('');
                     $("#applicant_gender").val('');

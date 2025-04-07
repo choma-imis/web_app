@@ -54,9 +54,9 @@ class DrainRequest extends Request
      public function messages()
     {
         return [
-            'name.regex' => 'The name field should contain only contain letters and spaces.',
-            'diameter.numeric' => 'The Diameter must be a number.',
-            'length.numeric' => 'The Length(m) must be a number.',
+            'name.regex' => __('The name field should contain only contain letters and spaces.'),
+            'diameter.numeric' => __('The Diameter must be a number.'),
+            'length.numeric' => __('The Length (m) must be a number.'),
             ];
     }
 }

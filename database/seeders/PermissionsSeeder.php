@@ -73,6 +73,50 @@ class PermissionsSeeder extends Seeder
                     ],
                 ]
             ],
+
+            [
+                "group" => "Language",
+                "perms" => [
+                    [
+                        "type" => "List",
+                        "name" => "List Languages"
+                    ],
+                    [
+                        "type" => "View",
+                        "name" => "View Language"
+                    ],
+                    [
+                        "type" => "Add",
+                        "name" => "Add Language"
+                    ],
+                    [
+                        "type" => "Edit",
+                        "name" => "Edit Language"
+                    ],
+                    [
+                        "type" => "Delete",
+                        "name" => "Delete Language"
+                    ],
+
+                    [
+                        "type" => "Import",
+                        "name" => "Import Translation"
+                    ],
+                    [
+                        "type" => "Import",
+                        "name" => "Generate Translation"
+                    ],
+                    [
+                        "type" => "Add",
+                        "name" => "Add Translation"
+                    ],
+                    [
+                        "type" => "Export",
+                        "name" => "Export CSV Template"
+                    ],
+
+                ]
+            ],
             [
                 "group" => "Roles",
                 "perms" => [
@@ -1142,7 +1186,7 @@ class PermissionsSeeder extends Seeder
                         "type" => "History",
                         "name" => "View Employee Info History"
                     ],
-                    
+
                 ]
             ],
             [

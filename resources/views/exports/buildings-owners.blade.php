@@ -5,7 +5,7 @@
         <th align="right" width="20"><h1><strong>Tax Code/Holding ID</strong></h1></th>
         <th align="right" width="20"><h1><strong>Ward Number</strong></h1></th>
         <th align="right" width="20"><h1><strong>Road Code</strong></h1></th>
-        <th align="right" width="20"><h1><strong> Presence of Toilet </strong></h1></th>
+        <th align="right" width="20"><h1><strong>Presence of Toilet</strong></h1></th>
         <th align="right" width="20"><h1><strong>Number of Floors</strong></h1></th>
         <th align="right" width="20"><h1><strong>Number of Households</strong></h1></th>
         <th align="right" width="20"><h1><strong>Population of Building</strong></h1></th>

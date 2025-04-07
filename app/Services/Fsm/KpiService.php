@@ -67,18 +67,18 @@ class KpiService {
                 'route' => ['kpi-targets.destroy', $model->id]]);
 
                 if (Auth::user()->can('Edit KPI Target')) {
-                    $content .= '<a title="Edit" href="' . action("Fsm\KpiTargetController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
+                    $content .= '<a title="' . __("Edit") . '" href="' . action("Fsm\KpiTargetController@edit", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-edit"></i></a> ';
                 }
                 if (Auth::user()->can('View KPI Target')) {
-                    $content .= '<a title="Detail" href="' . action("Fsm\KpiTargetController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
+                    $content .= '<a title="' . __("Detail") . '" href="' . action("Fsm\KpiTargetController@show", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-list"></i></a> ';
                 }
 
                 if (Auth::user()->can('View KPI Target History')) {
-                    $content .= '<a title="History" href="' . action("Fsm\KpiTargetController@history", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-history"></i></a> ';
+                    $content .= '<a title="' . __("History") . '" href="' . action("Fsm\KpiTargetController@history", [$model->id]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-history"></i></a> ';
                 }
 
                 if (Auth::user()->can('Delete KPI Target')) {
-                    $content .= '<a href="#" title="Delete"  class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
+                    $content .= '<a href="#" title="' . __("Delete") . '"  class="delete btn btn-danger btn-sm mb-1"><i class="fa fa-trash"></i></a> ';
                 }
 
                 $content .= \Form::close();
@@ -178,7 +178,12 @@ class KpiService {
         $indicator_id = $data['indicator_id'] ? $data['indicator_id'] : null;
         $year = $data['year'] ? $data['year'] : null;
       
-        $columns = ['ID', 'Indicator', 'Year', 'Target (%)'];
+        $columns = [
+            __('ID'),
+            __('Indicator'),
+            __('Year'),
+            __('Target (%)'),
+        ];
 
         $query = KpiTarget::select('id', 'indicator_id', 'year', 'target')->whereNull('deleted_at');
     

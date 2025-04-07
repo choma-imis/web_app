@@ -35,7 +35,7 @@
               <label for="holding_num">Tax Code</label>
               <input type="text" class="form-control" id="holding_num" />
             </div>
-            <button type="submit" class="btn btn-default">Filter</button>
+            <button type="submit" class="btn btn-default">{{ __('Filter') }}</button>
           </form>
           <table id="data-table" class="table table-bordered table-striped" width="100%">
             <thead>

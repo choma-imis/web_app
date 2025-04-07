@@ -25,16 +25,16 @@ class HelpDeskRequest extends FormRequest
     public function messages()
 {
     return [
-        'name.required' => 'The Help Desk Name is required.',
-        'email.required' => 'The Email Address is required.',
-        'email.regex' => 'The Email Address format is invalid.',
-        'email.required' => 'The Email Address is required.',
-        'email.unique' => 'The Email Address has already been taken.',
-        'description.required' => 'The Description is required.',
-        'contact_number.required'=>'The Contact Number is required.',
-        'contact_number.integer'=>'The Contact Number must be an integer.',
-        'password.required_if' => 'The Password is required when create user is on.',
-        'password.confirmed' => 'The Confirm Password does not match the Password.'
+        'name.required' => __('The Help Desk Name is required.'),
+        'email.required' => __('The Email Address is required.'),
+        'email.regex' => __('The Email Address format is invalid.'),
+        'email.required' => __('The Email Address is required.'),
+        'email.unique' => __('The Email Address has already been taken.'),
+        'description.required' => __('The Description is required.'),
+        'contact_number.required'=>__('The Contact Number is required.'),
+        'contact_number.integer'=>__('The Contact Number must be an integer.'),
+        'password.required_if' => __('The Password is required when create user is on.'),
+        'password.confirmed' => __('The Confirm Password does not match the Password.')
 
     ];
 }
