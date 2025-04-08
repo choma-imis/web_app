@@ -256,6 +256,7 @@ class LanguageController extends Controller
                 Translate::create([
                     'key'   => $translate->key,
                     'name'  => $data['code'] ?? null,
+                    'text'    => $translate->text ,
                     'pages' => $translate->pages,
                     'group' => $translate->group,
                     'platform' => $translate->platform,
@@ -289,7 +290,7 @@ class LanguageController extends Controller
             }
 
             $language->name = $data['name'] ?? null;
-            $language->label = $data['name'] ?? null;
+
             $language->code = $data['code'] ?? null;
             $language->status = $data['status'] ?? null;
             $language->save();
@@ -388,7 +389,7 @@ class LanguageController extends Controller
     // Fetch and group source translations
     $sourceTranslations = DB::table('language.translates')
         ->where('name', 'en')
-        ->select('key', 'text', 'pages')
+        ->select('key', 'text', 'pages','group')
         ->distinct('key')
         ->get()
         ->sortBy('pages')
@@ -412,7 +413,7 @@ class LanguageController extends Controller
         'cwis_setting' => 'CWIS Settings',
         'dashboard' => 'Dashboard',
         'desludging_vehicles' => 'Desludging Vehicles',
-        'drain_network' => 'Drainage Network',
+        'drain_network' => 'Drain Network',
         'employee_information' => 'Employee Information',
         'emptying' => 'Emptying',
         'empting_operator' => 'Emptying Operators',
@@ -420,7 +421,7 @@ class LanguageController extends Controller
         'feedbacks' => 'Feedbacks',
         'fsm_dashboard' => 'FSM Dashboard',
         'general' => 'General Information',
-        'help_desks' => 'Help Desk Support',
+        'help_desks' => 'Help Desks',
         'kpi_dashboard' => 'KPI Dashboard',
         'kpi_target' => 'KPI Target',
         'landing' => 'Landing Page',
@@ -430,23 +431,23 @@ class LanguageController extends Controller
         'performance_efficiency_standard' => 'Performance Efficiency Standards',
         'performance_efficiency_test' => 'Performance Efficiency Test',
         'property_tax_collection_iss' => 'Property Tax Collection ISS',
-        'ptct_users_log' => 'PT User Logs',
-        'public_community_toilets' => 'Public Toilets',
+        'ptct_users_log' => 'PT Users Logs',
+        'public_community_toilets' => 'Public / Community Toilets',
         'road_network' => 'Road Network',
         'roles' => 'Roles',
         'service_providers' => 'Service Providers',
         'sewer_page' => 'Sewer System Overview',
         'sewer_connection' => 'Sewer Connections',
         'sewage_network' => 'Sewage Network',
-        'sludge_collection' => 'Sludge Collection',
-        'solid_waste_iss' => 'Solid Waste Management',
+        'sludge_collection' => 'Sludge Collections',
+        'solid_waste_iss' => 'Solid Waste ISS',
         'treatment_plants' => 'Treatment Plants',
-        'users' => 'User Information Management',
+        'users' => 'Users',
         'utility_dashboard' => 'Utility Dashboard',
         'water_samples' => 'Water Samples',
         'water_subsidy' => 'Water Subsidy Program',
         'water_supply' => 'Water Supply',
-        'water_supply_network' => 'Water Supply Network',
+        'water_supply_network' => 'Water Supply ISS',
         'waterborne_cases_information' => 'Waterborne Cases Information',
         'waterborne_hotspot' => 'Waterborne Hotspot'
     ];
