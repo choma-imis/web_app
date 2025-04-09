@@ -48,27 +48,29 @@ button:active, button:focus { outline: none; box-shadow: none; }
 
 /* Form Layout */
 .form-fields-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
 .form-field {
-    flex: 1 1 calc(50% - 10px);
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
 .form-field label {
-    flex: 0 1 200px;
+    flex: 0 0 200px;
     font-size: 14px;
     text-align: left;
 }
+
 .form-field input {
-    flex: 2;
+    flex: 1;
     border: 1px solid #ccc;
     padding: 8px;
 }
+
 /* Sticky Header */
 .back-to-list {
     position: sticky;
