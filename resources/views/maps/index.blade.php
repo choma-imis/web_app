@@ -695,7 +695,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="card-body">
                                         @can('Building by Structure Map Tools')
                                             <!-- Find Building By structure -->
-                                            <span data-toggle="tooltip" data-placement="bottom" title= {{ __('Buildings by Structure Type') }}>
+                                            <span data-toggle="tooltip" data-placement="bottom" title= "{{ __('Buildings by Structure Type') }}">
                                                 <a class="btn btn-default collapse-control" role="button" data-toggle="collapse" href="#collapse_building_structype_filter" aria-expanded="false" aria-controls="collapse_building_structype_filter"><i class="fa fa-building"></i>{{ __('Buildings by Structure Type') }}</a>
                                             </span>
                                             <div class="collapse" id="collapse_building_structype_filter">

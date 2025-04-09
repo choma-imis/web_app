@@ -11,7 +11,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     {!! Form::open(['url' => action('Language\LanguageController@import_translates', ['id' => $id]), 'files' => true, 'class' => 'form-horizontal']) !!}
         <div class="card-body">
             <div class="form-group row required">
-                {!! Form::label('Upload Translation File',null,['class' => 'col-sm-3 control-label', 'style'=>'padding-top:3px;']) !!}
+                {!! Form::label(__('Upload Translation File'),null,['class' => 'col-sm-3 control-label', 'style'=>'padding-top:3px;']) !!}
                 <div class="col-sm-3">
                 {!! Form::file('csvfile', ['id' => 'csvfile', 'onchange' => 'validateFileExtension(this, "fileHint", "csv")']) !!}
                 <br>
