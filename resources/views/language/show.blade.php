@@ -5,7 +5,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 @section('content')
 <div class="card card-info">
     <div class="card-header bg-transparent">
-        <a href="{{ action('Language\LanguageController@index') }}" class="btn btn-info">Back to List</a>
+        <a href="{{ action('Language\LanguageController@index') }}" class="btn btn-info">{{__('Back to List')}}</a>
 
     </div><!-- /.card-header -->
     <div class="form-horizontal">
@@ -13,7 +13,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 
             <div class="form-group row">
-                {!! Form::label('Language',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('Language'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$language->name,['class' => 'form-control']) !!}
                 </div>
@@ -21,14 +21,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
 
             <div class="form-group row">
-                {!! Form::label('Code',null,['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('Code'),null,['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null,$language->code,['class' => 'form-control']) !!}
                 </div>
             </div>
 
             <div class="form-group row">
-                {!! Form::label('Status', null, ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label(__('Status'), null, ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::label(null, $language->status == 1 ? 'Active' : 'Disabled', ['class' => 'form-control']) !!}
                 </div>
