@@ -168,7 +168,7 @@ class LanguageController extends Controller
         return Datatables::of($languages)
             ->filter(function ($query) use ($request) {})
             ->addColumn('action', function ($model) {
-                if ($model->id == 1) {
+                if ($model->code =="en") {
                     return '';
                 }
 
