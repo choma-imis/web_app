@@ -177,10 +177,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <!-- Error/Requirement Message Container -->
         <div id="password-error" class="mt-1" style="display: none; color: red;">
             <ul style="margin-bottom: 0; padding-left: 1rem;">
-                <li id="char-count">{{__('The password must be at least 8 characters.')}}</li>
-                <li id="uppercase-lowercase">{{__('The password must contain at least one uppercase and one lowercase letter.')}}</li>
-                <li id="symbol">{{__('The password must contain at least one symbol.')}}</li>
-                <li id="number">{{__('The password must contain at least one number.')}}</li>
+                <li id="char-count">{{__('The Password must be at least 8 characters.')}}</li>
+                <li id="uppercase-lowercase">{{__('The Password must contain at least one uppercase and one lowercase letter.')}}</li>
+                <li id="symbol">{{__('The Password must contain at least one symbol.')}}</li>
+                <li id="number">{{__('The Password must contain at least one number.')}}</li>
             </ul>
         </div>
     </div>
@@ -197,10 +197,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <!-- Confirm Password Requirements -->
         <div id="confirm-password-error" class="mt-1" style="display: none; color: red;">
             <ul style="margin-bottom: 0; padding-left: 1rem;">
-                <li id="confirm-char-count">{{__('The password must be at least 8 characters.')}}</li>
-                <li id="confirm-uppercase-lowercase">{{__('The password must contain at least one uppercase and one lowercase letter.')}}</li>
-                <li id="confirm-symbol">{{__('The password must contain at least one symbol.')}}</li>
-                <li id="confirm-number">{{__('The password must contain at least one number.')}}</li>
+                <li id="confirm-char-count">{{__('The Password must be at least 8 characters.')}}</li>
+                <li id="confirm-uppercase-lowercase">{{__('The Password must contain at least one uppercase and one lowercase letter.')}}</li>
+                <li id="confirm-symbol">{{__('The Password must contain at least one symbol.')}}</li>
+                <li id="confirm-number">{{__('The Password must contain at least one number.')}}</li>
                 <li id="confirm-match">{{__('Passwords must match.')}}</li>
             </ul>
         </div>

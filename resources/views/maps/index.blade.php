@@ -1897,7 +1897,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             var mLayer = {
                 @can('Municipality Map Layer')
                 citypolys_layer: {
-                    name: '{{ __(" Municipality") }}',
+                    name: '{{ __("Municipality") }}',
                     styles: {},
                     clipLegend: false,
                     showCount: false,
@@ -10420,6 +10420,7 @@ $.ajax({
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
+                        confirmButtonText: "{{ __('OK') }}",
                     });
                 } else {
                     var message = "{{ __('Number of applications on') }}" + ' '+ date + ': ';
@@ -10439,6 +10440,7 @@ $.ajax({
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
+                        confirmButtonText: "{{ __('OK') }}",
                     });
                 } else {
                     var message = "{{ __('Number of applications on') }}" + ' '+ date + ': ';
@@ -10845,9 +10847,10 @@ $.ajax({
                 if (!date) {
                     Swal.fire({
                         title: "{{ __('Please select a date!') }}",
-                        icon: "warning",
+                       icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
+                        confirmButtonText: "{{ __('OK') }}",
                     });
                 } else {
                     var message = "{{ __('Number of containments proposed to be emptied on') }} " + date + ": ";
