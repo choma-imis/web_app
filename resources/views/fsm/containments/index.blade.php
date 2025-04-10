@@ -346,8 +346,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                     if ((volumeMax === '') && (volumeMin !== '')) {
                         Swal.fire({
-                            title:'{{ __('Maximum Volume is Required') }}',
-                            text: '{{ __('Please enter the Maximum Volume!') }}',
+                            title: '{{ __("Maximum Volume is Required") }}',
+                            text: '{{ __("Please enter the Maximum Volume!") }}',
                             icon: 'warning',
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
@@ -377,12 +377,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     if (volumeMin !== '' && parseFloat(volumeMin) < 0.1) {
                         Swal.fire({
                             title: '{{ __("Invalid Minimum Volume") }}',
-                            text: "Minimum Volume must be at least 0.1 and cannot be 0!",
+                            text: '{{__("Minimum Volume must be at least 0.1 and cannot be 0!")}}',
                             icon: 'warning',
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: {{__('Close')}}
+                            confirmButtonText: "{{__('Close')}}",
                         });
 
                         return false;
