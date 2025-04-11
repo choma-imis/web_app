@@ -87,7 +87,7 @@ class LanguageController extends Controller
                     return redirect('language/setup')->with('error', __('Failed to generate the language file.'));
                 }
             } else {
-                return redirect('language/setup')->with('error', __(('Unable to generate language file. Please request system admininstrator to check file permission of your /lang folder.')));
+                return redirect('language/setup')->with('error', __(('Unable to generate language file. Please request system administrator to check file permission of your /lang folder.')));
             }
         } else {
             return redirect('language/setup')->with('error',__('Sorry! Unable find the language'));
