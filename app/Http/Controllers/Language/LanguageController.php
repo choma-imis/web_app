@@ -290,7 +290,6 @@ class LanguageController extends Controller
             }
 
             $language->name = $data['name'] ?? null;
-
             $language->code = $data['code'] ?? null;
             $language->status = $data['status'] ?? null;
             $language->save();
@@ -341,7 +340,9 @@ class LanguageController extends Controller
      */
     public function update(LanguageRequest $request, $id)
     {
+
         $language = Language::find($id);
+
         if ($language) {
             $data = $request->all();
             $this->storeOrUpdate($language->id, $data);
@@ -350,6 +351,7 @@ class LanguageController extends Controller
             return redirect('language/setup')->with('error', __('Failed to update Language'));
         }
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -357,28 +359,35 @@ class LanguageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-{
-    DB::beginTransaction();
-    try {
-        $language = Language::find($id);
-        if (!$language) {
-            throw new Exception__('Language not found');
+    {
+        DB::beginTransaction();
+        try {
+            $language = Language::find($id);
+            if (!$language) {
+                throw new Exception(__('Language not found'));
+            }
+
+            // Delete related Translations
+            Translate::where('name', $language->code)->delete();
+
+            // Delete the JSON language file if it exists
+            $langFilePath = resource_path('lang/' . $language->code . '.json');
+            if (file_exists($langFilePath)) {
+                unlink($langFilePath);
+            }
+
+            // Delete Language
+            $language->delete();
+
+            DB::commit();
+            return redirect()->back()->with('success', __('Language deleted successfully'));
+        } catch (Exception $e) {
+            DB::rollBack();
+            \Log::error(__('Error in deleting Language and Translates: ') . $e->getMessage());
+            return redirect()->back()->with('error', __('Something went wrong: ') . $e->getMessage());
         }
-
-        // Delete related Translations
-        Translate::where('name', $language->code)->delete();
-
-        // Delete Language
-        $language->delete();
-
-        DB::commit();
-        return redirect()->back()->with('success', __('Language deleted successfully'));
-    } catch (Exception $e) {
-        DB::rollBack();
-        \Log::error(__('Error in deleting Language and Translates: ') . $e->getMessage());
-        return redirect()->back()->with('error', __('Something went wrong: ') . $e->getMessage());
     }
-}
+
 
 
 
