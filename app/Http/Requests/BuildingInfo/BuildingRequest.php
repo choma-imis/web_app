@@ -43,7 +43,7 @@ class BuildingRequest extends FormRequest
             'building_associated_to.required_if' => __('BIN of Main Building required.'),
             'ward.required' => __('Ward Number required.'),
             'structure_type_id.required' => __('Structure Type required.'),
-            'functional_use_id.required' => __('Functional Use of Building  required.'),
+            'functional_use_id.required' => __('Functional Use of Building required.'),
             'house_number.unique' => __('The House Number is Taken.'),
             'main_building.required' => __('The Main Building status required.'),
             'building_associated_to.required_if' => __('BIN of Main Building required.'),

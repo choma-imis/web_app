@@ -154,7 +154,7 @@ class HotspotServiceClass
             }
         } catch (\Exception $e) {
             DB::rollBack(); // Rollback in case of any exception
-            return redirect('publichealth/hotspots/create')->with('error', __('An error occurred:') . $e->getMessage())->withInput();
+            return redirect('publichealth/hotspots/create')->with('error', __('An error occurred') . ':' . $e->getMessage())->withInput();
         }
     }
 

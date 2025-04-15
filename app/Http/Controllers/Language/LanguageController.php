@@ -87,7 +87,7 @@ class LanguageController extends Controller
                     return redirect('language/setup')->with('error', __('Failed to generate the language file.'));
                 }
             } else {
-                return redirect('language/setup')->with('error', __(('Unable to generate language file. Please request system admininstrator to check file permission of your /lang folder.')));
+                return redirect('language/setup')->with('error', __(('Unable to generate language file. Please request system administrator to check file permission of your /lang folder.')));
             }
         } else {
             return redirect('language/setup')->with('error',__('Sorry! Unable find the language'));
@@ -168,7 +168,7 @@ class LanguageController extends Controller
         return Datatables::of($languages)
             ->filter(function ($query) use ($request) {})
             ->addColumn('action', function ($model) {
-                if ($model->id == 1) {
+                if ($model->code =="en") {
                     return '';
                 }
 
@@ -241,12 +241,16 @@ class LanguageController extends Controller
     }
     public function store(LanguageRequest $request)
     {
+        // Check if there are any existing translations in the table
+        $existingTranslates = Translate::where('name', 'en')->get();
+        if ($existingTranslates->isEmpty()) {
+            return redirect()->back()->with('error', __('The default language translations are missing. Please import them before proceeding.'));
+        }
+
         DB::beginTransaction();
         try {
             $data = $request->all();
             $languageId = $this->storeOrUpdate(null, $data); // Remove transaction inside storeOrUpdate
-
-            $existingTranslates = Translate::where('name', 'en')->get();
 
             // Fix sequence issue
             DB::statement("SELECT setval('language.translates_id_seq', COALESCE((SELECT MAX(id) + 1 FROM language.translates), 1))");
@@ -254,13 +258,13 @@ class LanguageController extends Controller
             // Insert new records in Translates table
             foreach ($existingTranslates as $translate) {
                 Translate::create([
-                    'key'   => $translate->key,
-                    'name'  => $data['code'] ?? null,
-                    'text'    => $translate->text ,
-                    'pages' => $translate->pages,
-                    'group' => $translate->group,
+                    'key'      => $translate->key,
+                    'name'     => $data['code'] ?? null,
+                    'text'     => $translate->text,
+                    'pages'    => $translate->pages,
+                    'group'    => $translate->group,
                     'platform' => $translate->platform,
-                    'load'  => $translate->load,
+                    'load'     => $translate->load,
                 ]);
             }
 
@@ -290,7 +294,6 @@ class LanguageController extends Controller
             }
 
             $language->name = $data['name'] ?? null;
-
             $language->code = $data['code'] ?? null;
             $language->status = $data['status'] ?? null;
             $language->save();
@@ -341,7 +344,9 @@ class LanguageController extends Controller
      */
     public function update(LanguageRequest $request, $id)
     {
+
         $language = Language::find($id);
+
         if ($language) {
             $data = $request->all();
             $this->storeOrUpdate($language->id, $data);
@@ -350,6 +355,7 @@ class LanguageController extends Controller
             return redirect('language/setup')->with('error', __('Failed to update Language'));
         }
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -357,28 +363,35 @@ class LanguageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-{
-    DB::beginTransaction();
-    try {
-        $language = Language::find($id);
-        if (!$language) {
-            throw new Exception__('Language not found');
+    {
+        DB::beginTransaction();
+        try {
+            $language = Language::find($id);
+            if (!$language) {
+                throw new Exception(__('Language not found'));
+            }
+
+            // Delete related Translations
+            Translate::where('name', $language->code)->delete();
+
+            // Delete the JSON language file if it exists
+            $langFilePath = resource_path('lang/' . $language->code . '.json');
+            if (file_exists($langFilePath)) {
+                unlink($langFilePath);
+            }
+
+            // Delete Language
+            $language->delete();
+
+            DB::commit();
+            return redirect()->back()->with('success', __('Language deleted successfully'));
+        } catch (Exception $e) {
+            DB::rollBack();
+            \Log::error(__('Error in deleting Language and Translates: ') . $e->getMessage());
+            return redirect()->back()->with('error', __('Something went wrong: ') . $e->getMessage());
         }
-
-        // Delete related Translations
-        Translate::where('name', $language->code)->delete();
-
-        // Delete Language
-        $language->delete();
-
-        DB::commit();
-        return redirect()->back()->with('success', __('Language deleted successfully'));
-    } catch (Exception $e) {
-        DB::rollBack();
-        \Log::error(__('Error in deleting Language and Translates: ') . $e->getMessage());
-        return redirect()->back()->with('error', __('Something went wrong: ') . $e->getMessage());
     }
-}
+
 
 
 
