@@ -241,12 +241,16 @@ class LanguageController extends Controller
     }
     public function store(LanguageRequest $request)
     {
+        // Check if there are any existing translations in the table
+        $existingTranslates = Translate::where('name', 'en')->get();
+        if ($existingTranslates->isEmpty()) {
+            return redirect()->back()->with('error', __('The default language translations are missing. Please import them before proceeding.'));
+        }
+
         DB::beginTransaction();
         try {
             $data = $request->all();
             $languageId = $this->storeOrUpdate(null, $data); // Remove transaction inside storeOrUpdate
-
-            $existingTranslates = Translate::where('name', 'en')->get();
 
             // Fix sequence issue
             DB::statement("SELECT setval('language.translates_id_seq', COALESCE((SELECT MAX(id) + 1 FROM language.translates), 1))");
@@ -254,13 +258,13 @@ class LanguageController extends Controller
             // Insert new records in Translates table
             foreach ($existingTranslates as $translate) {
                 Translate::create([
-                    'key'   => $translate->key,
-                    'name'  => $data['code'] ?? null,
-                    'text'    => $translate->text ,
-                    'pages' => $translate->pages,
-                    'group' => $translate->group,
+                    'key'      => $translate->key,
+                    'name'     => $data['code'] ?? null,
+                    'text'     => $translate->text,
+                    'pages'    => $translate->pages,
+                    'group'    => $translate->group,
                     'platform' => $translate->platform,
-                    'load'  => $translate->load,
+                    'load'     => $translate->load,
                 ]);
             }
 
