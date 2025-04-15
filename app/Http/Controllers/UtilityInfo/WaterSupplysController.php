@@ -224,6 +224,7 @@ class WaterSupplysController extends Controller
         }
 
         $watersupply->geom = DB::raw("ST_GeomFromText('". $request->geom . "')");
+        $watersupply->length = $request->length;
         $watersupply->save();
 
         return response()->json([
@@ -232,5 +233,15 @@ class WaterSupplysController extends Controller
             'error' => "Updated the watersupply geometry successfully!",
         ]);
 
+    }
+
+    public function getGeometry($code)
+    {
+        $geometry = DB::table('utility_info.water_supplys')
+        ->where('code', $code)
+        ->value(DB::raw('ST_AsText(geom) as geometry'));
+    
+        return response()->json(['geometry' => $geometry]);
+    
     }
 }

@@ -1834,10 +1834,10 @@ class MapsService {
     public function getToiletIsochroneAreaLayers($distance)
     {
         
-        $toilet_geom = DB::SELECT("SELECT geom 
+        $toilet_geom = DB::SELECT("SELECT geom, name
                 FROM fsm.toilets 
                 WHERE deleted_at IS NULL 
-                AND name <> 'Community Toilet';");
+                AND type <> 'Community Toilet';");
 
                 $polygons = array(); 
                 $buildings = array();
@@ -1858,7 +1858,7 @@ class MapsService {
                     id,
                     the_geom <-> origin AS distance
                 FROM
-                    utility_info.roadlines_network_noded_vertices_pgr,
+                    utility_info.roads_network_noded_vertices_pgr,
                     parameters
                 ORDER BY
                     the_geom <-> origin
@@ -1867,7 +1867,7 @@ class MapsService {
                 SELECT * from nearest_node; ";
 
         $node_id = DB::SELECT($node_id_query)[0]->id;
-    
+ 
         $polygon_query = "
             SELECT ST_asTEXT(ST_setSRID(ST_ConcaveHull(ST_Collect(the_geom), 0.5),4326)) as isochrone
             FROM (
@@ -1877,13 +1877,12 @@ class MapsService {
                 source::integer AS source, 
                 target::integer AS target,                                    
                 distance::double precision AS cost 
-                FROM utility_info.roadlines_network_noded'::text, ".$node_id."::bigint, 
-                ".$distance/1000 ."::double precision, false)
+                FROM utility_info.roads_network_noded'::text, ".$node_id."::bigint, 
+                ".$distance."::double precision, false)
                 AS dij_result
-            JOIN utility_info.roadlines_network_noded ON dij_result.edge = utility_info.roadlines_network_noded.id
+            JOIN utility_info.roads_network_noded ON dij_result.edge = utility_info.roads_network_noded.id
             ) AS shortest_path";
         $polygon_result = DB::select($polygon_query);
-        dd($polygon_result);
         $polygon['id'] = $i;
         $polygon['geom'] = $polygon_result[0]->isochrone;
         $polygon['long'] = $long;
@@ -1906,6 +1905,7 @@ class MapsService {
         }
         $i+=1;
         }
+        
         return [
             'buildings' => $buildings,
             'polygon' => $polygons

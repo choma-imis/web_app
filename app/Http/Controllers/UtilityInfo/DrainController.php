@@ -245,6 +245,7 @@ class DrainController extends Controller
         }
 
         $drain->geom = DB::raw("ST_GeomFromText('". $request->geom . "')");
+        $drain->length = $request->length;
         $drain->save();
 
         return response()->json([
@@ -253,5 +254,15 @@ class DrainController extends Controller
             'error' => "Updated the drain geometry successfully!",
         ]);
 
+    }
+
+    public function getGeometry($code)
+    {
+        $geometry = DB::table('utility_info.drains')
+        ->where('code', $code)
+        ->value(DB::raw('ST_AsText(geom) as geometry'));
+    
+        return response()->json(['geometry' => $geometry]);
+    
     }
 }

@@ -222,8 +222,9 @@ class SewerLineController extends Controller
     public function updateSewerGeom(Request $request){
       
         $code = $request->code?$request->code:null;
+   
         if ($code){
-            $sewer = SewerLine::find($code);
+        $sewer = SewerLine::find($code);
         } else {
             return response()->json([
                 'success' => false,
@@ -233,13 +234,24 @@ class SewerLineController extends Controller
         }
 
         $sewer->geom = DB::raw("ST_GeomFromText('". $request->geom . "')");
-        
+        $sewer->length = $request->length;
         $sewer->save();
         return response()->json([
             'success' => true,
             'data' => [],
-            'error' => "Updated the sewer geometry successfully!",
+            'message' => "Updated the sewer geometry successfully!",
         ]);
 
     }
+
+    public function getGeometry($code)
+{
+    $geometry = DB::table('utility_info.sewers')
+    ->where('code', $code)
+    ->value(DB::raw('ST_AsText(geom) as geometry'));
+
+    return response()->json(['geometry' => $geometry]);
+
+}
+
 }

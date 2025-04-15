@@ -173,16 +173,18 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                    data-placement="bottom" title="Add"><i class="fa fa-circle-plus fa-fw"></i></a>
                                 <a href="#" id="add_undo_last_point_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Undo last point"><i class="fa fa-clock-rotate-left fa-fw"></i></a>
+                                <a href="#" id="add_edit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
+                                   data-placement="bottom" title="Edit"><i class="fa fa-pen-to-square fa-fw"></i></a>
                                 <a href="#" id="add_undo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Undo"><i class="fa fa-rotate-left fa-fw"></i></a>
                                 <a href="#" id="add_redo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Redo"><i class="fa fa-rotate-right fa-fw"></i></a>
-                                <a href="#" id="add_edit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Edit"><i class="fa fa-pen-to-square fa-fw"></i></a>
                                 <a href="#" id="add_delete_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
                                    data-placement="bottom" title="Remove all drawn lines"><i class="fa fa-trash fa-fw"></i></a>
-                                <a href="#" id="add_submit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-                                   data-placement="bottom" title="Save"><i class="fa fa-floppy-disk fa-fw"></i></a>
+                                   <a href="javascript:void(0);" id="add_submit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"data-placement="bottom" title="Save"data-code="" >
+                                    <i class="fa fa-floppy-disk fa-fw"></i>
+                                </a>
+
                             </div>
                             <!-- Road Form -->
                             <form class="form-horizontal" id="add-road-form">
@@ -3777,13 +3779,15 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 modifiedFeature,
                 hasModification = false;
 
-function handleAddRoadControlClick() {
+        function handleAddRoadControlClick(code) {
                     currentLayerType = 'Road';
 
                     // Set tool titles or other properties
                     $('#add_edit_control').attr( currentLayerType);
                     $('#add_submit_road_btn').attr(currentLayerType);
-                    $('#add_submit_control').attr(currentLayerType);
+                    $('#add_submit_control')
+                        .attr('data-code', code)
+                        .attr(currentLayerType);
                     $('#add_start_control').attr(currentLayerType);
 
                     handleMapControl(
@@ -3797,18 +3801,37 @@ function handleAddRoadControlClick() {
             $('#add_road_control').trigger('click');
         }
 
-        // On page load, check if the hash is #add_road_control
-        if (window.location.hash === '#add_road_control') {
-            handleAddRoadControlClick();
-        }
+            // On page load, check if the hash is #add_road_control
+            if (window.location.hash === '#add_road_control') {
+                    $('#add_edit_control').hide();
+                    let code = '';
+                        handleAddRoadControlClick(code);
 
-        function handleAddSewerControlClick() {
+                }
+
+                // On page load, check if the hash is #add_road_control
+                if (window.location.hash.startsWith('#edit_road_control-')) {
+                    const code = window.location.hash.split('-')[1];
+                    $('#add_start_control').hide();
+                    $('#add_undo_last_point_control').hide();
+                    $('#add_delete_control').hide();
+                    $('#add_edit_control').hide();
+                     handleAddRoadControlClick(code);
+                     currentAddControl = 'Modify Road'; 
+                    addModifyInteractions(currentAddControl, code, 'roadlines');
+
+                }
+
+
+
+        function handleAddSewerControlClick(code) {
             currentLayerType = 'Sewer';
-
               // Set tool titles or other properties
                 $('#add_edit_control').attr( currentLayerType);
-                $('#add_submit_sewer_btn').attr( currentLayerType);
-                $('#add_submit_control').attr( currentLayerType);
+                $('#add_submit_sewer_btn').attr(currentLayerType);
+                $('#add_submit_control')
+                        .attr('data-code', code)
+                        .attr(currentLayerType);
                 $('#add_start_control').attr(  currentLayerType);
 
                 handleMapControl(
@@ -3822,17 +3845,35 @@ function handleAddRoadControlClick() {
 
                 // On page load, check if the hash is #add_road_control
                 if (window.location.hash === '#add_sewer_control') {
-                    handleAddSewerControlClick();
+                    $('#add_edit_control').hide();
+                    let code = '';
+                    handleAddSewerControlClick(code);
+                }
+
+                // On page load, check if the hash is #add_road_control
+                if (window.location.hash.startsWith('#edit_sewer_control-')) {
+                    const code = window.location.hash.split('-')[1];
+                    
+                    $('#add_start_control').hide();
+                    $('#add_undo_last_point_control').hide();
+                    $('#add_delete_control').hide();
+                    $('#add_edit_control').hide();
+                    handleAddSewerControlClick(code);
+                    currentAddControl = 'Modify Sewer'; 
+                    addModifyInteractions(currentAddControl, code , 'sewerlines');
+
                 }
 
 
-            function handleAddDrainControlClick() {
+            function handleAddDrainControlClick(code) {
                     currentLayerType = 'Drain';
 
               // Set tool titles or other properties
                 $('#add_edit_control').attr( currentLayerType);
                 $('#add_submit_drain_btn').attr( currentLayerType);
-                $('#add_submit_control').attr( currentLayerType);
+                $('#add_submit_control')
+                        .attr('data-code', code)
+                        .attr(currentLayerType);
                 $('#add_start_control').attr(  currentLayerType);
 
                 handleMapControl(
@@ -3844,19 +3885,38 @@ function handleAddRoadControlClick() {
                     $('#add_drain_control').trigger('click');
                 }
 
+                 // On page load, check if the hash is #add_road_control
+                 if (window.location.hash === '#add_drain_control') {
+                    $('#add_edit_control').hide();
+                    let code = '';
+                    handleAddDrainControlClick(code);
+                }
+
                 // On page load, check if the hash is #add_road_control
-                if (window.location.hash === '#add_drain_control') {
-                    handleAddDrainControlClick();
+                if (window.location.hash.startsWith('#edit_drain_control-')) {
+                    const code = window.location.hash.split('-')[1];
+                                        
+                    $('#add_start_control').hide();
+                    $('#add_undo_last_point_control').hide();
+                    $('#add_delete_control').hide();
+                    $('#add_edit_control').hide();
+
+                    handleAddDrainControlClick(code);
+                    currentAddControl = 'Modify Drain'; 
+                    addModifyInteractions(currentAddControl, code , 'drains');
                 }
 
 
-                function handleAddWatersupplyControlClick() {
+
+                function handleAddWatersupplyControlClick(code) {
                     currentLayerType = 'Watersupply';
 
               // Set tool titles or other properties
                 $('#add_edit_control').attr( currentLayerType);
                 $('#add_submit_watersupply_btn').attr( currentLayerType);
-                $('#add_submit_control').attr( currentLayerType);
+                $('#add_submit_control')
+                        .attr('data-code', code)
+                        .attr(currentLayerType);
                 $('#add_start_control').attr( currentLayerType);
 
                 handleMapControl(
@@ -3868,9 +3928,23 @@ function handleAddRoadControlClick() {
                     $('#add_watersupply_control').trigger('click');
                 }
 
+                  // On page load, check if the hash is #add_road_control
+                  if (window.location.hash === '#add_watersupply_control') {
+                    $('#add_edit_control').hide();
+                    let code = '';
+                     handleAddWatersupplyControlClick(code);
+                }
+
                 // On page load, check if the hash is #add_road_control
-                if (window.location.hash === '#add_watersupply_control') {
-                    handleAddWatersupplyControlClick();
+                if (window.location.hash.startsWith('#edit_watersupplys_control-')) {
+                    const code = window.location.hash.split('-')[1];
+                    $('#add_start_control').hide();
+                    $('#add_undo_last_point_control').hide();
+                    $('#add_delete_control').hide();
+                    $('#add_edit_control').hide();
+                     handleAddWatersupplyControlClick(code);
+                     currentAddControl = 'Modify Watersupply'; 
+                     addModifyInteractions(currentAddControl, code , 'watersupplys');
                 }
 
 
@@ -3965,172 +4039,187 @@ function handleAddRoadControlClick() {
             $('#add_delete_control').click(function (e) {
                 e.preventDefault();
                 hideAddForm();
-                removeDrawnFeatures();
-            });
+                if (hasModification && modifiedFeature && originalRoadFeature) {
+                    const source = vectorLayer.getSource();
 
-            //Modify the drawn roads
-            $('#add_edit_control').click(function(e){
-                e.preventDefault();
-                hideAddForm(); // Hide the add form
+                    // Remove modified feature
+                    source.removeFeature(modifiedFeature);
 
-                if (currentAddControl === 'Modify ' + currentLayerType) {
-                    currentAddControl = '';
-                    removeAllAddInteractions(); // Remove all interactions (drawing, snapping, etc.)
+                    // Add original feature back
+                    source.addFeature(originalRoadFeature.clone());
+
+                    // Clear selection and state
+                    selectInteraction.getFeatures().clear();
+                    originalRoadFeature = null;
+                    modifiedFeature = null;
+                    hasModification = false;
                 } else {
-                    if (currentAddControl === 'Add ' + currentLayerType ) {
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: `${currentLayerType}s added would be lost!`,
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Yes',
-                            cancelButtonText: 'No!',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                removeAllAddInteractions(); 
-                                removeDrawnFeatures();
-                                currentAddControl = 'Modify ' + currentLayerType;
-                                addModifyInteractions(); // Add modify interactions (e.g., for roads or drains)
-                            }
-                        });
-                    } else {
-                        currentAddControl = 'Modify ' + currentLayerType;
-                        addModifyInteractions(); // Add modify interactions
-                    }
+                    removeDrawnFeatures(); // fallback for drawn lines
                 }
             });
 
-           // Save the added and modified feature (Drain, Sewer, Road, etc.)
+
             $('#add_submit_control').click(function (e) {
-                e.preventDefault();
+                    e.preventDefault();
+                 
+                    let code = $('#add_submit_control').data('code');
+            console.log()
+                    const layerTypeLower = currentLayerType.toLowerCase();
 
-                // Check if the current control is for adding or modifying
-                if (currentAddControl === 'Add ' + currentLayerType) {
-                    let features = drawLayer.getSource().getFeatures();
-                    if (features && features.length < 1) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: `Please draw a ${currentLayerType.toLowerCase()} before saving!`,
-                            icon: "warning",
-                        });
-                    } else {
-                        $('.add-' + currentLayerType.toLowerCase() + '-form').slideToggle();
-                    }
-                } else if (currentAddControl === 'Modify ' + currentLayerType) {
-                    hideAddForm();
-                    if (hasModification) {
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "The changes made will be saved",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Yes',
-                            cancelButtonText: 'No!',
-                            reverseButtons: true
-                        }).then((result) => {
-                            displayAjaxLoader();
-                            if (result.isConfirmed) {
-                                let lineFormat = new ol.format.WKT();
-                                let geom = lineFormat.writeGeometry(modifiedFeature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+                    if (currentAddControl === 'Add ' + currentLayerType) {
+                        const features = drawLayer.getSource().getFeatures();
 
-                                // Set the appropriate URL based on the layer type (Drain, Sewer, Road)
-                                let updateUrl;
-                                if (currentLayerType === 'Road') {
-                                    formData = {
-                                            'roadcd': modifiedFeature.getProperties().code, 
-                                            "geom": geom
-                                        };
-                                    return_url = '{{ route("roadlines.index") }}';
-                                    updateUrl = '{{ url("/utilityinfo/roadlines/update-road-geom") }}';
-                                    
-                                } else if (currentLayerType === 'Drain') {
-                                    formData = {
-                                            'code': modifiedFeature.getProperties().code, 
-                                            "geom": geom
-                                        };
-                                    return_url = '{{ route("drains.index") }}';
-                                    updateUrl = '{{ url("/utilityinfo/drains/update-drain-geom") }}';
-                                } else if (currentLayerType === 'Sewer') {
-                                    formData = {
-                                            'code': modifiedFeature.getProperties().code, 
-                                            "geom": geom
-                                        };
-                                    return_url = '{{ route("sewerlines.index") }}';
-                                    updateUrl = '{{ url("/utilityinfo/sewerlines/update-sewer-geom") }}';
+                        if (!features || features.length < 1) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: `Please draw a ${layerTypeLower} before saving!`,
+                                icon: "warning",
+                            });
+                        } else {
+                            $(`.add-${layerTypeLower}-form`).slideToggle();
+                        }
 
-                                }
-                                else if (currentLayerType === 'Watersupply') {
-                                    formData = {
-                                            'code': modifiedFeature.getProperties().code, 
-                                            "geom": geom
-                                        };
-                                    return_url = '{{ route("watersupplys.index") }}';
-                                    updateUrl = '{{ url("/utilityinfo/watersupplys/update-watersupply-geom") }}';
+                    } else if (currentAddControl === 'Modify ' + currentLayerType) {
+                        hideAddForm();
 
-                                }
+                        if (hasModification && modifiedFeature) {
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "The changes made will be saved",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No!',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    displayAjaxLoader();
 
-                                $.ajaxSetup({
-                                    headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                                        'Accept': 'application/json'
-                                    }
-                                });
-
-                                $.ajax({
-                                    url: updateUrl,  // Dynamic URL based on the layer type
-                                    type: 'post',
-                                    data:formData,
-                                    success: function (data) {
-                                        removeAjaxLoader(); // Remove the loader before showing the success message
-                                        Swal.fire(
-                                            'Saved!',
-                                            'The changes have been saved.',
-                                            'success'
-                                        ).then((result) => {
-                                            // Execute after user clicks 'OK'
-                                            if (result.isConfirmed) {
-                                                // Add loader and redirect after confirmation
-                                                displayAjaxLoader();
-                                              
-                                             window.location.href = return_url;
-                                               
-                                            }
+                                    const geometry = modifiedFeature.getGeometry().clone(); 
+    
+                                    // Check the type of geometry and calculate length
+                                    if (geometry instanceof ol.geom.LineString) {
+                                        var length = geometry.getLength(); // Get length in meters
+                                    } else if (geometry instanceof ol.geom.MultiLineString) {
+                                        var length = 0 ;
+                                        // If it's a MultiLineString, sum the lengths of individual lines
+                                        var coordinates = geometry.getCoordinates();
+                                        coordinates.forEach(function(coords) {
+                                            var lineString = new ol.geom.LineString(coords);
+                                            length += lineString.getLength(); // Get length for each line in the MultiLineString
                                         });
-                                    },
-                                    error: function (data) {
-                                        removeAjaxLoader();
-                                        Swal.fire(
-                                            'Error',
-                                            'There was an error!',
-                                            'error'
-                                        );
+
                                     }
-                                });
-                            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                removeAjaxLoader();
-                                Swal.fire(
-                                    'Cancelled',
-                                    'The changes have been removed.',
-                                    'error'
-                                );
-                            }
-                        });
+                                   
+
+                                    
+                                    const lineFormat = new ol.format.WKT();
+                                    const geom = lineFormat.writeGeometry(
+                                        modifiedFeature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326')
+                                    );
+            
+                                    // Dynamic values based on the layer type
+                                    let formData = {};
+                                    let updateUrl = '';
+                                    let return_url = '';
+
+                                    console.log("pp", code);
+
+
+                                    switch (currentLayerType) {
+                                        case 'Road':
+                                            formData = {
+                                                'roadcd':code,
+                                                'geom': geom,
+                                                'length': length.toFixed(2)
+                                            };
+                                            return_url = '{{ url("utilityinfo/roadlines/:code/edit") }}'.replace(':code',code);
+                                            updateUrl = '{{ url("/utilityinfo/roadlines/update-road-geom") }}';
+                                            break;
+
+                                        case 'Drain':
+                                            formData = {
+                                                'code': code,
+                                                'geom': geom,
+                                                'length': length.toFixed(2)
+                                            };
+                                            return_url = '{{ url("utilityinfo/drains/:code/edit") }}'.replace(':code',code);
+                                            updateUrl = '{{ url("/utilityinfo/drains/update-drain-geom") }}';
+                                            break;
+
+                                        case 'Sewer':
+                                            formData = {
+                                                'code': code,
+                                                'geom': geom,
+                                                'length': length.toFixed(2)
+                                            };
+                                            return_url = '{{ url("utilityinfo/sewerlines/:code/edit") }}'.replace(':code',code);
+                                            updateUrl = '{{ url("/utilityinfo/sewerlines/update-sewer-geom") }}';
+                                            break;
+
+                                        case 'Watersupply':
+                                            formData = {
+                                                'code': code,
+                                                'geom': geom,
+                                                'length': length.toFixed(2)
+                                            };
+                                            return_url = '{{ url("utilityinfo/watersupplys/:code/edit") }}'.replace(':code',code);
+
+                                            updateUrl = '{{ url("/utilityinfo/watersupplys/update-watersupply-geom") }}';
+                                            break;
+
+                                        default:
+                                            removeAjaxLoader();
+                                            Swal.fire('Error', 'Invalid layer type.', 'error');
+                                            return;
+                                    }
+
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                            'Accept': 'application/json'
+                                        }
+                                    });
+
+                                    $.ajax({
+                                        url: updateUrl,
+                                        type: 'POST',
+                                        data: formData,
+                                        success: function (data) {
+                                            removeAjaxLoader();
+                                            Swal.fire('Saved!', 'The changes have been saved.', 'success')
+                                                .then((res) => {
+                                                    if (res.isConfirmed) {
+                                                        displayAjaxLoader();
+                                                        window.location.href = return_url;
+                                                    }
+                                                });
+                                        },
+                                        error: function () {
+                                            removeAjaxLoader();
+                                            Swal.fire('Error', 'There was an error while saving changes.', 'error');
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire('Cancelled', 'The changes have been removed.', 'info');
+                                    removeAjaxLoader();
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Nothing to save!',
+                                icon: "warning",
+                            });
+                        }
+
                     } else {
+                        hideAddForm();
                         Swal.fire({
                             title: 'Nothing to save!',
                             icon: "warning",
                         });
                     }
-                } else {
-                    hideAddForm();
-                    Swal.fire({
-                        title: 'Nothing to save!',
-                        icon: "warning",
-                    });
-                }
-            });
-
+                });
 
             function submitDetails(controlType) {
             // Set the dynamic fields based on control type
@@ -4341,6 +4430,7 @@ function handleAddRoadControlClick() {
                     hideAddForm();
                     removeDrawnFeatures();
                 });
+    
                 layerDrawInteraction.on("drawend", function(e) {
                 // Get the geometry of the drawn feature
                 var feature = e.feature;
@@ -4375,70 +4465,87 @@ function handleAddRoadControlClick() {
                 
             });
             }
+            
+            function addModifyInteractions(currentAddControl, code, utilityType) {
 
-            function addModifyInteractions() {
+                // Clear existing interactions
                 map.removeInteraction(layerDrawInteraction);
-                selectInteraction = new ol.interaction.Select({
-                    layers: [drawLayer,vectorLayer],
-                    style: new ol.style.Style({
-                        stroke: new ol.style.Stroke({
-                            color: [191, 17, 183, 1],
-                            width: 5
-                        })
-                    })
-                });
-                modifyInteraction = new ol.interaction.ModifyFeature({
-                    features: selectInteraction.getFeatures()
-                });
-                undoInteraction = new ol.interaction.UndoRedo();
-                map.addInteraction(modifyInteraction);
-                map.addInteraction(selectInteraction);
-                layerSnapInteraction = new ol.interaction.Snap({source: vectorSource});
-                layerDrawnSnapInteraction = new ol.interaction.Snap({source: drawSource});
-                map.addInteraction(layerSnapInteraction);
-                map.addInteraction(layerDrawnSnapInteraction);
-                map.addInteraction(undoInteraction);
+                map.removeInteraction(modifyInteraction);
+                map.removeInteraction(selectInteraction);
+                map.removeInteraction(undoInteraction);
 
-                selectInteraction.on('select',function (e) {
-                    if (e.selected.length>0){
-                        if (e.selected[0]!==e.deselected[0]){
-                            if (!hasModification){
-                                originalRoadFeature = e.selected[0];
-                            } else{
-                                Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: "Previous changes may be lost.",
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonText: 'Yes',
-                                    cancelButtonText: 'No!',
-                                    reverseButtons: true
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        let undoCount = undoInteraction.getStack().length;
-                                        for(let i=0;i<undoCount;i++) {
-                                            undoInteraction.undo();
-                                            if (i===undoCount-1){
-                                                undoInteraction.clear();
-                                            }
-                                        }
-                                        hasModification=false;
-                                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                        selectInteraction.getFeatures().clear();
-                                        selectInteraction.getFeatures().push(modifiedFeature);
-                                    }
-                                });
+                // Clear any previous features
+                vectorSource.clear();
+
+                // AJAX call to fetch the geometry for the given utility type and code
+                $.ajax({
+                    url: `utilityinfo/${utilityType}/${code}/geometry`, // Dynamic endpoint
+                    method: 'GET',
+                    success: function (response) {
+                        const format = new ol.format.WKT();
+                        var feature = format.readFeature(response.geometry, {
+                            dataProjection: 'EPSG:4326',
+                            featureProjection: 'EPSG:3857'
+                        });
+
+                        const featureCollection = new ol.Collection([feature]);
+
+                        selectInteraction = new ol.interaction.Select({
+                            features: featureCollection,
+                            style: new ol.style.Style({
+                                stroke: new ol.style.Stroke({
+                                    color: [191, 17, 183, 1],
+                                    width: 5
+                                })
+                            })
+                        });
+
+                        modifyInteraction = new ol.interaction.ModifyFeature({
+                            features: featureCollection
+                        });
+
+                        undoInteraction = new ol.interaction.UndoRedo();
+                        layerSnapInteraction = new ol.interaction.Snap({ source: vectorSource });
+                        layerDrawnSnapInteraction = new ol.interaction.Snap({ source: drawSource });
+
+                        map.addInteraction(modifyInteraction);
+                        map.addInteraction(selectInteraction);
+                        map.addInteraction(layerSnapInteraction);
+                        map.addInteraction(layerDrawnSnapInteraction);
+                        map.addInteraction(undoInteraction);
+
+                        modifyInteraction.on('modifyend', function (e) {
+                            hasModification = true;
+                            modifiedFeature = e.features[0];
+                        });
+
+                        selectInteraction.on('select', function (e) {
+                            if (e.selected.length > 0) {
+                                const selectedFeature = e.selected[0];
+                                if (selectedFeature !== feature) {
+                                    const features = selectInteraction.getFeatures();
+                                    features.clear();
+                                    features.push(feature);
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        title: 'Warning',
+                                        text: 'You can only modify the geometry for ' + code,
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
                             }
-                        }
-                    }
-                })
+                        });
 
-                modifyInteraction.on('modifyend', function(e) {
-                    hasModification = true;
-                    modifiedFeature = e.features[0];
+                        undoInteraction.clear();
+                    },
+                    error: function () {
+                        alert("Failed to load geometry for " + utilityType + " code: " + code);
+                    }
                 });
-                undoInteraction.clear();
-            }
+                }
+
+
             function removeDrawnFeatures(){
                 drawLayer.getSource().clear();
             }

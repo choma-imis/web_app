@@ -206,6 +206,7 @@ Route::group([
     Route::get('utilitydashboard', 'UtilityDashboardController@index')->name('utilitydashboard');
     Route::get('roadlines/export', 'RoadlineController@export');
     Route::get('roadlines/data', 'RoadlineController@getData');
+    Route::get('roadlines/{code}/geometry', 'RoadlineController@getGeometry');
     
     Route::get('roadlines/get-road-names', 'RoadlineController@getRoadNames')->name('roadlines.get-road-names');
     Route::get('roadlines/{id}/history', 'RoadlineController@history');
@@ -216,6 +217,8 @@ Route::group([
 
     // Route::get('sewerconnection/{id}/approve', 'SewerConnectionController@approve');
     Route::get('drains/get-drain-names','DrainController@getDrainNames')->name('drains.get-drain-names');
+    Route::get('drains/{code}/geometry', 'DrainController@getGeometry');
+
     Route::post('drains/update-drain-geom', 'DrainController@updateDrainGeom');
     Route::get('drains/export', 'DrainController@export');
     Route::post('drains/add-drain', 'DrainController@store');
@@ -224,6 +227,7 @@ Route::group([
     Route::resource('drains', 'DrainController');
 
     Route::get('sewerlines/export', 'SewerLineController@export');
+    Route::get('sewerlines/{code}/geometry', 'SewerLineController@getGeometry');
     Route::get('sewerlines/data', 'SewerLineController@getData');
     Route::post('sewerlines/add-sewer', 'SewerLineController@store');
     Route::post('sewerlines/update-sewer-geom', 'SewerLineController@updateSewerGeom');
@@ -232,6 +236,7 @@ Route::group([
     Route::resource('sewerlines', 'SewerLineController');
 
     Route::get('watersupplys/export', 'WaterSupplysController@export');
+    Route::get('watersupplys/{code}/geometry', 'WaterSupplysController@getGeometry');
     Route::get('watersupplys/data', 'WaterSupplysController@getData');
     Route::post('watersupplys/add-watersupply', 'WaterSupplysController@store');
     Route::post('watersupplys/update-watersupply-geom', 'WaterSupplysController@updateWatersupplyGeom');
