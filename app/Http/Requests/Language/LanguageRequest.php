@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Language;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LanguageRequest extends FormRequest
@@ -50,13 +50,22 @@ class LanguageRequest extends FormRequest
 }
 
 
-    public function update()
-    {
-        return [
-            'name' => 'required',
-            // 'short' => 'required',
-            'status' => 'required',
-            'code' => 'required|regex:/^[a-zA-Z]{1,4}$/|unique:pgsql.language.languages,code',
-        ];
-    }
+public function update()
+{
+
+    $id = request()->route('setup');
+    return [
+        'name' => 'required',
+        'status' => 'required',
+        'code' => [
+            'required',
+            'regex:/^[a-zA-Z]{1,4}$/',
+            Rule::unique('pgsql.language.languages', 'code')
+            ->where(function ($query) {
+                return $query->whereNull('deleted_at');
+            })
+            ->ignore($id),
+        ],
+    ];
+}
 }
