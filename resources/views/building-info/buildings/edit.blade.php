@@ -249,7 +249,7 @@
                 };
             },
         },
-        placeholder: '{{__('BIN of Pre Connected Building')}}',
+        placeholder: '{{__('BIN of Pre-Connected Building')}}',
         allowClear: true,
         closeOnSelect: true,
         width: '85%',
@@ -406,7 +406,7 @@
         $(document).ready(function() {
 
             $('#functional_use_id').change(function() {
-                var html = '<option value="">Use Categories of Building</option>';
+                var html = '<option value="">Use Category of Building</option>';
 
                 var functional_use = $(this).val();
                 if (functional_use) {
