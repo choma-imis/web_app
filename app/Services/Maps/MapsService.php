@@ -1869,7 +1869,7 @@ class MapsService {
         $node_id = DB::SELECT($node_id_query)[0]->id;
  
         $polygon_query = "
-            SELECT ST_asTEXT(ST_setSRID(ST_ConcaveHull(ST_Collect(the_geom), 0.5),4326)) as isochrone
+            SELECT ST_asTEXT(ST_setSRID(ST_ConcaveHull(ST_Collect(the_geom), 0.9),4326)) as isochrone
             FROM (
                 SELECT ST_Transform(ST_setSRID(the_geom, 4326),4326) as the_geom
                 FROM  pgr_drivingdistance('SELECT
