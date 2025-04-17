@@ -34,33 +34,45 @@ class ContainmentsEmptiedListExport implements FromView, WithTitle, WithEvents
         }
             
 
-
-
         /**No of containment emptied**/
         
-        $containmentQuery = "SELECT c.*, ct.type AS containment_type,  b.bin AS bin
-        FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  LEFT JOIN  fsm.emptyings e 
-        ON months.month_val = extract(month from e.created_at)
-        $yearOn
-        LEFT JOIN fsm.applications a ON e.application_id = a.id
-        LEFT JOIN fsm.containments c ON c.id = a.containment_id
-         LEFT JOIN fsm.containment_types ct ON ct.id = c.type_id
-          LEFT JOIN building_info.build_contains bc 
-                        ON bc.containment_id = c.id 
-                        AND bc.deleted_at IS NULL 
-                        AND bc.bin IS NOT NULL 
-                        AND bc.containment_id IS NOT NULL
-                    LEFT JOIN building_info.buildings b 
-                        ON b.bin = bc.bin 
-                        AND b.deleted_at IS NULL
-        AND (ST_Intersects(c.geom, ST_GeomFromText('" . $this->geom . "', 4326)))
+        $containmentQuery = "
+                        SELECT 
+                            c.*, 
+                            ct.type AS containment_type,  
+                            b.bin AS bin
+                        FROM (
+                            SELECT m AS month_val FROM GENERATE_SERIES(1,12) m
+                        ) AS months
+                        LEFT JOIN fsm.emptyings e 
+                            ON months.month_val = EXTRACT(MONTH FROM e.created_at)
+                            $yearOn
+                        LEFT JOIN fsm.applications a 
+                            ON e.application_id = a.id
+                        LEFT JOIN fsm.containments c 
+                            ON c.id = a.containment_id
+                        LEFT JOIN fsm.containment_types ct 
+                            ON ct.id = c.type_id
+                        LEFT JOIN building_info.build_contains bc 
+                            ON bc.containment_id = c.id 
+                            AND bc.deleted_at IS NULL 
+                            AND bc.bin IS NOT NULL 
+                            AND bc.containment_id IS NOT NULL
+                        LEFT JOIN building_info.buildings b 
+                            ON b.bin = bc.bin 
+                            AND b.deleted_at IS NULL
+                        WHERE 
+                            c.emptied_status = true
+                            AND ST_Intersects(
+                                c.geom, 
+                                ST_SetSRID(ST_GeomFromText('" . $this->geom . "'), 4326)
+                            )
+                        ORDER BY c.id ASC
+                    ";
 
-        
-        ORDER BY c.id ASC";
-        
+                            
 
         $containmentResults = DB::select($containmentQuery);
-         
          
         return view('exports.containments-list', compact('containmentResults'));
     }
