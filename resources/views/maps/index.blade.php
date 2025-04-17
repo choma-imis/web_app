@@ -1202,19 +1202,21 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                                     class="fa fa-building"></i>Point Buffer Summary Information</a>
                                                 </span>
                                             @endcan
-
+                                            @can('Containments Emptied Info Map Tools')
                                             <span data-toggle="tooltip" data-placement="bottom"
                                           title="Containments emptied monthly">
                             <a href="#" id="containments_emptied_monthly" class="btn btn-default map-control"><i
                                         class="fa fa-building"></i>Containments Emptied Info</a>
                              </span>
-                           
+                             @endcan
+                             @can('Toilet Isochrone Map Tools')
                             <!-- toilet isochrone map -->
                             <span data-toggle="tooltip" data-placement="bottom"
                                           title="Generate isochrone information of CTPT by distance traversed (m)">
                             <a href="#" id="toilet_isochrone_control" class="btn btn-default map-control"><i
                                         class="fa fa-building"></i>Toilet Isochrone Map</a>
                              </span>
+                             @endcan
                                     </div>
                                 </div>
                             </div>
@@ -12292,56 +12294,75 @@ $.ajax({
             }
             //WMS URL importing
             var parser = new ol.format.WMSCapabilities();
-
             var wmsUrl = document.getElementById("wmsURL");
             var mapLayer = document.getElementById("mapLayer");
-            wmsUrl.addEventListener("click", function() {
-            var wmsAddress = document.getElementById("wmsAddress").value;
 
-            fetch(wmsAddress)
-            .then(function(response) {
-                console.log("ffff",resp[onse]);
-                return response.text();
-            })
-            .then(function(text) {
-            $("#wmsModal").modal("hide");
-            var result = parser.read(text);
-            let layers = result.Capability.Layer.Layer;
-            let i;
-            $("#getLayerModal").modal();
-            let layerName = [];
-            mapLayer.options.length = 0;
-            for (i = 0; i < layers.length; i++) {
-                layerName[i] = layers[i].Name;
-                var option = document.createElement("option");
-                option.text = option.value = layers[i].Name;
-                mapLayer.add(option);
-            }
-            var wms_gurl = wmsAddress.split("?")[0];
+            // Define allowed city polygon layer names
+            const citypolylayers = ['citypolys_layer']; 
 
-            mapLayer.addEventListener("change", function() {
-                const source = new ol.source.TileWMS({
-                    url: wms_gurl,
-                    params: {
-                        layers: mapLayer.value,
-                        authkey: authkey,
-                        TILED: true
-                    },
-                    crossOrigin: "anonymous",
-                    serverType: "geoserver",
-                    attributions: "This is from getcapabilities"
-                });
-                const layer = new ol.layer.Tile({
-                    source: source,
-                    visible: true
-                });
-                map.addLayer(layer);
+            wmsUrl.addEventListener("click", function () {
+                displayAjaxLoader();
+                var wmsAddress = document.getElementById("wmsAddress").value;
+             
+                fetch(wmsAddress)
+                    .then(function (response) {
+                        return response.text();
+                    })
+                    .then(function (text) {
+                        $("#wmsModal").modal("hide");
+                        var result = parser.read(text);
+                        let layers = result.Capability.Layer.Layer;
+                        let i;
+                        removeAjaxLoader();
+                        $("#getLayerModal").modal();
+                        let layerName = [];
+                        mapLayer.options.length = 0;
+
+                        for (i = 0; i < layers.length; i++) {
+                            layerName[i] = layers[i].Name;
+                            var option = document.createElement("option");
+                            option.text = option.value = layers[i].Name;
+                            mapLayer.add(option);
+                        }
+
+                        var wms_gurl = wmsAddress.split("?")[0];
+
+                        mapLayer.addEventListener("change", function () {
+                            let selectedLayer = mapLayer.value;
+
+                            // Check if selected layer is in citypolylayers
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Invalid Layer',
+                                text: 'Selected layer doesnot lie within Municipality',
+                                confirmButtonColor: '#d33'
+                            });
+
+                            const source = new ol.source.TileWMS({
+                                url: wms_gurl,
+                                params: {
+                                    layers: selectedLayer,
+                                    authkey: authkey,
+                                    TILED: true
+                                },
+                                crossOrigin: "anonymous",
+                                serverType: "geoserver",
+                                attributions: "This is from getcapabilities"
+                            });
+
+                            const layer = new ol.layer.Tile({
+                                source: source,
+                                visible: true
+                            });
+
+                            map.addLayer(layer);
+                        });
+                    })
+                    .catch(function (err) {
+                        alert("Enter Valid URL");
+                    });
             });
-            })
-            .catch(function(err) {
-                alert("Enter Valid URL");
-            });
-            });
+
 
 
             function updateMapSize() {

@@ -10,8 +10,10 @@
 @section('content')
 <div class="card">
     <div class="card-header">
+    @can('Add Road On Map')
     <a href="{{ action('MapsController@index') }}#add_road_control" class="btn btn-info">Add Road</a>
-        @can('Export Roadlines to CSV')
+    @endcan    
+    @can('Export Roadlines to CSV')
         <a href="{{ action('UtilityInfo\RoadlineController@export') }}" id="export" class="btn btn-info">Export to
             CSV</a>
         @endcan

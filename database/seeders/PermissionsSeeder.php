@@ -102,6 +102,10 @@ class PermissionsSeeder extends Seeder
                 "group" => "Roads",
                 "perms" => [
                     [
+                        "type" => "Add",
+                        "name" => "Add Road On Map"
+                    ],
+                    [
                         "type" => "List",
                         "name" => "List Roadlines"
                     ],
@@ -139,11 +143,17 @@ class PermissionsSeeder extends Seeder
                         "type" => "View on map",
                         "name" => "View Roadline On Map"
                     ],
+
+                    
                 ]
             ],
             [
                 "group" => "Drain",
                 "perms" => [
+                    [
+                        "type" => "Add",
+                        "name" => "Add Drain On Map"
+                    ],
                     [
                         "type" => "List",
                         "name" => "List Drains"
@@ -186,6 +196,10 @@ class PermissionsSeeder extends Seeder
                 "group" => "Sewers",
                 "perms" => [
                     [
+                        "type" => "Add",
+                        "name" => "Add Sewer On Map"
+                    ],
+                    [
                         "type" => "List",
                         "name" => "List Sewers"
                     ],
@@ -226,6 +240,10 @@ class PermissionsSeeder extends Seeder
             [
                 "group" => "WaterSupply Network",
                 "perms" => [
+                    [
+                        "type" => "Add",
+                        "name" => "Add WaterSupply On Map"
+                    ],
                     [
                         "type" => "List",
                         "name" => "List WaterSupply Network"
@@ -1226,10 +1244,6 @@ class PermissionsSeeder extends Seeder
                     ],
                     [
                         "type" => "Map Tool",
-                        "name" => "Add Roads Map Tools"
-                    ],
-                    [
-                        "type" => "Map Tool",
                         "name" => "Info Map Tools"
                     ],
                     [
@@ -1366,6 +1380,14 @@ class PermissionsSeeder extends Seeder
                     [
                         "type" => "Map Layer",
                         "name" => "WaterSupply Network Map Layer"
+                    ],
+                    [
+                        "type" => "Map Tool",
+                        "name" => "Containments Emptied Info Map Tools"
+                    ],
+                    [
+                        "type" => "Map Tool",
+                        "name" => "Toilet Isochrone Map Tools"
                     ],
                 ],
 
