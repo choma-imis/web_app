@@ -554,7 +554,7 @@
     <div class="form-group row" style="display:none;" id="vacutug-accessible">
         {!! Form::label('desludging_vehicle_accessible', __('Building Accessible to Desludging Vehicle'), ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-5">
-            {!! Form::select('desludging_vehicle_accessible', [true => __('Yes'), false => __('No')], null, [
+            {!! Form::select('desludging_vehicle_accessible', [true => 'Yes', false => 'No'], null, [
                 'class' => 'form-control col-sm-10',
                 'placeholder' => __('Building Accessible to Desludging Vehicle'),
             ]) !!}
