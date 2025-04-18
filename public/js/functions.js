@@ -111,7 +111,7 @@ $(document).ready(function () {
 function createUser() {
     $('#create_user').on('change', function () {
         if ($('#create_user').is(":checked")) {
-            
+
             $('#user-password').show();
         }
         else {
@@ -174,10 +174,10 @@ function dynamicBuildingForm() {
     // shows if toilet presence Yes
     // hides everything is nothing is selected
     $('#toilet_status').on('change', function () {
-    var toiletPresence = $("#toilet_status").val(); 
-    if (toiletPresence == "1") {  
+    var toiletPresence = $("#toilet_status").val();
+    if (toiletPresence == "1") {
         $('#toilet-info').show();
-        var useCategory = $("#use_category_id").val();  
+        var useCategory = $("#use_category_id").val();
         if (useCategory == "Community Toilet" || useCategory == "Public Toilet") {
             $('#shared-toilet-popn').hide();
             $('#shared-toilet').hide();
@@ -189,8 +189,8 @@ function dynamicBuildingForm() {
         $('#toilet-connection').show();
         $('#defecation-place').hide();
         $('#ctpt-toilet').hide();
-    } 
-    else if (toiletPresence == "0") {  
+    }
+    else if (toiletPresence == "0") {
         $('#defecation-place').show();
         $('#toilet-info').hide();
         $('#shared-toilet').hide();
@@ -453,7 +453,7 @@ function dynamicBuildingForm() {
                     };
                 },
             },
-            placeholder: 'BIN of Pre Connected Building',
+            placeholder: "{{__('BIN of Pre-Connected Building')}}",
             allowClear: true,
             closeOnSelect: true,
             width: '85%',
@@ -529,7 +529,7 @@ function dynamicBuildingForm() {
            $('#shared-toilet-popn').hide();
         }
     });
-    // change on reload 
+    // change on reload
     if ($("#use_category_id :selected").text() == "Community Toilet" ||  $("#use_category_id :selected").text() == "Public Toilet") {
         $('#population-info').hide();
         $('#family-count').hide();
@@ -617,7 +617,7 @@ function onLoadPopReadOnly()
      if(malePopulation!== 0 || femalePopulation!== 0 || otherPopulation!== 0 )
     {
         populationServedField.value = totalPopulation;
-    } 
+    }
     // Make the 'population_served' field readonly after the value is calculated
     if (malePopulation >= 1 || femalePopulation >= 1 || otherPopulation >= 1 ) {
         populationServedField.readOnly = true; // Set as readonly instead of disabled
@@ -806,7 +806,7 @@ function onloadDynamicContainmentType() {
             } else {
                 $('#drain-code').hide();
             }
-    
+
             var selectedTextSewer = $("#containment-type option:selected").text();
             var showOptions = [
                 "Septic Tank connected to Sewer Network",
@@ -817,7 +817,7 @@ function onloadDynamicContainmentType() {
             } else {
                 $('#sewer-code').hide();
             }
-        
+
             var selectedTextOthers = $("#containment-type option:selected").text();
             var showOptions = [
                 "Double Pit",
@@ -905,10 +905,10 @@ function onloadDynamicContainmentType() {
 
     function handleContainmentTypeChange()
     {
-            
+
         if ($("#toilet-presence :selected").text() == "Yes") {
         $('#ctpt-toilet').hide();
-        
+
         } else {
             $('#vacutug-accessible').hide();
             $('#defecation-place').show();
@@ -923,7 +923,7 @@ function onloadDynamicContainmentType() {
         }
 
     }
-    
+
 
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -938,10 +938,10 @@ function onloadDynamicContainmentType() {
 
         function validateOwnerContactInput(input) {
             var value = input.value;
-            
+
             // Allow only digits (0-9)
             value = value.replace(/[^0-9]/g, '');
-            
+
             // Set the cleaned value back to the input
             input.value = value;
         }
@@ -949,50 +949,50 @@ function onloadDynamicContainmentType() {
             // Allow only alphanumeric characters (letters and numbers)
             input.value = input.value.replace(/[^a-zA-Z0-9]/g, '');
         }
-        
+
         const passwordField = document.getElementById('password');
         const confirmPasswordField = document.getElementById('password_confirmation');
-        
+
         const passwordError = document.getElementById('password-error');
         const confirmPasswordError = document.getElementById('confirm-password-error');
-        
+
         // Focus Events to Show Messages
         passwordField.addEventListener('focus', () => passwordError.style.display = 'block');
         confirmPasswordField.addEventListener('focus', () => confirmPasswordError.style.display = 'block');
-        
+
         // Blur Events to Hide Messages
         passwordField.addEventListener('blur', () => passwordError.style.display = 'none');
         confirmPasswordField.addEventListener('blur', () => confirmPasswordError.style.display = 'none');
-        
+
         // Input Validation for Password
         passwordField.addEventListener('input', validatePassword);
         confirmPasswordField.addEventListener('input', validateConfirmPassword);
-        
+
         // Validation Logic
         function validatePassword() {
             const password = passwordField.value;
-        
+
             // Requirements
             const hasUpperCase = /[A-Z]/.test(password);
             const hasLowerCase = /[a-z]/.test(password);
             const hasNumber = /\d/.test(password);
             const hasSymbol = /[\W_]/.test(password);
             const hasMinLength = password.length >= 8;
-        
+
             // Update Message Colors
             document.getElementById('char-count').style.color = hasMinLength ? 'green' : 'red';
             document.getElementById('uppercase-lowercase').style.color = (hasUpperCase && hasLowerCase) ? 'green' : 'red';
             document.getElementById('symbol').style.color = hasSymbol ? 'green' : 'red';
             document.getElementById('number').style.color = hasNumber ? 'green' : 'red';
-        
+
             // Trigger Confirm Password Validation
             validateConfirmPassword();
         }
-        
+
         function validateConfirmPassword() {
             const confirmPassword = confirmPasswordField.value;
             const password = passwordField.value;
-        
+
             // Requirements
             const hasUpperCase = /[A-Z]/.test(confirmPassword);
             const hasLowerCase = /[a-z]/.test(confirmPassword);
@@ -1000,14 +1000,14 @@ function onloadDynamicContainmentType() {
             const hasSymbol = /[\W_]/.test(confirmPassword);
             const hasMinLength = confirmPassword.length >= 8;
             const passwordsMatch = confirmPassword === password;
-        
+
             // Update Message Colors
             document.getElementById('confirm-char-count').style.color = hasMinLength ? 'green' : 'red';
             document.getElementById('confirm-uppercase-lowercase').style.color = (hasUpperCase && hasLowerCase) ? 'green' : 'red';
             document.getElementById('confirm-symbol').style.color = hasSymbol ? 'green' : 'red';
             document.getElementById('confirm-number').style.color = hasNumber ? 'green' : 'red';
             document.getElementById('confirm-match').style.color = passwordsMatch ? 'green' : 'red';
-        }    
+        }
 
         function handleSizeReadOnlyChange()
         {
@@ -1018,10 +1018,10 @@ function onloadDynamicContainmentType() {
                 var calculateVolume = function() {
                     var diameter = parseFloat(diameterField.value) || 0;
                     var depth = parseFloat(depthField.value) || 0;
-    
+
                     // Calculate radius
                     var radius = diameter / 2;
-    
+
                     // Calculate volume
                     var volume = Math.PI * Math.pow(radius, 2) * depth;
                     // Update the volume field with the calculated value
@@ -1032,30 +1032,30 @@ function onloadDynamicContainmentType() {
                     else
                     {
                         volumeField.readOnly = false; // Set as not readonly
-                    }  
+                    }
                 };
-    
+
                 // Add event listeners to trigger volume calculation on input change
                 diameterField.addEventListener('input', calculateVolume);
                 depthField.addEventListener('input', calculateVolume);
             });
-    
-    
+
+
             //To calculate volume of recatangle
             document.addEventListener('DOMContentLoaded', function() {
                 var lengthField = document.querySelector('input[name="tank_length"]');
                 var widthField = document.querySelector('input[name="tank_width"]');
                 var depthField = document.querySelector('input[name="depth"]');
                 var volumeField = document.querySelector('input[name="size"]');
-    
+
                 var calculateVolume = function() {
                     var length = parseFloat(lengthField.value) || 0;
                     var width = parseFloat(widthField.value) || 0;
                     var depth = parseFloat(depthField.value) || 0;
-    
+
                     // Calculate volume
                     var volume = length * width * depth;
-    
+
                     // Update the volume field with the calculated value
                     volumeField.value = volume.toFixed(2); // Round to 2 decimal places
                  // Make the 'size' field readonly after the value is calculated
@@ -1065,16 +1065,16 @@ function onloadDynamicContainmentType() {
                     else
                     {
                         volumeField.readOnly = false; // Set as not readonly
-    
+
                     }
                 };
-    
+
                 // Add event listeners to trigger volume calculation on input change
                 lengthField.addEventListener('input', calculateVolume);
                 widthField.addEventListener('input', calculateVolume);
                 depthField.addEventListener('input', calculateVolume);
             });
-    
+
         }
     function handleSizeReadOnlyOnLoad()
     {
@@ -1083,20 +1083,20 @@ function onloadDynamicContainmentType() {
         var volumeField = document.querySelector('input[name="size"]');
         var lengthField = document.querySelector('input[name="tank_length"]');
         var widthField = document.querySelector('input[name="tank_width"]');
-        if ( diameterField.value >= 1 || depthField.value >= 1 || lengthField.value >= 1 
+        if ( diameterField.value >= 1 || depthField.value >= 1 || lengthField.value >= 1
             || widthField.value >= 1 || depthField.value >= 1 ) {
             volumeField.readOnly = true; // Set as readonly to prevent editing
         }
         else
         {
             volumeField.readOnly = false; // Set as not readonly
-        }  
+        }
     }
 
     function validateFileSize(input,message_id, file_size) {
         const file = input.files[0];
         const hint = document.getElementById(message_id); // Select the <small> element
-        const label = input.nextElementSibling; 
+        const label = input.nextElementSibling;
         if (file && file.size > file_size * 1024 * 1024) { // 5 MB in bytes
             input.value = ''; // Clear the input
             // Change the font color to red
@@ -1138,7 +1138,7 @@ function onloadDynamicContainmentType() {
             $('#septic-tank').show();
             $('#pit-shape').hide();
         }
-    
+
         // Check if the selected text is in the array of showOptions and if the pit shape is "Cylindrical"
         if (showOptions.includes(selectedText) && ($("#pit-shape :selected").text() ==
             "Cylindrical")) {
@@ -1153,7 +1153,7 @@ function onloadDynamicContainmentType() {
             $('#tank-depth').show();
             $('#tank-width').show();
             $('#tank-length').show();
-    
+
         }
     }
 
@@ -1237,4 +1237,3 @@ function onloadDynamicContainmentType() {
     }
 
 
-    

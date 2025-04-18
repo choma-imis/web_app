@@ -40,14 +40,20 @@ class LanguageRequest extends FormRequest
      * @return array
      */
     public function store()
-{
-    return [
-        'name' => 'required',
-        // 'short' => 'required',
-        'status' => 'required',
-        'code' => 'required|regex:/^[a-zA-Z]{1,4}$/|unique:pgsql.language.languages,code',
-    ];
-}
+    {
+        return [
+            'name' => 'required',
+            'status' => 'required',
+            'code' => [
+                'required',
+                'regex:/^[a-zA-Z]{1,4}$/',
+                Rule::unique('pgsql.language.languages', 'code')
+                    ->where(function ($query) {
+                        return $query->whereNull('deleted_at');
+                    }),
+            ],
+        ];
+    }
 
 
 public function update()
