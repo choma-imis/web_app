@@ -152,7 +152,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('estimated_area',  __('Estimated Area of the Building (㎡)'), [
+                {!! Form::label('estimated_area',  __('Estimated Area of the Building (m²)'), [
+                                                      
                     'class' => 'col-sm-2 control-label',
                 ]) !!}
                 <div class="col-sm-3">

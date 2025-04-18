@@ -339,6 +339,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
                             confirmButtonText: '{{__('Close')}}'
+
                         });
 
                         return false;
@@ -363,6 +364,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         Swal.fire({
                             title: '{{ __("Invalid Volume Range") }}',
                             text: '{{ __("Maximum Volume must be greater than Minimum Volume!") }}',
+
                             icon: 'warning',
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',

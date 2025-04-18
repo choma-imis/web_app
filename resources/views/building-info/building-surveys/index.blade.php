@@ -215,7 +215,7 @@
                         showCancelButton: false,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: {{__('Close')}},
+                        confirmButtonText: '{{__('Close')}}',
                         cancelButtonText: '{{ __('Cancel') }}',
                     })
 
