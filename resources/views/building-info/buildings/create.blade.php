@@ -236,7 +236,7 @@
                 success: function(response) {
                     var containmentSelect = $('#containment-type select');
                     containmentSelect.empty();
-                    containmentSelect.append('<option selected value=" ">Containment Type</option>');
+                    containmentSelect.append('<option selected value=" ">{{__('Containment Type')}}</option>');
                     $.each(response, function(index, option) {
                         containmentSelect.append($('<option>').text(option.type).attr('value',
                             option.id));
