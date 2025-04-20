@@ -52,7 +52,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     class="fas fa-layer-group"></i></a>
                         <a href="#" id="get_location" class="btn btn-default map-control"
 
-                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Associated Buildings Icon"> </a>
+                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon"> </a>
                     </ul>
 
                 </div>
@@ -1206,7 +1206,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             <span data-toggle="tooltip" data-placement="bottom"
                                           title="Containments emptied monthly">
                             <a href="#" id="containments_emptied_monthly" class="btn btn-default map-control"><i
-                                        class="fa fa-building"></i>Containments Emptied Info</a>
+                                        class="fa fa-building"></i>Containments Emptied Information</a>
                              </span>
                              @endcan
                              @can('Toilet Isochrone Map Tools')
@@ -2032,8 +2032,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     if (hasNonIntersection) {
                         Swal.fire({
                             icon: 'warning', // Change to 'error' if needed
-                            title: 'Some Features Do Not Intersect',
-                            text: 'Some of the features do not intersect with the municipality.',
+                            title: 'Some Features do not Intersect',
+                            text: 'Some of the Features do not Intersect with the Municipality.',
                             confirmButtonColor: '#d33'
                         });
                     }
@@ -2139,7 +2139,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             },
                             error: function (error) {
                                 // Show the error modal if AJAX fails
-                                displayAjaxErrorModal(error.statusText + ": The KML file might be invalid! Supported geometry types: POLYGON.");
+                                displayAjaxErrorModal(error.statusText + ": The KML File might be Invalid! Supported Geometry Types: POLYGON.");
                             }
                         });
                    
@@ -3350,7 +3350,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 removeAjaxLoader();
                             }
                          else {
-                             displayAjaxErrorModal('Your current location is outside the municipality boundary');
+                             displayAjaxErrorModal('Your Current Location is Outside the Municipality Boundary');
                         }
                         
                     },
@@ -4074,7 +4074,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         if (!features || features.length < 1) {
                             Swal.fire({
                                 title: 'Error',
-                                text: `Please draw a ${layerTypeLower} before saving!`,
+                                text: `${layerTypeLower} must be drawn before saving!`,
                                 icon: "warning",
                             });
                         } else {
@@ -4172,7 +4172,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         default:
                                             removeAjaxLoader();
-                                            Swal.fire('Error', 'Invalid layer type.', 'error');
+                                            Swal.fire('Error', 'Invalid Layer.', 'error');
                                             return;
                                     }
 
@@ -4364,7 +4364,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                             // Replace default field name in error message with the custom title
                             let customMessage = message.replace(new RegExp(field, "gi"), fieldTitle.toLowerCase());
-                            customMessage = `The ${fieldTitle} is required.`;
+                            customMessage = `${fieldTitle} is required.`;
 
                             html += `<li>${customMessage}</li>`;
                         });

@@ -65,9 +65,12 @@ class RoadlineController extends Controller
     public function store(RoadLineRequest $request)
     {
         $data = $request->all();
-        $this->roadlineService->storeOrUpdate($id = null,$data);
-        return redirect('utilityinfo/roadlines')->with('success','Road created successfully');
+
+        // Save the road line data using the service
+        $roadData = $this->roadlineService->storeOrUpdate(null, $data);
+        return redirect('utilityinfo/roadlines')->with('success', 'Road created successfully');
     }
+
 
     /**
      * Display the specified resource.
@@ -134,6 +137,7 @@ class RoadlineController extends Controller
         if ($roadline) {
             $data = $request->all();
             $this->roadlineService->storeOrUpdate($roadline->code,$data);
+            
             return redirect('utilityinfo/roadlines')->with('success','Road Network updated successfully');
         } else {
             return redirect('utilityinfo/roadlines')->with('error','Failed to update road');
@@ -268,13 +272,7 @@ class RoadlineController extends Controller
          $roadline->geom = DB::raw("ST_SetSRID(ST_GeomFromText('". $request->geom ."'), 4326)"); // Ensure the SRID is set properly
          $roadline->length = $request->length;
          $roadline->save();
-     
-        //  // Execute the function to insert or update the road and create topology
-        //  DB::select('SELECT insert_road_and_create_topology(:geom, :name)', [
-        //      'geom' => $request->geom,  // Pass geometry as a text
-        //      'name' => $roadline->name, // Pass the name of the road
-        //  ]);
-     
+         
          return response()->json([
              'success' => true,
              'data' => [],
