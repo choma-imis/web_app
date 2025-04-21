@@ -7,6 +7,7 @@
     </span>
     <span class="info-box-number">{{__('Others')}}</span>
   </div>
+  
   <span class="top-right-icon" data-tooltip="Culture & Religious<br>Agricultural & Farm">
     <i class="fa-solid fa-circle-info"></i>
     <div class="custom-tooltip">
@@ -14,6 +15,5 @@
           {{ __($system->sanitation_system) }}<br>
         @endforeach
       </div>
-
   </span>
 </div>
