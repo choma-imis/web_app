@@ -10,6 +10,10 @@ use App\Exports\RoadBuildingsSummaryInfoMultiSheetExport;
 use App\Exports\PointBuildingsSummaryInfoMultiSheetExport;
 use App\Exports\BuildingsRoadSummaryInfoMultiSheetExport;
 use App\Exports\DrainPotentialSummaryInfoMultiSheetExport;
+use App\Exports\ContainmentSummaryInfoMultiSheetExport;
+use App\Exports\BuildingsIsochroneMultiSheetExport;
+
+
 use App\ServiceProvider;
 use Auth;
 use App\Exports\BuildingsOwnerExport;
@@ -52,6 +56,10 @@ class MapsController extends Controller
         //$this->middleware('permission:View Map', ['only' => ['index']]);
     }
 
+
+   
+
+
     /**
      * Handles the index request for maps.
      * @return \Illuminate\Http\Response The response containing the maps index data.
@@ -63,6 +71,7 @@ class MapsController extends Controller
         return $this->mapsService->mapsIndex();
 
     }
+
 
     /**
      * Generates and downloads a summary report in CSV format for a buffered polygon.
@@ -80,6 +89,7 @@ class MapsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    
     public function getWaterBodyReportCsv()
     {
         $waterbodyQuery = "SELECT ST_AsText(geom) AS geom from layer_info.waterbodys WHERE id = '" . request()->wb_code . "'";
@@ -651,13 +661,46 @@ class MapsController extends Controller
      * @param Request $request The HTTP request containing parameters.
      * @return array An array containing information about buildings, pop-up contents HTML, and the polygon.
      */
+    public function getMultiplePointBufferBuildings(Request $request)
+    {
+        $points = $request->input('points'); 
+        $distance = 0;
+        $results = [];
+
+        foreach ($points as $point) {
+            // Retrieve building data within the specified distance from the Maps Service
+            $response = $this->mapsService->getPointBufferBuildingsSummary($distance, $point['long'], $point['lat']);
+            
+            $results[] = [
+                'buildings' => $response['buildings'] ?? [],
+                'popContentsHtml' => $response['popContentsHtml'] ?? '',
+                'polygon' => $response['polygon'] ?? [],
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'results' => $results
+        ]);
+    }
+
+
+
+    /**
+     * Retrieves summary information about buildings within a specified buffer from a given point.
+     *
+     * @param Request $request The HTTP request containing parameters.
+     * @return array An array containing information about buildings, pop-up contents HTML, and the polygon.
+     */
     public function getPointBufferBuildings(Request $request)
     {
+   
         if (request()->distance > 0) {
             $distance = request()->distance;
         } else {
             $distance = 0;
         }
+       
         $long = $request->long;
         $lat = $request->lat;
         // Retrieve building data within the specified distance from the Maps Service
@@ -833,6 +876,28 @@ class MapsController extends Controller
         return $results;
     }
 
+  public function getKmlBufferPolygonBuildings(Request $request)
+{
+    $bufferDistancePolygon = 0;
+
+    // Access the array of geometries passed as 'bufferPolygonGeoms'
+    $bufferPolygonGeoms = $request->bufferPolygonGeoms;
+
+    // Initialize an empty array to store results
+    $allResults = [];
+
+ 
+        $results = $this->mapsService->buildingsKmlPopContentPolygon($bufferDistancePolygon, $bufferPolygonGeoms);
+    
+        return [
+           'buildings' => $results['buildings'],
+            'popContentsHtml' => $results['popContentsHtml'],
+            'polygon' => $results['polygon'],
+        ];
+  
+}
+
+
     /**
      * Retrieves buildings within a buffered polygon and their corresponding population content HTML.
      *
@@ -959,13 +1024,14 @@ class MapsController extends Controller
      * @param Request $request The request object containing geometry information.
      * @return string The type of geometry.
      */
-    public function checkGeometryType(Request $request){
-        // Construct the SQL query to check the geometry type based on the provided geometry
-        $checkGeometryQuery = "SELECT ST_GeometryType(ST_GeomFromText('". $request->geom ."')) AS geometry_type;";
-        $result = DB::select($checkGeometryQuery);
-        return $result[0]->geometry_type;
+    public function checkGeometryType(string $geometry)
+    {
+        // Use parameterized query to prevent SQL injection
+        $checkGeometryQuery = "SELECT ST_GeometryType(ST_GeomFromText(?, 4326)) AS geometry_type;";
+        $result = DB::select($checkGeometryQuery, [$geometry]);
+        return $result[0]->geometry_type ?? null;
     }
-
+    
     /**
      * Retrieves summary information about road inaccessibility based on provided road width and vacuum range.
      *
@@ -1200,5 +1266,397 @@ class MapsController extends Controller
         }
 
     }
+    public function checkLocationWithinBoundary(Request $request) {
+        $latt = $request->input('latt');  // Ensure that these keys are correct
+        $long = $request->input('long');
+       
+        $query = "SELECT * FROM layer_info.citypolys WHERE ST_Intersects(ST_PointFromText('POINT(" . $long . " " . $latt .  ")', 4326), geom)";
+        $result = DB::select($query);
+        return $result;
+    }
+    
 
+    public function getKmlInfoReportCsv(Request $request)
+    {
+        ob_end_clean();
+    
+        // Get the raw geometry string
+        $geometriesString = $request->input('kml_dragdrop_geom'); 
+        // Split the string by `),POLYGON Z(` while keeping `POLYGON Z(` in the result
+        $geometries = preg_split('/\,POLYGON Z\(/', $geometriesString);
+    
+        // Add back the missing prefix `POLYGON Z(` to each geometry (except the first one)
+    
+        foreach ($geometries as $key => &$geometry) {
+            if ($key !== 0) {
+                $geometry = 'POLYGON Z(' . $geometry;
+            }
+            $geometry = trim($geometry);
+        }
+
+        return $this->excel->download(new SummaryInfoMultiSheetExport($geometries, 0), 'Summary Information KML Drag and Drop.xlsx');
+    }
+    
+    
+        public function checkGeometry(Request $request)
+        {
+            $geometries = $request->input('geometries'); // Get all geometries
+
+            $results = [];
+            foreach ($geometries as $geometry) {
+                // Detect geometry type
+                $geometryType = $this->checkGeometryType($geometry);
+            
+                if (!in_array(strtoupper($geometryType), ['ST_POINT', 'ST_POLYGON', 'ST_LINESTRING'])) {
+                    $results[] = [
+                        'geometry' => $geometry,
+                        'intersects' => false,
+                        'message' => 'Unsupported geometry type: ' . $geometryType
+                    ];
+                    continue;
+                }
+
+                // Query database to check intersection
+                $queryResult = DB::select("SELECT * FROM layer_info.citypolys WHERE ST_Intersects(ST_GeomFromText(?, 4326), geom)", [$geometry]);
+                $results[] = [
+                    'geometry' => $geometry,
+                    'intersects' => !empty($queryResult)
+                ];
+            }
+
+            return response()->json([
+                'success' => true,
+                'details' => $results
+            ]);
+        }
+
+
+        public function getKmlSummaryInfo(Request $request)
+        {
+            // Get all the geometries sent in the request
+            $geometries = $request->geometries;
+        
+            $validPolygons = []; // Array to store valid polygons (ST_POLYGON)
+       
+            // Iterate over each geometry
+            foreach ($geometries as $geom) {
+              
+                // Check the geometry type for each geometry
+                $geometry_type = $this->checkGeometryType($geom);
+        
+                // If the geometry type is ST_POLYGON, add it to the validPolygons array
+                if (strtoupper($geometry_type) == "ST_POLYGON") {
+                    $validPolygons[] = $geom;
+                }
+            }
+            // If we have valid polygons, pass them to getBufferPolygonBuildings
+            if (!empty($validPolygons)) {
+                $polygon_request = new Request([
+                    'bufferPolygonGeoms' => $validPolygons, // Pass the array of polygons
+                ]);
+ 
+                // Call the function to get buildings for the polygons
+                return $this->getKmlBufferPolygonBuildings($polygon_request);
+        
+            } 
+            else {
+                // If no valid polygons found, return an error
+                return response()->json([
+                    'success' => false,
+                    'data' => [
+                        'code' => 200,
+                        'message' => 'No valid ST_POLYGON geometries found!',
+                        'errors' => 'No valid ST_POLYGON geometries to process!'
+                    ],
+                    'responseText' => 'No valid ST_POLYGON geometries found!',
+                ], 200);
+            }
+        }
+        
+
+
+    public function getIsochroneArea(Request $request)
+    {
+        $speed = explode(',', $request->speed);
+        $times = explode(',', $request->time);
+        $i = 0;
+        $distance = array();
+        foreach($times as $time)
+        {
+            $dist = $time * $speed[0]*16.66667 ;
+            array_push($distance,$dist);
+        }
+        $long = $request->long;
+        $lat = $request->lat;
+        $results = $this->mapsService->getIsochroneAreaLayers($distance, $long, $lat);
+        return [
+            'buildings' => $results['buildings'],
+            'polygon' => $results['polygon']
+        ];
+
+    }
+
+    public function getIsochroneExport(Request $request)
+    {
+        $speed =  isset($_GET['speed']) ?  explode(',',$_GET['speed']) : null;
+        $times =  isset($_GET['time']) ? explode(',',$_GET['time']) : null;
+        $long =  isset($_GET['long_pos']) ? $_GET['long_pos'] : null;
+        $lat =  isset($_GET['lat_pos']) ? $_GET['lat_pos'] : null;
+        $i = 0;
+        $distance = array();
+
+        foreach($times as $time)
+        {
+            $dist = $time * $speed[0]*16.66667 ;
+            array_push($distance,$dist);
+        }
+        
+        $results = $this->mapsService->getIsochroneAreaLayers($distance, $long, $lat)['buildings'];
+        $bins = array();
+
+        foreach($results as $res)
+        {
+            $bin = $res['bin'];
+            array_push($bins,$bin);
+        }
+
+        ob_end_clean();
+        return $this->excel->download(new BuildingsIsochroneMultiSheetExport($bins), 'Point Isochrone Building Information.xlsx');
+    
+
+    }
+
+
+    public function getToiletIsochroneAreaLayers(Request $request)
+    {
+        if (request()->distance > 0) {
+            $distance = request()->distance;
+        } else {
+            $distance = 0;
+        }
+        $results = $this->mapsService->getToiletIsochroneAreaLayers($distance);
+        return [
+            'buildings' => $results['buildings'],
+            'polygon' => $results['polygon']
+        ];
+
+    }
+    public function getToiletIsochroneExport(Request $request)
+    {
+        $distance =  isset($_GET['distance']) ?  explode(',',$_GET['distance']) : null;
+        $i = 0;
+        $results = $this->mapsService->getToiletIsochroneAreaLayers($distance[0])['buildings'];
+        $bins = array();
+
+        foreach($results as $res)
+        {
+            $bin = $res['bin'];
+            array_push($bins,$bin);
+        }
+
+
+        ob_end_clean();
+        return $this->excel->download(new BuildingsIsochroneMultiSheetExport($bins), 'Toilet Isochrone Building Information.xlsx');
+    
+
+    }
+    public function getContainmentReport(Request $request)
+    {
+        
+        if ($request->geom) {
+
+        if (Auth::user()->hasRole('Service Provider - Admin')){
+            $whereUser = " AND a.service_provider_id =" . Auth::user()->service_provider_id;
+        }else{
+            $whereUser = " AND a.user_id = " . Auth::id();
+        }
+            
+
+
+
+        /**No of containment emptied**/
+        
+        $current_year = date('Y');
+        $from_year = $current_year - 4;
+        
+            
+            //$uniqueContainCodeEmptiedCount = $this->mapsService->getUniqueContainmentEmptiedCountByYear($request->geom, $whereUser, $year);
+
+
+        
+
+            $colors = ['rgba(57, 142, 61, 0.2)', 'rgba(62, 199, 68, 0.2)', 'rgba(255, 229, 0, 0.2)', 'rgba(255, 179, 3, 0.2)', 'rgba(219, 61, 61, 0.2)'];
+            $borderColor = ['rgba(57, 142, 61, 0.65)', 'rgba(62, 199, 68, 0.8)', 'rgba(255, 229, 0, 0.8)', 'rgba(255, 179, 3, 0.8)', 'rgba(219, 61, 61, 0.65)'];
+            $hoverBackgroundColor = ['rgba(57, 142, 61, 0.45)', '"rgba(62, 199, 68, 0.45)', 'rgba(255, 229, 0, 0.45)', 'rgba(255, 179, 3, 0.45)', 'rgba(219, 61, 61, 0.45)'];
+            $hoverBorderColor = ['rgba(57, 142, 61, 1)', 'rgba(62, 199, 68, 1)', 'rgba(255, 229, 0, 1)', 'rgba(255, 179, 3, 1)', 'rgba(219, 61, 61, 1)'];
+          
+         
+        $queryAll = "SELECT months.month_val AS month, count(c.id) AS count
+        FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  
+		LEFT JOIN  fsm.emptyings e 
+        ON months.month_val = extract(month from e.created_at)
+        LEFT JOIN fsm.applications a ON e.application_id = a.id
+		
+        LEFT JOIN fsm.containments c ON c.id = a.containment_id AND c.emptied_status = true
+        AND (ST_Intersects(c.geom, ST_GeomFromText('" . $request->geom . "', 4326)))
+        AND e.deleted_at is null
+         
+        GROUP BY months.month_val
+        ORDER BY months.month_val ASC";
+		
+       
+        $resultsAll = DB::select($queryAll);
+
+        
+        $valuesAll = array();
+        foreach($resultsAll as $row) {
+            $valuesAll[] = $row->count;
+        }
+            
+       
+        $query = "SELECT months.month_val AS month, count(c.id) AS count
+        FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  
+		LEFT JOIN  fsm.emptyings e 
+        ON months.month_val = extract(month from e.created_at)
+                AND extract(year from e.created_at) = '$current_year'
+
+        LEFT JOIN fsm.applications a ON e.application_id = a.id
+		
+        LEFT JOIN fsm.containments c ON c.id = a.containment_id AND c.emptied_status = true
+        AND (ST_Intersects(c.geom, ST_GeomFromText('" . $request->geom . "', 4326)))
+        AND e.deleted_at is null
+         
+        GROUP BY months.month_val
+        ORDER BY months.month_val ASC";
+        $results = DB::select($query);
+
+        $values = array();
+        foreach($results as $row) {
+          
+            $values[] = $row->count;
+        }
+        //***subtract current by 1
+        $year_1 = $current_year-1;
+        
+        $query_m_one = "SELECT months.month_val AS month, count(c.id) AS count
+        FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  
+		LEFT JOIN  fsm.emptyings e 
+        ON months.month_val = extract(month from e.created_at)
+                AND extract(year from e.created_at) = '$year_1'
+
+        LEFT JOIN fsm.applications a ON e.application_id = a.id
+		
+        LEFT JOIN fsm.containments c ON c.id = a.containment_id AND c.emptied_status = true
+        AND (ST_Intersects(c.geom, ST_GeomFromText('" . $request->geom . "', 4326)))
+        AND e.deleted_at is null
+         
+        GROUP BY months.month_val
+        ORDER BY months.month_val ASC";
+
+        $results_m_one = DB::select($query_m_one);
+
+        $values_m_one = array();
+        foreach($results_m_one as $row) {
+            $values_m_one[] = $row->count;
+        }
+        //***subtract current by 2
+        $year_2 = $current_year-2;
+        $query_m_two = "SELECT months.month_val AS month, count(c.id) AS count
+        FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  
+		LEFT JOIN  fsm.emptyings e 
+        ON months.month_val = extract(month from e.created_at)
+                AND extract(year from e.created_at) = '$year_2'
+
+        LEFT JOIN fsm.applications a ON e.application_id = a.id
+		
+        LEFT JOIN fsm.containments c ON c.id = a.containment_id AND c.emptied_status = true
+        AND (ST_Intersects(c.geom, ST_GeomFromText('" . $request->geom . "', 4326)))
+        AND e.deleted_at is null
+         
+        GROUP BY months.month_val
+        ORDER BY months.month_val ASC";
+        
+        $results_m_two = DB::select($query_m_two);
+
+        $values_m_two = array();
+        foreach($results_m_two as $row) {
+            $values_m_two[] = $row->count;
+        }
+        //***subtract current by 3
+        $year_3 = $current_year-3;
+        $query_m_three = "SELECT months.month_val AS month, count(c.id) AS count
+        FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  
+		LEFT JOIN  fsm.emptyings e 
+        ON months.month_val = extract(month from e.created_at)
+                AND extract(year from e.created_at) = '$year_3'
+
+        LEFT JOIN fsm.applications a ON e.application_id = a.id
+		
+        LEFT JOIN fsm.containments c ON c.id = a.containment_id AND c.emptied_status = true
+        AND (ST_Intersects(c.geom, ST_GeomFromText('" . $request->geom . "', 4326)))
+        AND e.deleted_at is null
+         
+        GROUP BY months.month_val
+        ORDER BY months.month_val ASC";
+
+        $results_m_three = DB::select($query_m_three);
+
+        $values_m_three = array();
+        foreach($results_m_three as $row) {
+            $values_m_three[] = $row->count;
+        }
+        //***subtract current by 4
+        $year_4 = $current_year-4;
+       
+        $query_m_four = "SELECT months.month_val AS month, count(c.id) AS count
+        FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  
+		LEFT JOIN  fsm.emptyings e 
+        ON months.month_val = extract(month from e.created_at)
+                AND extract(year from e.created_at) = '$year_4'
+
+        LEFT JOIN fsm.applications a ON e.application_id = a.id
+		
+        LEFT JOIN fsm.containments c ON c.id = a.containment_id AND c.emptied_status = true
+        AND (ST_Intersects(c.geom, ST_GeomFromText('" . $request->geom . "', 4326)))
+        AND e.deleted_at is null
+         
+        GROUP BY months.month_val
+        ORDER BY months.month_val ASC";
+
+        $results_m_four = DB::select($query_m_four);
+
+        $values_m_four = array();
+        foreach($results_m_four as $row) {
+            $values_m_four[] = $row->count;
+        }
+        
+
+         $chart = [
+                'values' => $values,
+                'valuesAll' => $valuesAll,
+                'values_m_one' => $values_m_one,
+                'values_m_two' => $values_m_two,
+                'values_m_three' => $values_m_three,
+                'values_m_four' => $values_m_four,
+                'colors' => $colors,
+                'borderColor' => $borderColor,
+                'hoverBackgroundColor' => $hoverBackgroundColor,
+                'hoverBorderColor' => $hoverBorderColor,
+                'current_year' => $current_year,
+                'from_year' => $from_year,
+              
+            ];
+         
+          return $chart;
+        } else {
+            return "The 'geom' field is required";
+        }
+    }
+    public function getContainmentReportCsv(Request $request)
+    {
+        ob_end_clean();
+        
+        return $this->excel->download(new ContainmentSummaryInfoMultiSheetExport(request()->containment_report_polygon, request()->containment_report_year), 'Summary Information Containments Emtpied Monthly.xlsx');
+    }
+   
 }

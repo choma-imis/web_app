@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\UtilityInfo\WaterSupplys;
 use App\Http\Requests\UtilityInfo\WaterSupplysRequest;
 use App\Services\UtilityInfo\WaterSupplysService;
+use DB;
 
 
 
@@ -57,7 +58,7 @@ class WaterSupplysController extends Controller
     public function store(WaterSupplysRequest $request)
     {
         $data = $request->all();
-        $this->waterSuplysService->storeOrUpdate($id = null,$data);
+        $this->waterSupplysService->storeOrUpdate($id = null,$data);
         return redirect('utilityinfo/watersupplys')->with('success','Water Supply created successfully');
     }
 
@@ -209,5 +210,38 @@ class WaterSupplysController extends Controller
 
         return response()->json(['results' =>$json, 'pagination' => ['more' => $more] ]);
     }
+    public function updateWatersupplyGeom(Request $request){
+       
+        $code = $request->code?$request->code:null;
+        if ($code){
+            $watersupply = WaterSupplys::find($code);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'error' => "Couldn't find the required watersupply!",
+            ]);
+        }
 
+        $watersupply->geom = DB::raw("ST_GeomFromText('". $request->geom . "')");
+        $watersupply->length = $request->length;
+        $watersupply->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => [],
+            'error' => "Updated the watersupply geometry successfully!",
+        ]);
+
+    }
+
+    public function getGeometry($code)
+    {
+        $geometry = DB::table('utility_info.water_supplys')
+        ->where('code', $code)
+        ->value(DB::raw('ST_AsText(geom) as geometry'));
+    
+        return response()->json(['geometry' => $geometry]);
+    
+    }
 }

@@ -2,6 +2,81 @@
 // Last Modified Date: 12-04-2024
 // Developed By: Innovative Solution Pvt. Ltd. (ISPL)  
 return [
+"insert_road_and_create_topology" => [
+
+        "fnc_set_insert_road_and_create_topology" => "
+            CREATE OR REPLACE FUNCTION fnc_set_insert_road_and_create_topology()
+            RETURNS TRIGGER LANGUAGE plpgsql
+            AS $$
+            BEGIN
+                -- Step 1: Create a working table for noding
+                CREATE TABLE IF NOT EXISTS utility_info.roads_network_noded (
+                    id BIGSERIAL PRIMARY KEY,
+                    old_id INTEGER,
+                    sub_id INTEGER,
+                    source BIGINT,
+                    target BIGINT,
+                    the_geom GEOMETRY(LineString, 4326),
+                    distance DOUBLE PRECISION
+                ) TABLESPACE pg_default;
+
+                -- Step 2: Insert noded segments from original roads
+                INSERT INTO utility_info.roads_network_noded (the_geom)
+                SELECT (ST_Dump(geom)).geom
+                FROM utility_info.roads;
+
+                -- Step 3: Create topology
+                PERFORM pgr_createTopology(
+                    'utility_info.roads_network_noded',
+                    0.00001,
+                    'the_geom',
+                    'id'
+                );
+
+                -- Step 4: Node the network
+                PERFORM pgr_nodeNetwork(
+                    'utility_info.roads_network_noded',
+                    0.00001,
+                    the_geom := 'the_geom'
+                );
+
+                -- Step 5: Drop old output table if exists
+                DROP TABLE IF EXISTS utility_info.roads_network_noded;
+
+                -- Step 6: Rename noded output to final table
+                ALTER TABLE utility_info.roads_network_noded_noded
+                RENAME TO roads_network_noded;
+
+                -- Step 7: Rename primary key constraint
+              ALTER INDEX utility_info.roads_network_noded_noded_the_geom_idx
+                RENAME TO roads_network_noded_the_geom_idx;
+
+                -- Step 8: Recreate topology on the renamed table
+                PERFORM pgr_createTopology(
+                    'utility_info.roads_network_noded',
+                    0.00001,
+                    'the_geom',
+                    'id'
+                );
+
+                -- Step 9: Add distance column and update it
+                ALTER TABLE utility_info.roads_network_noded
+                ADD COLUMN IF NOT EXISTS distance DOUBLE PRECISION;
+
+                UPDATE utility_info.roads_network_noded
+                SET distance = ST_Length(the_geom::geography);
+             RETURN NULL;
+            END $$;",
+
+            "tgr_set_insert_road_and_create_topology"=>"DROP TRIGGER IF EXISTS tgr_set_insert_road_and_create_topology ON utility_info.roads;  
+            CREATE TRIGGER tgr_set_insert_road_and_create_topology
+            AFTER INSERT OR DELETE OR UPDATE
+            ON utility_info.roads   		
+            FOR EACH ROW
+            EXECUTE PROCEDURE fnc_set_insert_road_and_create_topology();",
+    ],
+
+
     // function to get point buffer buildings 
     "fnc_getPointBufferBuildings" => [
 

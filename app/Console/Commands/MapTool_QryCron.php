@@ -40,6 +40,9 @@ class MapTool_QryCron extends Command
      */
     public function handle()
     {
+        DB::unprepared(Config::get('qry_maptool.insert_road_and_create_topology.fnc_set_insert_road_and_create_topology'));
+        DB::unprepared(Config::get('qry_maptool.insert_road_and_create_topology.tgr_set_insert_road_and_create_topology'));
+
         // drop, create and call function to get point buffer buildings Query
         DB::unprepared(Config::get('qry_maptool.fnc_getPointBufferBuildings.fnc_drop_getPointBufferBuildings'));
         DB::unprepared(Config::get('qry_maptool.fnc_getPointBufferBuildings.fnc_set_getPointBufferBuildings'));
