@@ -292,7 +292,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: '{{__('Close')}}'
+                            confirmButtonText: "{{__('Close')}}"
                         })
 
                         return false;
@@ -306,7 +306,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: '{{__('Close')}}'
+                            confirmButtonText: "{{__('Close')}}"
                         })
 
                         return false;
@@ -338,7 +338,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: '{{__('Close')}}'
+                            confirmButtonText: "{{__('Close')}}"
 
                         });
 
@@ -353,7 +353,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: '{{__('Close')}}'
+                            confirmButtonText: "{{__('Close')}}"
                         });
 
                         return false;
@@ -369,7 +369,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: '{{__('Close')}}'
+                            confirmButtonText: "{{__('Close')}}"
                         });
 
                         return false;

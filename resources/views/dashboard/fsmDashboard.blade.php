@@ -10,7 +10,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <div class="form-group">
                         <label for="year_select">{{ __('Year') }}</label>
                         <select class="form-control" id="year_select" name="year">
-                            <option value="">{{ ('All Years') }}</option>
+                            <option value="">{{ __('All Years') }}</option>
                             @for ($year = $maxDate; $year >= $minDate; $year--)
                                 <option value="{{ $year }}">{{ $year }}</option>
                             @endfor
