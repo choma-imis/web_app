@@ -342,7 +342,7 @@ class ContainmentService
             __('Sewer Code'),
             __('Drain Code'),
             __('Building Accessible to Desludging Vehicle'),
-            __('Estimated Area of the Building (㎡)'),
+            __('Estimated Area of the Building (m²)'),
             __('Community Toilet Name'),
             __('Verification Status'),
             __('Containment Code'),
