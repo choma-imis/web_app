@@ -713,7 +713,7 @@ class BuildingStructureService
             __('Sewer Code'),
             __('Drain Code'),
             __('Building Accessible to Desludging Vehicle'),
-            __('Estimated Area of the Building ( ㎡ )'),
+            __('Estimated Area of the Building (㎡)'),
             __('Community Toilet Name'),
             __('Verification Status'),
 

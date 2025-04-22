@@ -53,7 +53,7 @@
 
 
 
-            <h3 class="mt-3"> {{ __('Building Information ') }}</h3>
+            <h3 class="mt-3"> {{ __('Building Information') }}</h3>
 
             <div class="form-group row" id="building_associated">
                 {!! Form::label('is_main_building', __('Main Building'), ['class' => 'col-sm-2 control-label']) !!}
@@ -152,7 +152,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('estimated_area',  __('Estimated Area of the Building (㎡)'), [
+                {!! Form::label('estimated_area',  __('Estimated Area of the Building (m²)'), [
+                                                      
                     'class' => 'col-sm-2 control-label',
                 ]) !!}
                 <div class="col-sm-3">
@@ -182,7 +183,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('functional_use', __('Functional Use of Building'), ['class' => 'col-sm-2 control-label ']) !!}
+                {!! Form::label('functional_use',__('Functional Use of Building'), ['class' => 'col-sm-2 control-label ']) !!}
                 <div class="col-sm-3">
                     {!! Form::text('functional_use', $building->functional_use_id ? $building->FunctionalUse->name : '', [
                         'class' => 'form-control col-sm-10 font-weight-bold',

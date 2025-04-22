@@ -1567,7 +1567,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             });
 
             $('#ward, #tax_zone, #watlog_overlay, #ward_tax_due, #tax_zone_tax_due').multipleSelect({
-                placeholder: 'Wards',
+                placeholder: '{{__('Wards')}}',
                 filter: true
             });
 
@@ -10539,6 +10539,7 @@ $.ajax({
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
+                        confirmButtonText: "{{ __('OK') }}",
                     });
                     return false;
                 } else if (!applicaion_year && !application_month) {
@@ -10547,6 +10548,7 @@ $.ajax({
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
+                        confirmButtonText: "{{ __('OK') }}",
                     });
                     return false;
                 } else {
@@ -10637,6 +10639,7 @@ $.ajax({
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
+                        confirmButtonText: "{{ __('OK') }}"
                     });
                     return false;
                 } else if (!applicaion_not_tp_year && !application_not_tp_month) {
@@ -10645,6 +10648,7 @@ $.ajax({
                         icon: "warning",
                         button: "{{ __('Close') }}",
                         className: "custom-swal",
+                        confirmButtonText: "{{ __('OK') }}"
                     });
                     return false;
                 } else {
