@@ -234,7 +234,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         <select class="form-control col-md-6" id="hose_length_unit"><option value="meter">{{ __('Meter') }}</option><option value="feet">{{ __('Feet') }}</option></select>
                                     </div></div></div>
                                     <div class="add-road-inaccessible-form-group">
-                                        {!! Form::button('Submit', ['class' => 'btn btn-info','id'=>'add_road_inaccessible_submit_btn']) !!}
+                                        {!! Form::button(__('Submit'), ['class' => 'btn btn-info','id'=>'add_road_inaccessible_submit_btn']) !!}
                                     </div>
                             </div>
                         </div>
@@ -263,7 +263,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         </div>
                                     </div>
                                     <div class="add-waterbody-inaccessible-form-group">
-                                        {!! Form::button('Submit', ['class' => 'btn btn-info','id'=>'add_waterbody_inaccessible_submit_btn']) !!}
+                                        {!! Form::button(__('Submit'), ['class' => 'btn btn-info','id'=>'add_waterbody_inaccessible_submit_btn']) !!}
                                     </div>
                             </div>
                         </div>
@@ -3650,13 +3650,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 let errors = JSON.parse(data.responseText).errors;
                 Object.keys(errors).forEach(function(field) {
                     let fieldTitle = fieldNameMapping[field] || field; // Use mapped title or default to field
+                    
                     let message = errors[field][0];
 
                     // Replace default field name in error message with the custom title
                     let customMessage = message.replace(new RegExp(field, "gi"), fieldTitle.toLowerCase());
 
                     // Capitalize the first letter of the custom field title
-                    customMessage = `{{ __("This field is required") }}`+ `: ${fieldTitle}`;
+                    customMessage = `{{ __("This field is required") }}`+ `:  ${fieldTitle}`;
 
                     html += `<li>${customMessage}</li>`;
                 });
