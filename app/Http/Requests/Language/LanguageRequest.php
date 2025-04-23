@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Language;
+
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -15,6 +16,17 @@ class LanguageRequest extends FormRequest
     {
         return true;
     }
+
+    // 🆕 Normalize code to lowercase before validation
+    protected function prepareForValidation()
+    {
+        if ($this->has('code')) {
+            $this->merge([
+                'code' => strtolower($this->input('code')), // Converts 'NEP' to 'nep'
+            ]);
+        }
+    }
+
     public function rules()
     {
         $rules = ($this->isMethod('POST') ? $this->store() : $this->update());
@@ -25,19 +37,15 @@ class LanguageRequest extends FormRequest
     {
         return [
             'name.required' => __('Language Name required.'),
-
-
-        'code.required' => __('Language Code required.'),
-        'status.required' => __('Language Status required.'),
-        'code.unique' => __('Language Code already exists.'),
-        'code.regex' => __('Language Code must contain only letters and be up to 4 characters.'),
+            'code.required' => __('Language Code required.'),
+            'status.required' => __('Language Status required.'),
+            'code.unique' => __('Language Code already exists.'),
+            'code.regex' => __('Language Code must contain only letters and be up to 4 characters.'),
         ];
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
+     * Validation rules for storing a new language.
      */
     public function store()
     {
@@ -55,23 +63,25 @@ class LanguageRequest extends FormRequest
         ];
     }
 
+    /**
+     * Validation rules for updating an existing language.
+     */
+    public function update()
+    {
+        $id = request()->route('setup');
 
-public function update()
-{
-
-    $id = request()->route('setup');
-    return [
-        'name' => 'required',
-        'status' => 'required',
-        'code' => [
-            'required',
-            'regex:/^[a-zA-Z]{1,4}$/',
-            Rule::unique('pgsql.language.languages', 'code')
-            ->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })
-            ->ignore($id),
-        ],
-    ];
-}
+        return [
+            'name' => 'required',
+            'status' => 'required',
+            'code' => [
+                'required',
+                'regex:/^[a-zA-Z]{1,4}$/',
+                Rule::unique('pgsql.language.languages', 'code')
+                    ->where(function ($query) {
+                        return $query->whereNull('deleted_at');
+                    })
+                    ->ignore($id),
+            ],
+        ];
+    }
 }
