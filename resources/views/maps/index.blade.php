@@ -3846,7 +3846,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     return;
                 }
                 /** @type {string} */
-                var helpMsg = 'Click to start drawing';
+                var helpMsg = "{{ __('Click to start drawing')}}";
 
                 if (sketch) {
                     var geom = (sketch.getGeometry());

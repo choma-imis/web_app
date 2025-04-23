@@ -21,7 +21,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
 use Illuminate\Support\Facades\Validator;
 use App\Imports\TranslateImport;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 class LanguageController extends Controller
 {
     public function __construct()
@@ -114,8 +115,6 @@ class LanguageController extends Controller
     // sub function that stores the file in correct path
     public function generate_lang_file($lang, $content, $action = 'update')
     {
-
-        // dd($lang, $content);
         $result = ['status' => false];
 
         if ($action === 'store') {
@@ -250,12 +249,12 @@ class LanguageController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->all();
-            $languageId = $this->storeOrUpdate(null, $data); // Remove transaction inside storeOrUpdate
+            $languageId = $this->storeOrUpdate(null, $data); // Create new language or restore soft-deleted one
 
-            // Fix sequence issue
+            // Fix sequence issue (PostgreSQL-specific)
             DB::statement("SELECT setval('language.translates_id_seq', COALESCE((SELECT MAX(id) + 1 FROM language.translates), 1))");
 
-            // Insert new records in Translates table
+            // Insert new translations
             foreach ($existingTranslates as $translate) {
                 Translate::create([
                     'key'      => $translate->key,
@@ -269,18 +268,35 @@ class LanguageController extends Controller
             }
 
             DB::commit();
-            return redirect('language/setup')->with('success', __('Language Added successfully'));
+            return redirect('language/setup')->with('success', __('Language added successfully'));
         } catch (Exception $e) {
             DB::rollBack();
-            \Log::error(__('Error in storing Language and Translates:') . $e->getMessage());
+            \Log::error(__('Error in storing Language and Translates: ') . $e->getMessage());
             return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
+
 
     public function storeOrUpdate($id, $data)
     {
         try {
             if (is_null($id)) {
+                // Check for soft-deleted language with same code
+                $trashed = Language::withTrashed()->where('code', $data['code'])->first();
+
+                if ($trashed) {
+                    if ($trashed->trashed()) {
+                        $trashed->restore(); // Auto-restore
+                        $trashed->name = $data['name'] ?? $trashed->name;
+                        $trashed->status = $data['status'] ?? $trashed->status;
+                        $trashed->save();
+
+                        return $trashed->id;
+                    } else {
+                        throw new Exception(__('A language with this code already exists. Please choose a different code.'));
+                    }
+                }
+
                 $language = new Language();
             } else {
                 $language = Language::find($id);
@@ -288,6 +304,17 @@ class LanguageController extends Controller
                     throw new Exception(__('Language not found'));
                 }
 
+                // Check for duplicate code (including soft-deleted)
+                $trashed = Language::withTrashed()
+                    ->where('code', $data['code'])
+                    ->where('id', '!=', $id)
+                    ->first();
+
+                if ($trashed) {
+                    throw new Exception(__('Another language with this code exists (even if deleted). Please choose a different code.'));
+                }
+
+                // Update code in translations
                 Translate::where('name', $language->code)->update([
                     'name' => $data['code'] ?? null
                 ]);

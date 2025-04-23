@@ -61,7 +61,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                                     </label>
                                                     <div class="col-md-2">
                                                         <input type="number" step="any" class="form-control"
-                                                            id="temperature" placeholder="{{ __('Temperature in °C') }}" />
+                                                            id="temperature" placeholder="{{ __('Temperature') }} °C" />
                                                     </div>
 
                                                     <label for="cod" class="col-md-2 col-form-label">
