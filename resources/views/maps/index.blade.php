@@ -4522,22 +4522,31 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         });
 
                         selectInteraction.on('select', function (e) {
-                            if (e.selected.length > 0) {
-                                const selectedFeature = e.selected[0];
-                                if (selectedFeature !== feature) {
-                                    const features = selectInteraction.getFeatures();
-                                    features.clear();
-                                    features.push(feature);
-                                    Swal.fire({
-                                        icon: 'warning',
-                                        title: 'Warning',
-                                        text: 'You can only modify the geometry for ' + code,
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: 'OK'
-                                    });
+                            const selectedFeatures = selectInteraction.getFeatures();
+
+                            // If the selected feature is already selected, do nothing
+                            if (e.selected.length > 0 && e.selected[0] !== feature) {
+                                // Revert the selection to only the desired feature
+                                selectedFeatures.clear();
+                                selectedFeatures.push(feature);
+
+                                // Optional: Show warning
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Warning',
+                                    text: 'You can only modify the geometry for ' + code,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'OK'
+                                });
+                            } else if (e.selected.length === 0) {
+                                // If user clicks on empty space, prevent deselection
+                                if (!selectedFeatures.getArray().includes(feature)) {
+                                    selectedFeatures.clear();
+                                    selectedFeatures.push(feature);
                                 }
                             }
                         });
+
 
                         undoInteraction.clear();
                     },
