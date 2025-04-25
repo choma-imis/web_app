@@ -290,7 +290,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                     <div class="add-drain-form-group pt-2">
                                         {!! Form::label('surface_type','Surface Type',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Surface Type'])!!}
+                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Surface Type', 'id'=>'surface_type_drain',])!!}
                                     </div>
                                     <div class="add-drain-form-group pt-2">
                                         {!! Form::label('size','Width (mm)<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
@@ -4291,7 +4291,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 formData = {
                     'road_code': $('#road_code_drain').val(),
                     "cover_type": $('#cover_type').val(),
-                    "surface_type": $('#surface_type').val(),
+                    "surface_type": $('#surface_type_drain').val(),
                     'size': $('#size').val(),
                     'length': $('#length_drain').val(),
                     'treatment_plant_id': $('#tp_drain').val(), 
