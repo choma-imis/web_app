@@ -21,18 +21,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 		</div>
 	</div>
 
-	<div class="form-group row ">
-		{!! Form::label('surface_type','Surface Type',['class' => 'col-sm-3 control-label']) !!}
-		<div class="col-sm-3">
-			{!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Surface Type']);!!}
-		</div>
-	</div>
-	<div class="form-group row required">
-		{!! Form::label('length','Length (m)',['class' => 'col-sm-3 control-label']) !!}
-		<div class="col-sm-3">
-			{!! Form::text('length',null,['class' => 'form-control', 'placeholder' => 'Length (m)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
-		</div>
-	</div>
 	<div class="form-group row required">
 		{!! Form::label('right_of_way','Right of Way (m)',['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
@@ -43,6 +31,19 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 		{!! Form::label('carrying_width','Carrying Width (m)',['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
 			{!! Form::text('carrying_width',null,['class' => 'form-control', 'placeholder' => 'Carrying Width (m)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
+		</div>
+	</div>
+
+	<div class="form-group row ">
+		{!! Form::label('surface_type','Surface Type',['class' => 'col-sm-3 control-label']) !!}
+		<div class="col-sm-3">
+			{!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Surface Type']);!!}
+		</div>
+	</div>
+	<div class="form-group row required">
+		{!! Form::label('length','Road Length (m)',['class' => 'col-sm-3 control-label']) !!}
+		<div class="col-sm-3">
+			{!! Form::text('length',null,['class' => 'form-control', 'placeholder' => 'Road Length (m)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
 		</div>
 	</div>
 </div><!-- /.card-body -->

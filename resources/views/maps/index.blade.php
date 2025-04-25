@@ -206,16 +206,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     </div>
                                     
                                     <div class="add-road-form-group">
-                                        {!! Form::label('surface_type', 'Surface Type', ['class' => 'control-label'], false) !!}
-                                        {!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type']) !!}
-                                    </div>
-                                    
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('length', 'Length (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
-                                        {!! Form::number('length', null, ['class' => 'form-control', 'placeholder' => 'Road Length (m)', 'min' => 1]) !!}
-                                    </div>
-                                    
-                                    <div class="add-road-form-group">
                                         {!! Form::label('right_of_way', 'Right of Way (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
                                         {!! Form::number('right_of_way', null, ['class' => 'form-control', 'placeholder' => 'Right of Way (m)', 'min' => 1]) !!}
                                     </div>
@@ -223,6 +213,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     <div class="add-road-form-group">
                                         {!! Form::label('carrying_width', 'Carrying Width (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
                                         {!! Form::number('carrying_width', null, ['class' => 'form-control', 'placeholder' => 'Carrying Width (m)', 'min' => 1]) !!}
+                                    </div>
+
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('surface_type', 'Surface Type', ['class' => 'control-label'], false) !!}
+                                        {!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type']) !!}
+                                    </div>
+
+                                    <div class="add-road-form-group">
+                                        {!! Form::label('length', 'Road Length (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
+                                        {!! Form::number('length', null, ['class' => 'form-control', 'placeholder' => 'Road Length (m)', 'min' => 1]) !!}
                                     </div>
                                     
                                     <div class="add-road-form-group">
@@ -246,21 +246,21 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                     </div>
                                     <div class="add-sewer-form-group">
-                                        {!! Form::label('treatment_plant_id','Treatment Plant<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'placeholder' => 'Road Treatment Plant']);!!}
-                                    </div>
-                                    <div class="add-sewer-form-group">
-                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_sewer', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
-
-                                    </div>
-                                    <div class="add-sewer-form-group">
                                         {!! Form::label('location','Location<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
                                         {!! Form::select('location', $location, null, ['class' => 'form-control', 'placeholder' => 'Location']);!!}
                                     </div>
                                     <div class="add-sewer-form-group">
+                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_sewer', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+
+                                    </div>
+                                    <div class="add-sewer-form-group">
                                        {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
                                        {!! Form::text('diameter',null,['class' => 'form-control', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
+                                    </div>
+                                    <div class="add-sewer-form-group">
+                                        {!! Form::label('treatment_plant_id','Treatment Plant<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'placeholder' => 'Treatment Plant']);!!}
                                     </div>
                                     <div class="add-sewer-form-group">
                                         {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_sewer_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
@@ -285,12 +285,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     </div>
                                     <div class="add-drain-form-group">
                                         {!! Form::label('cover_type','Cover Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('cover_type', $cover_type, null, ['class' => 'form-control', 'placeholder' => 'Road Cover Type'])!!}
+                                        {!! Form::select('cover_type', $cover_type, null, ['class' => 'form-control', 'placeholder' => 'Cover Type'])!!}
                                     </div>
 
                                     <div class="add-drain-form-group">
                                         {!! Form::label('surface_type','Surface Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type'])!!}
+                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Surface Type'])!!}
                                     </div>
                                     <div class="add-drain-form-group">
                                         {!! Form::label('size','Width (mm)<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
@@ -299,12 +299,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     </div>
                                     <div class="add-drain-form-group">
                                         {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_drain', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_drain', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
 
                                     </div>
                                     <div class="add-drain-form-group">
                                         {!! Form::label('treatment_plant_id','Treatment Plant<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'id' => 'tp_drain','placeholder' => 'Road Treatment Plant']);!!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'id' => 'tp_drain','placeholder' => 'Treatment Plant']);!!}
                                     </div>
                                     <div class="add-drain-form-group">
                                         {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_drain_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
@@ -328,15 +328,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_watersupply', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
                                     </div>
                                     <div class="add-watersupply-form-group">
-                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
-                                       {!! Form::text('diameter',null,['class' => 'form-control','id'=>'diameter_watersupply', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
-                                    </div>
-                                    <div class="add-watersupply-form-group">
-                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_watersupply', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
-
-                                    </div>
-                                    <div class="add-watersupply-form-group">
                                         {!! Form::label('project_name','Project Name <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
                                         {!! Form::text('project_name', null, ['class' => 'form-control', 'placeholder' => 'Project Name']) !!}
 
@@ -345,11 +336,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         {!! Form::label('type','Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
                                         {!! Form::select('type', ['Main' => 'Main', 'Secondary' => 'Secondary'], null, ['class' => 'form-control', 'placeholder' => 'Type']);!!}
                                     </div>
-
                                     <div class="add-watersupply-form-group">
                                         {!! Form::label('material_type','Material Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
                                         {!! Form::select('material_type', ['HDPE' => 'HDPE', 'GI' => 'GI'], null, ['class' => 'form-control', 'placeholder' => 'Material Type'])!!}
                                     </div>
+                                    <div class="add-watersupply-form-group">
+                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
+                                       {!! Form::text('diameter',null,['class' => 'form-control','id'=>'diameter_watersupply', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
+                                    </div>
+                                    <div class="add-watersupply-form-group">
+                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_watersupply', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+
+                                    </div>
+                                   
                                     <div class="add-watersupply-form-group" >
                                     {!! Form::button('Save', ['class' => 'btn btn-info', 'id' => 'add_watersupply_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
 
