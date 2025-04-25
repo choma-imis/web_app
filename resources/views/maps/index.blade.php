@@ -12345,7 +12345,7 @@ $.ajax({
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Invalid Layer',
-                                text: 'Selected layer doesnot lie within Municipality',
+                                text: 'Selected layer does not lie within Municipality',
                                 confirmButtonColor: '#d33'
                             });
 
