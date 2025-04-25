@@ -3300,7 +3300,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 map.un('singleclick', displayBuildingsToPTCT);
                 $('#add-road-inaccessible-box').hide();
                 $('#add-waterbody-inaccessible-box').hide();
-                $('#add-road-tool-box').hide();
+                $('#add-tool-box').hide();
                 // map.removeInteraction(removeDrawnFeatures);
               resetAddTool();
 
