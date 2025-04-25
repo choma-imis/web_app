@@ -4343,7 +4343,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     removeAjaxLoader(); 
                     Swal.fire({
                         title: 'Success!',
-                        text: `${controlType.charAt(0).toUpperCase() + controlType.slice(1)} added successfully.`,
+                        text: `${controlType === 'watersupply' ? 'Water Supply' : controlType.charAt(0).toUpperCase() + controlType.slice(1)} added successfully.`,
                         icon: 'success',
                         confirmButtonText: 'OK!',
                     }).then((result) => {
