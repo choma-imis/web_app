@@ -16,7 +16,7 @@
 
         <div class="custom-tooltip">{{ __('Health Institution') }}<br>
             {{ __('Public Institution') }} <br>
-             {{ __('Goverment Institution') }} <br>
+             {{ __('Government Institution') }} <br>
              {{ __('Recreational Institution') }}  <br>
              {{ __('Social Institution') }}  <br>
               {{ __('Financial Institution') }}</div>
