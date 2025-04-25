@@ -247,7 +247,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
                                         {!! Form::label('location','Location<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('location', $location, null, ['class' => 'form-control', 'placeholder' => 'Location']);!!}
+                                        {!! Form::text('location',null,['class' => 'form-control', 'placeholder' => 'Location']) !!}
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
                                         {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
