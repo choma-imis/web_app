@@ -13,19 +13,19 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 			{!! Form::text('road_code',null,['class' => 'form-control', 'disabled' => 'true', 'placeholder' => 'Road Code']) !!}
 		</div>
 	</div>
-	<div class="form-group row">
+	<div class="form-group row required">
 		{!! Form::label('location','Location',['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
 			{!! Form::text('location',null,['class' => 'form-control', 'placeholder' => 'Location']) !!}
 		</div>
 	</div>
-	<div class="form-group row ">
+	<div class="form-group row required">
 		{!! Form::label('length','Length (m)',['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
 			{!! Form::text('length',null,['class' => 'form-control', 'placeholder' => 'Length (m)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
 		</div>
 	</div>
-	<div class="form-group row ">
+	<div class="form-group row required">
 		{!! Form::label('diameter','Diameter (mm)',['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
 			{!! Form::text('diameter',null,['class' => 'form-control', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
