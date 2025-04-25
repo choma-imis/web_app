@@ -34,18 +34,23 @@ class DrainRequest extends Request
             case 'POST':
                 {
                     return [
-                        'diameter' => 'nullable|numeric',
-                        'type'=> 'nullable|string',
-                        'length' => 'nullable|numeric',
+                        'road_code' => 'required|string',
+                        'cover_type' => 'nullable',
+                        'surface_type' => 'nullable',
+                        'size' => 'required|numeric',
+                        'length' => 'required|numeric',
+                        'treatment_plant_id'  => 'nullable',
                     ];
                 }
             case 'PUT':
             case 'PATCH':
                 {
                     return [
-                         'diameter' => 'nullable|numeric',
-                         'type'=> 'nullable|string',
-                        'length' => 'nullable|numeric',
+                        'cover_type' => 'nullable',
+                        'surface_type' => 'nullable',
+                        'size' => 'required|numeric',
+                        'length' => 'required|numeric',
+                        'treatment_plant_id'  => 'nullable',
                     ];
                 }
             default:break;
@@ -54,9 +59,13 @@ class DrainRequest extends Request
      public function messages()
     {
         return [
+            'road_code.required' => 'The Road Code is required.' ,
+            'size.required' => 'The Width (mm) is required.',
+            'size.numeric' => 'The  Width (mm) must be a number.',
             'name.regex' => 'The name field should contain only contain letters and spaces.',
             'diameter.numeric' => 'The Diameter must be a number.',
-            'length.numeric' => 'The Length(m) must be a number.',
+            'length.numeric' => 'The Length (m) must be a number.',
+            'length.required' => 'The Length (m) is required.',
             ];
     }
 }
