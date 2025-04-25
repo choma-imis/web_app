@@ -200,32 +200,32 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Road Name']) !!}
                                     </div>
                                     
-                                    <div class="add-road-form-group">
+                                    <div class="add-road-form-group pt-2">
                                         {!! Form::label('hierarchy', 'Hierarchy', ['class' => 'control-label'], false) !!}
                                         {!! Form::select('hierarchy', $roadHierarchy, null, ['class' => 'form-control', 'placeholder' => 'Road Hierarchy']) !!}
                                     </div>
                                     
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('surface_type', 'Surface Type', ['class' => 'control-label'], false) !!}
-                                        {!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type']) !!}
-                                    </div>
-                                    
-                                    <div class="add-road-form-group">
-                                        {!! Form::label('length', 'Length (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
-                                        {!! Form::number('length', null, ['class' => 'form-control', 'placeholder' => 'Road Length (m)', 'min' => 1]) !!}
-                                    </div>
-                                    
-                                    <div class="add-road-form-group">
+                                    <div class="add-road-form-group pt-2">
                                         {!! Form::label('right_of_way', 'Right of Way (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
                                         {!! Form::number('right_of_way', null, ['class' => 'form-control', 'placeholder' => 'Right of Way (m)', 'min' => 1]) !!}
                                     </div>
                                     
-                                    <div class="add-road-form-group">
+                                    <div class="add-road-form-group pt-2">
                                         {!! Form::label('carrying_width', 'Carrying Width (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
                                         {!! Form::number('carrying_width', null, ['class' => 'form-control', 'placeholder' => 'Carrying Width (m)', 'min' => 1]) !!}
                                     </div>
+
+                                    <div class="add-road-form-group pt-2">
+                                        {!! Form::label('surface_type', 'Surface Type', ['class' => 'control-label'], false) !!}
+                                        {!! Form::select('surface_type', $roadSurfaceTypes, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type']) !!}
+                                    </div>
+
+                                    <div class="add-road-form-group pt-2">
+                                        {!! Form::label('length', 'Road Length (m) <span style="color: red">*</span>', ['class' => 'control-label'], false) !!}
+                                        {!! Form::number('length', null, ['class' => 'form-control', 'placeholder' => 'Road Length (m)', 'min' => 1]) !!}
+                                    </div>
                                     
-                                    <div class="add-road-form-group">
+                                    <div class="add-road-form-group pt-2">
                                         {!! Form::button('Save', ['class' => 'btn btn-info', 'id' => 'add_road_submit_btn']) !!}
                                     </div>
                                 </div>
@@ -245,24 +245,24 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     {!! Form::select('road_code', $road_code, null, ['class' => 'form-control', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
 
                                     </div>
-                                    <div class="add-sewer-form-group">
-                                        {!! Form::label('treatment_plant_id','Treatment Plant<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'placeholder' => 'Road Treatment Plant']);!!}
+                                    <div class="add-sewer-form-group pt-2">
+                                        {!! Form::label('location','Location<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('location',null,['class' => 'form-control', 'placeholder' => 'Location']) !!}
                                     </div>
-                                    <div class="add-sewer-form-group">
+                                    <div class="add-sewer-form-group pt-2">
                                         {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_sewer', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_sewer', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
 
                                     </div>
-                                    <div class="add-sewer-form-group">
-                                        {!! Form::label('location','Location<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('location', $location, null, ['class' => 'form-control', 'placeholder' => 'Location']);!!}
-                                    </div>
-                                    <div class="add-sewer-form-group">
+                                    <div class="add-sewer-form-group pt-2">
                                        {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
                                        {!! Form::text('diameter',null,['class' => 'form-control', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
                                     </div>
-                                    <div class="add-sewer-form-group">
+                                    <div class="add-sewer-form-group pt-2">
+                                        {!! Form::label('treatment_plant_id','Treatment Plant',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'placeholder' => 'Treatment Plant']);!!}
+                                    </div>
+                                    <div class="add-sewer-form-group pt-2">
                                         {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_sewer_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
                                     </div>
                             </div>
@@ -283,30 +283,30 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
                                         {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_drain', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
                                     </div>
-                                    <div class="add-drain-form-group">
-                                        {!! Form::label('cover_type','Cover Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('cover_type', $cover_type, null, ['class' => 'form-control', 'placeholder' => 'Road Cover Type'])!!}
+                                    <div class="add-drain-form-group pt-2">
+                                        {!! Form::label('cover_type','Cover Type',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('cover_type', $cover_type, null, ['class' => 'form-control', 'placeholder' => 'Cover Type'])!!}
                                     </div>
 
-                                    <div class="add-drain-form-group">
-                                        {!! Form::label('surface_type','Surface Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Road Surface Type'])!!}
+                                    <div class="add-drain-form-group pt-2">
+                                        {!! Form::label('surface_type','Surface Type',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Surface Type', 'id'=>'surface_type_drain',])!!}
                                     </div>
-                                    <div class="add-drain-form-group">
+                                    <div class="add-drain-form-group pt-2">
                                         {!! Form::label('size','Width (mm)<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
                                         {!! Form::text('size', null, ['class' => 'form-control', 'placeholder' => 'Width (mm) ', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '')"]) !!}
 
                                     </div>
-                                    <div class="add-drain-form-group">
+                                    <div class="add-drain-form-group pt-2">
                                         {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_drain', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_drain', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
 
                                     </div>
-                                    <div class="add-drain-form-group">
-                                        {!! Form::label('treatment_plant_id','Treatment Plant<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'id' => 'tp_drain','placeholder' => 'Road Treatment Plant']);!!}
+                                    <div class="add-drain-form-group pt-2">
+                                        {!! Form::label('treatment_plant_id','Treatment Plant',['class' => 'control-label'],false) !!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'id' => 'tp_drain','placeholder' => 'Treatment Plant']);!!}
                                     </div>
-                                    <div class="add-drain-form-group">
+                                    <div class="add-drain-form-group pt-2">
                                         {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_drain_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
                                     </div>
                             </div>
@@ -327,30 +327,30 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
                                         {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_watersupply', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
                                     </div>
-                                    <div class="add-watersupply-form-group">
-                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
-                                       {!! Form::text('diameter',null,['class' => 'form-control','id'=>'diameter_watersupply', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
-                                    </div>
-                                    <div class="add-watersupply-form-group">
-                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_watersupply', 'placeholder' => 'Length (in meter)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
-
-                                    </div>
-                                    <div class="add-watersupply-form-group">
+                                    <div class="add-watersupply-form-group pt-2">
                                         {!! Form::label('project_name','Project Name <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
                                         {!! Form::text('project_name', null, ['class' => 'form-control', 'placeholder' => 'Project Name']) !!}
 
                                     </div>
-                                    <div class="add-watersupply-form-group">
-                                        {!! Form::label('type','Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                    <div class="add-watersupply-form-group pt-2">
+                                        {!! Form::label('type','Type',['class' => 'control-label'],false) !!}
                                         {!! Form::select('type', ['Main' => 'Main', 'Secondary' => 'Secondary'], null, ['class' => 'form-control', 'placeholder' => 'Type']);!!}
                                     </div>
-
-                                    <div class="add-watersupply-form-group">
-                                        {!! Form::label('material_type','Material Type<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                    <div class="add-watersupply-form-group pt-2">
+                                        {!! Form::label('material_type','Material Type',['class' => 'control-label'],false) !!}
                                         {!! Form::select('material_type', ['HDPE' => 'HDPE', 'GI' => 'GI'], null, ['class' => 'form-control', 'placeholder' => 'Material Type'])!!}
                                     </div>
-                                    <div class="add-watersupply-form-group" >
+                                    <div class="add-watersupply-form-group pt-2">
+                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
+                                       {!! Form::text('diameter',null,['class' => 'form-control','id'=>'diameter_watersupply', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
+                                    </div>
+                                    <div class="add-watersupply-form-group pt-2">
+                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_watersupply', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+
+                                    </div>
+                                   
+                                    <div class="add-watersupply-form-group pt-2" >
                                     {!! Form::button('Save', ['class' => 'btn btn-info', 'id' => 'add_watersupply_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
 
                                     </div>
@@ -3300,7 +3300,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 map.un('singleclick', displayBuildingsToPTCT);
                 $('#add-road-inaccessible-box').hide();
                 $('#add-waterbody-inaccessible-box').hide();
-                $('#add-road-tool-box').hide();
+                $('#add-tool-box').hide();
                 // map.removeInteraction(removeDrawnFeatures);
               resetAddTool();
 
@@ -4291,7 +4291,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 formData = {
                     'road_code': $('#road_code_drain').val(),
                     "cover_type": $('#cover_type').val(),
-                    "surface_type": $('#surface_type').val(),
+                    "surface_type": $('#surface_type_drain').val(),
                     'size': $('#size').val(),
                     'length': $('#length_drain').val(),
                     'treatment_plant_id': $('#tp_drain').val(), 
@@ -4343,7 +4343,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     removeAjaxLoader(); 
                     Swal.fire({
                         title: 'Success!',
-                        text: `${controlType.charAt(0).toUpperCase() + controlType.slice(1)} added successfully.`,
+                        text: `${controlType === 'watersupply' ? 'Water Supply' : controlType.charAt(0).toUpperCase() + controlType.slice(1)} added successfully.`,
                         icon: 'success',
                         confirmButtonText: 'OK!',
                     }).then((result) => {
@@ -4353,29 +4353,31 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         }
                     });
                 },
-                error: function(data) {
+                error: function (data) {
                     $('#add-' + controlType + '-errors').empty();
                     let html = '<ul class="alert alert-danger">';
+
                     if (data.responseText) {
                         let errors = JSON.parse(data.responseText).errors;
-                        Object.values(errors).forEach(function(field) {
+                        Object.entries(errors).forEach(function ([field, messages]) {
                             let fieldTitle = fieldNameMapping[field] || field;
-                            let message = errors[field][0];
+                            let message = messages[0]; // Get the first error message for this field
 
-                            // Replace default field name in error message with the custom title
-                            let customMessage = message.replace(new RegExp(field, "gi"), fieldTitle.toLowerCase());
-                            customMessage = `${fieldTitle} is required.`;
+                            // Optional: Customize message if needed
+                            let customMessage = `${fieldTitle} is required.`;
 
                             html += `<li>${customMessage}</li>`;
                         });
                     } else {
                         html += "<li>Error</li>";
                     }
+
                     html += '</ul>';
                     $('#add-' + controlType + '-errors').append(html);
                     $('#add-' + controlType + '-errors').focus();
                     removeAjaxLoader();
                 }
+
             });
         }
 
@@ -4522,22 +4524,31 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         });
 
                         selectInteraction.on('select', function (e) {
-                            if (e.selected.length > 0) {
-                                const selectedFeature = e.selected[0];
-                                if (selectedFeature !== feature) {
-                                    const features = selectInteraction.getFeatures();
-                                    features.clear();
-                                    features.push(feature);
-                                    Swal.fire({
-                                        icon: 'warning',
-                                        title: 'Warning',
-                                        text: 'You can only modify the geometry for ' + code,
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: 'OK'
-                                    });
+                            const selectedFeatures = selectInteraction.getFeatures();
+
+                            // If the selected feature is already selected, do nothing
+                            if (e.selected.length > 0 && e.selected[0] !== feature) {
+                                // Revert the selection to only the desired feature
+                                selectedFeatures.clear();
+                                selectedFeatures.push(feature);
+
+                                // Optional: Show warning
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Warning',
+                                    text: 'You can only modify the geometry for ' + code,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'OK'
+                                });
+                            } else if (e.selected.length === 0) {
+                                // If user clicks on empty space, prevent deselection
+                                if (!selectedFeatures.getArray().includes(feature)) {
+                                    selectedFeatures.clear();
+                                    selectedFeatures.push(feature);
                                 }
                             }
                         });
+
 
                         undoInteraction.clear();
                     },

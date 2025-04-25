@@ -103,7 +103,8 @@ class MapsService {
 
         // $roadCode = Roadline::orderBy('code')->pluck('code', 'code');
         $treatmentPlants = TreatmentPlant::Operational()->orderBy('id')->pluck('name', 'id');
-        $surface_type = Drain::where('surface_type','!=',null)->groupBy('surface_type')->pluck('surface_type','surface_type');
+        $surface_type = Drain::whereNotNull('surface_type')->groupBy('surface_type')->pluck('surface_type','surface_type');
+
 
         $location = SewerLine::whereNotNull('location')->distinct('location')->pluck('location','location')->all();
         

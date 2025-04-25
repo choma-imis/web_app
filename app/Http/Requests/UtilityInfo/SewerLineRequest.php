@@ -34,18 +34,21 @@ class SewerLineRequest extends Request
             case 'POST':
                 {
                     return [
-                        'length' => 'nullable|numeric',
-                        'location' => 'nullable|string',
-                        'diameter' => 'nullable|numeric',
+                        'road_code' => 'required|string',
+                        'location' => 'required|string',
+                        'length' => 'required|numeric',
+                        'diameter' => 'required|numeric',
+                        'treatment_plant_id'  => 'nullable',
                     ];
                 }
             case 'PUT':
             case 'PATCH':
                 {
                     return [
-                        'length' => 'nullable|numeric',
-                        'location' => 'nullable|string',
-                        'diameter' => 'nullable|numeric',
+                       'location' => 'required|string',
+                        'length' => 'required|numeric',
+                        'diameter' => 'required|numeric',
+                        'treatment_plant_id'  => 'nullable',
                     ];
                 }
             default:break;
@@ -56,8 +59,11 @@ class SewerLineRequest extends Request
         return [
             'name.regex' => 'The name field should contain only contain letters and spaces.',
             'length.numeric' => 'The Length(m) must be a number.',
+            'length.required' => 'The Length(m) is required.',
             'location.string' => 'The Location must be a string.',
+            'location.required' => 'The Location is required.',
             'diameter.numeric' => 'The Diameter must be a number.',
+            'diameter.required' => 'The Diameter is required.',
             ];
     }
 }
