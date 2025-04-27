@@ -78,7 +78,7 @@ class SewerLineController extends Controller
     {
         $sewerLine = SewerLine::find($id);
         if ($sewerLine) {
-            $treatmentplant = $sewerLine->treatmentPlant->name;
+            $treatmentplant = $sewerLine->treatmentPlant->name ?? null;
             $sewerLine->diameter = number_format($sewerLine->diameter, 2);
             // Format the length attribute to display only two decimal places
             $sewerLine->length = number_format($sewerLine->length, 2);
