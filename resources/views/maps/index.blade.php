@@ -125,11 +125,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 <div id="kml-dragdrop-popup-content"></div>
                 @can('Export in KML Drag And Drop')
                 <div id="kml-dragdrop-popup-content-download">
-                    <div><strong>Export to:</strong></div>
                     <div class="btn-group">
                         <form method="get" action="{{ url("maps/get-kml-info-report-csv") }}">
                             <input type="hidden" name="kml_dragdrop_geom" value="" id="kml_dragdrop_geom"/>
-                            <button type="submit" id="kml-dragdrop-export-excel-btn" class="btn btn-default">Excel
+                            <button type="submit" id="kml-dragdrop-export-excel-btn" class="btn btn-default">Export to Excel
                             </button>
                         </form>
                     </div>
@@ -510,8 +509,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             <input type="hidden" name="buffer_polygon_geom" value="" id="buffer_polygon_geom"/>
                             <input type="hidden" name="buffer_polygon_distance" value="" id="buffer_polygon_distance"/>
                             @can('Export in Summary Information Map Tools')
-                            <button type="submit" id="buffer-polygon-export-excel-btn" class="btn btn-default">Export to Excel
-                            </button>
+                                <button type="submit" id="buffer-polygon-export-excel-btn" class="btn btn-default">Export to Excel
+                                </button>
                              @endcan
                              <button id="buffer-polygon-popup-closer" type="button" class="btn btn-default float-right xol-popup-closer" >Close</button>
                         </form>
@@ -1499,7 +1498,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <form method="get" style="margin-top: 12px;" action="{{ url("maps/export-containment-report") }}">
                             <input type="hidden" name="containment_report_polygon" value="" id="containment_report_polygon"/>
                             <input type="hidden" name="containment_report_year" value="" id="containment_report_year"/>
-                            <strong>Export to:</strong>  <button id="containment-report-popup-export" type="submit" class="btn btn-default">Excel</button>
+                           <button id="containment-report-popup-export" type="submit" class="btn btn-default">Export to Excel</button>
 
                             <button id="containment-report-popup-closer" type="button" class="btn btn-default float-right xol-popup-closer">Close</button>
                         </form>
@@ -12345,7 +12344,7 @@ $.ajax({
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Invalid Layer',
-                                text: 'Selected layer doesnot lie within Municipality',
+                                text: 'Selected layer does not lie within Municipality',
                                 confirmButtonColor: '#d33'
                             });
 

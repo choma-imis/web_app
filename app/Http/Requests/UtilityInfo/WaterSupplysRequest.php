@@ -35,34 +35,45 @@ class WaterSupplysRequest extends Request
             case 'POST':
                 {
                     return [
-                        'diameter' => 'nullable|numeric',
-                        'length' => 'nullable|numeric',
-                        'project_name'=> 'nullable|string',
+                        'road_code' => 'required',
+                        'project_name'=> 'required|string',
                         'type'=>'nullable|string',
-                        'material_type'=>'nullable|string'
+                        'material_type'=>'nullable|string',
+                        'diameter' => 'required|numeric',
+                        'length' => 'required|numeric',
+                       
                     ];
                 }
             case 'PUT':
             case 'PATCH':
                 {
                     return [
-                        'diameter' => 'nullable|numeric',
-                        'length' => 'nullable|numeric',
-                        'project_name'=> 'nullable|string',
+                        'project_name'=> 'required|string',
                         'type'=>'nullable|string',
-                        'material_type'=>'nullable|string'
+                        'material_type'=>'nullable|string',
+                        'diameter' => 'required|numeric',
+                        'length' => 'required|numeric',
                     ];
                 }
             default:break;
         }
     }
-     public function messages()
+    
+    public function messages()
     {
         return [
-            'name.regex' => 'The name field should contain only contain letters and spaces.',
-            'diameter.numeric' => 'The Diameter must be a number.',
-            'length.numeric' => 'The Length(m) must be a number.',
+            'road_code.required' => 'The Road Code is required.',
+            'project_name.required' => 'The Project Name is required.',
+            'project_name.string' => 'The Project Name must be a string.',
+            'type.string' => 'The Type must be a string.',
+            'material_type.string' => 'The Material Type must be a string.',
+            'diameter.required' => 'The Diameter (mm) is required.',
+            'diameter.numeric' => 'The Diameter (mm) must be a number.',
+            'length.required' => 'The Length (m) is required.',
+            'length.numeric' => 'The Length (m) must be a number.',
+            'name.regex' => 'The name field should contain only letters and spaces.',
             'name.string' => 'This Project Name must be a string.',
-            ];
+        ];
     }
+
 }

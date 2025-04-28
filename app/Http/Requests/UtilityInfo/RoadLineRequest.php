@@ -72,7 +72,7 @@ class RoadLineRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             if ($this->right_of_way < $this->carrying_width) {
-                $validator->errors()->add('right_of_way', 'The right of way (m) must be greater than or equal to the carrying width.');
+                $validator->errors()->add('right_of_way', 'The Right of Way (m) must be greater than or equal to the Carrying Width.');
             }
         });
     }
@@ -80,10 +80,10 @@ class RoadLineRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The road name is required.',
-            'length.required' => 'The road length (m) is required.',
-            'carrying_width.required' => 'The carrying width (m) is required.',
-            'right_of_way.required' => 'The right of way (m) is required.',
+            'name.required' => 'The Road Nameis required.',
+            'length.required' => 'The Road Length (m) is required.',
+            'carrying_width.required' => 'The Carrying Width (m) is required.',
+            'right_of_way.required' => 'The Right of Way (m) is required.',
             'name.regex' => 'The name field should contain only letters and spaces.',
             'length.numeric' => 'The Road Length (m) must be a number.',
             'carrying_width.numeric' => 'The Carrying Width of the Road (m) must be a number.',
