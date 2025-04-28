@@ -2004,6 +2004,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
             //KML Drag and drop
             dragAndDropInteraction.on('addfeatures', function (event) {
+                if (event.features.length > 1000) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Too Many Features!',
+                        text: 'Upload a KML file with 1000 features or less.',
+                        confirmButtonColor: '#d33'
+                    });
+                    return; // Stop the function execution here
+                }
+             displayAjaxLoader(); 
             var format = new ol.format.WKT();
             var geometries = []; // Store all geometries
 
@@ -2035,6 +2045,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             text: 'Some of the Features do not Intersect with the Municipality.',
                             confirmButtonColor: '#d33'
                         });
+                        removeAjaxLoader();
                     }
                     else{
                         // Proceed with adding KML if none of the features intersect
