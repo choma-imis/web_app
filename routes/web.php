@@ -517,7 +517,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('maps/get-kml-summary-info', 'MapsController@getKmlSummaryInfo') ;
     
     Route::post('maps/check-geometry', 'MapsController@checkGeometry') ;
-    Route::get('maps/get-kml-info-report-csv','MapsController@getKmlInfoReportCsv');
+    Route::post('maps/get-kml-info-report-csv','MapsController@getKmlInfoReportCsv');
     Route::post('maps/containment-report', 'MapsController@getContainmentReport');
     Route::get('maps/export-containment-report','MapsController@getContainmentReportCsv');
     Route::get('maps/check-location-within-boundary','MapsController@checkLocationWithinBoundary');

@@ -126,11 +126,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @can('Export in KML Drag And Drop')
                 <div id="kml-dragdrop-popup-content-download">
                     <div class="btn-group">
-                        <form method="get" action="{{ url("maps/get-kml-info-report-csv") }}">
+                    <form method="POST" action="{{ url('maps/get-kml-info-report-csv') }}" id="kml-export-form">
+                        @csrf
                         <input type="hidden" name="kml_dragdrop_geom" value="" id="kml_dragdrop_geom"/>
-                            <button type="submit" id="kml-dragdrop-export-excel-btn" class="btn btn-default">Export to Excel
-                            </button>
-                        </form>
+                        
+                        <button type="submit" id="kml-dragdrop-export-excel-btn" class="btn btn-default">
+                            Export to Excel
+                        </button>
+                    </form>
+
+                        
                     </div>
                 </div>
                 @endcan
@@ -2112,7 +2117,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         var url1 = '{{ url("maps/get-kml-summary-info") }}';
                         displayAjaxLoader();
                        var polygonGeometries = geometries.filter(g => g.startsWith("POLYGON Z"));
-
                         $.ajax({
                             url: url1,
                             type: 'post',
@@ -2152,7 +2156,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             }
                         });
                
-                        $('#kml_dragdrop_geom').val(polygonGeometries);
+                        $('#kml_dragdrop_geom').val(polygonGeometries.join(','));
+                        document.getElementById('kml-export-form').addEventListener('submit', function (e) {
+                            const sourceGeom = document.getElementById('kml_dragdrop_geom').value;
+                            // Copy the geometry string to the actual form field
+                            document.getElementById('kml_dragdrop_geom_post').value = sourceGeom;
+                        });
                     }
                 },
 
