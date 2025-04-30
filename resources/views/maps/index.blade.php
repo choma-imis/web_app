@@ -127,7 +127,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 <div id="kml-dragdrop-popup-content-download">
                     <div class="btn-group">
                         <form method="get" action="{{ url("maps/get-kml-info-report-csv") }}">
-                            <input type="hidden" name="kml_dragdrop_geom" value="" id="kml_dragdrop_geom"/>
+                        <input type="hidden" name="kml_dragdrop_geom" value="" id="kml_dragdrop_geom"/>
                             <button type="submit" id="kml-dragdrop-export-excel-btn" class="btn btn-default">Export to Excel
                             </button>
                         </form>
@@ -2111,6 +2111,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         // Send the geometry to get KML summary information
                         var url1 = '{{ url("maps/get-kml-summary-info") }}';
                         displayAjaxLoader();
+                       var polygonGeometries = geometries.filter(g => g.startsWith("POLYGON Z"));
 
                         $.ajax({
                             url: url1,
@@ -2122,8 +2123,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function (Response) {
-                               
-    
                                 // Check if response.success is false
                                 if (Response.success === false) {
                                     displayAjaxErrorModal(Response.responseText);
@@ -2152,8 +2151,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 displayAjaxErrorModal(error.statusText + ": The KML File might be Invalid! Supported Geometry Types: POLYGON.");
                             }
                         });
-                   
-                        $('#kml_dragdrop_geom').val(geometries);
+               
+                        $('#kml_dragdrop_geom').val(polygonGeometries);
                     }
                 },
 
@@ -12313,76 +12312,127 @@ $.ajax({
                     }
                 });
             }
+
+            function extentIntersects(extent1, extent2) {
+                return extent1[0] <= extent2[2] && extent1[2] >= extent2[0] &&
+                extent1[1] <= extent2[3] && extent1[3] >= extent2[1];
+            }
+
             //WMS URL importing
             var parser = new ol.format.WMSCapabilities();
             var wmsUrl = document.getElementById("wmsURL");
             var mapLayer = document.getElementById("mapLayer");
 
-            // Define allowed city polygon layer names
-            const citypolylayers = ['citypolys_layer']; 
+            const citypolylayers = ['citypolys_layer'];
+
+            let availableLayers = [];
 
             wmsUrl.addEventListener("click", function () {
                 displayAjaxLoader();
+
                 var wmsAddress = document.getElementById("wmsAddress").value;
-             
+
                 fetch(wmsAddress)
-                    .then(function (response) {
-                        return response.text();
-                    })
-                    .then(function (text) {
+                    .then(response => response.text())
+                    .then(text => {
                         $("#wmsModal").modal("hide");
-                        var result = parser.read(text);
+                        const result = parser.read(text);
+
                         let layers = result.Capability.Layer.Layer;
-                        let i;
+                        availableLayers = layers.map(layer => layer.Name);
+                        wms_gurl = wmsAddress.split("?")[0]; // WMS base URL
+
+                        // Construct the WFS base URL by replacing '/wms' with '/wfs'
+                        const baseWFSUrl = wmsAddress.split('?')[0].replace(/\/wms$/i, '/wfs');
+
                         removeAjaxLoader();
                         $("#getLayerModal").modal();
-                        let layerName = [];
                         mapLayer.options.length = 0;
 
-                        for (i = 0; i < layers.length; i++) {
-                            layerName[i] = layers[i].Name;
-                            var option = document.createElement("option");
-                            option.text = option.value = layers[i].Name;
+                        // Populate the mapLayer dropdown with available WMS layers
+                        layers.forEach(layer => {
+                            const option = document.createElement("option");
+                            option.value = option.text = layer.Name;
                             mapLayer.add(option);
-                        }
-
-                        var wms_gurl = wmsAddress.split("?")[0];
-
-                        mapLayer.addEventListener("change", function () {
-                            let selectedLayer = mapLayer.value;
-
-                            // Check if selected layer is in citypolylayers
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Invalid Layer',
-                                text: 'Selected layer does not lie within Municipality',
-                                confirmButtonColor: '#d33'
-                            });
-
-                            const source = new ol.source.TileWMS({
-                                url: wms_gurl,
-                                params: {
-                                    layers: selectedLayer,
-                                    authkey: authkey,
-                                    TILED: true
-                                },
-                                crossOrigin: "anonymous",
-                                serverType: "geoserver",
-                                attributions: "This is from getcapabilities"
-                            });
-
-                            const layer = new ol.layer.Tile({
-                                source: source,
-                                visible: true
-                            });
-
-                            map.addLayer(layer);
                         });
                     })
-                    .catch(function (err) {
-                        alert("Enter Valid URL");
+                    .catch(err => {
+                        removeAjaxLoader();
+                        alert("Enter a valid WMS URL");
                     });
             });
+
+            mapLayer.addEventListener("change", function () {
+                var selectedLayer = mapLayer.value;
+                var wmsAddress = document.getElementById("wmsAddress").value;
+
+                // Step 1: Extract the workspace dynamically from the WMS URL
+                var baseWmsUrl = wmsAddress.split('?')[0];  // Get URL without query parameters
+                    var urlParts = baseWmsUrl.split('/').filter(Boolean);  // Remove any empty segments from the array
+
+                    // Extract workspace (assuming the workspace is the last path segment)
+                    var workspace_url = urlParts[urlParts.length - 2];  // The second-to-last part is the workspace
+
+                // Step 2: Load city polygon features (assumes WFS is exposed)
+                var cityPolyUrl = `${gurl_wfs}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:citypolys_layer&outputFormat=application/json`;
+
+                fetch(cityPolyUrl)
+                    .then(res => res.json())
+                    .then(cityGeoJSON => {
+                        const cityFeatures = new ol.format.GeoJSON().readFeatures(cityGeoJSON, {
+                            featureProjection: 'EPSG:3857'
+                        });
+                    
+                        const cityGeometry = cityFeatures[0].getGeometry(); 
+
+                        // Step 3: Load selected WFS layer from the constructed baseWFSUrl
+                        const selectedLayerUrl = `${wmsAddress.split('?')[0].replace(/\/wms$/i, '/wfs')}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace_url}:${selectedLayer}&outputFormat=application/json`;
+
+                        fetch(selectedLayerUrl)
+                            .then(res => res.json())
+                            .then(selectedGeoJSON => {
+                                const selectedFeatures = new ol.format.GeoJSON().readFeatures(selectedGeoJSON, {
+                                    featureProjection: 'EPSG:3857'
+                                });
+                    let doesIntersect = selectedFeatures.some(f => {
+                        if (!f.getGeometry()) return false;
+                        return extentIntersects(f.getGeometry().getExtent(), cityGeometry.getExtent());
+                    });
+
+                    if (!doesIntersect) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid Layer',
+                            text: 'Selected layer does not intersect with Municipality boundary',
+                            confirmButtonColor: '#d33'
+                        });
+                        return;
+                    }
+
+                    // Add the layer to the map
+                    const source = new ol.source.TileWMS({
+                        url: wms_gurl,
+                        params: {
+                            layers: selectedLayer,
+                            TILED: true
+                        },
+                        crossOrigin: "anonymous",
+                        serverType: "geoserver",
+                        attributions: "This is from getcapabilities"
+                    });
+
+                    const layer = new ol.layer.Tile({
+                        source: source,
+                        visible: true
+                    });
+
+                    map.addLayer(layer);
+                });
+        })
+        .catch(err => {
+            console.error("Error checking intersection", err);
+        });
+});
 
 
 
