@@ -1078,7 +1078,7 @@ displaySelectedDateApplicationsNotTP(date, message)
 
 -   In case of an error during the AJAX request, it calls the displayAjaxError() function to handle the error.
 
-##### Feedback chart
+##### Service Feedback
 
 -   This tool displays the feedback chart of custom boundary entered by the user. If the user requires the feedback of a certain area, the user can utilize this tool to generate the feedback chart that aggregates all the records of feedback from that particular area.
 
@@ -2525,6 +2525,45 @@ Initialize
 
 -   Then it uses jQuery to remove the "map-control-active" class from all elements with the class "map-control".
 
+##### Containments Emptied Information
+
+-   This tool displays the monthly emptied containment chart of custom boundary entered by the user. If the user requires the information of monthly emptied containment of a certain area, the user can utilize this tool to generate the chart that aggregates all the records of containment from that particular area.
+
+    \< -- CODE START -- \>
+
+    \<a href="\#" id="containments_emptied_monthly" class="btn btn-default map-control"\>\<i
+
+    class="fa fa-building"\>\</i\>Containments Emptied Information\</a\>
+
+    \< -- CODE END -- \>
+
+-   Here, id value (containments_emptied_monthly) trigger the jQuery as
+
+    \< -- CODE START -- \>
+
+    \$('\#containments_emptied_monthly').click(function (e) {
+
+    e.preventDefault();
+
+    disableAllControls();
+
+    }); \< -- CODE END -- \>
+
+-   Prevents default button behavior.
+
+-   Disables all existing map controls and removes their active styling.
+-   Toggles this control on/off by tracking the currentControl.
+-   Creates a vector layer for drawing polygons if it doesn't already exist.
+
+-   Adds it using a custom method addExtraLayer.
+-   
+
+
+-
+
+##### Toilet Isochrone Map
+
+
 ### Tools functions
 
 ##### Zoom In
@@ -3789,6 +3828,72 @@ displayAssociatedToMainBuilding()
         -   It hides the add road form.
 
         -   Displays a warning message using Swal indicating that there is nothing to save.
+
+##### Import From WMS
+
+-   This tool is used for importing layer from WMS URL and displaying the selected layer on map.
+
+-   Path: views/maps/index.blade.php
+
+    \< -- CODE START -- \>
+
+    \<a href="\#" id="wms_layer" class="btn btn-default map-control" data-toggle="tooltip"data-placement="bottom" title="Import from WMS"\>\<i class="as fa-layer-group"\>\</i\>\</a\> \< -- CODE END -- \>
+
+-   Here, id value (wms_layer) trigger the jQuery as
+
+\< -- CODE START -- \>
+
+\$('\#wms_layer').click(function (e) {
+
+e.preventDefault();
+
+disableAllControls();
+
+\$('.map-control').removeClass('map-control-active');
+
+currentControl = '';
+
+
+\$("#wmsModal").modal('show'); }); \< -- CODE END -- \>
+
+-   Initial steps are explained below in Initialize having id value (wms_layer).
+
+-   The variable "currentControl" is set to an empty string.
+
+-  Opens the WMS modal where the user can configure and add WMS layers.
+
+- Show the 'wmsModal' which allows the user to enter a WMS URL.
+
+- After submitting the input, it retrieves all available layers from the URL. 
+
+- When the retrieve WMS layers button is clicked, a loading effect is displayed.
+
+- The code takes the WMS URL entered by the user and sends a request to get its GetCapabilities XML.
+
+- After getting the response, it closes the input modal.
+
+- The capabilities XML is parsed and names of all available layers are obtained.
+
+- These layer names are stored in an array and displayed in a dropdown inside another modal.
+
+- The WMS and related WFS base URLs are created by modifying the user-entered URL.
+
+- If the user selects a layer from the dropdown, the selected layer name and WMS URL are retrieved.
+
+- The code extracts the workspace name from the WMS URL.
+
+- Request is made to the WFS endpoint to get the municipality boundary polygon (city polygon layer).
+
+- City boundary geometry is parsed and stored.
+
+- Request is made to the WFS service to import features of the target layer.
+
+- All features of the targeted layer are queried for whether any of them spatially overlap the city boundary or not.
+
+- In case of no overlap, an error alert is displayed.
+
+- If an intersection is correct, a new WMS layer is constructed and overlaid on the map, showing the chosen data.
+
 
 ##### Remove Markers
 
