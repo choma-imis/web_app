@@ -3895,6 +3895,79 @@ currentControl = '';
 - If an intersection is correct, a new WMS layer is constructed and overlaid on the map, showing the chosen data.
 
 
+##### Locate Me
+
+-   This tool is used for importing layer from WMS URL and displaying the selected layer on map.
+
+-   Path: views/maps/index.blade.php
+
+```sh
+    \< -- CODE START -- \>
+
+    \<a href="\#" id="get_location" class="btn btn-default map-control" data-toggle="tooltip"data-placement="bottom" title="Locate Me"\>\<img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon">\</a\> \< -- CODE END -- \>
+```
+
+-   Here, id value (get_location) trigger the jQuery as
+
+```sh
+\< -- CODE START -- \>
+
+\$('\#get_location').click(function (e) {
+
+e.preventDefault();
+
+disableAllControls();
+
+\$('.map-control').removeClass('map-control-active');
+
+currentControl = '';
+
+
+if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showLoc, errHand);
+                } \< -- CODE END -- \> 
+```
+
+-   Initial steps are explained below in Initialize having id value (get_location).
+
+-   The variable "currentControl" is set to an empty string.
+
+-  Checks if the browser supports geolocation.
+
+    - If supported, it calls getCurrentPosition():
+
+    - If successful, it runs showLoc() which is explained below .
+
+    - If it fails, it runs errHand() which is explained below.
+
+***showLoc()***
+
+- Gets the latitude and longitude of the user's current position.
+
+- Setup AJAX headers including CSRF token and content type. It calls ‘**checkLocationWithinBoundary**’ function of ‘**MapsController**’.
+
+    -   Make an AJAX request to check whether a given point (latitude & longitude) lies within a municipality boundary.
+
+    -   On success, it returns the intersected feature and display it on the map.
+
+- If not, it shows an error message modal. 
+
+
+***errHand()***
+
+- The errHand function is defined to handle geolocation errors.
+
+- It uses a switch statement to handle different error codes returned by the Geolocation API, and displays corresponding messages based on each case: 
+
+    - PERMISSION_DENIED : Displays a message when the user denies location access permission.
+
+    - POSITION_UNAVAILABLE: Displays a message if the device’s location cannot be determined.
+
+    - TIMEOUT: Displays a message when the request to get the location takes too long and times out.
+    
+    - UNKNOWN_ERROR: Displays a message for any other unknown location error.
+
+
 ##### Remove Markers
 
 -   This tool is used for removing such Markers.
