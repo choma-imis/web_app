@@ -45,14 +45,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                            data-toggle="tooltip" data-placement="bottom" title="Find Containments Connected to Building"> <img src="{{ asset('img/svg/imis-icons/containment_to_building.svg')}}" style="height:24px;"alt="Containment to Buildings Connected Icon"></a>
                         <a href="#" id="associatedtomain_control" class="btn btn-default map-control"
                            data-toggle="tooltip" data-placement="bottom" title="Find Associated Buildings"><img src="{{ asset('img/svg/imis-icons/associated_building.svg')}}" style="height:24px;"alt="Associated Buildings Icon"></a>
+                           <a href="#" id="wms_layer" class="btn btn-default map-control"
+                           data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i class="fas fa-layer-group"></i></a>
+                           
+                        <a href="#" id="get_location" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon"> </a>
+
                            <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
                            data-placement="bottom" title="Remove Markers"><i class="fa fa-trash fa-fw"></i></a>
-                           <a href="#" id="wms_layer" class="btn btn-default map-control"
-                           data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i
-                                    class="fas fa-layer-group"></i></a>
-                        <a href="#" id="get_location" class="btn btn-default map-control"
-
-                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon"> </a>
+                          
                     </ul>
 
                 </div>
@@ -12375,14 +12375,14 @@ $.ajax({
                 var selectedLayer = mapLayer.value;
                 var wmsAddress = document.getElementById("wmsAddress").value;
 
-                // Step 1: Extract the workspace dynamically from the WMS URL
+                // Extract the workspace dynamically from the WMS URL
                 var baseWmsUrl = wmsAddress.split('?')[0];  // Get URL without query parameters
                     var urlParts = baseWmsUrl.split('/').filter(Boolean);  // Remove any empty segments from the array
 
                     // Extract workspace (assuming the workspace is the last path segment)
                     var workspace_url = urlParts[urlParts.length - 2];  // The second-to-last part is the workspace
 
-                // Step 2: Load city polygon features (assumes WFS is exposed)
+                // Load city polygon features (assumes WFS is exposed)
                 var cityPolyUrl = `${gurl_wfs}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:citypolys_layer&outputFormat=application/json`;
 
                 fetch(cityPolyUrl)
@@ -12394,7 +12394,7 @@ $.ajax({
                     
                         const cityGeometry = cityFeatures[0].getGeometry(); 
 
-                        // Step 3: Load selected WFS layer from the constructed baseWFSUrl
+                        // Load selected WFS layer from the constructed baseWFSUrl
                         const selectedLayerUrl = `${wmsAddress.split('?')[0].replace(/\/wms$/i, '/wfs')}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace_url}:${selectedLayer}&outputFormat=application/json`;
 
                         fetch(selectedLayerUrl)

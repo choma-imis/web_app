@@ -3968,6 +3968,68 @@ if (navigator.geolocation) {
     - UNKNOWN_ERROR: Displays a message for any other unknown location error.
 
 
+##### KML Drag and Drop
+
+-   This tool is used to handle KML drag-and-drop, validate it, visualize features on the map, and prepare the data for further processing.
+
+-   Path: views/maps/index.blade.php
+
+-   Here, this function is triggered after uploading a KML file onto the map via drag and drop 
+
+```sh
+\< -- CODE START -- \>
+
+\  dragAndDropInteraction.on('addfeatures', function (event)
+ {
+                } \< -- CODE END -- \> 
+```
+
+-   Initially, if more than 1000 features are dropped, a SweetAlert warning is shown and the function stops.
+
+-   If not, convert the geometry of each feature from the map's coordinate system (EPSG:3857) to WKT format in the WGS84 coordinate system (EPSG:4326).
+
+-  Sends all geometries to the backend to check if they intersect with the municipality area.
+
+    - If any geometry does not intersect, show a warning via SweetAlert and stop further processing.
+    - If all intersect, continue with rendering and data fetching
+
+- All geometries are sent to a backend using AJAX.
+
+- The server checks whether each feature intersects with the municipality boundaries.
+
+- If even one feature doesn't intersect:
+
+     - Show a warning alert to inform the user.
+
+     - Stop the process here.
+
+- The existing KML layer on the map is cleared or created.
+
+- Each feature is styled and added:
+
+     - Points get a marker icon.
+
+     - Lines and polygons get a red stroke outline.
+
+- The map automatically zooms in to fit the boundaries of the newly added features.
+
+- A separate map layer is used for buildings (from the KML file).
+
+     - If it doesn’t exist, it’s created.
+
+     - This layer is styled with blue outlines.
+
+-  The list of geometries is sent to another backend using ajax.
+
+- The server sends back information about the buildings and other details.
+ 
+- Each building geometry from the summary is styled and added to the building layer on the map.
+
+- It consists of an 'Export to Excel' button. When the form is submitted, the geometry data is passed along for storage or further processing.
+
+- If something goes wrong  a modal appears showing an error message.
+
+
 ##### Remove Markers
 
 -   This tool is used for removing such Markers.
