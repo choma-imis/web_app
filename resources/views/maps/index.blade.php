@@ -321,7 +321,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <div class="add-watersupply-form" style="display: none">
                                 <div>
                                     <hr>
-                                    <h4>Add Watersupply Network</h4>
+                                    <h4>Add Water Supply Network</h4>
                                 </div>
                                 <div id="add-watersupply-errors" tabindex='1'>
 
