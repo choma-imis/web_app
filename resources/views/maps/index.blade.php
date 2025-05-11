@@ -6394,7 +6394,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                     });
                                     // Chart download functionality
-                                    document.getElementById("downloadChart").addEventListener("click", function() {
+                                    document.getElementById("downloadChart").addEventListener("click", function(e) {
+                                         e.preventDefault();
                                         var link = document.createElement("a");
                                         link.href = document.getElementById("pie-chart").toDataURL("image/png");
                                         link.download = "Containment Emptied Chart.png";
