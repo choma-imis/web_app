@@ -17,45 +17,54 @@ class WaterSupplysRequest extends Request
         return true;
     }
 
+      /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'diameter' => $this->cleanNumber($this->input('diameter')),
+            'length' => $this->cleanNumber($this->input('length')),
+        ]);
+    }
+
+
+     /**
+     * Remove commas from number inputs.
+     */
+    private function cleanNumber($value)
+    {
+        return $value !== null ? str_replace(',', '', $value) : null;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+       public function rules()
     {
-        
-        switch ($this->method()) 
-        {
+        switch ($this->method()) {
             case 'GET':
             case 'DELETE':
-                {
-                    return [];
-                }
+                return [];
+
             case 'POST':
-                {
-                    return [
-                        'diameter' => 'nullable|numeric',
-                        'length' => 'nullable|numeric',
-                        'project_name'=> 'nullable|string',
-                        'type'=>'nullable|string',
-                        'material_type'=>'nullable|string'
-                    ];
-                }
             case 'PUT':
             case 'PATCH':
-                {
-                    return [
-                        'diameter' => 'nullable|numeric',
-                        'length' => 'nullable|numeric',
-                        'project_name'=> 'nullable|string',
-                        'type'=>'nullable|string',
-                        'material_type'=>'nullable|string'
-                    ];
-                }
-            default:break;
+                return [
+                    'diameter' => 'nullable|numeric',
+                    'length' => 'nullable|numeric',
+                    'project_name' => 'nullable|string',
+                    'type' => 'nullable|string',
+                    'material_type' => 'nullable|string',
+                ];
+
+            default:
+                return [];
         }
     }
+
      public function messages()
     {
         return [

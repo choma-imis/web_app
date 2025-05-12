@@ -3,7 +3,6 @@
 namespace App\Http\Requests\UtilityInfo;
 
 use App\Http\Requests\Request;
-use App\Models\UtilityInfo\Roadline;
 
 class DrainRequest extends Request
 {
@@ -18,39 +17,50 @@ class DrainRequest extends Request
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'diameter' => $this->cleanNumber($this->input('diameter')),
+            'length' => $this->cleanNumber($this->input('length')),
+        ]);
+    }
+
+    /**
+     * Remove commas from number inputs.
+     */
+    private function cleanNumber($value)
+    {
+        return $value !== null ? str_replace(',', '', $value) : null;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-        
         switch ($this->method()) {
             case 'GET':
             case 'DELETE':
-                {
-                    return [];
-                }
+                return [];
+
             case 'POST':
-                {
-                    return [
-                        'diameter' => 'nullable|numeric',
-                        'type'=> 'nullable|string',
-                        'length' => 'nullable|numeric',
-                    ];
-                }
             case 'PUT':
             case 'PATCH':
-                {
-                    return [
-                         'diameter' => 'nullable|numeric',
-                         'type'=> 'nullable|string',
-                        'length' => 'nullable|numeric',
-                    ];
-                }
-            default:break;
+                return [
+                    'diameter' => 'nullable|numeric',
+                    'length' => 'nullable|numeric',
+                    'type' => 'nullable|string',
+                ];
+
+            default:
+                return [];
         }
     }
+
      public function messages()
     {
         return [

@@ -28,7 +28,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 	<div class="form-group row">
 		{!! Form::label('location',__('Location'),['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
-			{!! Form::text('location',null,['class' => 'form-control', 'placeholder' => __('Location')]) !!}
+			{!! Form::select('location', ['' => __('Location'),'middle' => 'middle','side' => 'Side'], null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
     <div class="form-group row ">

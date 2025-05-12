@@ -3,7 +3,6 @@
 namespace App\Http\Requests\UtilityInfo;
 
 use App\Http\Requests\Request;
-use App\Models\UtilityInfo\Roadline;
 
 class SewerLineRequest extends Request
 {
@@ -18,39 +17,50 @@ class SewerLineRequest extends Request
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'length' => $this->cleanNumber($this->input('length')),
+            'diameter' => $this->cleanNumber($this->input('diameter')),
+        ]);
+    }
+
+    /**
+     * Remove commas from number inputs.
+     */
+    private function cleanNumber($value)
+    {
+        return $value !== null ? str_replace(',', '', $value) : null;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-        
         switch ($this->method()) {
             case 'GET':
             case 'DELETE':
-                {
-                    return [];
-                }
+                return [];
+
             case 'POST':
-                {
-                    return [
-                        'length' => 'nullable|numeric',
-                        'location' => 'nullable|string',
-                        'diameter' => 'nullable|numeric',
-                    ];
-                }
             case 'PUT':
             case 'PATCH':
-                {
-                    return [
-                        'length' => 'nullable|numeric',
-                        'location' => 'nullable|string',
-                        'diameter' => 'nullable|numeric',
-                    ];
-                }
-            default:break;
+                return [
+                    'length' => 'nullable|numeric',
+                    'location' => 'nullable|string',
+                    'diameter' => 'nullable|numeric',
+                ];
+
+            default:
+                return [];
         }
     }
+
      public function messages()
     {
         return [
