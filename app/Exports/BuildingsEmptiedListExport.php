@@ -38,7 +38,7 @@ class BuildingsEmptiedListExport implements FromView, WithTitle, WithEvents
 
         /**No of containment emptied**/
         
-        $buildingQuery = "SELECT b.*, st.type AS structure_type , fu.name AS functionaluse, ws.source AS water_source, ss.sanitation_system AS sanitation_system , bo.owner_name, bo.owner_gender, bo.owner_contact, t.name as toilet_name, lic.community_name as community_name
+        $buildingQuery = "SELECT b.*, st.type AS structure_type , fu.name AS functionaluse, ws.source AS water_source, ss.sanitation_system AS sanitation_system , bo.owner_name, bo.owner_gender,  bo.nid, bo.owner_contact, t.name as toilet_name, lic.community_name as community_name
         FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  LEFT JOIN  fsm.emptyings e 
         ON months.month_val = extract(month from e.created_at)
         $yearOn
@@ -60,7 +60,7 @@ class BuildingsEmptiedListExport implements FromView, WithTitle, WithEvents
         ORDER BY c.id ASC";
         $buildingResults = DB::select($buildingQuery);
          
-         
+      
         return view('exports.buildings-list', compact('buildingResults'));
     }
     public function registerEvents(): array

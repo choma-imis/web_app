@@ -1078,7 +1078,7 @@ displaySelectedDateApplicationsNotTP(date, message)
 
 -   In case of an error during the AJAX request, it calls the displayAjaxError() function to handle the error.
 
-##### Feedback chart
+##### Service Feedback
 
 -   This tool displays the feedback chart of custom boundary entered by the user. If the user requires the feedback of a certain area, the user can utilize this tool to generate the feedback chart that aggregates all the records of feedback from that particular area.
 
@@ -2525,6 +2525,45 @@ Initialize
 
 -   Then it uses jQuery to remove the "map-control-active" class from all elements with the class "map-control".
 
+##### Containments Emptied Information
+
+-   This tool displays the monthly emptied containment chart of custom boundary entered by the user. If the user requires the information of monthly emptied containment of a certain area, the user can utilize this tool to generate the chart that aggregates all the records of containment from that particular area.
+
+    \< -- CODE START -- \>
+
+    \<a href="\#" id="containments_emptied_monthly" class="btn btn-default map-control"\>\<i
+
+    class="fa fa-building"\>\</i\>Containments Emptied Information\</a\>
+
+    \< -- CODE END -- \>
+
+-   Here, id value (containments_emptied_monthly) trigger the jQuery as
+
+    \< -- CODE START -- \>
+
+    \$('\#containments_emptied_monthly').click(function (e) {
+
+    e.preventDefault();
+
+    disableAllControls();
+
+    }); \< -- CODE END -- \>
+
+-   Prevents default button behavior.
+
+-   Disables all existing map controls and removes their active styling.
+-   Toggles this control on/off by tracking the currentControl.
+-   Creates a vector layer for drawing polygons if it doesn't already exist.
+
+-   Adds it using a custom method addExtraLayer.
+-   
+
+
+-
+
+##### Toilet Isochrone Map
+
+
 ### Tools functions
 
 ##### Zoom In
@@ -3789,6 +3828,207 @@ displayAssociatedToMainBuilding()
         -   It hides the add road form.
 
         -   Displays a warning message using Swal indicating that there is nothing to save.
+
+##### Import From WMS
+
+-   This tool is used for importing layer from WMS URL and displaying the selected layer on map.
+
+-   Path: views/maps/index.blade.php
+
+    \< -- CODE START -- \>
+
+    \<a href="\#" id="wms_layer" class="btn btn-default map-control" data-toggle="tooltip"data-placement="bottom" title="Import from WMS"\>\<i class="as fa-layer-group"\>\</i\>\</a\> \< -- CODE END -- \>
+
+-   Here, id value (wms_layer) trigger the jQuery as
+
+\< -- CODE START -- \>
+
+\$('\#wms_layer').click(function (e) {
+
+e.preventDefault();
+
+disableAllControls();
+
+\$('.map-control').removeClass('map-control-active');
+
+currentControl = '';
+
+
+\$("#wmsModal").modal('show'); }); \< -- CODE END -- \>
+
+-   Initial steps are explained below in Initialize having id value (wms_layer).
+
+-   The variable "currentControl" is set to an empty string.
+
+-  Opens the WMS modal where the user can configure and add WMS layers.
+
+- Show the 'wmsModal' which allows the user to enter a WMS URL.
+
+- After submitting the input, it retrieves all available layers from the URL. 
+
+- When the retrieve WMS layers button is clicked, a loading effect is displayed.
+
+- The code takes the WMS URL entered by the user and sends a request to get its GetCapabilities XML.
+
+- After getting the response, it closes the input modal.
+
+- The capabilities XML is parsed and names of all available layers are obtained.
+
+- These layer names are stored in an array and displayed in a dropdown inside another modal.
+
+- The WMS and related WFS base URLs are created by modifying the user-entered URL.
+
+- If the user selects a layer from the dropdown, the selected layer name and WMS URL are retrieved.
+
+- The code extracts the workspace name from the WMS URL.
+
+- Request is made to the WFS endpoint to get the municipality boundary polygon (city polygon layer).
+
+- City boundary geometry is parsed and stored.
+
+- Request is made to the WFS service to import features of the target layer.
+
+- All features of the targeted layer are queried for whether any of them spatially overlap the city boundary or not.
+
+- In case of no overlap, an error alert is displayed.
+
+- If an intersection is correct, a new WMS layer is constructed and overlaid on the map, showing the chosen data.
+
+
+##### Locate Me
+
+-   This tool is used for importing layer from WMS URL and displaying the selected layer on map.
+
+-   Path: views/maps/index.blade.php
+
+```sh
+    \< -- CODE START -- \>
+
+    \<a href="\#" id="get_location" class="btn btn-default map-control" data-toggle="tooltip"data-placement="bottom" title="Locate Me"\>\<img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon">\</a\> \< -- CODE END -- \>
+```
+
+-   Here, id value (get_location) trigger the jQuery as
+
+```sh
+\< -- CODE START -- \>
+
+\$('\#get_location').click(function (e) {
+
+e.preventDefault();
+
+disableAllControls();
+
+\$('.map-control').removeClass('map-control-active');
+
+currentControl = '';
+
+
+if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showLoc, errHand);
+                } \< -- CODE END -- \> 
+```
+
+-   Initial steps are explained below in Initialize having id value (get_location).
+
+-   The variable "currentControl" is set to an empty string.
+
+-  Checks if the browser supports geolocation.
+
+    - If supported, it calls getCurrentPosition():
+
+    - If successful, it runs showLoc() which is explained below .
+
+    - If it fails, it runs errHand() which is explained below.
+
+***showLoc()***
+
+- Gets the latitude and longitude of the user's current position.
+
+- Setup AJAX headers including CSRF token and content type. It calls ‘**checkLocationWithinBoundary**’ function of ‘**MapsController**’.
+
+    -   Make an AJAX request to check whether a given point (latitude & longitude) lies within a municipality boundary.
+
+    -   On success, it returns the intersected feature and display it on the map.
+
+- If not, it shows an error message modal. 
+
+
+***errHand()***
+
+- The errHand function is defined to handle geolocation errors.
+
+- It uses a switch statement to handle different error codes returned by the Geolocation API, and displays corresponding messages based on each case: 
+
+    - PERMISSION_DENIED : Displays a message when the user denies location access permission.
+
+    - POSITION_UNAVAILABLE: Displays a message if the device’s location cannot be determined.
+
+    - TIMEOUT: Displays a message when the request to get the location takes too long and times out.
+    
+    - UNKNOWN_ERROR: Displays a message for any other unknown location error.
+
+
+##### KML Drag and Drop
+
+-   This tool is used to handle KML drag-and-drop, validate it, visualize features on the map, and prepare the data for further processing.
+
+-   Path: views/maps/index.blade.php
+
+-   Here, this function is triggered after uploading a KML file onto the map via drag and drop 
+
+```sh
+\< -- CODE START -- \>
+
+\  dragAndDropInteraction.on('addfeatures', function (event)
+ {
+                } \< -- CODE END -- \> 
+```
+
+-   Initially, if more than 1000 features are dropped, a SweetAlert warning is shown and the function stops.
+
+-   If not, convert the geometry of each feature from the map's coordinate system (EPSG:3857) to WKT format in the WGS84 coordinate system (EPSG:4326).
+
+-  Sends all geometries to the backend to check if they intersect with the municipality area.
+
+    - If any geometry does not intersect, show a warning via SweetAlert and stop further processing.
+    - If all intersect, continue with rendering and data fetching
+
+- All geometries are sent to a backend using AJAX.
+
+- The server checks whether each feature intersects with the municipality boundaries.
+
+- If even one feature doesn't intersect:
+
+     - Show a warning alert to inform the user.
+
+     - Stop the process here.
+
+- The existing KML layer on the map is cleared or created.
+
+- Each feature is styled and added:
+
+     - Points get a marker icon.
+
+     - Lines and polygons get a red stroke outline.
+
+- The map automatically zooms in to fit the boundaries of the newly added features.
+
+- A separate map layer is used for buildings (from the KML file).
+
+     - If it doesn’t exist, it’s created.
+
+     - This layer is styled with blue outlines.
+
+-  The list of geometries is sent to another backend using ajax.
+
+- The server sends back information about the buildings and other details.
+ 
+- Each building geometry from the summary is styled and added to the building layer on the map.
+
+- It consists of an 'Export to Excel' button. When the form is submitted, the geometry data is passed along for storage or further processing.
+
+- If something goes wrong  a modal appears showing an error message.
+
 
 ##### Remove Markers
 

@@ -45,14 +45,14 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                            data-toggle="tooltip" data-placement="bottom" title="Find Containments Connected to Building"> <img src="{{ asset('img/svg/imis-icons/containment_to_building.svg')}}" style="height:24px;"alt="Containment to Buildings Connected Icon"></a>
                         <a href="#" id="associatedtomain_control" class="btn btn-default map-control"
                            data-toggle="tooltip" data-placement="bottom" title="Find Associated Buildings"><img src="{{ asset('img/svg/imis-icons/associated_building.svg')}}" style="height:24px;"alt="Associated Buildings Icon"></a>
+                           <a href="#" id="wms_layer" class="btn btn-default map-control"
+                           data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i class="fas fa-layer-group"></i></a>
+                           
+                        <a href="#" id="get_location" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon"> </a>
+
                            <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
                            data-placement="bottom" title="Remove Markers"><i class="fa fa-trash fa-fw"></i></a>
-                           <a href="#" id="wms_layer" class="btn btn-default map-control"
-                           data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i
-                                    class="fas fa-layer-group"></i></a>
-                        <a href="#" id="get_location" class="btn btn-default map-control"
-
-                           data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon"> </a>
+                          
                     </ul>
 
                 </div>
@@ -251,7 +251,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
                                         {!! Form::label('location','Location<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('location',null,['class' => 'form-control', 'placeholder' => 'Location']) !!}
+                                        {!! Form::select('location', ['' => 'Location','middle' => 'middle','side' => 'side'], null, ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
                                         {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
@@ -321,7 +321,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <div class="add-watersupply-form" style="display: none">
                                 <div>
                                     <hr>
-                                    <h4>Add Watersupply Network</h4>
+                                    <h4>Add Water Supply Network</h4>
                                 </div>
                                 <div id="add-watersupply-errors" tabindex='1'>
 
@@ -1723,11 +1723,23 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <form class="form-horizontal" id="form-toilet-isochrone-map">
                         <div class="form-group row">
                             <label class="col-form-label col-md-4">Estimated Travel Time (minutes)</label>
-                            <input type="text" class="form-control col-md-4" id="toilet-isochrone-time" placeholder="Time in minutes" value="">
+                            <input type="number" 
+                                class="form-control col-md-4" 
+                                id="toilet-isochrone-time" 
+                                placeholder="Time in minutes" 
+                                min="1" 
+                                step="1" />
+
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-md-4">Estimated Speed (km/hr)</label>
-                            <input type="text" class="form-control col-md-4" id="toilet-isochrone-speed" placeholder="Speed in km per hour" value="">
+                           <input type="number" 
+                                class="form-control col-md-4" 
+                                id="toilet-isochrone-speed" 
+                                placeholder="Speed in km/h" 
+                                min="0" 
+                                step="0.01" />
+
                             <div class="col-md-4">
                                 <input type="hidden" id="isochrone-long-pos" value=""/>
                                 <input type="hidden" id="isochrone-lat-pos" value=""/>
@@ -6394,7 +6406,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     }
                                     });
                                     // Chart download functionality
-                                    document.getElementById("downloadChart").addEventListener("click", function() {
+                                    document.getElementById("downloadChart").addEventListener("click", function(e) {
+                                         e.preventDefault();
                                         var link = document.createElement("a");
                                         link.href = document.getElementById("pie-chart").toDataURL("image/png");
                                         link.download = "Containment Emptied Chart.png";
@@ -9011,6 +9024,7 @@ $.ajax({
                 }
                 var speed = $('#toilet-isochrone-speed').val();
                 var time = $('#toilet-isochrone-time').val();
+
                 var urliso = '{{ url("maps/toilet-isochrone") }}';
 
                 var distance = (speed * time)*16.66667 ; //distance calculated in meter per second 
@@ -9024,20 +9038,6 @@ $.ajax({
                         distance: distance,
                     },
                     success: function (Response) {
-                        // data1 = Response['buildings'];
-                        // if (data1 && Array.isArray(data1)) {
-                        //     var format = new ol.format.WKT();
-
-                        //     for (var i = 0; i < data1.length; i++) {
-                        //         var feature = format.readFeature(data1[i].geom, {
-                        //             dataProjection: 'EPSG:4326',
-                        //             featureProjection: 'EPSG:3857'
-                        //         });
-
-                        //         feature.setStyle(styleFunction(data1[i].id));
-                        //         eLayer.toilets_isochrone_buildings.layer.getSource().addFeature(feature);
-                        //     }
-                        // }
                         data2 = Response['polygon'];
                         if (data2 && Array.isArray(data2)) {
                             for (var i = 0; i < data2.length; i++) {
@@ -12375,14 +12375,14 @@ $.ajax({
                 var selectedLayer = mapLayer.value;
                 var wmsAddress = document.getElementById("wmsAddress").value;
 
-                // Step 1: Extract the workspace dynamically from the WMS URL
+                // Extract the workspace dynamically from the WMS URL
                 var baseWmsUrl = wmsAddress.split('?')[0];  // Get URL without query parameters
                     var urlParts = baseWmsUrl.split('/').filter(Boolean);  // Remove any empty segments from the array
 
                     // Extract workspace (assuming the workspace is the last path segment)
                     var workspace_url = urlParts[urlParts.length - 2];  // The second-to-last part is the workspace
 
-                // Step 2: Load city polygon features (assumes WFS is exposed)
+                // Load city polygon features (assumes WFS is exposed)
                 var cityPolyUrl = `${gurl_wfs}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:citypolys_layer&outputFormat=application/json`;
 
                 fetch(cityPolyUrl)
@@ -12394,7 +12394,7 @@ $.ajax({
                     
                         const cityGeometry = cityFeatures[0].getGeometry(); 
 
-                        // Step 3: Load selected WFS layer from the constructed baseWFSUrl
+                        // Load selected WFS layer from the constructed baseWFSUrl
                         const selectedLayerUrl = `${wmsAddress.split('?')[0].replace(/\/wms$/i, '/wfs')}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace_url}:${selectedLayer}&outputFormat=application/json`;
 
                         fetch(selectedLayerUrl)
