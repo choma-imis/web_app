@@ -1723,11 +1723,23 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     <form class="form-horizontal" id="form-toilet-isochrone-map">
                         <div class="form-group row">
                             <label class="col-form-label col-md-4">Estimated Travel Time (minutes)</label>
-                            <input type="text" class="form-control col-md-4" id="toilet-isochrone-time" placeholder="Time in minutes" value="">
+                            <input type="number" 
+                                class="form-control col-md-4" 
+                                id="toilet-isochrone-time" 
+                                placeholder="Time in minutes" 
+                                min="1" 
+                                step="1" />
+
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-md-4">Estimated Speed (km/hr)</label>
-                            <input type="text" class="form-control col-md-4" id="toilet-isochrone-speed" placeholder="Speed in km per hour" value="">
+                           <input type="number" 
+                                class="form-control col-md-4" 
+                                id="toilet-isochrone-speed" 
+                                placeholder="Speed in km/h" 
+                                min="0" 
+                                step="0.01" />
+
                             <div class="col-md-4">
                                 <input type="hidden" id="isochrone-long-pos" value=""/>
                                 <input type="hidden" id="isochrone-lat-pos" value=""/>
@@ -9012,6 +9024,7 @@ $.ajax({
                 }
                 var speed = $('#toilet-isochrone-speed').val();
                 var time = $('#toilet-isochrone-time').val();
+
                 var urliso = '{{ url("maps/toilet-isochrone") }}';
 
                 var distance = (speed * time)*16.66667 ; //distance calculated in meter per second 
@@ -9025,20 +9038,6 @@ $.ajax({
                         distance: distance,
                     },
                     success: function (Response) {
-                        // data1 = Response['buildings'];
-                        // if (data1 && Array.isArray(data1)) {
-                        //     var format = new ol.format.WKT();
-
-                        //     for (var i = 0; i < data1.length; i++) {
-                        //         var feature = format.readFeature(data1[i].geom, {
-                        //             dataProjection: 'EPSG:4326',
-                        //             featureProjection: 'EPSG:3857'
-                        //         });
-
-                        //         feature.setStyle(styleFunction(data1[i].id));
-                        //         eLayer.toilets_isochrone_buildings.layer.getSource().addFeature(feature);
-                        //     }
-                        // }
                         data2 = Response['polygon'];
                         if (data2 && Array.isArray(data2)) {
                             for (var i = 0; i < data2.length; i++) {
