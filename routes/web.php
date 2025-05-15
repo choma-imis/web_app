@@ -521,10 +521,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('maps/containment-report', 'MapsController@getContainmentReport');
     Route::get('maps/export-containment-report','MapsController@getContainmentReportCsv');
     Route::get('maps/check-location-within-boundary','MapsController@checkLocationWithinBoundary');
-    Route::get('maps/isochrone', 'MapsController@getIsochroneArea');
-    Route::get('maps/isochrone-export', 'MapsController@getIsochroneExport');
     Route::get('maps/toilet-isochrone', 'MapsController@getToiletIsochroneAreaLayers');
-    Route::get('maps/toilet-isochrone-export', 'MapsController@getToiletIsochroneExport');
 });
 
 
