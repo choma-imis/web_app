@@ -1748,7 +1748,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <!-- <a class="btn btn-info float-right" href="#" id="export_toilet_isochrone_csv">Export Excel</a> -->
                             <button type="submit" class="btn btn-info">Get Information</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
@@ -3854,8 +3853,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                 }
 
-
-
         function handleAddSewerControlClick(code) {
             currentLayerType = 'Sewer';
               // Set tool titles or other properties
@@ -4095,7 +4092,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     e.preventDefault();
                  
                     let code = $('#add_submit_control').data('code');
-            console.log()
+
                     const layerTypeLower = currentLayerType.toLowerCase();
 
                     if (currentAddControl === 'Add ' + currentLayerType) {
@@ -4143,8 +4140,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                     }
                                    
-
-                                    
                                     const lineFormat = new ol.format.WKT();
                                     const geom = lineFormat.writeGeometry(
                                         modifiedFeature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326')
@@ -4154,9 +4149,6 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                     let formData = {};
                                     let updateUrl = '';
                                     let return_url = '';
-
-                                    console.log("pp", code);
-
 
                                     switch (currentLayerType) {
                                         case 'Road':
@@ -4445,6 +4437,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 $('.add-sewer-form').slideUp();
                 $('.add-watersupply-form').slideUp();
             }
+
             function addDrawInteractions() {
 
                 map.removeInteraction(modifyInteraction);
@@ -8978,15 +8971,6 @@ $.ajax({
             });
 
 
-            $("#export_toilet_isochrone_csv").on('click', function() {
-                var speed = $('#toilet-isochrone-speed').val();
-                var time = $('#toilet-isochrone-time').val();
-                var distance = (speed * time)*16.66667 ;
-                window.location.href = "{!! url('maps/toilet-isochrone-export/?searchData=') !!}" +    
-                "&distance=" + distance ;
-            });  
-
-            
              // submit function for toilet isochrone map
              $("#form-toilet-isochrone-map").submit(function (event) {
                 event.preventDefault();
@@ -9020,7 +9004,7 @@ $.ajax({
                             })
                     }),
                     });
-                    addExtraLayer('toilets_isochrone_buildings', 'Toilets Isochrone Buffer Buildings', layer);
+                addExtraLayer('toilets_isochrone_buildings', 'Toilets Isochrone Buffer Buildings', layer);
                 }
                 var speed = $('#toilet-isochrone-speed').val();
                 var time = $('#toilet-isochrone-time').val();
