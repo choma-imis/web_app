@@ -62,8 +62,8 @@ class SewerLineRequest extends Request
             'length.required' => 'The Length(m) is required.',
             'location.string' => 'The Location must be a string.',
             'location.required' => 'The Location is required.',
-            'diameter.numeric' => 'The Diameter must be a number.',
-            'diameter.required' => 'The Diameter is required.',
+            'diameter.numeric' => 'The Diameter(mm) must be a number.',
+            'diameter.required' => 'The Diameter(mm) is required.',
             ];
     }
 }

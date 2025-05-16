@@ -1738,100 +1738,19 @@ class MapsService {
 
     }
 
-    public function checkLocationWithinBoundary($latt, $long) {
-        $query = "SELECT * FROM layer_info.citypolys WHERE ST_Intersects(ST_PointFromText('POINT(" . $long . " " . $latt .  ")', 4326), geom)";
-
-        $result = DB::select($query);
-        return $result;
-    }
-
-    public function getIsochroneAreaLayers($distance, $long, $lat)
-    {
-        $polygons = array(); 
-        $buildings = array();
-        $prev_polygon = null;
-        $i = 0;
-        foreach($distance as $dist)
-       {
-       $node_id_query = "WITH parameters AS (
-                SELECT
-                    ".$dist." AS max_cost, 
-                    ST_SetSRID(ST_Point(". $long .", ". $lat."),4326)::geometry AS origin, 
-                    4326 AS srid 
-                ), 
-                nearest_node AS (
-                SELECT
-                    id,
-                    the_geom <-> origin AS distance
-                FROM
-                    utility_info.roadlines_network_noded_vertices_pgr,
-                    parameters
-                ORDER BY
-                    the_geom <-> origin
-                LIMIT 1
-                )
-                SELECT * from nearest_node; ";
-        $node_id = DB::SELECT($node_id_query)[0]->id;
-        $polygon_query = "
-        SELECT ST_asTEXT(ST_setSRID(ST_ConcaveHull(ST_Collect(the_geom), 0.5),4326)) as isochrone
-        FROM (
-            SELECT ST_Transform(ST_setSRID(the_geom, 4326),4326) as the_geom
-            FROM  pgr_drivingdistance('SELECT
-            id::integer AS id, 
-            source::integer AS source, 
-            target::integer AS target,                                    
-            distance::double precision AS cost 
-            FROM utility_info.roadlines_network_noded'::text, ".$node_id."::bigint, 
-            ".$dist/1000 ."::double precision, false)
-            AS dij_result
-        JOIN utility_info.roadlines_network_noded ON dij_result.edge = utility_info.roadlines_network_noded.id
-        ) AS shortest_path";
-        $polygon_result = DB::select($polygon_query);
-        $polygon['id'] = $i;
-        $polygon['geom'] = $polygon_result[0]->isochrone;
-        $polygon['long'] = $long;
-        $polygon['lat'] = $lat;
-        array_push($polygons,$polygon );
-        
-        $popContentsHtml = '';
-      
-        if(!empty($prev_polygon))
-        {
-        $doughnut_polygon_query = "SELECT ST_Difference from ST_Difference(ST_SETSRID('". $polygon_result[0]->isochrone ."'::GEOMETRY,4326),ST_SETSRID('". $prev_polygon."'::GEOMETRY,4326))";
-        $polygon_result[0]->isochrone = DB::select($doughnut_polygon_query)[0]->st_difference;
-        }
-        else
-        {
-        }
-        $building_query = "SELECT b.bin, ST_AsText(b.geom) AS geom"
-        . " FROM building_info.buildings b"
-        . " WHERE ST_Contains(ST_SETSRID('". $polygon_result[0]->isochrone ."'::GEOMETRY,4326), ST_SETsrid(b.geom,4326))"
-        . " AND b.drain_code IS NULL";
-        $results1 = DB::select($building_query);
-     
-        foreach ($results1 as $row1) {
-            $building = array();
-            $building['id'] = $i;
-            $building['bin'] = $row1->bin;
-            $building['geom'] = $row1->geom;
-            array_push($buildings,$building);
-        }
-        $i+=1;
-        if($i == 1)
-        {
-            $prev_polygon = $polygon_result[0]->isochrone;
-        }
-        else
-        {
-            $prev_polygon = DB::select($polygon_query)[0]->isochrone;
-        }
-        }        return [
-            'buildings' => $buildings,
-            'polygon' => $polygons
-        ];
-
-    }
-
+ /**
+ * Calculates isochrone polygons from nearby toilets.
+ *
+ * For each toilet in the database (excluding "Community Toilets"), this function:
+ * - Finds the nearest node in the road network.
+ * - Calculates a concave hull polygon around the reachable area (based on driving distance).
+ * - Identifies buildings that lie within this isochrone area and are not linked to a drain.
+ *
+ * @param float $distance The travel distance in meters .
+ * @return array Returns an associative array containing:
+ *               - 'polygon': an array of isochrone polygons (WKT) for each toilet.
+ *               
+ */
     public function getToiletIsochroneAreaLayers($distance)
     {
         
@@ -1868,7 +1787,7 @@ class MapsService {
                 SELECT * from nearest_node; ";
 
         $node_id = DB::SELECT($node_id_query)[0]->id;
- 
+
         $polygon_query = "
             SELECT ST_asTEXT(ST_setSRID(ST_ConcaveHull(ST_Collect(the_geom), 0.9),4326)) as isochrone
             FROM (
@@ -1889,26 +1808,10 @@ class MapsService {
         $polygon['long'] = $long;
         $polygon['lat'] = $lat;
         array_push($polygons,$polygon );
-       
-        $popContentsHtml = '';
-
-        $building_query = "SELECT b.bin, ST_AsText(b.geom) AS geom"
-            . " FROM building_info.buildings b"
-            . " WHERE ST_Contains(ST_SETSRID('". $polygon_result[0]->isochrone ."'::GEOMETRY,4326), ST_SETsrid(b.geom,4326))"
-            . " AND b.drain_code IS NULL";
-        $results1 = DB::select($building_query);
-        foreach ($results1 as $row1) {
-            $building = array();
-            $building['id'] = $i;
-            $building['bin'] = $row1->bin;
-            $building['geom'] = $row1->geom;
-            array_push($buildings,$building );
-        }
         $i+=1;
         }
         
         return [
-            'buildings' => $buildings,
             'polygon' => $polygons
         ];
     }

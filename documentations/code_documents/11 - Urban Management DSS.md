@@ -2549,19 +2549,103 @@ Initialize
 
     }); \< -- CODE END -- \>
 
--   Prevents default button behavior.
+-   Initial steps are explained below in initialize having id value (containments_emptied_monthly).
 
--   Disables all existing map controls and removes their active styling.
--   Toggles this control on/off by tracking the currentControl.
--   Creates a vector layer for drawing polygons if it doesn't already exist.
+-   The code checks if currentControl is equal to containments_emptied_monthly, if the condition is true than the variable "currentControl" is set to an empty string. Else variable "currentControl" is set to containments_emptied_monthly.
 
--   Adds it using a custom method addExtraLayer.
--   
+-   Adds the "map-control-active" class to the element with the ID “containments_emptied_monthly”.
 
+- If the layer doesn't exist, it creates a new vector layer with an empty source and adds it to the map using the addExtraLayer() function.
 
--
+-  Allows drawing of a polygon that will be stored in the containments_report_polygon vector layer.
+
+- Clears old features when a new drawing begins and removes popup location from the map.
+
+- Converts drawn polygon to WKT (Well-Known Text) format and transforms it to EPSG:4326.
+
+- Stores the polygon geometry in a hidden input for form access and shows a loading spinner.
+
+- Sends the polygon to the server via AJAX POST request along with CSRF token for security.
+
+-  Builds a dynamic HTML structure including dropdown to choose a year.
+
+-   Displays a bar chart with containment data.
+-   Allows users to download the chart as a PNG image.
+-   Updates chart data dynamically when the user selects a year from the dropdown.
+-   Displays a message if no containment data is returned.
+-   Removes loading spinner.
+-   Shows popup at drawn polygon’s center.
+-   Cleans up map interaction and resets control states. 
+
 
 ##### Toilet Isochrone Map
+
+-   This tool displays the concave polygon boundary that represents the area which is reachable within a given distance (speed * time) (in meters) from a specific operational public toilet on a road network.
+
+    \< -- CODE START -- \>
+
+    \<a href="\#" id="toilet_isochrone_control" title="Generate isochrone information of CTPT by distance traversed (m)"> class="btn btn-default map-control"\>\<i
+
+    class="fa fa-building"\>\</i\>Toilet Isochrone Map\</a\>
+
+    \< -- CODE END -- \>
+
+
+-   Here, id value (toilet_isochrone_control) trigger the jQuery as
+
+    \< -- CODE START -- \>
+
+    \$('\#toilet_isochrone_control').click(function (e) { e.preventDefault();
+
+    disableAllControls();
+
+    \$('.map-control').removeClass('map-control-active');
+
+    if (currentControl == 'toilet_isochrone_control') {
+
+    currentControl = '';
+
+    } else {
+
+    currentControl = 'toilet_isochrone_control';
+
+    \$('\#toilet_isochrone_control').addClass('map-control-active');
+    \$('\#popup-toilet-isochrone').modal('show');
+
+    }
+
+    });
+
+    \< --CODE END -- \>
+
+-   Initial steps are explained below in initialize having id value (“toilet_isochrone_control”).
+
+    -   The code checks if currentControl is equal to toilet_isochrone_control, if the condition is true than the variable "currentControl" is set to an empty string. Else variable "currentControl" is set to toilet_isochrone_control.
+
+    -   Adds the "map-control-active" class to the element with the ID “toilet_isochrone_control”.
+
+    -  Show the modal having ID "popup-toilet-isochrone" which allows the user to enter a Estimated Travel Time (minutes) and  Estimated Speed (km/hr).
+
+-   The submit button of form binds a click event handler to the HTML element with the id form-toilet-isochrone-map.
+
+    -   Prevents the default form submission behavior .
+
+    -   Clear existing data in the toilet\_isochrone\_polygon if it exists, or create a new layer if it doesn't. Create a new vector layer for toilet\_isochrone\_polygon and adds it using a custom function addExtraLayer().
+
+- Handles the buildings within the isochrone zone, just like the polygon layer.
+-   Converts time and speed into distance in meters.
+-   Setup AJAX headers including CSRF token and passes distance as a query parameter. It calls ‘**getToiletIsochroneAreaLayers** function of ‘**MapsController**’.
+
+-   Make an AJAX request to fetch  isochrone polygons from nearby toilets.
+ - On success, extracts the returned polygon(s) from the response and loops through array of geometries (in WKT format) and converted to the correct projection.
+
+ - Applies dynamic styling via styleFunction(i) and adds the feature to the map layer.
+
+- Ensures relevant layers (e.g., toilets and roadlines) are made visible after drawing the isochrone.
+
+- Hides the modal form and removes the loading spinner.
+
+- If request fails, shows a generic error UI.
 
 
 ### Tools functions
@@ -3283,551 +3367,6 @@ displayAssociatedToMainBuilding()
 
 -   Markers are also added to the map for each containment point.
 
-##### Add Roads
-
--   This tool allows the user to add roads on map.
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_control" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="Add roads"\>\<i class="fa-solid fa-road-circle-check"\>\</i\>\</a\>
-
-    \<--CODE End -- \>
-
--   Here, id value (add_road_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_control').click(function (e) {
-
-    e.preventDefault();
-
-    disableAllControls();
-
-    displayAjaxLoader();
-
-    var allLayers = map.getLayers().getArray();
-
-    \$('.map-control').removeClass('map-control-active');
-
-    if (currentControl === 'add_road_control') {
-
-    \$('\#add-road-tool-box').hide();
-
-    currentControl='';
-
-    resetAddRoadTool();
-
-    removeAjaxLoader();
-
-    disableAllControls();
-
-    }else {
-
-    currentControl = 'add_road_control';
-
-    \$('\#add-road-tool-box').show();
-
-    vectorSource = new ol.source.Vector({
-
-    url: '\<?php echo Config::get("constants.GEOSERVER_URL"); ?\>/ows?service=WFS&' +
-
-    'version=1.1.0&request=GetFeature&typeName=\<?php echo Config::get("constants.GEOSERVER_WORKSPACE"); ?\>:roadlines_layer&&CQL_FILTER=deleted_at is null&' +
-
-    'SRS=EPSG:4326&outputFormat=json&authkey=9499949e-6318-4ffd-8384-ed94c5d84770',
-
-    format: new ol.format.GeoJSON(),
-
-    });
-
-    vectorLayer = new ol.layer.Vector({
-
-    background: '\#1a2b39',
-
-    source: vectorSource,
-
-    name: 'add-roads-layer'
-
-    });
-
-    drawSource = new ol.source.Vector({format: new ol.format.GeoJSON()});
-
-    drawLayer = new ol.layer.Vector({
-
-    background: '\#1a2b39',
-
-    source: drawSource,
-
-    name: 'add-roads-draw-layer'
-
-    });
-
-    if (!allLayers.includes('add-roads-layer')) {
-
-    map.addLayer(vectorLayer);
-
-    }else{
-
-    removeAjaxLoader();
-
-    }
-
-    if (!allLayers.includes('add-roads-draw-layer')) {
-
-    map.addLayer(drawLayer);
-
-    }
-
-    var sourceEventListener = vectorSource.on('change', function(e) {
-
-    if (vectorSource.getState() === 'ready') {
-
-    vectorSource.un('change', sourceEventListener);
-
-    removeAjaxLoader();
-
-    }});}});
-
-    \< -- CODE END -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_control”).
-
--   The code checks if currentControl is equal to add_road_control, if the condition is true than the variable "currentControl" is set to an empty string. Else variable "currentControl" is set to add_road_control.
-
--   Shows the HTML element with the id 'add-road-tool-box'. This could be a UI component related to road editing tools.
-
--   Creates a vector source for road data. It seems to fetch data from a GeoServer using WFS (Web Feature Service) with specific parameters like service version, request type, feature type name, etc.
-
--   Creates a vector layer for the road data fetched from the vector source. The layer is styled with a background color '\#1a2b39'.
-
--   Creates a vector source for drawing roads. It's likely used for user interaction to add or edit road features.
-
--   Creates a vector layer for drawing roads.
-
--   Checks if the 'add-roads-layer' is not already added to the map. If it's not, the vectorLayer (which contains road data) is added to the map.
-
--   Checks if the 'add-roads-draw-layer' is not already added to the map. If it's not, the drawLayer (which is used for drawing roads) is added to the map.
-
--   Listens for changes in the vectorSource. When the state of the source becomes 'ready', it removes the loading spinner or any loading indicators.
-
-    **Add**
-
--   This tool allows the user to initialize a draw interaction of type MultiLineString. Add draw,snap & undo interactions.
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_start_control" class="btn btn-default map-control" data-toggle="tooltip"data-placement="bottom" title="Add"\>\<i class="fa fa-circle-plus fa-fw"\>\</i\>\</a\>
-
-    \<--CODE End -- \>
-
--   Here, id value (add_road_start_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_start_control').click(function (e) {
-
-    e.preventDefault();
-
-    hideAddRoadForm();
-
-    if (currentAddRoadControl !== 'Add Road'){
-
-    currentAddRoadControl = 'Add Road';
-
-    addRoadDrawInteractions();
-
-    }
-
-    });
-
-    \<--CODE End -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_start_control”).
-
--   Selects an element with the id add_road_start_control using jQuery. It then attaches a click event handler to it. When this element is clicked, the function specified inside the click() method will be executed.
-
--   Calls a function named ‘**hideAddRoadForm()**’ which is explained in supporting functions.
-
--   Checks whether the variable currentAddRoadControl is not equal to 'Add Road'. If this condition is true, it means that the current control for adding a road is not already set to 'Add Road'.
-
--   Updates the value of the variable currentAddRoadControl to 'Add Road'. This variable likely keeps track of the current state or mode of the road adding functionality.
-
--   Calls a function named ‘**addRoadDrawInteractions()**’ explained below.
-
-    addRoadDrawInteractions()
-
--   Remove any existing modify and select interactions from the map. These interactions might be present to modify or select existing features on the map.
-
--   Creates a new draw interaction for drawing roads on the map. It specifies the source where the drawn features will be added (drawSource) and sets the type of geometry that can be drawn, in this case, "MultiLineString" which means multiple lines can be drawn to form a road.
-
--   Creates a snap interaction to snap the vertices of the drawn roads to existing features on the map. It specifies the source from which to snap vertices (vectorSource).
-
--   Creates another snap interaction, but this time it's for snapping the vertices of the newly drawn roads to each other. It specifies the source from which to snap vertices (drawSource).
-
--   creates an Undo/Redo interaction, which allows users to undo and redo their drawing actions.
-
--   Add the draw, snap, and undo interactions to the map.
-
--   Attaches an event listener to the draw interaction's "drawstart" event. This function is triggered when the user starts drawing a new road. Within this event listener, it hides the form used for adding roads ‘**hideAddRoadForm**()’ and removes any previously drawn roads ‘**removeDrawnRoads**()’. These two function: ‘**hideAddRoadForm**()’ and ‘**removeDrawnRoads**()’ are further explained below in supporting functions.
-
-**Undo last point**
-
--   This tool allows the user to undo the last drawn point.
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_undo_last_point_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-
-    data-placement="bottom" title="Undo last point"\>\<i class="fa fa-clock-rotate-left fa-fw"\>\</i\>\</a\>
-
-    \<--CODE End -- \>
-
--   Here, id value (add_road_undo_last_point_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_undo_last_point_control').click(function (e) {
-
-    e.preventDefault();
-
-    hideAddRoadForm();
-
-    roadDrawInteraction?.removeLastPoint();
-
-    });
-
-    \<--CODE End -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_undo_last_point_control'”).
-
--   Calls a function named ‘**hideAddRoadForm()**’ which is explained in supporting functions.
-
--   It ensures that if roadDrawInteraction is null or undefined, the code will not throw an error and removeLastPoint() will not be called. If roadDrawInteraction is defined and has a removeLastPoint() method, it will be executed that will remove the last drawn point.
-
-    **Undo**
-
--   This tool allows the user to undo the entire drawn line.
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_undo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-
-    data-placement="bottom" title="Undo"\>\<i class="fa fa-rotate-left fa-fw"\>\</i\>\</a\>\<--CODE End -- \>
-
--   Here, id value (add_road_undo_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_undo_control').click(function (e) {
-
-    e.preventDefault();
-
-    hideAddRoadForm();
-
-    undoInteraction?.undo();
-
-    });
-
-    \<--CODE End -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_undo_control'”).
-
--   Calls a function named ‘**hideAddRoadForm()**’ which is explained in supporting functions.
-
--   It ensures that if undoInteraction is null or undefined, the code will not throw an error and undo() will not be called. If undoInteractionis defined and has a rundo() method, it will be executed that will undo all drawn point.
-
-    **Redo**
-
--   This tool allows the user to redo the drawing that was undone.
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_redo_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-
-    data-placement="bottom" title="Redo"\>\<i class="fa fa-rotate-right fa-fw"\>\</i\>\</a\>
-
-    \<--CODE End -- \>
-
--   Here, id value (add_road_undo_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_redo_control').click(function (e) {
-
-    e.preventDefault();
-
-    hideAddRoadForm();
-
-    undoInteraction?.redo();
-
-    });
-
-    \<--CODE End -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_redo_control'”).
-
--   Calls a function named ‘**hideAddRoadForm()**’ which is explained in supporting functions.
-
--   It ensures that if undoInteraction is null or undefined, the code will not throw an error and redo() will not be called. If undoInteractionis defined and has a redo() method, it will be executed that will redo the drawn point.
-
-    **Edit**
-
--   This tool allows the user to edit the road.
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_edit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-
-    data-placement="bottom" title="Edit"\>\<i class="fa fa-pen-to-square fa-fw"\>\</i\>\</a\>\<--CODE End -- \>
-
--   Here, id value (add_road_edit_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_edit_control').click(function(e){
-
-    hideAddRoadForm();
-
-    if (currentAddRoadControl === 'Modify Road'){
-
-    currentAddRoadControl='';
-
-    removeAllAddRoadInteractions();
-
-    }else {
-
-    if (currentAddRoadControl === 'Add Road') {
-
-    Swal.fire({
-
-    title: 'Are you sure?',
-
-    text: "Roads added would be lost!",
-
-    icon: 'warning',
-
-    showCancelButton: true,
-
-    confirmButtonText: 'Yes',
-
-    cancelButtonText: 'No!',
-
-    reverseButtons: true
-
-    }).then((result) =\> {
-
-    if (result.isConfirmed) {
-
-    removeAllAddRoadInteractions();
-
-    removeDrawnRoads();
-
-    currentAddRoadControl='Modify Road';
-
-    addRoadModifyInteractions();
-
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-    //do nothing
-
-    }});
-
-    }else{
-
-    currentAddRoadControl='Modify Road';
-
-    addRoadModifyInteractions();
-
-    }}});
-
-    \<--CODE End -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_edit_control”).
-
--   This code binds a click event handler to the HTML element with the id add_road_edit_control. When this element is clicked, the function inside the click() method will be executed.
-
--   Calls a function named ‘**hideAddRoadForm()**’ which is explained in supporting functions.
-
--   if the variable currentAddRoadControl is equal to 'Modify Road', it sets currentAddRoadControl to an empty string and call ‘**removeAllAddRoadInteractions()**’ which is further explained in supporting functions.
-
--   If the currentAddRoadControl is not 'Modify Road', this code displays a confirmation dialog using the SweetAlert library. It asks the user if they are sure they want to proceed, warning that added roads would be lost.
-
--   If the user confirms the action, it executes some functions to remove existing road interactions, drawn roads, and then sets currentAddRoadControl to 'Modify Road', and adds modify interactions for roads. If the user cancels the action, nothing happens.
-
--   If currentAddRoadControl is not 'Modify Road' and the user hasn't chosen to cancel, it simply sets currentAddRoadControl to 'Modify Road' and calls ‘**addRoadModifyInteractions()**’which is explained in supporting function. It ensures that if undoInteraction is null or undefined, the code will not throw an error and redo() will not be called. If undoInteractionis defined and has a redo() method, it will be executed that will redo the drawn point
-
-    **Delete**
-
--   This tool allows the user to remove the drawn lines
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_delete_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-
-    data-placement="bottom" title="Remove all drawn lines"\>\<i class="fa fa-trash fa-fw"\>\</i\>\</a\>\<--CODE End -- \>
-
--   Here, id value (add_road_edit_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_delete_control').click(function (e) {
-
-    e.preventDefault();
-
-    hideAddRoadForm();
-
-    removeDrawnRoads();
-
-    });
-
-    \<--CODE End -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_delete_control”).
-
--   This code binds a click event handler to the HTML element with the id add_road_delete_control. When this element is clicked, the function inside the click() method will be executed.
-
--   Calls a function named ‘**hideAddRoadForm()**’ and ‘**removeDrawnRoads()**’ which is explained in supporting functions.
-
-    **Submit**
-
--   There are two types of submission the user can perform. One is an add road submit and another is an updated road submit.
-
--   Path: views/maps/index.blade.php
-
-    \< -- CODE START -- \>
-
-    \<a href="\#" id="add_road_submit_control" class="btn btn-default map-control ml-1" data-toggle="tooltip"
-
-    data-placement="bottom" title="Save"\>\<i class="fa fa-floppy-disk fa-fw"\>\</i\>\</a\>\<--CODE End -- \>
-
--   Here, id value (add_road_submit_control) trigger the jQuery as
-
-    \< -- CODE START -- \>
-
-    \$('\#add_road_submit_control').click(function (e) {
-
-    e.preventDefault();
-
-    if (currentAddRoadControl === 'Add Road'){
-
-    let features = drawLayer.getSource().getFeatures();
-
-    if(features){
-
-    if(features.length \< 1 ){
-
-    Swal.fire({
-
-    title: 'Error',
-
-    text : \`Please draw a roadline before saving!\`,
-
-    icon: "warning",
-
-    });
-
-    }else{
-
-    \$('.add-road-form').slideToggle();
-
-    }
-
-    } ………………..
-
-    ……………………………………
-
-    …………………………………..
-
-    ………………………………… } else {
-
-    hideAddRoadForm();
-
-    Swal.fire({
-
-    title: 'Nothing to save!',
-
-    icon: "warning",
-
-    });
-
-    }
-
-    });
-
-    \<--CODE End -- \>
-
--   Initial steps are explained below in Initialize having id value (“add_road_submit_control”).
-
--   This code binds a click event handler to the HTML element with the id add_road_submit_control.
-
--   It checks the value of the variable currentAddRoadControl to determine the current state of road manipulation. There are three main branches depending on its value:
-
-    -   If currentAddRoadControl is 'Add Road':
-
-        -   It retrieves features from the drawLayer source.
-
-        -   If there are no features drawn, it displays a warning message using Swal (SweetAlert) indicating that the user needs to draw a roadline before saving.
-
-        -   If there are features drawn, it toggles the visibility of the .add-road-form element.
-
-        -   Add-road-form contain allows to add the details information about the road.
-
-        -   Ater that, on clicking the submit button.
-
-        -   It prepares the geometry data for the road feature to be added. It retrieves the last feature drawn from drawSource, converts its geometry to WKT format, and transforms it from EPSG:3857 to EPSG:4326 coordinate reference system.
-
-        -   It sets up AJAX headers including CSRF token and specifies that the expected response format is JSON.
-
-        -   It sends an AJAX POST request to the server with the following data. It calls the ‘**store**’ function of ‘**RoadlineController**’.
-
-        -   Upon a successful response from the server.
-
-        -   Slides up (hides) the add road form.
-
-        -   Displays a success message using Swal indicating that the road(s) have been added successfully.
-
-        -   Resets the add road tool.
-
-        -   Triggers a click event on the element with the ID add_road_control. Removes the AJAX loader.
-
-        -   Upon an error response from the server. Constructs an error message from the response data (if available) and appends it to the \#add-road-errors element.
-
-        -   Focuses on the \#add-road-errors element.
-
-        -   Removes the AJAX loader.
-
-    -   If currentAddRoadControl is 'Modify Road':
-
-        -   It hides the add road form.
-
-        -   Checks if there are modifications made (hasModification).
-
-        -   If there are modifications. It displays a warning message using Swal, asking the user to confirm if they want to save the changes.
-
-        -   Upon confirmation, it sends an AJAX request to update the road geometry. It calls the ‘**updateRoadGeom**’ function of ‘**RoadlineController**’.
-
-        -   Displays success or error messages based on the AJAX request response.
-
-        -   If there are no modifications, it displays a warning message using Swal indicating that there is nothing to save.
-
-    -   If currentAddRoadControl is neither 'Add Road' nor 'Modify Road':
-
-        -   It hides the add road form.
-
-        -   Displays a warning message using Swal indicating that there is nothing to save.
 
 ##### Import From WMS
 
@@ -4289,38 +3828,6 @@ map.removeOverlay(staticMeasureTooltip); }); \< -- CODE END -- \>
 
 -   Finally, the function updates the source parameters of the layer with the CQL_FILTER parameter set to the cql_filter string.
 
-**hideAddRoadForm()**
-
--   This line uses jQuery to select all elements with the class add-road-form.
-
--   The slideUp() function is then called on these selected elements that hides the selected elements by sliding them up.
-
-**removeDrawnRoads()**
-
--   When this function is called, it removes all drawn roads or features from the specified draw layer on the map. This is achieved by clearing the data source associated with the layer.
-
-**removeAllAddRoadInteractions()**
-
--   This function ensures for removing various interactions related to adding roads from a map
-
-**addRoadModifyInteractions()**
-
--   Initially, the function removes any existing interactions related to road drawing to ensure a clean slate for modification interactions.
-
--   Creates a new ol.interaction.Select interaction, which allows users to select road features on the map. This interaction is configured to work with layers drawLayer and vectorLayer, and it specifies a custom style for selected features.
-
--   The function creates a ol.interaction.ModifyFeature interaction. This interaction is responsible for modifying selected road features. It is initialized with the features selected using the selectInteraction.
-
--   Create Undo/Redo Interaction: An ol.interaction.UndoRedo interaction is created to enable undo and redo functionality for modifications made to road features.
-
--   The newly created interactions (modifyInteraction, selectInteraction, roadSnapInteraction, roadDrawnSnapInteraction, and undoInteraction) are added to the map using the map.addInteraction() method.
-
--   The select event handler is attached to the selectInteraction. This handler is triggered when a feature is selected. It checks if there are any modifications made to the selected feature and prompts the user with a confirmation dialog if there are unsaved changes.
-
--   The modifyend event handler is attached to the modifyInteraction. This handler is triggered when modification of a feature is completed. It sets a flag hasModification to true and stores the modified feature.
-
--   The undoInteraction.clear() method is called to clear any existing undo history.
-
 **hoverOnRoadsHandler()**
 
 -   Inside the function, it checks if the map is being dragged (evt.dragging). If the map is being dragged, the function returns early and does nothing. This prevents unnecessary processing when the map is being interactively moved by the user.
@@ -4731,6 +4238,67 @@ Controllers stored in app\\Http\\Controllers\\MapsController.php
 | **Return**      | Returns an array of buildings with toilet network information if found, otherwise returns null. |
 | **Source**      | app\\Http\\Controllers\\ MapsController.php                                                     |
 
+
+| **Function**    | checkLocationWithinBoundary(Request $request) |
+| ----------------| ----------------|
+| **Description** | Checks whether the provided coordinates fall within the municipality boundary |
+| **Parameters**  | $request |
+| **Return**      | an array of polygon(s) from the 'citypolys' table that intersect with the given point. If no polygon is found, an empty array is returned. |
+
+| **Function**    | getKmlInfoReportCsv(Request $request) |
+| ----------------| ----------------|
+| **Description** | Generates and downloads a summary report in Excel format based on multiple KML geometries. |
+| **Parameters**  | $request |
+| **Return**      | CSV files containing data obtainerd from: new SummaryInfoMultiSheetExport($geometries, 0) |
+| **Source**      | app\Http\Controllers\MapsController.php |
+| **Remarks**     | SummaryInfoMultiSheetExport: The Excel file is generated using this class, passing the geometry and distance obtained from the request parameters. In this case, it returns an array containing instances of other export classes (BuildingsExport, BuildingsListExport, and ContainmentsListExport), passing the buffer polygon geometry and distance to each of them. BuildingsExport: This class encapsulates the logic to export building data from SQL query using the provided buffer polygon geometry data and its buffer distance to an Excel sheet, apply some styling, and provide a title for the sheet. BuildingsListExport: This class encapsulates the logic to export a list of buildings data from SQL query using the provided buffer polygon geometry data and its buffer distance to an Excel sheet, apply some styling, and provide a title for the sheet. ContainmentsListExport: This class encapsulates the logic to export a list of containments data from SQL query using the provided buffer polygon geometry data and its buffer distance to an Excel sheet, apply some styling, and provide a title for the sheet. |
+
+| **Function** | checkGeometry(Request $request) |
+| ----------------| ------------------------------------------------------------------------------------------------|
+| **Description** | Checks whether the provided geometries intersect with municipality boundaries. |
+| **Parameters** | $request |
+| **Return** | JSON response indicating intersection results for each geometry. |
+| **Source** | app\Http\Controllers\MapsController.php |
+| **Remarks** | checkGeometryType($geometry) is explained below |
+
+| **Function** | getKmlSummaryInfo(Request $request) |
+| ----------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Description** | Processes an array of geometries from the request and filters only valid polygons (ST\_POLYGON).   * If valid polygons exist, it forwards them to another method for further processing. |
+| **Parameters** | $request |
+| **Return** | Result of building lookup   * if valid polygons exist; otherwise, returns an error response indicating no valid polygons found. |
+| **Source** | app\Http\Controllers\MapsController.php |
+| **Remarks** | checkGeometryType($geometry) is explained below |
+
+| **Function** | checkGeometryType(string $geometry) |
+| ----------------| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Description** | Checks the type of geometry provided in the request. |
+| **Parameters** | $geometry |
+| **Return** | The type of geometry |
+| **Source** | app\Http\Controllers\MapsController.php |
+
+| **Function** | getToiletIsochroneAreaLayers(Request $request) |
+| ----------------| --------------------------------------------------------------------------------------------------------------------------------|
+| **Description** | Retrieves buildings and polygon geometry within a specified isochrone distance for toilet network analysis |
+| **Parameters** | $request |
+| **Return** | Returns an associative array with:  - 'buildings': List of buildings within the isochrone area.  - 'polygon': The isochrone polygon geometry. |
+| **Source** | app\Http\Controllers\MapsController.php |
+| **Remarks** | getToiletIsochroneAreaLayers($distance) MapsService explains the Service Class Function Name mentioned above. |
+
+| **Function** | getContainmentReport(Request $request) |
+| ----------------| --------------------------------------------------------------------------------------------------------------------------------|
+| **Description** | Generates a containment emptying report for a specified geometry over the past 5 years. |
+| **Parameters** | $request |
+| **Return** | Returns an array of monthly data and styling information for the chart.  - If 'geom' is missing, a string error message is returned instead. |
+| **Source** | app\Http\Controllers\MapsController.php |
+
+| **Function** | getContainmentReportCsv(Request $request) |
+| ----------------| ------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Description** | Retrieves a report containing the monthly containment emptying summary, based on the selected geometry and year from the request. |
+| **Parameters** | $request |
+| **Return** | CSV files containing data obtainerd from: new SummaryInfoMultiSheetExport(request()->containment\_report\_polygon, request()->containment\_report\_year) |
+| **Source** | app\Http\Controllers\MapsController.php |
+
+
 MapsService
 
 Service class: app\\Services\\Maps\\MapsService.php
@@ -4979,3 +4547,11 @@ Service class: app\\Services\\Maps\\MapsService.php
 | **Parameters**  | \$buildingResults                                                             |
 | **Return**      | HTML content for displaying building information.                             |
 | **Source**      | app\\Http\\Controllers\\ MapsService.php                                      |
+
+
+| **Function** | getToiletIsochroneAreaLayers($distance) |
+| -------------| --------------------------------------------------- |
+| **Description** | Calculates isochrone polygons from nearby toilets. |
+| **Parameters** | $distance |
+| **Return** | an array of isochrone polygons (WKT) for each toilet |
+| **Source** | app\Services\Maps\MapsService.php |

@@ -1131,9 +1131,9 @@ class MapsController extends Controller
     }
 
     /**
-     * Retrieves inaccessible buildings along a road based on provided road width and house length.
+     * Retrieves inaccessible buildings along a road based on provided road width and hose length.
      *
-     * @param Request $request The request object containing road width, road width unit, house length, and house length unit.
+     * @param Request $request The request object containing road width, road width unit, hose length, and hose length unit.
      * @return array Array containing buildings, population content HTML, and polygon information.
      */
     public function roadInaccessibleBuildings(Request $request)
@@ -1266,6 +1266,16 @@ class MapsController extends Controller
         }
 
     }
+
+
+    /**
+     * Checks whether the provided coordinates fall within the municipality boundary.
+     *
+     * @param Request $request The request object containing 'latt' (latitude) and 'long' (longitude) parameters.
+     * @return array Returns an array of polygon(s) from the 'citypolys' table that intersect with the given point.
+     *               If no polygon is found, an empty array is returned.
+     */
+
     public function checkLocationWithinBoundary(Request $request) {
         $latt = $request->input('latt');  // Ensure that these keys are correct
         $long = $request->input('long');
@@ -1275,6 +1285,13 @@ class MapsController extends Controller
         return $result;
     }
     
+
+    /**
+     * Generates and downloads a summary report in Excel format based on multiple KML geometries.
+     *
+     * @param Request $request The request object containing 'kml_dragdrop_geom', a raw string of KML polygon geometries.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse Returns a downloadable Excel file with summary information for the provided geometries.
+     */
 
     public function getKmlInfoReportCsv(Request $request)
     {
@@ -1298,7 +1315,13 @@ class MapsController extends Controller
     }
     
     
-        public function checkGeometry(Request $request)
+    /**
+     * Checks whether the provided geometries intersect with municipality boundaries.
+     *
+     * @param Request $request The request containing an array of WKT geometries.
+     * @return \Illuminate\Http\JsonResponse JSON response indicating intersection results for each geometry.
+     */
+    public function checkGeometry(Request $request)
         {
             $geometries = $request->input('geometries'); // Get all geometries
 
@@ -1331,6 +1354,14 @@ class MapsController extends Controller
         }
 
 
+        /**
+         * Processes an array of geometries from the request and filters only valid polygons (ST_POLYGON).
+         * If valid polygons exist, it forwards them to another method for further processing.
+         *
+         * @param Request $request The request object containing an array of geometries.
+         * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response Returns the result of building lookup
+         *         if valid polygons exist; otherwise, returns an error response indicating no valid polygons found.
+         */
         public function getKmlSummaryInfo(Request $request)
         {
             // Get all the geometries sent in the request
@@ -1372,59 +1403,17 @@ class MapsController extends Controller
                 ], 200);
             }
         }
-        
 
 
-    public function getIsochroneArea(Request $request)
-    {
-        $speed = explode(',', $request->speed);
-        $times = explode(',', $request->time);
-        $i = 0;
-        $distance = array();
-        foreach($times as $time)
-        {
-            $dist = $time * $speed[0]*16.66667 ;
-            array_push($distance,$dist);
-        }
-        $long = $request->long;
-        $lat = $request->lat;
-        $results = $this->mapsService->getIsochroneAreaLayers($distance, $long, $lat);
-        return [
-            'buildings' => $results['buildings'],
-            'polygon' => $results['polygon']
-        ];
-
-    }
-
-    public function getIsochroneExport(Request $request)
-    {
-        $speed =  isset($_GET['speed']) ?  explode(',',$_GET['speed']) : null;
-        $times =  isset($_GET['time']) ? explode(',',$_GET['time']) : null;
-        $long =  isset($_GET['long_pos']) ? $_GET['long_pos'] : null;
-        $lat =  isset($_GET['lat_pos']) ? $_GET['lat_pos'] : null;
-        $i = 0;
-        $distance = array();
-
-        foreach($times as $time)
-        {
-            $dist = $time * $speed[0]*16.66667 ;
-            array_push($distance,$dist);
-        }
-        
-        $results = $this->mapsService->getIsochroneAreaLayers($distance, $long, $lat)['buildings'];
-        $bins = array();
-
-        foreach($results as $res)
-        {
-            $bin = $res['bin'];
-            array_push($bins,$bin);
-        }
-
-        ob_end_clean();
-        return $this->excel->download(new BuildingsIsochroneMultiSheetExport($bins), 'Point Isochrone Building Information.xlsx');
-    
-
-    }
+    /**
+     * Retrieves buildings and polygon geometry within a specified isochrone distance
+     * for toilet network analysis.
+     *
+     * @param Request $request The HTTP request containing the buffer distance to compute the isochrone area.
+     * @return array Returns an associative array with:
+     *               - 'buildings': List of buildings within the isochrone area.
+     *               - 'polygon': The isochrone polygon geometry.
+     */
 
 
     public function getToiletIsochroneAreaLayers(Request $request)
@@ -1436,30 +1425,26 @@ class MapsController extends Controller
         }
         $results = $this->mapsService->getToiletIsochroneAreaLayers($distance);
         return [
-            'buildings' => $results['buildings'],
             'polygon' => $results['polygon']
         ];
 
     }
-    public function getToiletIsochroneExport(Request $request)
-    {
-        $distance =  isset($_GET['distance']) ?  explode(',',$_GET['distance']) : null;
-        $i = 0;
-        $results = $this->mapsService->getToiletIsochroneAreaLayers($distance[0])['buildings'];
-        $bins = array();
 
-        foreach($results as $res)
-        {
-            $bin = $res['bin'];
-            array_push($bins,$bin);
-        }
+    /**
+ * Generates a containment emptying report for a specified geometry over the past 5 years.
+ *
+ * This function queries the `fsm.emptyings`, `fsm.applications`, and `fsm.containments` tables
+ * to count the number of containments emptied per month. It compares data from the current year
+ * to the previous four years, and returns the monthly counts along with chart color settings.
+ *
+ * Access is filtered based on the authenticated user's role (e.g., Service Provider Admin vs regular user).
+ * The input geometry is used to spatially filter the containment records.
+ *
+ * @param Request $request The request object containing a 'geom' parameter (WKT geometry string).
+ * @return array|string Returns an array of monthly data and styling information for the chart.
+ *                      If 'geom' is missing, a string error message is returned instead.
+ */
 
-
-        ob_end_clean();
-        return $this->excel->download(new BuildingsIsochroneMultiSheetExport($bins), 'Toilet Isochrone Building Information.xlsx');
-    
-
-    }
     public function getContainmentReport(Request $request)
     {
         
@@ -1471,20 +1456,11 @@ class MapsController extends Controller
             $whereUser = " AND a.user_id = " . Auth::id();
         }
             
-
-
-
         /**No of containment emptied**/
         
         $current_year = date('Y');
         $from_year = $current_year - 4;
         
-            
-            //$uniqueContainCodeEmptiedCount = $this->mapsService->getUniqueContainmentEmptiedCountByYear($request->geom, $whereUser, $year);
-
-
-        
-
             $colors = ['rgba(57, 142, 61, 0.2)', 'rgba(62, 199, 68, 0.2)', 'rgba(255, 229, 0, 0.2)', 'rgba(255, 179, 3, 0.2)', 'rgba(219, 61, 61, 0.2)'];
             $borderColor = ['rgba(57, 142, 61, 0.65)', 'rgba(62, 199, 68, 0.8)', 'rgba(255, 229, 0, 0.8)', 'rgba(255, 179, 3, 0.8)', 'rgba(219, 61, 61, 0.65)'];
             $hoverBackgroundColor = ['rgba(57, 142, 61, 0.45)', '"rgba(62, 199, 68, 0.45)', 'rgba(255, 229, 0, 0.45)', 'rgba(255, 179, 3, 0.45)', 'rgba(219, 61, 61, 0.45)'];
@@ -1513,7 +1489,6 @@ class MapsController extends Controller
             $valuesAll[] = $row->count;
         }
             
-       
         $query = "SELECT months.month_val AS month, count(c.id) AS count
         FROM (select m as month_val from GENERATE_SERIES(1,12) m) AS months  
 		LEFT JOIN  fsm.emptyings e 
@@ -1652,6 +1627,17 @@ class MapsController extends Controller
             return "The 'geom' field is required";
         }
     }
+
+    /**
+ * Retrieves a report  containing the monthly containment emptying summary, based on the selected geometry and year from the request.
+ *
+ * @param Request $request The request object containing:
+ *                         - 'containment_report_polygon': the geometry (WKT or GeoJSON) used for filtering data.
+ *                         - 'containment_report_year': the selected year for the report.
+ *
+ * @return \Symfony\Component\HttpFoundation\BinaryFileResponse The Excel file download response.
+ */
+
     public function getContainmentReportCsv(Request $request)
     {
         ob_end_clean();
