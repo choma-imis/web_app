@@ -79,7 +79,7 @@ class SewerLineService {
                 }
 
                 if (Auth::user()->can('View Sewer On Map')) {
-                    $content .= '<a title="' . __("Preview Sewer Location") . '" href="' . action("MapsController@index", ['layer' => 'sewerlines_layer', 'field' => 'code', 'val' => $model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-map-marker"></i></a> ';
+                    $content .= '<a title="' . __("Map") . '" href="' . action("MapsController@index", ['layer' => 'sewerlines_layer', 'field' => 'code', 'val' => $model->code]) . '" class="btn btn-info btn-sm mb-1"><i class="fa fa-map-marker"></i></a> ';
                 }
 
                 $content .= \Form::close();
