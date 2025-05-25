@@ -12349,9 +12349,14 @@ $.ajax({
                             mapLayer.add(option);
                         });
                     })
-                    .catch(err => {
+                    .catch(error => {
                         removeAjaxLoader();
-                        alert("Enter a valid WMS URL");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid URL',
+                            text: 'Enter a valid WMS URL.',
+                            confirmButtonText: 'OK'
+                        });
                     });
             });
 
