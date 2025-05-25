@@ -80,7 +80,7 @@ class RoadLineRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The Road Nameis required.',
+            'name.required' => 'The Road Name is required.',
             'length.required' => 'The Road Length (m) is required.',
             'carrying_width.required' => 'The Carrying Width (m) is required.',
             'right_of_way.required' => 'The Right of Way (m) is required.',
