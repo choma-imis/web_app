@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 class WMSProxyController extends Controller
 {
 
-public function forward(Request $request)
+public function proxyWms(Request $request)
 {
     $service = strtoupper($request->query('SERVICE', ''));
     $reqType = strtolower($request->query('REQUEST', ''));
