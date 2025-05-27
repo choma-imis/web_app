@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Fsm\ApplicationController;
 use App\Http\Controllers\Api\ApiServiceController;
 use App\Http\Controllers\MapsController;
+use App\Http\Controllers\Proxy\WMSProxyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -522,6 +523,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('maps/export-containment-report','MapsController@getContainmentReportCsv');
     Route::get('maps/check-location-within-boundary','MapsController@checkLocationWithinBoundary');
     Route::get('maps/toilet-isochrone', 'MapsController@getToiletIsochroneAreaLayers');
+   Route::get('/proxy-wms', [WMSProxyController::class, 'proxyWms']);
+
 });
 
 

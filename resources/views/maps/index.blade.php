@@ -9925,7 +9925,6 @@ $.ajax({
                                                                 html += `<div class="col-sm-6">${kk}</div>`;
                                                                 html += `<div class="col-sm-5"><strong>No House Image</strong></div>`;
                                                                 html += `</div>`;
-                                                                console.log("test");
                                                             $('#feature_information').html(html);
                                                         });
                                                 });
@@ -12321,120 +12320,140 @@ $.ajax({
             let availableLayers = [];
 
             wmsUrl.addEventListener("click", function () {
-                displayAjaxLoader();
+            displayAjaxLoader();
 
-                var wmsAddress = document.getElementById("wmsAddress").value;
+            var wmsAddress = document.getElementById("wmsAddress").value;
+                const urlObj = new URL(wmsAddress);
+                const params = new URLSearchParams(urlObj.search);
 
-                fetch(wmsAddress)
-                    .then(response => response.text())
-                    .then(text => {
-                        $("#wmsModal").modal("hide");
-                        const result = parser.read(text);
+                const SERVICE = params.get('service') ||  params.get('SERVICE') ;
+                const REQUEST = params.get('request') ||  params.get('REQUEST');
+                const VERSION = params.get('version') ||  params.get('VERSION');
 
-                        let layers = result.Capability.Layer.Layer;
-                        availableLayers = layers.map(layer => layer.Name);
-                        wms_gurl = wmsAddress.split("?")[0]; // WMS base URL
-
-                        // Construct the WFS base URL by replacing '/wms' with '/wfs'
-                        const baseWFSUrl = wmsAddress.split('?')[0].replace(/\/wms$/i, '/wfs');
-
-                        removeAjaxLoader();
-                        $("#getLayerModal").modal();
-                        mapLayer.options.length = 0;
-
-                        // Populate the mapLayer dropdown with available WMS layers
-                        layers.forEach(layer => {
-                            const option = document.createElement("option");
-                            option.value = option.text = layer.Name;
-                            mapLayer.add(option);
-                        });
-                    })
-                    .catch(error => {
-                        removeAjaxLoader();
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Invalid URL',
-                            text: 'Enter a valid WMS URL.',
-                            confirmButtonText: 'OK'
-                        });
-                    });
-            });
-
-            mapLayer.addEventListener("change", function () {
-                var selectedLayer = mapLayer.value;
-                var wmsAddress = document.getElementById("wmsAddress").value;
-
-                // Extract the workspace dynamically from the WMS URL
-                var baseWmsUrl = wmsAddress.split('?')[0];  // Get URL without query parameters
-                    var urlParts = baseWmsUrl.split('/').filter(Boolean);  // Remove any empty segments from the array
-
-                    // Extract workspace (assuming the workspace is the last path segment)
-                    var workspace_url = urlParts[urlParts.length - 2];  // The second-to-last part is the workspace
-
-                // Load city polygon features (assumes WFS is exposed)
-                var cityPolyUrl = `${gurl_wfs}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:citypolys_layer&outputFormat=application/json`;
-
-                fetch(cityPolyUrl)
-                    .then(res => res.json())
-                    .then(cityGeoJSON => {
-                        const cityFeatures = new ol.format.GeoJSON().readFeatures(cityGeoJSON, {
-                            featureProjection: 'EPSG:3857'
-                        });
-                    
-                        const cityGeometry = cityFeatures[0].getGeometry(); 
-
-                        // Load selected WFS layer from the constructed baseWFSUrl
-                        const selectedLayerUrl = `${wmsAddress.split('?')[0].replace(/\/wms$/i, '/wfs')}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace_url}:${selectedLayer}&outputFormat=application/json`;
-
-                        fetch(selectedLayerUrl)
-                            .then(res => res.json())
-                            .then(selectedGeoJSON => {
-                                const selectedFeatures = new ol.format.GeoJSON().readFeatures(selectedGeoJSON, {
-                                    featureProjection: 'EPSG:3857'
+                if (!SERVICE || !REQUEST || !VERSION) {
+                    Swal.fire({
+                                icon: 'error',
+                                title: 'Invalid URL',
+                                text: 'Enter URL does not match WMS GetCapabilities pattern.',
+                                    confirmButtonColor: '#d33'
                                 });
-                    let doesIntersect = selectedFeatures.some(f => {
-                        if (!f.getGeometry()) return false;
-                        return extentIntersects(f.getGeometry().getExtent(), cityGeometry.getExtent());
-                    });
+                    removeAjaxLoader();
+                    return;
+                }
+                $.ajax({
+                    url: '/proxy-wms',
+                    method: 'GET',
+                    data: {
+                        url: urlObj.origin + urlObj.pathname,
+                        SERVICE: SERVICE,
+                        REQUEST: REQUEST,
+                        VERSION: VERSION
+                    },
+                    success: function () {
+                        fetch(wmsAddress)
+                            .then(response => response.text())
+                            .then(text => {
+                                $("#wmsModal").modal("hide");
+                                const result = parser.read(text);
+                                const layers = result.Capability.Layer.Layer;
+                                availableLayers = layers.map(layer => layer.Name);
+                                wms_gurl = wmsAddress.split("?")[0]; // Base WMS URL
+                                const baseWFSUrl = wms_gurl.replace(/\/wms$/i, '/wfs');
 
-                    if (!doesIntersect) {
+                                removeAjaxLoader();
+                                $("#getLayerModal").modal();
+                                mapLayer.options.length = 0;
+
+                                layers.forEach(layer => {
+                                    const option = document.createElement("option");
+                                    option.value = option.text = layer.Name;
+                                    mapLayer.add(option);
+                                });
+
+                                mapLayer.addEventListener("change", function () {
+                                    const selectedLayer = mapLayer.value;
+
+                                    const urlParts = wms_gurl.split('/').filter(Boolean);
+                                    const workspace_url = urlParts[urlParts.length - 2];
+
+                                    const cityPolyUrl = `${gurl_wms}?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:citypolys_layer&outputFormat=application/json`;
+                                    displayAjaxLoader();
+                                    fetch(cityPolyUrl)
+                                        .then(res => res.json())
+                                        .then(cityGeoJSON => {
+                                            const cityFeatures = new ol.format.GeoJSON().readFeatures(cityGeoJSON, {
+                                                featureProjection: 'EPSG:3857'
+                                            });
+                                            const cityGeometry = cityFeatures[0].getGeometry();
+
+                                            const selectedLayerUrl = `${baseWFSUrl}?service=WFS&version=${VERSION}&request=GetFeature&typeName=${workspace_url}:${selectedLayer}&outputFormat=application/json`;
+
+                                            fetch(selectedLayerUrl)
+                                                .then(res => res.json())
+                                                .then(selectedGeoJSON => {
+                                                    const selectedFeatures = new ol.format.GeoJSON().readFeatures(selectedGeoJSON, {
+                                                        featureProjection: 'EPSG:3857'
+                                                    });
+
+                                                    let doesIntersect = selectedFeatures.some(f => {
+                                                        return f.getGeometry() && extentIntersects(f.getGeometry().getExtent(), cityGeometry.getExtent());
+                                                    });
+
+                                                    if (!doesIntersect) {
+                                                        removeAjaxLoader();
+                                                        Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'Invalid Layer',
+                                                            text: 'Selected layer does not intersect with Municipality boundary',
+                                                            confirmButtonColor: '#d33'
+                                                        });
+                                                        return;
+                                                    }
+
+                                                    const source = new ol.source.TileWMS({
+                                                        url: wms_gurl,
+                                                        params: {
+                                                            layers: selectedLayer,
+                                                            TILED: true
+                                                        },
+                                                        crossOrigin: "anonymous",
+                                                        serverType: "geoserver",
+                                                        attributions: "This is from GetCapabilities"
+                                                    });
+
+                                                    const layer = new ol.layer.Tile({
+                                                        source: source,
+                                                        visible: true
+                                                    });
+
+                                                    map.addLayer(layer);
+                                                });
+                                        })
+                                });
+                            })
+                            .catch(error => {
+                                removeAjaxLoader();
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Invalid URL',
+                                    text: 'Enter a valid WMS URL.',
+                                    confirmButtonText: 'OK'
+                                });
+                            });
+                    },
+                    error: function (xhr) {
+                        removeAjaxLoader();
                         Swal.fire({
                             icon: 'error',
-                            title: 'Invalid Layer',
-                            text: 'Selected layer does not intersect with Municipality boundary',
+                            title: 'Proxy Error',
+                            text: 'Failed to fetch WMS capabilities.',
                             confirmButtonColor: '#d33'
                         });
-                        return;
                     }
-
-                    // Add the layer to the map
-                    const source = new ol.source.TileWMS({
-                        url: wms_gurl,
-                        params: {
-                            layers: selectedLayer,
-                            TILED: true
-                        },
-                        crossOrigin: "anonymous",
-                        serverType: "geoserver",
-                        attributions: "This is from getcapabilities"
-                    });
-
-                    const layer = new ol.layer.Tile({
-                        source: source,
-                        visible: true
-                    });
-
-                    map.addLayer(layer);
                 });
-        })
-        .catch(err => {
-            console.error("Error checking intersection", err);
         });
-});
 
-
-
-            function updateMapSize() {
+        function updateMapSize() {
                 map.updateSize();
                 google.maps.event.trigger(gmap, 'resize');
                 onCenterChanged();
