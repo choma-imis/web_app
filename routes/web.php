@@ -523,7 +523,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('maps/export-containment-report','MapsController@getContainmentReportCsv');
     Route::get('maps/check-location-within-boundary','MapsController@checkLocationWithinBoundary');
     Route::get('maps/toilet-isochrone', 'MapsController@getToiletIsochroneAreaLayers');
-   Route::get('/proxy-wms', [WMSProxyController::class, 'proxyWms']);
+   Route::get('/proxy-wms', 'MapsController@proxyWms');
 
 });
 
