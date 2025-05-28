@@ -12,8 +12,7 @@ use App\Exports\BuildingsRoadSummaryInfoMultiSheetExport;
 use App\Exports\DrainPotentialSummaryInfoMultiSheetExport;
 use App\Exports\ContainmentSummaryInfoMultiSheetExport;
 use App\Exports\BuildingsIsochroneMultiSheetExport;
-
-
+use Illuminate\Support\Facades\Http;
 use App\ServiceProvider;
 use Auth;
 use App\Exports\BuildingsOwnerExport;
@@ -1644,5 +1643,54 @@ class MapsController extends Controller
         
         return $this->excel->download(new ContainmentSummaryInfoMultiSheetExport(request()->containment_report_polygon, request()->containment_report_year), 'Summary Information Containments Emtpied Monthly.xlsx');
     }
+
+/**
+ * Forwards a WMS GetCapabilities request to an external WMS server.
+ * Allows CORS only for GetCapabilities requests.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\Response
+ */
+
+    public function proxyWms(Request $request)
+{
+    $service = strtoupper($request->query('SERVICE', ''));
+    $reqType = strtolower($request->query('REQUEST', ''));
+    $verType = strtolower($request->query('VERSION', ''));
+
+
+    $externalUrl = $request->query('url', '');
+
+    if (empty($externalUrl)) {
+        return response()->json(['error' => 'Missing WMS URL.'], 400);
+    }
+
+    // Remove 'url' from query parameters
+    $queryParams = $request->except('url');
+
+    try {
+        $response = Http::withOptions([
+            'verify' => false   
+        ])->withHeaders([
+            'Accept' => 'application/xml',
+        ])->get($externalUrl, $queryParams);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Failed to fetch WMS URL.',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+
+    $res = response($response->body(), $response->status())
+        ->header('Content-Type', $response->header('Content-Type') ?? 'application/xml');
+
+    // Allow CORS only for WMS GetCapabilities
+    if ($service === 'WMS' && $reqType === 'getcapabilities') {
+        $res->header('Access-Control-Allow-Origin', '*');
+    }
+
+    return $res;
+}
    
 }
