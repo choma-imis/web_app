@@ -821,10 +821,11 @@ class ApplicationService
                     $content .= '<a title="' . __("Edit Emptying Service Details") . '" href="' . route("emptying.edit", [$model->with('emptying')->where('id',$model->id)->get()->first()->emptying->id]) . '" class="btn btn btn-info btn-sm mb-1 mb-1'. ( $model->sludge_collection_status  ? ' anchor-disabled' : '') . '"><i class="fa fa-recycle"></i></a> ';
                 }
                 if (Auth::user()->can('Edit Sludge Collection') && $model->sludge_collection_status){
-                    $content .= '<a title="' . __("Edit Sludge Collection Details") . '" href="' . route("sludge-collection.edit", [$model->sludge_collection->id]) . '" class="btn btn btn-info btn-sm mb-1 mb-1"><i class="fa fa-truck-moving"></i></a> ';
+                   $content .= '<a title="Edit Sludge Collection Details" href="' . route("sludge-collection.edit", [$model->sludge_collection->id]) . '" class="btn btn-info btn-sm mb-1' . ($model->feedback_status ? ' anchor-disabled' : '') . '"><i class="fa fa-truck-moving"></i></a> ';
+
                 }
                 if (Auth::user()->can('Edit Feedback') && $model->feedback_status){
-                    $content .= '<a title="' . __("Edit Feedback Details") . '" href="' . route("feedback.edit", [$model->feedback->id]) . '" class="btn btn btn-info btn-sm mb-1 mb-1"><i class="fa fa-pencil"></i></a> ';
+                    $content .= '<a title="Edit Feedback Details" href="' . route("feedback.edit", [$model->feedback->id]) . '" class="btn btn-info btn-sm mb-1' . ($model->feedback_status ? ' anchor-disabled' : '') . '"><i class="fa fa-pencil"></i></a> ';
                 }
 
 
