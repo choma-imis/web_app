@@ -2586,7 +2586,7 @@ Initialize
 
     \<a href="\#" id="toilet_isochrone_control" title="Generate isochrone information of CTPT by distance traversed (m)"> class="btn btn-default map-control"\>\<i
 
-    class="fa fa-building"\>\</i\>Toilet Isochrone Map\</a\>
+    class="fa fa-building"\>\</i\>Public Toilet Accessibility Tool\</a\>
 
     \< -- CODE END -- \>
 
