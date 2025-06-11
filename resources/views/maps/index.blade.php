@@ -1718,24 +1718,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 <div class="modal-body">
                     <form class="form-horizontal" id="form-toilet-isochrone-map">
                         <div class="form-group row">
-                            <label class="col-form-label col-md-4">Estimated Travel Time (minutes)</label>
+                            <label class="col-form-label col-md-4">Estimated Travel Distance (meter)</label>
                             <input type="number" 
                                 class="form-control col-md-4" 
-                                id="toilet-isochrone-time" 
-                                placeholder="Time in minutes" 
+                                id="toilet-isochrone-distance" 
+                                placeholder="Distance in meter" 
                                 min="1" 
                                 step="1" />
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-md-4">Estimated Speed (km/hr)</label>
-                           <input type="number" 
-                                class="form-control col-md-4" 
-                                id="toilet-isochrone-speed" 
-                                placeholder="Speed in km/h" 
-                                min="0" 
-                                step="0.01" />
-
                             <div class="col-md-4">
                                 <input type="hidden" id="isochrone-long-pos" value=""/>
                                 <input type="hidden" id="isochrone-lat-pos" value=""/>
@@ -9015,12 +9007,10 @@ $.ajax({
                     });
                 addExtraLayer('toilets_isochrone_buildings', 'Toilets Isochrone Buffer Buildings', layer);
                 }
-                var speed = $('#toilet-isochrone-speed').val();
-                var time = $('#toilet-isochrone-time').val();
-
+               
                 var urliso = '{{ url("maps/toilet-isochrone") }}';
 
-                var distance = (speed * time)*16.66667 ; //distance calculated in meter per second 
+                var distance = $('#toilet-isochrone-distance').val() ; //distance calculated in meter
 
                 displayAjaxLoader();
                 $.ajax({
