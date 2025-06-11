@@ -47,8 +47,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                            data-toggle="tooltip" data-placement="bottom" title="Find Associated Buildings"><img src="{{ asset('img/svg/imis-icons/associated_building.svg')}}" style="height:24px;"alt="Associated Buildings Icon"></a>
                         <a href="#" id="wms_layer" class="btn btn-default map-control"
                            data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i class="fas fa-layer-group"></i></a>
-                        <a href="#" id="get_location" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:20px;"alt="Location Icon"> </a>
-                        <a href="#" id="kml_drag_drop" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="KML Dran and Drop" ><i class="fas fa-globe"></i></a>
+                        <a href="#" id="get_location" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:17px;"alt="Location Icon"> </a>
+                        <a href="#" id="kml_drag_drop" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="KML Drag and Drop" ><img src="{{ asset('img/kml_icon.png')}}" style="height:22px;"alt="Location Icon"> </a>
                         <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
                            data-placement="bottom" title="Remove Markers"><i class="fa fa-trash fa-fw"></i></a>
                           
@@ -1718,24 +1718,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 <div class="modal-body">
                     <form class="form-horizontal" id="form-toilet-isochrone-map">
                         <div class="form-group row">
-                            <label class="col-form-label col-md-4">Estimated Travel Time (minutes)</label>
+                            <label class="col-form-label col-md-4">Estimated Travel Distance (meter)</label>
                             <input type="number" 
                                 class="form-control col-md-4" 
-                                id="toilet-isochrone-time" 
-                                placeholder="Time in minutes" 
+                                id="toilet-isochrone-distance" 
+                                placeholder="Distance in meter" 
                                 min="1" 
                                 step="1" />
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-md-4">Estimated Speed (km/hr)</label>
-                           <input type="number" 
-                                class="form-control col-md-4" 
-                                id="toilet-isochrone-speed" 
-                                placeholder="Speed in km/h" 
-                                min="0" 
-                                step="0.01" />
-
                             <div class="col-md-4">
                                 <input type="hidden" id="isochrone-long-pos" value=""/>
                                 <input type="hidden" id="isochrone-lat-pos" value=""/>
@@ -9015,12 +9007,10 @@ $.ajax({
                     });
                 addExtraLayer('toilets_isochrone_buildings', 'Toilets Isochrone Buffer Buildings', layer);
                 }
-                var speed = $('#toilet-isochrone-speed').val();
-                var time = $('#toilet-isochrone-time').val();
-
+               
                 var urliso = '{{ url("maps/toilet-isochrone") }}';
 
-                var distance = (speed * time)*16.66667 ; //distance calculated in meter per second 
+                var distance = $('#toilet-isochrone-distance').val() ; //distance calculated in meter
 
                 displayAjaxLoader();
                 $.ajax({
@@ -11756,7 +11746,7 @@ $.ajax({
                 });
             }
 
-        //Display application based on selected year and months
+                 //Display application based on selected year and months
             $('#find_application_yearmonth').submit(function () {
 
                 var applicaion_year = $('#applicaion_year').val();
@@ -12434,7 +12424,7 @@ $.ajax({
                                                         source: source,
                                                         visible: true
                                                     });
-
+                                                    removeAjaxLoader();
                                                     map.addLayer(layer);
                                                 });
                                         })
