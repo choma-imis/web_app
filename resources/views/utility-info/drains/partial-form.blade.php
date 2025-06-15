@@ -26,13 +26,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 			{!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => __('Surface Type')]);!!}
 		</div>
 	</div>
-	<div class="form-group row ">
+	<div class="form-group row required">
 		{!! Form::label('size',__('Width (mm)'),['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
 			{!! Form::text('size',null,['class' => 'form-control', 'placeholder' => __('Width (mm)'),'oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
 		</div>
 	</div>
-	<div class="form-group row ">
+	<div class="form-group row required">
 		{!! Form::label('length',__('Length (m)'),['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-3">
 			{!! Form::text('length',null,['class' => 'form-control', 'placeholder' => __('Length (m)'),'oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
