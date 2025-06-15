@@ -565,6 +565,22 @@ Route::group([
 
     Route::resource('hotspots', 'HotspotController');
 });
+Route::group([
+    'name' => 'language',
+    'prefix' => 'language',
+    'namespace' => 'Language',
+    'middleware' => 'auth'
+], function () {
+    Route::post('/generate/{id}', 'LanguageController@generate_translate')->name('lang.generate');
+    Route::get('/switch', 'LanguageController@set_lang')->name('lang.switch');
+    Route::get('/data', 'LanguageController@getData');
+    Route::get('/exportFormat', 'LanguageController@export_csv_format');
+    Route::post('/import/{id}', 'LanguageController@import_translates')->name('lang.import');
+    Route::get('/import/{id}', 'LanguageController@create_import')->name('lang.import');
+    Route::get('add-translation/{id}', 'LanguageController@add_translation')->name('lang.add_translation');
+    Route::post('/save-translation/{languageId}', 'LanguageController@saveStepTranslation');
+    Route::resource('setup', 'LanguageController');
+});
 Route::group(['middleware' => ['auth']], function () {
     /**
      * Logout Routes

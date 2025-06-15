@@ -1108,6 +1108,9 @@ class MapsController extends Controller
         // Validate the request parameters
         $validated = $request->validate([
             'hose_length' => 'required|numeric',
+        ], [
+            'hose_length.required' => __('The hose length field is required.'),
+            'hose_length.numeric' => __('The hose length must be a number.'),
         ]);
 
         //converting to meter if in feet
@@ -1164,6 +1167,11 @@ class MapsController extends Controller
         $this->validate($request, [
             'road_width' => 'required|numeric|lte_db:utility_info.roads,carrying_width',
             'hose_length' => 'required|numeric',
+        ], [
+            'road_width.required' => __('The road width field is required.'),
+            'road_width.numeric' => __('The road width must be a number.'),
+            'hose_length.required' => __('The hose length field is required.'),
+            'hose_length.numeric' => __('The hose length must be a number.'),
         ]);
 
 

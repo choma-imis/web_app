@@ -83,7 +83,7 @@ class MapsService {
             ->get();
 
 
-        $page_title = "Map";
+        $page_title = __("Map");
         
         // Fetching road hierarchy data
         $roadHierarchy = Roadline::whereNotNull('hierarchy')->groupBy('hierarchy')->pluck('hierarchy','hierarchy');

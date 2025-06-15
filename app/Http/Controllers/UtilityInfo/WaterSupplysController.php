@@ -37,7 +37,7 @@ class WaterSupplysController extends Controller
      */
     public function index()
     {
-        $page_title = "Water Supply Network";
+        $page_title = __("Water Supply Network");
         return view('utility-info/water-supplys.index', compact('page_title'));
     }
 
@@ -58,8 +58,8 @@ class WaterSupplysController extends Controller
     public function store(WaterSupplysRequest $request)
     {
         $data = $request->all();
-        $this->waterSupplysService->storeOrUpdate($id = null,$data);
-        return redirect('utilityinfo/watersupplys')->with('success','Water Supply created successfully');
+        $this->waterSuplysService->storeOrUpdate($id = null,$data);
+        return redirect('utilityinfo/watersupplys')->with('success',__('Water Supply created successfully.'));
     }
 
 
@@ -76,7 +76,7 @@ class WaterSupplysController extends Controller
             $waterSupplys->diameter = number_format($waterSupplys->diameter, 2);
             // Format the length attribute to display only two decimal places
             $waterSupplys->length = number_format($waterSupplys->length, 2);
-            $page_title = "Water Supply Network Details";
+            $page_title = __("Water Supply Network Details");
             return view('utility-info/water-supplys.show', compact('page_title', 'waterSupplys'));
         } else {
             abort(404);
@@ -97,7 +97,7 @@ class WaterSupplysController extends Controller
             $waterSupplys->diameter = number_format($waterSupplys->diameter, 2);
             // Format the length attribute to display only two decimal places
             $waterSupplys->length = number_format($waterSupplys->length, 2);
-            $page_title = "Edit Water Supply Network";
+            $page_title = __("Edit Water Supply Network");
             return view('utility-info/water-supplys.edit', compact('page_title', 'waterSupplys'));
         } else {
             abort(404);
@@ -117,9 +117,9 @@ class WaterSupplysController extends Controller
         if ($waterSupplys) {
             $data = $request->all();
             $this->waterSupplysService->storeOrUpdate($waterSupplys->code,$data);
-            return redirect('utilityinfo/watersupplys')->with('success','Water Supply Network updated successfully');
+            return redirect('utilityinfo/watersupplys')->with('success',__('Water Supply Network updated successfully.'));
         } else {
-            return redirect('utilityinfo/watersupplys')->with('error','Failed to update water supplys');
+            return redirect('utilityinfo/watersupplys')->with('error',__('Failed to update water supplys'));
         }
     }
 
@@ -135,12 +135,12 @@ class WaterSupplysController extends Controller
         if ($waterSupplys) {
             if($waterSupplys->buildings->exists())
             {
-                return redirect('utilityinfo/watersupplys')->with('error','Cannot delete Water Supply Network that is associated with Building Information');
+                return redirect('utilityinfo/watersupplys')->with('error',__('Cannot delete Water Supply Network that is associated with Building Information.'));
             }
             $waterSupplys->delete();
-            return redirect('utilityinfo/watersupplys')->with('success', 'Water Supply Network deleted successfully');
+            return redirect('utilityinfo/watersupplys')->with('success', __('Water Supply Network deleted successfully.'));
         } else {
-            return redirect('utilityinfo/watersupplys')->with('error','Failed to delete Water Supply Network');
+            return redirect('utilityinfo/watersupplys')->with('error',__('Failed to delete Water Supply Network.'));
         }
     }
 
@@ -154,7 +154,7 @@ class WaterSupplysController extends Controller
     {
         $waterSupplys = WaterSupplys::find($id);
         if ($waterSupplys) {
-            $page_title = "Water Supply Network History";
+            $page_title = __("Water Supply Network History");
             return view('utility-info/water-supplys.history', compact('page_title', 'waterSupplys'));
         } else {
             abort(404);

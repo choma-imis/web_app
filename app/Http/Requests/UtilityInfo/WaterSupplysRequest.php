@@ -17,21 +17,38 @@ class WaterSupplysRequest extends Request
         return true;
     }
 
+      /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'diameter' => $this->cleanNumber($this->input('diameter')),
+            'length' => $this->cleanNumber($this->input('length')),
+        ]);
+    }
+
+
+     /**
+     * Remove commas from number inputs.
+     */
+    private function cleanNumber($value)
+    {
+        return $value !== null ? str_replace(',', '', $value) : null;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+       public function rules()
     {
-        
-        switch ($this->method()) 
-        {
+        switch ($this->method()) {
             case 'GET':
             case 'DELETE':
-                {
-                    return [];
-                }
+                return [];
+
             case 'POST':
                 {
                     return [
@@ -62,18 +79,19 @@ class WaterSupplysRequest extends Request
     public function messages()
     {
         return [
+            'name.regex' => __('The name field should contain only contain letters and spaces.'),
+            'diameter.numeric' => __('The Diameter must be a number.'),
+            'length.numeric' => __('The Length (m) must be a number.'),
+            'name.string' => __('This Project Name must be a string.'),
             'road_code.required' => 'The Road Code is required.',
             'project_name.required' => 'The Project Name is required.',
             'project_name.string' => 'The Project Name must be a string.',
             'type.string' => 'The Type must be a string.',
             'material_type.string' => 'The Material Type must be a string.',
             'diameter.required' => 'The Diameter (mm) is required.',
-            'diameter.numeric' => 'The Diameter (mm) must be a number.',
             'length.required' => 'The Length (m) is required.',
-            'length.numeric' => 'The Length (m) must be a number.',
-            'name.regex' => 'The name field should contain only letters and spaces.',
-            'name.string' => 'This Project Name must be a string.',
         ];
+
     }
 
 }
