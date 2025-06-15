@@ -6,6 +6,8 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use App\Models\User;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
+
 
 class UserRequest extends Request
 {
@@ -31,7 +33,7 @@ class UserRequest extends Request
             'name' => 'required|max:255',
             'gender' => 'required',
             'username' => 'required|max:255|unique:pgsql.auth.users',
-            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|max:255|unique:pgsql.auth.users',
+            
             'password' => ['required', Password::min(8)
                 ->letters()
                 ->mixedCase()
@@ -59,15 +61,28 @@ class UserRequest extends Request
                 if (in_array('Service Provider - Help Desk', $roles) && $user_type === 'Help Desk') {
                     $rules['help_desk_id_1'] = 'required|integer';
                 }
-    
-                return $rules;  // Ensure rules are returned after being modified
+                $rules = array_merge($rules, [ 'email' => [
+                        'required',
+                        'regex:/^([a-z0-9_\+\-]+)(\.[a-z0-9_\+\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+                        'max:255',
+                        Rule::unique('pgsql.auth.users')->whereNull('deleted_at'),
+                    ],]);
+            
+                return $rules; 
     
             case 'PUT':
             case 'PATCH':
                 // Define the rules for PUT and PATCH if needed
                 $rules = array_merge($rules, [
                     'username' => 'required|max:255|unique:pgsql.auth.users,username,' . $user->id,
-                    'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|unique:pgsql.auth.users,email,' . $user->id,
+                      'email' => [
+                        'required',
+                        'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+                        'max:255',
+                        Rule::unique('pgsql.auth.users', 'email')
+                            ->ignore($user->id) 
+                            ->whereNull('deleted_at'),
+                    ],
                     'password' => ['nullable', 'required_with:password_confirmation', Password::min(8)
                         ->letters()
                         ->mixedCase()
@@ -120,3 +135,4 @@ public function messages()
 
 
 }
+
