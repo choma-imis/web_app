@@ -129,7 +129,7 @@ class KpiService {
 
     public function quarterdata($year)
     {
-        $years = KpiTarget::pluck('year')->unique()->toArray();
+        $years = Quarters::pluck('year')->unique()->toArray();
  
         if (!in_array($year, $years)) {
                 DB::insert("
