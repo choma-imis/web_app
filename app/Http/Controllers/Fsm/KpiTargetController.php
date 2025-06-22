@@ -168,6 +168,12 @@ class KpiTargetController extends Controller
         $kpi = KpiTarget::find($id);
         if ($kpi) {
             $kpi->delete();
+             $kpi_years = KpiTarget::pluck('year')->unique()->toArray();
+            $existingYears = Quarters::pluck('year')->unique()->toArray();
+            $missingYears = array_diff($existingYears, $kpi_years);
+            if (!empty($missingYears)) {
+                Quarters::whereIn('year', $missingYears)->delete();
+            }
             return redirect('fsm/kpi-targets')->with('success',__('KPI Target deleted successfully.'));
         } else {
             return redirect('fsm/kpi-targets')->with('error',__('Failed to delete KPI Target'));
