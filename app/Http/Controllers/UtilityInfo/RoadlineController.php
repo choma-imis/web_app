@@ -34,7 +34,7 @@ class RoadlineController extends Controller
      */
     public function index()
     {
-        $page_title = "Road Network";
+        $page_title = __('Road Network');
         return view('utility-info/road-lines.index', compact('page_title'));
     }
 
@@ -52,7 +52,7 @@ class RoadlineController extends Controller
      */
     public function create()
     {
-        $page_title = "Create Road";
+        $page_title = __("Create Road");
         return view('roadlines.create', compact('page_title'));
     }
 
@@ -65,10 +65,8 @@ class RoadlineController extends Controller
     public function store(RoadLineRequest $request)
     {
         $data = $request->all();
-
-        // Save the road line data using the service
-        $roadData = $this->roadlineService->storeOrUpdate(null, $data);
-        return redirect('utilityinfo/roadlines')->with('success', 'Road created successfully');
+        $this->roadlineService->storeOrUpdate($id = null,$data);
+        return redirect('utilityinfo/roadlines')->with('success',__('Road created successfully.'));
     }
 
 
@@ -89,7 +87,7 @@ class RoadlineController extends Controller
             // Format the length attribute to display only two decimal places
             $roadline->length = number_format($roadline->length, 2);
 
-            $page_title = "Road Network Details";
+            $page_title = __("Road Network Details");
             return view('utility-info/road-lines.show', compact('page_title', 'roadline'));
         } else {
             abort(404);
@@ -116,7 +114,7 @@ class RoadlineController extends Controller
             // Format the length attribute to display only two decimal places
             $roadline->length = number_format($roadline->length, 2);
 
-            $page_title = "Edit Road Network";
+            $page_title = __("Edit Road Network");
             return view('utility-info/road-lines.edit', compact('page_title', 'roadline','roadHierarchy','roadSurfaceTypes'));
         } else {
             abort(404);
@@ -137,10 +135,10 @@ class RoadlineController extends Controller
         if ($roadline) {
             $data = $request->all();
             $this->roadlineService->storeOrUpdate($roadline->code,$data);
-            
-            return redirect('utilityinfo/roadlines')->with('success','Road Network updated successfully');
+            return redirect('utilityinfo/roadlines')->with('success',__('Road Network updated successfully.'));
+
         } else {
-            return redirect('utilityinfo/roadlines')->with('error','Failed to update road');
+            return redirect('utilityinfo/roadlines')->with('error',__('Failed to update road'));
         }
     }
 
@@ -155,21 +153,21 @@ class RoadlineController extends Controller
         $roadline = Roadline::find($id);
         if ($roadline) {
             if ($roadline->buildings()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error','Cannot delete Road that is associated with Building Information');
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Building Information.'));
             } 
             if($roadline->sewers()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error','Cannot delete Road that is associated with Sewer Information');
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Sewer Information.'));
             } 
             if($roadline->drains()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error','Cannot delete Road that is associated with Drain Information');
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Drain Information.'));
             } 
             if($roadline->water_supply()->exists()) {
-                return redirect('utilityinfo/roadlines')->with('error','Cannot delete Road that is associated with Water Supply Network Information');
+                return redirect('utilityinfo/roadlines')->with('error',__('Cannot delete Road that is associated with Water Supply Network Information.'));
             } 
             $roadline->delete();
-            return redirect('utilityinfo/roadlines')->with('success','Road deleted successfully');
+            return redirect('utilityinfo/roadlines')->with('success',__('Road deleted successfully.'));
         } else {
-            return redirect('utilityinfo/roadlines')->with('error','Failed to delete road');
+            return redirect('utilityinfo/roadlines')->with('error',__('Failed to delete road.'));
         }
     }
 
@@ -183,7 +181,7 @@ class RoadlineController extends Controller
     {
         $roadline = Roadline::find($id);
         if ($roadline) {
-            $page_title = "Road Network History";
+            $page_title = __("Road Network History");
             return view('utility-info/road-lines.history', compact('page_title', 'roadline'));
         } else {
             abort(404);
@@ -276,10 +274,9 @@ class RoadlineController extends Controller
          return response()->json([
              'success' => true,
              'data' => [],
-             'error' => "Updated the road geometry successfully!",
+             'error' => "{{__('Updated the road geometry successfully!')}}",
          ]);
      }
-     
 
      public function getGeometry($code)
      {

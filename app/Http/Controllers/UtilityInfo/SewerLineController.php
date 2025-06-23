@@ -33,7 +33,7 @@ class SewerLineController extends Controller
      */
     public function index()
     {
-        $page_title = "Sewer Network";
+        $page_title = __("Sewer Network");
         $location = SewerLine::whereNotNull('location')->distinct('location')->pluck('location','location')->all();
         return view('utility-info/sewer-lines.index', compact('page_title','location'));
     }
@@ -51,7 +51,7 @@ class SewerLineController extends Controller
      */
     public function create()
     {
-        $page_title = "Create Sewer Line";
+        $page_title = __("Create Sewer Line");
         return view('sewer-lines.create', compact('page_title'));
     }
 
@@ -65,7 +65,7 @@ class SewerLineController extends Controller
     {
         $data = $request->all();
         $this->sewerLineService->storeOrUpdate($id = null,$data);
-        return redirect('utilityinfo/sewerlines')->with('success','Sewer Line created successfully');
+        return redirect('utilityinfo/sewerlines')->with('success',__('Sewer Line created successfully.'));
     }
 
     /**
@@ -82,7 +82,7 @@ class SewerLineController extends Controller
             $sewerLine->diameter = number_format($sewerLine->diameter, 2);
             // Format the length attribute to display only two decimal places
             $sewerLine->length = number_format($sewerLine->length, 2);
-            $page_title = "Sewer Network Details";
+            $page_title = __("Sewer Network Details");
             return view('utility-info/sewer-lines.show', compact('page_title', 'sewerLine' ,'treatmentplant'));
         } else {
             abort(404);
@@ -103,7 +103,7 @@ class SewerLineController extends Controller
             // Format the length attribute to display only two decimal places
             $sewerLine->length = number_format($sewerLine->length, 2);
             $treatdrp = TreatmentPlant::where('status', true)->pluck('name', 'id');
-            $page_title = "Edit Sewer Network";
+            $page_title = __("Edit Sewer Network");
             return view('utility-info/sewer-lines.edit', compact('page_title', 'sewerLine','treatdrp'));
         } else {
             abort(404);
@@ -123,9 +123,9 @@ class SewerLineController extends Controller
         if ($sewerLine) {
             $data = $request->all();
             $this->sewerLineService->storeOrUpdate($sewerLine->code,$data);
-            return redirect('utilityinfo/sewerlines')->with('success','Sewer Network updated successfully');
+            return redirect('utilityinfo/sewerlines')->with('success',__('Sewer Network updated successfully.'));
         } else {
-            return redirect('utilityinfo/sewerlines')->with('error','Failed to update drain');
+            return redirect('utilityinfo/sewerlines')->with('error',__('Failed to update drain.'));
         }
     }
 
@@ -140,15 +140,15 @@ class SewerLineController extends Controller
         $sewerLine = SewerLine::find($id);
         if ($sewerLine) {
             if ($sewerLine->buildings()->exists()) {
-                return redirect('utilityinfo/sewerlines')->with('error','Cannot delete Sewer that is associated with Building Information');
+                return redirect('utilityinfo/sewerlines')->with('error',__('Cannot delete Sewer that is associated with Building Information.'));
             } 
             if ($sewerLine->SewerConnection()->exists()) {
-                return redirect('utilityinfo/sewerlines')->with('error','Cannot delete Sewer that is associated with Sewer Connection Information');
+                return redirect('utilityinfo/sewerlines')->with('error',__('Cannot delete Sewer that is associated with Sewer Connection Information.'));
             } 
             $sewerLine->delete();
-            return redirect('utilityinfo/sewerlines')->with('success','Sewer deleted successfully');
+            return redirect('utilityinfo/sewerlines')->with('success',__('Sewer deleted successfully.'));
         } else {
-            return redirect('utilityinfo/sewerlines')->with('error','Failed to delete sewer');
+            return redirect('utilityinfo/sewerlines')->with('error',__('Failed to delete sewer.'));
         }
     }
 
@@ -162,7 +162,7 @@ class SewerLineController extends Controller
     {
         $sewerLine = SewerLine::find($id);
         if ($sewerLine) {
-            $page_title = "Sewer Network History";
+            $page_title = __("Sewer Network History");
             return view('utility-info/sewer-lines.history', compact('page_title', 'sewerLine'));
         } else {
             abort(404);

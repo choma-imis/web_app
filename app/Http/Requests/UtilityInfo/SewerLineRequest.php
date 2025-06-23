@@ -3,7 +3,6 @@
 namespace App\Http\Requests\UtilityInfo;
 
 use App\Http\Requests\Request;
-use App\Models\UtilityInfo\Roadline;
 
 class SewerLineRequest extends Request
 {
@@ -18,19 +17,36 @@ class SewerLineRequest extends Request
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'length' => $this->cleanNumber($this->input('length')),
+            'diameter' => $this->cleanNumber($this->input('diameter')),
+        ]);
+    }
+
+    /**
+     * Remove commas from number inputs.
+     */
+    private function cleanNumber($value)
+    {
+        return $value !== null ? str_replace(',', '', $value) : null;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-        
         switch ($this->method()) {
             case 'GET':
             case 'DELETE':
-                {
-                    return [];
-                }
+                return [];
+
             case 'POST':
                 {
                     return [
@@ -54,15 +70,16 @@ class SewerLineRequest extends Request
             default:break;
         }
     }
+
      public function messages()
     {
         return [
-            'name.regex' => 'The name field should contain only contain letters and spaces.',
-            'length.numeric' => 'The Length(m) must be a number.',
+            'name.regex' => __('The name field should contain only contain letters and spaces.'),
+            'length.numeric' => __('The Length (m) must be a number.'),
+            'location.string' => __('The Location must be a string.'),
+            'diameter.numeric' => __('The Diameter must be a number.'),
             'length.required' => 'The Length(m) is required.',
-            'location.string' => 'The Location must be a string.',
             'location.required' => 'The Location is required.',
-            'diameter.numeric' => 'The Diameter(mm) must be a number.',
             'diameter.required' => 'The Diameter(mm) is required.',
             ];
     }
