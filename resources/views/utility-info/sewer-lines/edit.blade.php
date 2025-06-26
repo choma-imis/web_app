@@ -7,7 +7,7 @@
 <div class="card card-info">
 <div class="card-header bg-transparent ">
 <a href="{{ url('maps#edit_sewer_control') . '-' . $sewerLine->code }}" class="btn btn-info">
-    Edit Sewer on Map
+     {{ __('Edit Sewer on Map') }}
 </a>
 	</div>
 

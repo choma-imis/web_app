@@ -8,7 +8,7 @@
 <div class="card card-info">
 	<div class="card-header bg-transparent ">
 		<a href="{{ url('maps#edit_drain_control') . '-' . $drain->code }}" class="btn btn-info">
-			Edit Drain on Map
+			{{ __('Edit Drain on Map')}}
 		</a>
 	</div>
 	{!! Form::model($drain, ['method' => 'PATCH', 'action' => ['UtilityInfo\DrainController@update', $drain->code], 'class' => 'form-horizontal']) !!}

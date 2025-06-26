@@ -46,9 +46,9 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <a href="#" id="associatedtomain_control" class="btn btn-default map-control"
                            data-toggle="tooltip" data-placement="bottom" title="{{ __('Find Associated Buildings') }}"><img src="{{ asset('img/svg/imis-icons/associated_building.svg')}}" style="height:24px;"alt="Associated Buildings Icon"></a>
                         <a href="#" id="wms_layer" class="btn btn-default map-control"
-                           data-toggle="tooltip" data-placement="bottom" title="Import from WMS"  ><i class="fas fa-layer-group"></i></a>
-                        <a href="#" id="get_location" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="Locate Me" ><img src="{{ asset('img/locate_me.png')}}" style="height:17px;"alt="Location Icon"> </a>
-                        <a href="#" id="kml_drag_drop" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="KML Drag and Drop" ><img src="{{ asset('img/kml_icon.png')}}" style="height:22px;"alt="Location Icon"> </a>
+                           data-toggle="tooltip" data-placement="bottom" title="{{ __('Import from WMS') }}"  ><i class="fas fa-layer-group"></i></a>
+                        <a href="#" id="get_location" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="{{ __('Locate Me') }}" ><img src="{{ asset('img/locate_me.png')}}" style="height:17px;"alt="Location Icon"> </a>
+                        <a href="#" id="kml_drag_drop" class="btn btn-default map-control"data-toggle="tooltip" data-placement="bottom" title="{{ __('KML Drag and Drop') }}" ><img src="{{ asset('img/kml_icon.png')}}" style="height:22px;"alt="Location Icon"> </a>
                         <a href="#" id="removemarkers_control" class="btn btn-default map-control" data-toggle="tooltip"
                            data-placement="bottom" title="{{ __('Remove Markers') }}"><i class="fa fa-trash fa-fw"></i></a>
                           
@@ -130,7 +130,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <input type="hidden" name="kml_dragdrop_geom" value="" id="kml_dragdrop_geom"/>
                         
                         <button type="submit" id="kml-dragdrop-export-excel-btn" class="btn btn-default">
-                            Export to Excel
+                            {{ __('Export to Excel') }}
                         </button>
                     </form>
 
@@ -241,35 +241,35 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <div class="add-sewer-form" style="display: none">
                                 <div>
                                     <hr>
-                                    <h4>Add Sewer Network</h4>
+                                    <h4>{{ __('Add Sewer Network')}}</h4>
                                 </div>
                                 <div id="add-sewer-errors" tabindex='1'>
 
                                 </div>
                                     <div class="add-sewer-form-group">
-                                    {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
-                                    {!! Form::select('road_code', $road_code, null, ['class' => 'form-control', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
+                                    {!! Form::label('road_code',__('Road Code') .' <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
+                                    {!! Form::select('road_code', $road_code, null, ['class' => 'form-control', 'placeholder' => __('Road Code'), 'style' => 'width: 350px;']) !!}
 
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
-                                        {!! Form::label('location','Location<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::label('location',__('Location') .'<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
                                         {!! Form::select('location', ['' => 'Location','middle' => 'middle','side' => 'side'], null, ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
-                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_sewer', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+                                        {!! Form::label('length',__('Length (m)') .' <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_sewer', 'placeholder' => __('Length (m)'), 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
 
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
-                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
-                                       {!! Form::text('diameter',null,['class' => 'form-control', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
+                                       {!! Form::label('diameter',__('Diameter (mm)') .' <span style="color: red">*</span>',['class' => ' control-label'],false) !!}
+                                       {!! Form::text('diameter',null,['class' => 'form-control', 'placeholder' => __('Diameter (mm)'),'oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
-                                        {!! Form::label('treatment_plant_id','Treatment Plant',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'placeholder' => 'Treatment Plant']);!!}
+                                        {!! Form::label('treatment_plant_id',__('Treatment Plant'),['class' => 'control-label'],false) !!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'placeholder' => __('Treatment Plant')]);!!}
                                     </div>
                                     <div class="add-sewer-form-group pt-2">
-                                        {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_sewer_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
+                                        {!! Form::button(__('Save'), ['class' => 'btn btn-info','id'=>'add_sewer_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
                                     </div>
 
                             </div>
@@ -280,40 +280,40 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <div class="add-drain-form" style="display: none">
                                 <div>
                                     <hr>
-                                     <h4>Add Drain Network</h4>
+                                     <h4>{{ __('Add Drain Network')}}</h4>
                                 </div>
                                 <div id="add-drain-errors" tabindex='1'>
 
                                 </div>
                                     <div class="add-drain-form-group">
-                                    {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
-                                        {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_drain', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
+                                    {!! Form::label('road_code', __('Road Code') .' <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
+                                        {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_drain', 'placeholder' =>  __('Road Code'), 'style' => 'width: 350px;']) !!}
                                     </div>
                                     <div class="add-drain-form-group pt-2">
-                                        {!! Form::label('cover_type','Cover Type',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('cover_type', $cover_type, null, ['class' => 'form-control', 'placeholder' => 'Cover Type'])!!}
+                                        {!! Form::label('cover_type', __('Cover Type'),['class' => 'control-label'],false) !!}
+                                        {!! Form::select('cover_type', $cover_type, null, ['class' => 'form-control', 'placeholder' => __('Cover Type')])!!}
                                     </div>
 
                                     <div class="add-drain-form-group pt-2">
-                                        {!! Form::label('surface_type','Surface Type',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => 'Surface Type', 'id'=>'surface_type_drain',])!!}
+                                        {!! Form::label('surface_type', __('Surface Type'),['class' => 'control-label'],false) !!}
+                                        {!! Form::select('surface_type', $surface_type, null, ['class' => 'form-control', 'placeholder' => __('Surface Type'), 'id'=>'surface_type_drain',])!!}
                                     </div>
                                     <div class="add-drain-form-group pt-2">
-                                        {!! Form::label('size','Width (mm)<span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('size', null, ['class' => 'form-control', 'placeholder' => 'Width (mm) ', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '')"]) !!}
+                                        {!! Form::label('size',__('Width (mm)') .' <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('size', null, ['class' => 'form-control', 'placeholder' => __('Width (mm)'), 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '')"]) !!}
 
                                     </div>
                                     <div class="add-drain-form-group pt-2">
-                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_drain', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+                                        {!! Form::label('length',__('Length (m)') .' <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_drain', 'placeholder' => __('Length (m)'), 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
 
                                     </div>
                                     <div class="add-drain-form-group pt-2">
-                                        {!! Form::label('treatment_plant_id','Treatment Plant',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'id' => 'tp_drain','placeholder' => 'Treatment Plant']);!!}
+                                        {!! Form::label('treatment_plant_id',__('Treatment Plant'),['class' => 'control-label'],false) !!}
+                                        {!! Form::select('treatment_plant_id', $treatmentPlants, null, ['class' => 'form-control', 'id' => 'tp_drain','placeholder' => __('Treatment Plant')]);!!}
                                     </div>
                                     <div class="add-drain-form-group pt-2">
-                                        {!! Form::button('Save', ['class' => 'btn btn-info','id'=>'add_drain_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
+                                        {!! Form::button(__('Save'), ['class' => 'btn btn-info','id'=>'add_drain_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
                                     </div>
                             </div>
                        
@@ -323,41 +323,41 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <div class="add-watersupply-form" style="display: none">
                                 <div>
                                     <hr>
-                                    <h4>Add Water Supply Network</h4>
+                                    <h4>{{ __('Add Water Supply Network')}}</h4>
                                 </div>
                                 <div id="add-watersupply-errors" tabindex='1'>
 
                                 </div>
                                
                                     <div class="add-watersupply-form-group">
-                                    {!! Form::label('road_code', 'Road Code <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
-                                        {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_watersupply', 'placeholder' => 'Road Code', 'style' => 'width: 350px;']) !!}
+                                    {!! Form::label('road_code', __('Road Code') .' <span style="color: red">*</span>', ['class' => 'control-label d-block'], false) !!}
+                                        {!! Form::select('road_code', $road_code, null, ['class' => 'form-control','id'=>'road_code_watersupply', 'placeholder' =>  __('Road Code'), 'style' => 'width: 350px;']) !!}
                                     </div>
                                     <div class="add-watersupply-form-group pt-2">
-                                        {!! Form::label('project_name','Project Name <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('project_name', null, ['class' => 'form-control', 'placeholder' => 'Project Name']) !!}
+                                        {!! Form::label('project_name', __('Project Name') .' <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('project_name', null, ['class' => 'form-control', 'placeholder' => __('Project Name')]) !!}
 
                                     </div>
                                     <div class="add-watersupply-form-group pt-2">
-                                        {!! Form::label('type','Type',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('type', ['Main' => 'Main', 'Secondary' => 'Secondary'], null, ['class' => 'form-control', 'placeholder' => 'Type']);!!}
+                                        {!! Form::label('type',__('Type'),['class' => 'control-label'],false) !!}
+                                        {!! Form::select('type', ['Main' => 'Main', 'Secondary' => 'Secondary'], null, ['class' => 'form-control', 'placeholder' => __('Type')]);!!}
                                     </div>
                                     <div class="add-watersupply-form-group pt-2">
-                                        {!! Form::label('material_type','Material Type',['class' => 'control-label'],false) !!}
-                                        {!! Form::select('material_type', ['HDPE' => 'HDPE', 'GI' => 'GI'], null, ['class' => 'form-control', 'placeholder' => 'Material Type'])!!}
+                                        {!! Form::label('material_type',__('Material Type'),['class' => 'control-label'],false) !!}
+                                        {!! Form::select('material_type', ['HDPE' => 'HDPE', 'GI' => 'GI'], null, ['class' => 'form-control', 'placeholder' => __('Material Type')])!!}
                                     </div>
                                     <div class="add-watersupply-form-group pt-2">
-                                       {!! Form::label('diameter','Diameter (mm)<span style="color: red">*</span>',['class' => ' control-label'],false) !!}
-                                       {!! Form::text('diameter',null,['class' => 'form-control','id'=>'diameter_watersupply', 'placeholder' => 'Diameter (mm)','oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
+                                       {!! Form::label('diameter',__('Diameter (mm)') .' <span style="color: red">*</span>',['class' => ' control-label'],false) !!}
+                                       {!! Form::text('diameter',null,['class' => 'form-control','id'=>'diameter_watersupply', 'placeholder' => __('Diameter (mm)'),'oninput' => "this.value = this.value.replace(/[^0-9.]/g, ''); ",]) !!}
                                     </div>
                                     <div class="add-watersupply-form-group pt-2">
-                                        {!! Form::label('length','Length (m) <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
-                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_watersupply', 'placeholder' => 'Length (m)', 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
+                                        {!! Form::label('length',__('Length (m)') .' <span style="color: red">*</span>',['class' => 'control-label'],false) !!}
+                                        {!! Form::text('length', null, ['class' => 'form-control', 'id' => 'length_watersupply', 'placeholder' =>  __('Length (m)'), 'oninput' => "this.value = this.value.replace(/[^0-9.]/g, '');"]) !!}
 
                                     </div>
                                    
                                     <div class="add-watersupply-form-group pt-2" >
-                                    {!! Form::button('Save', ['class' => 'btn btn-info', 'id' => 'add_watersupply_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
+                                    {!! Form::button(__('Save'), ['class' => 'btn btn-info', 'id' => 'add_watersupply_submit_btn', 'style' => 'width: -webkit-fill-available; margin-top: 12px;']) !!}
 
 
                                     </div>
@@ -1209,17 +1209,17 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                             @endcan
                                             @can('Containments Emptied Info Map Tools')
                                             <span data-toggle="tooltip" data-placement="bottom"
-                                          title="Containments emptied monthly">
+                                          title="{{ __('Containments emptied monthly') }}">
                             <a href="#" id="containments_emptied_monthly" class="btn btn-default map-control"><i
-                                        class="fa fa-building"></i>Containments Emptied Information</a>
+                                        class="fa fa-building"></i>{{ __('Containments Emptied Information') }}</a>
                              </span>
                              @endcan
                              @can('Toilet Isochrone Map Tools')
                             <!-- toilet isochrone map -->
                             <span data-toggle="tooltip" data-placement="bottom"
-                                          title="Generate isochrone information of CTPT by distance traversed (m)">
+                                          title="{{ __('Generate isochrone information of CTPT by distance traversed (m)') }}">
                             <a href="#" id="toilet_isochrone_control" class="btn btn-default map-control"><i
-                                        class="fa fa-building"></i>Public Toilet Accessibility Tool</a>
+                                        class="fa fa-building"></i>"{{ __('Public Toilet Accessibility Tool') }}"</a>
                              </span>
                              @endcan
                                     </div>
@@ -1713,17 +1713,17 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             <!-- Modal content-->
             <div class="modal-content draggable">
                 <div class="modal-header">
-                    <span class="modal"> Toilet Isochrone Map </span>
+                    <span class="modal"> {{ __('Toilet Isochrone Map') }} </span>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" id="form-toilet-isochrone-map">
                         <div class="form-group row">
-                            <label class="col-form-label col-md-4">Estimated Travel Distance (meter)</label>
+                            <label class="col-form-label col-md-4">{{ __('Estimated Travel Distance (m)') }}</label>
                             <input type="number" 
                                 class="form-control col-md-4" 
                                 id="toilet-isochrone-distance" 
-                                placeholder="Distance in meter" 
+                                placeholder="{{ __('Distance in meter') }}" 
                                 min="1" 
                                 step="1" />
 
@@ -1737,8 +1737,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-info">Get Information</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">{{ __('Get Information') }}</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
                         </div>
                     </form>
                 </div>
@@ -1752,7 +1752,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="wmsModalLabel">Please Enter URL</h5>
+                <h5 class="modal-title" id="wmsModalLabel">{{ __('Please Enter URL') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -1762,8 +1762,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 </input>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="wmsURL">OK</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="wmsURL">{{ __('OK') }}</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
             </div>
         </div>
     </div>
@@ -1773,7 +1773,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="getLayerModalLabel">Select a layer to be displayed</h5>
+                <h5 class="modal-title" id="getLayerModalLabel">{{ __('Select a layer to be displayed') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -1783,7 +1783,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 </select>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
             </div>
         </div>
     </div>
@@ -2012,8 +2012,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 if (event.features.length > 1000) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Too Many Features!',
-                        text: 'Upload a KML file with 1000 features or less.',
+                        title: '{{ __("Too Many Features!")}}',
+                        text: '{{ __("Upload a KML file with 1000 features or less")}}',
                         confirmButtonColor: '#d33'
                     });
                     return; // Stop the function execution here
@@ -2046,8 +2046,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     if (hasNonIntersection) {
                         Swal.fire({
                             icon: 'warning', // Change to 'error' if needed
-                            title: 'Some Features do not Intersect',
-                            text: 'Some of the Features do not Intersect with the Municipality.',
+                            title: '{{ __("Some Features do not Intersect")}}',
+                            text: '{{ __("Some of the Features do not Intersect with the Municipality")}}',
                             confirmButtonColor: '#d33'
                         });
                         removeAjaxLoader();
@@ -2152,7 +2152,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             },
                             error: function (error) {
                                 // Show the error modal if AJAX fails
-                                displayAjaxErrorModal(error.statusText + ": The KML File might be Invalid! Supported Geometry Types: POLYGON.");
+                                displayAjaxErrorModal(error.statusText);
                             }
                         });
                
@@ -3374,7 +3374,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 removeAjaxLoader();
                             }
                          else {
-                             displayAjaxErrorModal('Your Current Location is Outside the Municipality Boundary');
+                             displayAjaxErrorModal( "{{ __('Your Current Location is Outside the Municipality Boundary')}}");
                         }
                         
                     },
@@ -3388,20 +3388,17 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     function errHand(err) {
                     switch (err.code) {
                         case err.PERMISSION_DENIED:
-                        result.innerHTML =
-                            "The application doesn't have the permission" +
-                            "to make use of location services";
+                        result.innerHTML = "{{ __('The application does not have the permission to make use of location services')}}"
+;
                         break;
                         case err.POSITION_UNAVAILABLE:
-                        result.innerHTML = "The location of the device is uncertain";
+                        result.innerHTML =  "{{ __('The location of the device is uncertain')}}";
                         break;
                         case err.TIMEOUT:
-                        result.innerHTML = "The request to get user location timed out";
+                        result.innerHTML = "{{ __('The request to get user location timed out')}}";
                         break;
                         case err.UNKNOWN_ERROR:
-                        result.innerHTML =
-                            "Time to fetch location information exceeded" +
-                            "the maximum timeout interval";
+                        result.innerHTML = "{{ __('Time to fetch location information exceeded the maximum timeout interval')}}";
                         break;
                     }
                     }
@@ -3413,9 +3410,9 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 currentControl = '';
                  Swal.fire({
                     icon: 'info',
-                    title: 'KML Viewer',
-                    text: 'To View KML, Please Drag and Drop the KML File Directly onto the Map.',
-                    confirmButtonText: 'OK'
+                    title: "{{ __('KML Viewer')}}",
+                    text: "{{ __('To View KML, Please Drag and Drop the KML File Directly onto the Map')}}",
+                    confirmButtonText: "{{ __('OK')}}"
                 });
 
             });
@@ -4110,7 +4107,8 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         if (!features || features.length < 1) {
                             Swal.fire({
                                 title: "{{ __('Error') }}",
-                                text: `${layerTypeLower} must be drawn before saving!`,
+
+                                text: `${layerTypeLower}` +` {{ __('must be drawn before saving') }}`,
                                 icon: "warning",
                             });
                         } else {
@@ -4122,12 +4120,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                         if (hasModification && modifiedFeature) {
                             Swal.fire({
-                                title: 'Are you sure?',
-                                text: "The changes made will be saved",
+                                title:"{{__('Are you sure?')}}",
+                                text: "{{__('The changes made will be saved')}}",
                                 icon: 'warning',
                                 showCancelButton: true,
-                                confirmButtonText: 'Yes',
-                                cancelButtonText: 'No!',
+                                confirmButtonText: "{{ __('Yes') }}",
+                                cancelButtonText: "{{ __('No') }}",
                                 reverseButtons: true
                             }).then((result) => {
                                 if (result.isConfirmed) {
@@ -4203,7 +4201,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
                                         default:
                                             removeAjaxLoader();
-                                            Swal.fire('Error', 'Invalid Layer.', 'error');
+                                            Swal.fire("{{ __('Error') }}", "{{ __('Invalid Layer') }}", 'error');
                                             return;
                                     }
                                     
@@ -4221,7 +4219,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         data: formData,
                                         success: function (data) {
                                             removeAjaxLoader();
-                                            Swal.fire('Saved!', 'The changes have been saved.', 'success')
+                                            Swal.fire("{{ __('Saved') }}", "{{ __('The changes have been saved') }}", 'success')
                                                 .then((res) => {
                                                     if (res.isConfirmed) {
                                                         displayAjaxLoader();
@@ -4231,17 +4229,17 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                         },
                                         error: function () {
                                             removeAjaxLoader();
-                                            Swal.fire('Error', 'There was an error while saving changes.', 'error');
+                                            Swal.fire("{{ __('Error') }}",  "{{ __('There was an error while saving changes') }}", 'error');
                                         }
                                     });
                                 } else {
-                                    Swal.fire('Cancelled', 'The changes have been removed.', 'info');
+                                    Swal.fire("{{ __('Cancelled') }}",  "{{ __('The changes have been removed') }}", 'info');
                                     removeAjaxLoader();
                                 }
                             });
                         } else {
                             Swal.fire({
-                                title: 'Nothing to save!',
+                                title: "{{ __('Nothing to save') }}",
                                 icon: "warning",
                             });
                         }
@@ -4249,7 +4247,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     } else {
                         hideAddForm();
                         Swal.fire({
-                            title: "{{ __('Nothing to save!') }}",
+                            title: "{{ __('Nothing to save') }}",
                             icon: "warning",
                         });
                     }
@@ -4264,10 +4262,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             if (controlType === 'road') {
                 geom = getGeometryLayer();
                 fieldNameMapping = {
-                    "name": "Road Name",
-                    "length": "Length (m)",
-                    "carrying_width": "Carrying Width (m)",
-                    "right_of_way": "Right of Way (m)"
+                    "name": "{{ __('Road Name') }}",
+                    "length": "{{ __('Length (m)') }}",
+                    "carrying_width": "{{ __('Carrying Width (m)') }}",
+                    "right_of_way": "{{ __('Right of Way (m)') }}"
                 };
 
                 // Dynamically get the road form data
@@ -4286,11 +4284,11 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             } else if (controlType === 'sewer') {
                 geom = getGeometryLayer();
                 fieldNameMapping = {
-                    "road_code": "Road Code",
-                    "treatment_plant_id": "Treatment Plant",
-                    "length": "Length (m)",
-                    "location": "Location",
-                    "diameter": "Diameter (mm)",
+                    "road_code": "{{ __('Road Code') }}",
+                    "treatment_plant_id": "{{ __('Treatment Plant') }}",
+                    "length": "{{ __('Length (m)') }}",
+                    "location": "{{ __('Location') }}",
+                    "diameter": "{{ __('Diameter (mm)') }}",
 
                 };
 
@@ -4311,12 +4309,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             }else if (controlType === 'drain') {
                 geom = getGeometryLayer();
                 fieldNameMapping = {
-                    "road_code": "Road Code",
-                    "cover_type": "Cover Type",
-                    "surface_type": "Surface Type",
-                    "size": "Width (mm)",
-                    "length": "Length (m)",
-                    "treatment_plant_id": "Treatment Plant",
+                    "road_code": "{{ __('Road Code') }}",
+                    "cover_type": "{{ __('Cover Type') }}",
+                    "surface_type": "{{ __('Surface Type') }}",
+                    "size": "{{ __('Width (mm)') }}",
+                    "length": "{{ __('Length (m)') }}",
+                    "treatment_plant_id": "{{ __('Treatment Plant') }}",
                 };
 
                 // Dynamically get the drain form data
@@ -4335,12 +4333,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             }else if (controlType === 'watersupply') {
                 geom = getGeometryLayer();
                 fieldNameMapping = {
-                    "road_code": "Road Code",
-                    "diameter": "Diameter (mm)",
-                    "length": "Length (m)",
-                    "project_name": "Project Name",
-                    "type": "Type",
-                    "material_type": "Material Type",
+                    "road_code": "{{ __('Road Code') }}",
+                    "diameter": "{{ __('Diameter (mm)') }}",
+                    "length": "{{ __('Length (m') }})",
+                    "project_name": "{{ __('Project Name') }}",
+                    "type": "{{ __('Type') }}",
+                    "material_type": "{{ __('Material Type') }}",
                 };
 
                 // Dynamically get the drain form data
@@ -4375,7 +4373,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                     removeAjaxLoader(); 
                     Swal.fire({
                         title: 'Success!',
-                        text: `${controlType === 'watersupply' ? 'Water Supply' : controlType.charAt(0).toUpperCase() + controlType.slice(1)} added successfully.`,
+                        text: `${controlType === 'watersupply' ? 'Water Supply' : controlType.charAt(0).toUpperCase() + controlType.slice(1)} {{ __('added successfully') }}`,
                         icon: 'success',
                         confirmButtonText: 'OK!',
                     }).then((result) => {
@@ -4396,7 +4394,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             let message = messages[0]; // Get the first error message for this field
 
                             // Optional: Customize message if needed
-                            let customMessage = `${fieldTitle} is required.`;
+                            let customMessage = `${fieldTitle} ` + `{{ __("is required")}}`;
 
                             html += `<li>${customMessage}</li>`;
                         });
@@ -12348,8 +12346,8 @@ $.ajax({
                 if (!SERVICE || !REQUEST || !VERSION) {
                     Swal.fire({
                                 icon: 'error',
-                                title: 'Invalid URL',
-                                text: 'Enter URL does not match WMS GetCapabilities pattern.',
+                                title: "{{ __('Invalid Layer') }}",
+                                text: "{{ __('Enter URL does not match WMS GetCapabilities pattern') }}",
                                     confirmButtonColor: '#d33'
                                 });
                     removeAjaxLoader();
@@ -12418,8 +12416,8 @@ $.ajax({
                                                         removeAjaxLoader();
                                                         Swal.fire({
                                                             icon: 'error',
-                                                            title: 'Invalid Layer',
-                                                            text: 'Selected layer does not intersect with Municipality boundary',
+                                                            title: "{{ __('Invalid Layer') }}",
+                                                            text: "{{ __('Selected layer does not intersect with Municipality boundary') }}",
                                                             confirmButtonColor: '#d33'
                                                         });
                                                         return;
@@ -12433,7 +12431,7 @@ $.ajax({
                                                         },
                                                         crossOrigin: "anonymous",
                                                         serverType: "geoserver",
-                                                        attributions: "This is from GetCapabilities"
+                                                        attributions: 'This is from GetCapabilities'
                                                     });
 
                                                     const layer = new ol.layer.Tile({
@@ -12450,9 +12448,9 @@ $.ajax({
                                 removeAjaxLoader();
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Invalid URL',
-                                    text: 'Enter a valid WMS URL.',
-                                    confirmButtonText: 'OK'
+                                    title: "{{ __('Invalid Layer') }}",
+                                    text: "{{ __('Enter a valid WMS URL.') }}",
+                                    confirmButtonText: "{{ __('OK') }}"
                                 });
                             });
                     },
@@ -12460,8 +12458,8 @@ $.ajax({
                         removeAjaxLoader();
                         Swal.fire({
                             icon: 'error',
-                            title: 'Proxy Error',
-                            text: 'Failed to fetch WMS capabilities.',
+                            title:  "{{ __('Proxy Error') }}",
+                            text:  "{{ __('Failed to fetch WMS capabilities') }}",
                             confirmButtonColor: '#d33'
                         });
                     }

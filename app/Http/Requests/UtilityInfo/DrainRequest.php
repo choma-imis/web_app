@@ -76,13 +76,13 @@ class DrainRequest extends Request
      public function messages()
     {
         return [
-            'road_code.required' => 'The Road Code is required.' ,
-            'size.required' => 'The Width (mm) is required.',
-            'size.numeric' => 'The  Width (mm) must be a number.',
+            'road_code.required' => __('The Road Code is required.'),
+            'size.required' => __('The Width (mm) is required.'),
+            'size.numeric' => __('The Width (mm) must be a number.'),
             'name.regex' => __('The name field should contain only contain letters and spaces.'),
             'diameter.numeric' => __('The Diameter must be a number.'),
             'length.numeric' => __('The Length (m) must be a number.'),
-            'length.required' => 'The Length (m) is required.',
+            'length.required' => __('The Length (m) is required.'),
             ];
     }
 }
