@@ -61,7 +61,7 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $page_title = __("Create User");
-       if (!$request->user()->hasRole("Super Admin") && !$request->user()->hasRole("Municipality - Super Admin") && !$request->user()->hasRole("Municipality - IT Admin")){
+       if (!$request->user()->hasRole("Super Admin") && !$request->user()->hasRole("Municipality - IT Admin")){
             if ($request->user()->hasRole("Municipality - Sanitation Department")){
                 $roles = Role::where('name','!=', 'Super Admin')
                     ->where('name','LIKE','%Service Provider%')
@@ -130,7 +130,7 @@ class UserController extends Controller
         foreach($userDetail->roles as $role) {
           $userRoles[] = $role->name;
         }
-        if (!$userDetail->hasRole('Super Admin') && !$userDetail->hasRole('Municipality - Super Admin')) {
+        if (!$userDetail->hasRole('Super Admin')) {
             $page_title = __("Users");
             return view('users.show')->with([ 'userDetail' => $userDetail, 'userRoles' => $userRoles, 'page_title' => $page_title, 'treatmentPlants' => $user['treatmentPlants'], 'helpDesks' => $user['helpDesks'], 'serviceProviders' => $user['serviceProviders'], 'status' => $status,'munhelpDesks'=>$munhelpDesks]);
         } else {
@@ -148,7 +148,7 @@ class UserController extends Controller
     {
         $user = User::findorfail($id);
       
-        if (!$user->hasRole('Super Admin') && !$user->hasRole('Municipality - Super Admin')) {
+        if (!$user->hasRole('Super Admin')) {
             $page_title = __("Edit User");
             if (!$request->user()->hasRole("Super Admin") && !$request->user()->hasRole("Municipality - Super Admin") && !$request->user()->hasRole("Municipality - IT Admin")){
                 $roles = Role::where('name','!=', 'Super Admin')
@@ -197,7 +197,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user = User::findorfail($id);
-            if (!$user->hasRole('Super Admin') && !$user->hasRole('Municipality - Super Admin')) {
+            if (!$user->hasRole('Super Admin')) {
             $data = $request->all();
             $this->userService->storeOrUpdate($user->id,$request);
             DB::commit(); 
@@ -221,7 +221,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findorfail($id);
-        if (!$user->hasRole('Super Admin') && !$user->hasRole('Municipality - Super Admin')) {
+        if (!$user->hasRole('Super Admin')) {
 
             if( $user->buildingSurveys()->exists() ||
                 $user->buildings()->exists() ||
@@ -266,7 +266,7 @@ class UserController extends Controller
         $last_login_at = User::find($id)->lastLoginAt();
         $last_login_ip = User::find($id)->lastLoginIp();
 
-        if (!$userDetail->hasRole('Super Admin') && !$userDetail->hasRole('Municipality - Super Admin')) {
+        if (!$userDetail->hasRole('Super Admin') ) {
             $page_title = __("Login Activity");
             return view('users.login-activity',compact('page_title', 'last_login_at', 'last_login_ip', 'userDetail'));
         } else {
