@@ -109,10 +109,9 @@ class KpiService {
             $kpi->year = $data['year'] ? $data['year'] : null;
             $kpi->target = $data['target'] ? $data['target'] : null;
             $year = $kpi->year;
-            $this->quarterdata($year);
             $kpi->save();
-          $this->deletequarter($year);
-         
+            $this->quarterdata($year);
+
         }
         else{
             
@@ -120,10 +119,9 @@ class KpiService {
             $kpi->indicator_id = $data['indicator_id'] ? $data['indicator_id'] : null;
             $kpi->year = $data['year'] ? $data['year'] : null;
             $year = $kpi->year;
-           $this->quarterdata($year);
             $kpi->target = $data['target'] ? $data['target'] : null;
             $kpi->save();
-             $this->deletequarter($year);
+           $this->quarterdata($year);
 
            
         }
@@ -131,7 +129,7 @@ class KpiService {
 
     public function quarterdata($year)
     {
-        $years = KpiTarget::pluck('year')->unique()->toArray();
+        $years = Quarters::pluck('year')->unique()->toArray();
  
         if (!in_array($year, $years)) {
                 DB::insert("
@@ -151,18 +149,6 @@ class KpiService {
         }
         
 
-    }
-
-    public function deletequarter()
-    {
-        $kpi_years = KpiTarget::pluck('year')->unique()->toArray();
-            $existingYears = Quarters::pluck('year')->unique()->toArray();
-   
-            // Find the years not present in $years
-            $missingYears = array_diff($existingYears, $kpi_years);
-            if (!empty($missingYears)) {
-                Quarters::whereIn('year', $missingYears)->delete();
-            }
     }
 
 
