@@ -187,6 +187,10 @@ class PermissionsSeeder extends Seeder
                         "type" => "View on map",
                         "name" => "View Roadline On Map"
                     ],
+                     [
+                        "type" => "Edit on map",
+                        "name" => "Edit Road on Map"
+                    ],
 
                     
                 ]
@@ -234,6 +238,10 @@ class PermissionsSeeder extends Seeder
                         "type" => "View on map",
                         "name" => "View Drain On Map"
                     ],
+                     [
+                        "type" => "Edit on map",
+                        "name" => "Edit Drain on Map"
+                    ],
                 ]
             ],
             [
@@ -279,6 +287,10 @@ class PermissionsSeeder extends Seeder
                         "type" => "View on map",
                         "name" => "View Sewer On Map"
                     ],
+                     [
+                        "type" => "Edit on map",
+                        "name" => "Edit Sewer on Map"
+                    ],
                 ]
             ],
             [
@@ -323,6 +335,10 @@ class PermissionsSeeder extends Seeder
                     [
                         "type" => "View on map",
                         "name" => "View WaterSupply Network On Map"
+                    ],
+                     [
+                        "type" => "Edit on map",
+                        "name" => "Edit WaterSupply on Map"
                     ],
                 ]
             ],
@@ -1432,6 +1448,10 @@ class PermissionsSeeder extends Seeder
                     [
                         "type" => "Map Tool",
                         "name" => "Toilet Isochrone Map Tools"
+                    ],
+                    [
+                        "type" => "Export",
+                        "name" => "Export Containment Report"
                     ],
                 ],
 

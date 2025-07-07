@@ -1101,7 +1101,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                                                         {!! Form::select('ward',$wards,null,['id' => 'ward_tax_due', 'multiple' => true, 'style' => 'width: 100%'])!!}
                                                                 </div>
                                                                 <button type="submit" class="btn btn-default">{{ __('Filter') }}</button>
-                                                                <button type="button" class="btn btn-default" id="wardtaxzone_clear_button">{{ __('Filter') }}
+                                                                <button type="button" class="btn btn-default" id="wardtaxzone_clear_button">{{ __('Close') }}
                                                                 </button>
                                                             </form>
                                                             <table>
@@ -1219,7 +1219,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                             <span data-toggle="tooltip" data-placement="bottom"
                                           title="{{ __('Generate isochrone information of CTPT by distance traversed (m)') }}">
                             <a href="#" id="toilet_isochrone_control" class="btn btn-default map-control"><i
-                                        class="fa fa-building"></i>"{{ __('Public Toilet Accessibility Tool') }}"</a>
+                                        class="fa fa-building"></i>{{ __('Public Toilet Accessibility Tool') }}</a>
                              </span>
                              @endcan
                                     </div>
@@ -1501,8 +1501,9 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                         <form method="get" style="margin-top: 12px;" action="{{ url("maps/export-containment-report") }}">
                             <input type="hidden" name="containment_report_polygon" value="" id="containment_report_polygon"/>
                             <input type="hidden" name="containment_report_year" value="" id="containment_report_year"/>
+                             @can('Export Containment Report')
                            <button id="containment-report-popup-export" type="submit" class="btn btn-default">Export to Excel</button>
-
+                           @endcan
                             <button id="containment-report-popup-closer" type="button" class="btn btn-default float-right xol-popup-closer">Close</button>
                         </form>
     </div>
