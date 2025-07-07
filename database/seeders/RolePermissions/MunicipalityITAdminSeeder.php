@@ -165,6 +165,9 @@ class MunicipalityITAdminSeeder extends Seeder
                             'Water Body Map Layer',
                             'Solid Waste Status Map Layer',
                             'Low Income Community Map Layer',
+                            'Containments Emptied Info Map Tools', 
+                            'Toilet Isochrone Map Tools',
+                            'Export Containment Report'
 
 
                         ]));

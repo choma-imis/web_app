@@ -1397,18 +1397,6 @@ class MapsController extends Controller
                 return $this->getKmlBufferPolygonBuildings($polygon_request);
         
             } 
-            else {
-                // If no valid polygons found, return an error
-                return response()->json([
-                    'success' => false,
-                    'data' => [
-                        'code' => 200,
-                        'message' => 'No valid ST_POLYGON geometries found!',
-                        'errors' => 'No valid ST_POLYGON geometries to process!'
-                    ],
-                    'responseText' => 'No valid ST_POLYGON geometries found!',
-                ], 200);
-            }
         }
 
 
@@ -1660,29 +1648,65 @@ class MapsController extends Controller
  * @return \Illuminate\Http\Response
  */
 
-    public function proxyWms(Request $request)
+//     public function proxyWms(Request $request)
+// {
+//     $service = strtoupper($request->query('SERVICE', ''));
+//     $reqType = strtolower($request->query('REQUEST', ''));
+//     $verType = strtolower($request->query('VERSION', ''));
+
+
+//     $externalUrl = $request->query('url', '');
+
+//     if (empty($externalUrl)) {
+//         return response()->json(['error' => 'Missing WMS URL.'], 400);
+//     }
+
+//     // Remove 'url' from query parameters
+//     $queryParams = $request->except('url');
+
+//     try {
+//         $response = Http::withOptions([
+//             'verify' => false   
+//         ])->withHeaders([
+//             'Accept' => 'application/xml',
+//         ])->get($externalUrl, $queryParams);
+
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'error' => 'Failed to fetch WMS URL.',
+//             'message' => $e->getMessage(),
+//         ], 500);
+//     }
+
+//     $res = response($response->body(), $response->status())
+//         ->header('Content-Type', $response->header('Content-Type') ?? 'application/xml');
+
+//     // Allow CORS only for WMS GetCapabilities
+//     if ($service === 'WMS' && $reqType === 'getcapabilities') {
+//         $res->header('Access-Control-Allow-Origin', '*');
+//     }
+
+//     return $res;
+// }
+   
+
+public function proxyWms(Request $request)
 {
-    $service = strtoupper($request->query('SERVICE', ''));
-    $reqType = strtolower($request->query('REQUEST', ''));
-    $verType = strtolower($request->query('VERSION', ''));
-
-
-    $externalUrl = $request->query('url', '');
+    $externalUrl = $request->query('url');
 
     if (empty($externalUrl)) {
         return response()->json(['error' => 'Missing WMS URL.'], 400);
     }
 
-    // Remove 'url' from query parameters
+    // Forward ALL query params except 'url'
     $queryParams = $request->except('url');
 
     try {
         $response = Http::withOptions([
-            'verify' => false   
+            'verify' => false
         ])->withHeaders([
             'Accept' => 'application/xml',
         ])->get($externalUrl, $queryParams);
-
     } catch (\Exception $e) {
         return response()->json([
             'error' => 'Failed to fetch WMS URL.',
@@ -1690,15 +1714,9 @@ class MapsController extends Controller
         ], 500);
     }
 
-    $res = response($response->body(), $response->status())
-        ->header('Content-Type', $response->header('Content-Type') ?? 'application/xml');
-
-    // Allow CORS only for WMS GetCapabilities
-    if ($service === 'WMS' && $reqType === 'getcapabilities') {
-        $res->header('Access-Control-Allow-Origin', '*');
-    }
-
-    return $res;
+    return response($response->body(), $response->status())
+        ->header('Content-Type', $response->header('Content-Type') ?? 'application/xml')
+        ->header('Access-Control-Allow-Origin', '*');
 }
-   
+
 }

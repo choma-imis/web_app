@@ -83,13 +83,13 @@ class WaterSupplysRequest extends Request
             'diameter.numeric' => __('The Diameter must be a number.'),
             'length.numeric' => __('The Length (m) must be a number.'),
             'name.string' => __('This Project Name must be a string.'),
-            'road_code.required' => 'The Road Code is required.',
-            'project_name.required' => 'The Project Name is required.',
-            'project_name.string' => 'The Project Name must be a string.',
-            'type.string' => 'The Type must be a string.',
-            'material_type.string' => 'The Material Type must be a string.',
-            'diameter.required' => 'The Diameter (mm) is required.',
-            'length.required' => 'The Length (m) is required.',
+            'road_code.required' => __('The Road Code is required.'),
+            'project_name.required' => __('The Project Name is required.'),
+            'project_name.string' => __('The Project Name must be a string.'),
+            'type.string' => __('The Type must be a string.'),
+            'material_type.string' => __('The Material Type must be a string.'),
+            'diameter.required' =>__( 'The Diameter (mm) is required.'),
+            'length.required' => __('The Length (m) is required.'),
         ];
 
     }
