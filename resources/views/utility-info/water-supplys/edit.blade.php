@@ -5,7 +5,7 @@
 @include('layouts.components.success-alert')
 @include('layouts.components.error-alert')
 <div class="card card-info">
-	 @can('Edit Water Supply on Map')
+	 @can('Edit WaterSupply on Map')
 	<div class="card-header bg-transparent ">
 		<a href="{{ url('maps#edit_watersupplys_control') . '-' . $waterSupplys->code }}" class="btn btn-info">{{ __('Edit Water Supply on Map')}} </a>
 </div>
