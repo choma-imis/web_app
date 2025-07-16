@@ -13,8 +13,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 
 	<div class="card">
         <div class="card-header">
-             @can('Export WaterSupply Network to CSV')
+
+        @can('Add WaterSupply On Map')
+        <a href="{{ action('MapsController@index') }}#add_watersupply_control" class="btn btn-info">{{ __('Add Water Supply')}}</a>
+        @endcan    
+        @can('Export WaterSupply Network to CSV')
             <a href="" id="export" class="btn btn-info">{{ __('Export to CSV') }}</a>
+
             @endcan
             @can('Export WaterSupply Network to Shape')
                     <a href="#" id="export-shp" class="btn btn-info">{{ __('Export to Shape File') }}</a>

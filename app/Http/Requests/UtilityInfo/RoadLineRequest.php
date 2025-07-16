@@ -91,7 +91,7 @@ class RoadLineRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             if ($this->right_of_way < $this->carrying_width) {
-                $validator->errors()->add('right_of_way', 'The Right of Way (m) must be greater than or equal to the carrying width.');
+                $validator->errors()->add('right_of_way', __('The Right of Way (m) must be greater than or equal to the Carrying Width.'));
             }
         });
     }

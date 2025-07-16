@@ -69,6 +69,7 @@ class RoadlineController extends Controller
         return redirect('utilityinfo/roadlines')->with('success',__('Road created successfully.'));
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -135,6 +136,7 @@ class RoadlineController extends Controller
             $data = $request->all();
             $this->roadlineService->storeOrUpdate($roadline->code,$data);
             return redirect('utilityinfo/roadlines')->with('success',__('Road Network updated successfully.'));
+
         } else {
             return redirect('utilityinfo/roadlines')->with('error',__('Failed to update road'));
         }
@@ -250,27 +252,40 @@ class RoadlineController extends Controller
      * @param string  $request We get all road information and geom from this request
      */
 
-    public function updateRoadGeom(Request $request){
-        $roadcd = $request->roadcd?$request->roadcd:null;
-        if ($roadcd){
-            $roadline = Roadline::find($roadcd);
-        } else {
-            return response()->json([
-                'success' => false,
-                'data' => [],
-                'error' => "Couldn't find the required road!",
-            ]);
-        }
+     public function updateRoadGeom(Request $request)
+     {
+         $roadcd = $request->roadcd ? $request->roadcd : null;
+     
+         if ($roadcd) {
+             $roadline = Roadline::find($roadcd);
+         } else {
+             return response()->json([
+                 'success' => false,
+                 'data' => [],
+                 'error' => "Couldn't find the required road!",
+             ]);
+         }
+     
+         // Update the geometry field
+         $roadline->geom = DB::raw("ST_SetSRID(ST_GeomFromText('". $request->geom ."'), 4326)"); // Ensure the SRID is set properly
+         $roadline->length = $request->length;
+         $roadline->save();
+         
+         return response()->json([
+             'success' => true,
+             'data' => [],
+             'error' => "{{__('Updated the road geometry successfully!')}}",
+         ]);
+     }
 
-        $roadline->geom = DB::raw("ST_GeomFromText('". $request->geom . "')");
-        $roadline->save();
-
-        return response()->json([
-            'success' => true,
-            'data' => [],
-            'error' => "{{__('Updated the road geometry successfully!')}}",
-        ]);
-
-    }
+     public function getGeometry($code)
+     {
+         $geometry = DB::table('utility_info.roads')
+         ->where('code', $code)
+         ->value(DB::raw('ST_AsText(geom) as geometry'));
+     
+         return response()->json(['geometry' => $geometry]);
+     
+     }
 
 }

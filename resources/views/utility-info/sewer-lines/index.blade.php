@@ -13,8 +13,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 
 <div class="card">
   <div class="card-header">
-    @can('Export Sewers to CSV')
+
+  @can('Add Sewer On Map')
+  <a href="{{ action('MapsController@index') }}#add_sewer_control" class="btn btn-info">{{ __('Add Sewer') }}</a>
+  @endcan  
+  @can('Export Sewers to CSV')
     <a href="{{ action('UtilityInfo\SewerLineController@export') }}" id="export" class="btn btn-info">{{ __('Export to CSV') }}</a>
+
     @endcan
     @can('Export Sewers to Shape')
     <a href="#" id="export-shp" class="btn btn-info">{{ __('Export to Shape File') }}</a>

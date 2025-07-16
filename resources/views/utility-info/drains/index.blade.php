@@ -13,8 +13,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 
 <div class="card">
   <div class="card-header">
-    @can('Export Drains to CSV')
+
+  @can('Add Drain On Map')
+  <a href="{{ action('MapsController@index') }}#add_drain_control" class="btn btn-info">{{ __('Add Drain') }}</a>
+  @endcan  
+  @can('Export Drains to CSV')
     <a href="{{ action('UtilityInfo\DrainController@export') }}" id="export" class="btn btn-info">{{ __('Export to CSV')}}</a>
+
     @endcan
     @can('Export Drains to Shape')
     <a href="#" id="export-shp" class="btn btn-info">{{ __('Export to Shape File')}}</a>

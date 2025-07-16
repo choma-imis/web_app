@@ -107,7 +107,7 @@ class RoadlineService {
             $maxcode = Roadline::withTrashed()->max('code');
             $maxcode = str_replace('R', '', $maxcode);
             $roadline = new Roadline();
-            $roadline->code = 'R' . sprintf('%04d', $maxcode + 1);
+            $roadline->code = 'R' . sprintf('%06d', $maxcode + 1);
             $roadline->user_id = Auth::id();
             $roadline->name = $data['name'] ? $data['name'] : null;
             $roadline->hierarchy = $data['hierarchy'] ? $data['hierarchy'] : null;

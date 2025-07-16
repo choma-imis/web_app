@@ -50,28 +50,48 @@ class WaterSupplysRequest extends Request
                 return [];
 
             case 'POST':
+                {
+                    return [
+                        'road_code' => 'required',
+                        'project_name'=> 'required|string',
+                        'type'=>'nullable|string',
+                        'material_type'=>'nullable|string',
+                        'diameter' => 'required|numeric',
+                        'length' => 'required|numeric',
+                       
+                    ];
+                }
             case 'PUT':
             case 'PATCH':
-                return [
-                    'diameter' => 'nullable|numeric',
-                    'length' => 'nullable|numeric',
-                    'project_name' => 'nullable|string',
-                    'type' => 'nullable|string',
-                    'material_type' => 'nullable|string',
-                ];
-
-            default:
-                return [];
+                {
+                    return [
+                        'project_name'=> 'required|string',
+                        'type'=>'nullable|string',
+                        'material_type'=>'nullable|string',
+                        'diameter' => 'required|numeric',
+                        'length' => 'required|numeric',
+                    ];
+                }
+            default:break;
         }
     }
-
-     public function messages()
+    
+    public function messages()
     {
         return [
             'name.regex' => __('The name field should contain only contain letters and spaces.'),
             'diameter.numeric' => __('The Diameter must be a number.'),
             'length.numeric' => __('The Length (m) must be a number.'),
             'name.string' => __('This Project Name must be a string.'),
-            ];
+            'road_code.required' => __('The Road Code is required.'),
+            'project_name.required' => __('The Project Name is required.'),
+            'project_name.string' => __('The Project Name must be a string.'),
+            'type.string' => __('The Type must be a string.'),
+            'material_type.string' => __('The Material Type must be a string.'),
+            'diameter.required' =>__( 'The Diameter (mm) is required.'),
+            'length.required' => __('The Length (m) is required.'),
+        ];
+
     }
+
 }
