@@ -26,7 +26,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <div class="container d-flex justify-content-center justify-content-md-between">
             <div class="contact-info d-flex align-items-center">
                 <div class="d-flex p-4">
-                    <i class="fas fa-envelope d-flex align-items-center"></i> 
+                    <i class="fas fa-envelope d-flex align-items-center"></i>
                     <span class="p-2">imis@ait.asia</span>
                 </div>
 
@@ -41,7 +41,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
         <div class="container d-flex align-items-center justify-content-between">
-            <a href="{{URL::to('/')}}" class="logo"><img src="{{ asset('img/logo-imis.png') }}" alt="IMIS LOGO" /></a>
+            <a href="{{URL::to('/')}}" class="logo"><img src="{{ asset('img/zambia_logo.png') }}" alt="IMIS LOGO" /></a>
 
             <nav id="navbar" class="navbar-landing">
                 <ul>
@@ -466,8 +466,16 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
             </div>
         </section>
         <!-- End Contact Section -->
+         {{-- Image Logos --}}
+        <section class="d-flex align-items-center">
+            <div class="container d-flex justify-content-center">
+                <a href="{{URL::to('/')}}" class="logo"><img src="{{ asset('img/zambia_donner.png') }}" alt="IMIS LOGO" /></a>
+            </div>
+        </section>
     </main>
     <!-- End #main -->
+
+
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="section-bg">

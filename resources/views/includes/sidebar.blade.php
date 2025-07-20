@@ -5,17 +5,20 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <a href="{{ url('/') }}" class="brand-link">
         <img src="" alt="">
         <span class="brand-text font-weight-light ">
-            <img src="{{ asset('/img/logo-imis.png') }}" alt="Municipality Logo" id="sidebar-logo" style="filter: brightness(0) invert(1) grayscale(1); float:left; line-height: .8;
-            margin-right: 0.5rem; margin-top:3px; height:40px; width:80%">
+            {{-- <img src="{{ asset('/img/logo-imis.png') }}" alt="Municipality Logo" id="sidebar-logo" style="filter: brightness(0) invert(1) grayscale(1); float:left; line-height: .8;
+            margin-right: 0.5rem; margin-top:3px; height:40px; width:80%"> --}}
+            <img src="{{ asset('/img/zambia_logo.png') }}" alt="Municipality Logo" style="max-height: 60%; max-width: 60%; height: 40%; width: 25%; object-fit: contain;">
         </span>
     </a>
     @else
-    <a href="{{ url('/') }}" class="brand-link" id="sidebar-brand-link">
-        <img src="{{ asset('/img/logo-imis.png') }}" alt="Municipality Logo" id="sidebar-logo" style="filter: brightness(0) invert(1) grayscale(1); float:left; line-height: .8;
-        margin-right: 0.5rem; margin-top:3px; max-height:33px; width:70px">
-        <img src="{{ asset('/img/logo-imis.png') }}" alt=" Municipality Logo" id="hello-text" style="filter: brightness(0) invert(1) grayscale(1); float:left; line-height : .8;
-         margin-right: 0.5rem; margin-left:3%; max-height:60px; width:80%; display: none; ">
+   <a href="{{ url('/') }}" class="brand-link" id="sidebar-brand-link">
+        <img src="{{ asset('/img/zambia_logo.png') }}" alt="Municipality Logo" id="sidebar-logo" style="float:left; line-height: .10;
+        margin-right: 0.5rem; margin-top:3px; max-height:33px; width:auto">
+        <img src="{{ asset('/img/zambia_logo.png') }}" alt=" Municipality Logo" id="hello-text" style="float:left; line-height : .10;
+         margin-right: 0.5rem; margin-left:3%; max-height:60px; width: 25%; display: none; ">
     </a>
+
+
     @endif
     <div class="sidebar" style='overflow-y: scroll; font-family: Open Sans, sans-serif'>
         <nav class="mt-4">
