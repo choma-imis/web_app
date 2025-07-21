@@ -5,9 +5,9 @@ use App\Helpers\LanguageSwitcher;
     <ul class="navbar-nav">
         @if (request()->is('maps'))
             <a href="{{ url('/') }}" class="" >
-                <span class=""> 
-                    <img src="{{ asset('/img/logo-imis.png') }}" alt="Municipality Logo" id="map-logo"
-                        style="line-height: .8; margin-right: 0.5rem; margin-top:8px; max-height:33px; width:70px">
+                <span class="">
+                    <img src="{{ asset('/img/zambia_logo.png') }}" alt="Municipality Logo" id="map-logo"
+                        style="max-height: 40px; width: auto; display: block; margin: 0 auto;">
                 </span>
             </a>
         @endif
@@ -25,12 +25,12 @@ use App\Helpers\LanguageSwitcher;
                 </a>
             </li>
         @endif
-              
+
         <!-- Language Dropdown -->
         {!! LanguageSwitcher::language_switcher() !!}
         <!-- This div is used for aligning the user name and roles to the right -->
         <div style="flex-grow: 1;"></div> <!-- This pushes content to the right -->
-        
+
         <!-- Display the user's name and roles on the right side -->
         <div style="display: flex; justify-content: flex-end; margin-top: 0.5%;">
             <small>{{__('Hi')}},{{ Auth::user()->name }}, {{ implode(', ', get_current_user_roles()) }}</small>
