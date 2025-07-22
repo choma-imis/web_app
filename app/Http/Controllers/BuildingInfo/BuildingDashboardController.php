@@ -37,12 +37,20 @@ class BuildingDashboardController extends Controller
             $buildingCount = Building::whereNull('deleted_at')->count();
 
 
-            $commercialBuildCount = $this->buildingdashboardService->countBuildingsByUseExact('Commercial');
+           /*  $commercialBuildCount = $this->buildingdashboardService->countBuildingsByUseExact('Commercial');
             $residentialBuildingCount = $this->buildingdashboardService->countBuildingsByUseExact('Residential');
             $mixedBuildCount = $this->buildingdashboardService->countBuildingsByUseExact('Mixed (Residential, Commercial, Office uses)');
             $industrialBuildingCount = $this->buildingdashboardService->countBuildingsByUseExact('Industrial');
             $educationBuildingCount = $this->buildingdashboardService->countBuildingsByUseExact('Educational');
-            $institutionBuildingCount = $this->buildingdashboardService->countBuildingsByUse('Institution');
+            $institutionBuildingCount = $this->buildingdashboardService->countBuildingsByUse('Institution'); */
+                $commercialBuildCount = $this->buildingdashboardService->countBuildingsByUseExact('Appartment');
+                $individual=$this->buildingdashboardService->countBuildingsByUseExact('Individual House');
+                $room =$this->buildingdashboardService->countBuildingsByUseExact('Room');
+                $residentialBuildingCount = $individual + $room;
+                $mixedBuildCount = $this->buildingdashboardService->countBuildingsByUseExact('House with shop');
+                $industrialBuildingCount = $this->buildingdashboardService->countBuildingsByUseExact('Industrial');
+                $educationBuildingCount = $this->buildingdashboardService->countBuildingsByUseExact('Educational');
+                $institutionBuildingCount = $this->buildingdashboardService->countBuildingsByUse('Institution');
             $institutionNames = FunctionalUse::where('name', 'like', '%Institution%')
                 ->pluck('name')
                 ->implode('<br>');
