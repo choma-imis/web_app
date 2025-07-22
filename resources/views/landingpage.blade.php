@@ -25,10 +25,10 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
     <section id="topbar" class="d-flex align-items-center">
         <div class="container d-flex justify-content-center justify-content-md-between">
             <div class="contact-info d-flex align-items-center">
-                <div class="d-flex p-4">
+                {{-- <div class="d-flex p-4">
                     <i class="fas fa-envelope d-flex align-items-center"></i>
                     <span class="p-2">imis@ait.asia</span>
-                </div>
+                </div> --}}
 
                 <div class="d-flex">
                     <i class="fas fa-phone d-flex align-items-center "></i>
@@ -40,8 +40,12 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
     <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
-        <div class="container d-flex align-items-center justify-content-between">
-            <a href="{{URL::to('/')}}" class="logo"><img src="{{ asset('img/zambia_logo.png') }}" alt="IMIS LOGO" /></a>
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+                <span style="display: flex; align-items: center; gap: 10px;">
+                    <a href="{{ URL::to('/') }}" class="logo">
+                        <img src="{{ asset('img/zambia_logo_bundle.png') }}" alt="Partner Logos" class="img-fluid" style="height: auto; width: auto; max-height: 80px;">
+                    </a>
+                </span>
 
             <nav id="navbar" class="navbar-landing">
                 <ul>
@@ -403,6 +407,31 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 
         </section>
 
+        {{-- Technical Partners --}}
+        <section id="technical-partners" class="about section-bg">
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <!--<h2>Technical Partners</h2>-->
+                    <h3>Technical <span>Partners</span></h3>
+                </div>
+                <div class="row text-center justify-content-center align-items-center">
+                    <div class="col-6 col-md-4 mb-3">
+                       <a href="https://www.snv.org/"> <img src="{{ asset('img/snv.png') }}" class="img-fluid" alt="SNV"> </a>
+                    </div>
+                    <div class="col-6 col-md-4 mb-3">
+                       <a href="https://ait.ac.th/centre/global-water-and-sanitation-center-gwsc/"> <img src="{{ asset('img/gwsc.png') }}" class="img-fluid" alt="GWSC"> </a>
+                    </div>
+                    <div class="col-6 col-md-4 mb-3">
+                        <a href="https://innovativesolution.com.np/"><img src="{{ asset('img/ispl.svg') }}" class="img-fluid" alt="ispl"> </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {{-- Technical Partner close --}}
+
+        {{-- Technical Partner --}}
+        {{-- Technical Partner close --}}
+
         <!-- ======= Contact Section ======= -->
         <section class="contact " id="contact">
             <div class="container" data-aos="fade-up">
@@ -467,11 +496,11 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         </section>
         <!-- End Contact Section -->
          {{-- Image Logos --}}
-        <section class="d-flex align-items-center">
+       {{--  <section class="d-flex align-items-center">
             <div class="container d-flex justify-content-center">
                 <a href="{{URL::to('/')}}" class="logo"><img src="{{ asset('img/zambia_donner.png') }}" alt="IMIS LOGO" /></a>
             </div>
-        </section>
+        </section> --}}
     </main>
     <!-- End #main -->
 
@@ -482,13 +511,13 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
         <div class="container py-4">
         <div class="copyright">
         <strong> Base IMIS <i class="fa-regular fa-copyright"> </i>  2022-{{ \Carbon\Carbon::now()->format('Y') }} by <a href="http://www.innovativesolution.com.np">
-            ISPL</a> & <a href="https://www.gwsc.ait.ac.th/">GWSC-AIT</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1">CC BY-NC-SA 4.0 </a>
-</strong>
-    </div>
-            <div class="credits">
+            ISPL</a> & <a href="https://www.gwsc.ait.ac.th/">GWSC-AIT</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1">CC BY-NC-SA 4.0 </a>. Customized by <a href="https://innovativesolution.com.np/">Innovative Solution Pvt. Ltd.</a> for <a href="https://swasco.com.zm/"> SWASCO</a></strong>
+        </strong>
+         </div>
+            {{-- <div class="credits">
                 Developed by
                 <a href="https://innovativesolution.com.np/">Innovative Solution Pvt. Ltd.</a>
-            </div>
+            </div> --}}
         </div>
     </footer>
     <!-- End Footer -->

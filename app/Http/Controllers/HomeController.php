@@ -59,12 +59,20 @@ class HomeController extends Controller
 
 
 
-        $commercialBuildCount = $this->dashboardService->countBuildingsByUseExact('Commercial');
+        $commercialBuildCount = $this->dashboardService->countBuildingsByUseExact('Appartment');
+        $individual=$this->dashboardService->countBuildingsByUseExact('Individual House');
+        $room =$this->dashboardService->countBuildingsByUseExact('Room');
+        $residentialBuildingCount = $individual + $room;
+        $mixedBuildCount = $this->dashboardService->countBuildingsByUseExact('House with shop');
+        $industrialBuildingCount = $this->dashboardService->countBuildingsByUseExact('Industrial');
+        $educationBuildingCount = $this->dashboardService->countBuildingsByUseExact('Educational');
+        $institutionBuildingCount = $this->dashboardService->countBuildingsByUse('Institution');
+        /* $commercialBuildCount = $this->dashboardService->countBuildingsByUseExact('Commercial');
         $residentialBuildingCount = $this->dashboardService->countBuildingsByUseExact('Residential');
         $mixedBuildCount = $this->dashboardService->countBuildingsByUseExact('Mixed (Residential, Commercial, Office uses)');
         $industrialBuildingCount = $this->dashboardService->countBuildingsByUseExact('Industrial');
         $educationBuildingCount = $this->dashboardService->countBuildingsByUseExact('Educational');
-        $institutionBuildingCount = $this->dashboardService->countBuildingsByUse('Institution');
+        $institutionBuildingCount = $this->dashboardService->countBuildingsByUse('Institution'); */
         $institutionNames = FunctionalUse::where('name', 'like', '%Institution%')
             ->pluck('name')
             ->implode('<br>');
