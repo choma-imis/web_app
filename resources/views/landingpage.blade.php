@@ -451,11 +451,11 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                                 <p></p>
                             </div>
 
-                            <div class="email">
+                            {{-- <div class="email">
                                 <i class=" icon far fa-envelope"></i>
                                 <h4>Email:</h4>
                                 <p>imis@ait.asia</p>
-                            </div>
+                            </div> --}}
 
                             <div class="phone">
                                 <i class="fas fa-mobile-alt"></i>
