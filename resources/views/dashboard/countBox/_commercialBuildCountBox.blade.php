@@ -8,6 +8,6 @@
             <span class="info-box-text">
                 <h3> {{ number_format($commercialBuildCount) }}</h3>
             </span>
-            <span class="info-box-number">{{ __('Commercial')}}</span>
+            <span class="info-box-number">{{ __('Apartment')}}</span>
         </div>
 </div>

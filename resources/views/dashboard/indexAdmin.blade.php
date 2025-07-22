@@ -18,25 +18,29 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
                 <div class="col-lg-4  d-flex">
                     @include('dashboard.countBox._commercialBuildCountBox')
                 </div> <!--sub col div -->
-                <div class="col-lg-4  d-flex">
+                {{-- <div class="col-lg-4  d-flex">
                     @include('dashboard.countBox._industrialBuildCountBox')
-                </div> <!--sub col div -->
-            </div> <!-- sub row -->
-            <div class="row">
+                </div> <!--sub col div --> --}}
+
                 <div class="col-lg-4  d-flex">
                     @include('dashboard.countBox._mixedBuildCountBox')
                 </div> <!--sub col div -->
-                <div class="col-lg-4 d-flex ">
+            </div> <!-- sub row -->
+            {{-- <div class="row"> --}}
+                {{-- <div class="col-lg-4  d-flex">
+                    @include('dashboard.countBox._mixedBuildCountBox')
+                </div>  --}}<!--sub col div -->
+                {{-- <div class="col-lg-4 d-flex ">
                     @include('dashboard.countBox._institutionCountBox')
-                </div>
+                </div> --}}
                 {{-- <div class="col-lg-4  d-flex">
                     @include('dashboard.countBox._healthBuildCountBox')
                 </div> <!--sub col div --> --}}
-                <div class="col-lg-4 d-flex ">
+                {{-- <div class="col-lg-4 d-flex ">
                     @include('dashboard.countBox._educationBuildCountBox')
-                </div>
+                </div> --}}
 
-            </div> <!--sub row -->
+            {{-- </div> --}} <!--sub row -->
 
 
             <div class="row">
