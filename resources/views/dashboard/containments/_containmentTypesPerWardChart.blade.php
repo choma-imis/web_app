@@ -2,7 +2,7 @@
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
 @include('layouts.dashboard.chart-card',[
 
-    'card_title' => __("Wardwise Distribution of Containment Types"),
+    'card_title' => __("Compoundwise Distribution of Containment Types"),
     'export_chart_btn_id' => "exportcontainmentTypesPerWardChart",
     'canvas_id' => "containmentTypesPerWardChart"
 ])
