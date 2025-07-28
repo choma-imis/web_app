@@ -1025,112 +1025,115 @@ class DashboardService
 
 
     public function getContainmentTypesPerWard()
-    {
-        $chart = array();
-
-        // Retrieve wards
-        /* $wards = Ward::orderBy('ward')->pluck('ward', 'ward')->toArray(); */
-
-        // Retrieve containment types with dashboard_display
-        $containment_types = DB::select("SELECT
-        a.ward, a.type, a.count, b.totalward,
-        (a.count * 100 / b.totalward::numeric) AS percentage_proportion
-        FROM (
+{
+    $containment_types = DB::select("
         SELECT
-            w.ward,
-            COALESCE(ct.map_display, ct.type) AS type,
-            COUNT(c.id) AS count
-        FROM
-            fsm.containments c
-        JOIN
-            building_info.build_contains bc ON c.id = bc.containment_id
-        JOIN
-            building_info.buildings b ON b.bin = bc.bin
-        JOIN
-            fsm.containment_types ct ON c.type_id = ct.id
-        JOIN
-            layer_info.wardboundary w ON ST_Contains(w.geom, b.geom)
-        WHERE
-            c.deleted_at IS NULL
-            AND b.deleted_at IS NULL
+            a.ward,
+            a.type,
+            a.count,
+            b.totalward,
+            (a.count * 100 / b.totalward::numeric) AS percentage_proportion
+        FROM (
+            SELECT
+                w.ward,
+                COALESCE(ct.map_display, ct.type) AS type,
+                COUNT(c.id) AS count
+            FROM
+                fsm.containments c
+            JOIN
+                building_info.build_contains bc ON c.id = bc.containment_id
+            JOIN
+                building_info.buildings b ON b.bin = bc.bin
+            JOIN
+                fsm.containment_types ct ON c.type_id = ct.id
+            JOIN
+                layer_info.wardboundary w ON ST_Contains(w.geom, b.geom)
+            WHERE
+                c.deleted_at IS NULL
+                AND b.deleted_at IS NULL
+            GROUP BY
+                w.ward, COALESCE(ct.map_display, ct.type)
+        ) a
+        JOIN (
+            SELECT
+                w.ward,
+                COUNT(c.id) AS totalward
+            FROM
+                fsm.containments c
+            JOIN
+                building_info.build_contains bc ON c.id = bc.containment_id
+            JOIN
+                building_info.buildings b ON b.bin = bc.bin
+            JOIN
+                layer_info.wardboundary w ON ST_Contains(w.geom, b.geom)
+            WHERE
+                c.deleted_at IS NULL
+                AND b.deleted_at IS NULL
+            GROUP BY
+                w.ward
+        ) b ON b.ward = a.ward
+        ORDER BY a.ward ASC
+    ");
 
-        GROUP BY
-            w.ward, COALESCE(ct.map_display, ct.type)
-            ) a
-            JOIN (
-                SELECT
-                    w.ward,
-                    COUNT(c.id) AS totalward
-                FROM
-                    fsm.containments c
-                JOIN
-                    building_info.build_contains bc ON c.id = bc.containment_id
-                JOIN
-                    building_info.buildings b ON b.bin = bc.bin
-                JOIN
-                    layer_info.wardboundary w ON ST_Contains(w.geom, b.geom)
-                WHERE
-                    c.deleted_at IS NULL
-                    AND b.deleted_at IS NULL
-                GROUP BY
-                    w.ward
-            ) b ON b.ward = a.ward
-            ORDER BY
-                a.ward ASC;
-                    ");
+    $colors = [
+        "rgba(32, 139, 58, 0.8)",
+        "rgba(153, 202, 60, 0.8)",
+        "rgba(252, 236, 82, 0.8)",
+        "rgba(251, 176, 64, 0.8)",
+        "rgba(247, 142, 49, 0.8)",
+        "rgba(247, 202, 24, 0.8)",
+        "rgba(129, 207, 224,0.8)",
+        "rgba(228, 241, 254, 1)",
+        "rgba(200, 247, 197, 1)",
+        "rgba(68, 108, 179, 0.5)",
+        "rgba(255, 148, 112, 0.2)",
+        "rgba(178, 222, 39, 0.8)",
+        "rgba(77, 175, 124, 1)",
+        "rgba(251, 176, 64, 0.8)",
+        "rgba(247, 142, 49, 0.8)",
+    ];
 
-         $colors = array(
-            '"rgba(32, 139, 58, 0.8)"',
-            '"rgba(153, 202, 60, 0.8)"',
-            '"rgba(252, 236, 82, 0.8)"',
-            '"rgba(251, 176, 64, 0.8)"',
-            '"rgba(247, 142, 49, 0.8)"',
-            '"rgba(247, 202, 24, 0.8)"',
-            '"rgba(129, 207, 224,0.8)"',
-            '"rgba(228, 241, 254, 1)"',
-            '"rgba(200, 247, 197, 1)"',
-            '"rgba(68, 108, 179, 0.5)"',
-            '"rgba(255, 148, 112, 0.2)"',
-            '"rgba(178, 222, 39, 0.8)"',
-            '"rgba(77, 175, 124, 1)"',
-            '"rgba(251, 176, 64, 0.8)"',
-            '"rgba(247, 142, 49, 0.8)"',
-        );
+    $types = [];
+    $wards = [];
+    $groupedData = [];
 
-        $types = [];
-        $wards = [];
-        $data = [];
-        $labels = array_map(function ($ward) {return '"' . $ward . '"';}, array_values($wards));
-        foreach ($containment_types as $row) {
-                    $types[$row->type] = $row->type;
-                    $wards[$row->ward] = $row->ward;
-                    $data[$row->type][$row->ward] = (int)$row->count;
-                }
+    foreach ($containment_types as $row) {
+        $ward = (string)$row->ward;
+        $type = $row->type;
+        $value = floatval($row->percentage_proportion);
 
-        $datasets = [];
-        $count = 0;
-    foreach ($types as $type) {
-        $dataset = [
-            'label' => '"' . $type . '"',
-            'backgroundColor' => $colors[$count++ % count($colors)],
-            'color' => $colors[$count % count($colors)],
-            'data' => []
-        ];
-
-        foreach ($wards as $ward) {
-            $dataset['data'][] = isset($data[$type][$ward]) ? $data[$type][$ward] : 0;
+        if (!in_array($ward, $wards)) {
+            $wards[] = $ward;
+        }
+        if (!in_array($type, $types)) {
+            $types[] = $type;
         }
 
-        $datasets[] = $dataset;
+        $groupedData[$type][$ward] = $value;
     }
 
-    // Final chart structure
-    $chart = [
-        'labels' => $labels,
+    $datasets = [];
+    foreach ($types as $i => $type) {
+        $data = [];
+        foreach ($wards as $ward) {
+            $data[] = $groupedData[$type][$ward] ?? 0;
+        }
+        $datasets[] = (object)[
+            'label' => $type,
+            'color' => $colors[$i % count($colors)],
+            'data' => $data,
+            'value' => $data  // Use same as 'data' for tooltip
+        ];
+    }
+
+    $chartData = (object)[
+        'labels' => $wards,
         'datasets' => $datasets
     ];
-        return $chart;
-    }
+
+    return $chartData;
+}
+
 
     public function getContainTypeChart($ward = null)
     {
