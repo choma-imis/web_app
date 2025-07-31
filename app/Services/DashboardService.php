@@ -446,23 +446,45 @@ class DashboardService
 
         #house locality Zambia, Zambia Compound
 
-        $query = 'SELECT w.ward, COUNT(b.bin) AS count'
+        /* $query = 'SELECT w.ward, COUNT(b.bin) AS count'
             . ' FROM layer_info.wards w'
             . ' LEFT JOIN building_info.buildings b'
             . ' ON b.ward = w.ward'
             . ' WHERE b.deleted_at IS NULL'
             . ' GROUP BY w.ward'
-            . ' ORDER BY w.ward';
+            . ' ORDER BY w.ward'; */
+        $query = '
+                SELECT
+                    c.ward AS compound_id,
+                    COUNT(b.*) AS building_count
+                FROM
+                    layer_info.wardboundary c
+                JOIN
+                    building_info.buildings b
+                    ON ST_Contains(c.geom, b.geom)
+                WHERE
+                    b.deleted_at IS NULL
+                GROUP BY
+                    c.ward
+                ORDER BY
+                    c.ward;
+                ';
+
 
         $results = DB::select($query);
+        /* dd($results); */
+
 
         $labels = array();
         $values = array();
-        foreach ($results as $row) {
-            $labels[] = '"' . $row->ward . '"';
-            $values[] = $row->count;
-        }
 
+
+        foreach ($results as $row) {
+            $labels[] = '"' . $row->compound_id . '"';
+            $values[] = $row->building_count;
+        }
+        /* dd($labels, $values);
+ */
         $chart = array(
             'labels' => $labels,
             'values' => $values,
@@ -506,42 +528,36 @@ class DashboardService
 
     public function getBuildingUseChart($ward = null)
     {
-        $query = "SELECT
-        functional_use_name,
-        building_count
-      FROM (
-        SELECT
-          CASE
-            WHEN fu.name = 'Residential' THEN 'Residential'
-            WHEN fu.name = 'Mixed (Residential + Commercial)' THEN 'Mixed (Residential + Commercial)'
-            WHEN fu.name = 'Commercial' THEN 'Commercial'
-            WHEN fu.name = 'Industrial' THEN 'Industrial'
-            WHEN fu.name = 'Health' THEN 'Health'
-            WHEN fu.name = 'Educational' THEN 'Educational'
-            WHEN fu.name ILIKE '%Institution%' THEN 'Institution'
-            ELSE 'Others'
-          END AS functional_use_name,
-          COUNT(b.bin) AS building_count
-        FROM
-          building_info.buildings b
-          LEFT JOIN building_info.functional_uses fu ON fu.id = b.functional_use_id
-        WHERE
-          b.deleted_at IS NULL
-        GROUP BY
-          functional_use_name
-      ) AS subquery
-      ORDER BY
-        CASE
-          WHEN functional_use_name = 'Residential' THEN 1
-          WHEN functional_use_name = 'Mixed (Residential + Commercial)' THEN 2
-          WHEN functional_use_name = 'Commercial' THEN 3
-          WHEN functional_use_name = 'Industrial' THEN 4
-          WHEN functional_use_name = 'Health' THEN 5
-          WHEN functional_use_name = 'Educational' THEN 6
-          WHEN functional_use_name = 'Institution' THEN 7
-          ELSE 8
-        END";
-
+       $query = "
+            SELECT
+                functional_use_name,
+                building_count
+            FROM (
+                SELECT
+                    CASE
+                        WHEN fu.name = 'Appartment' THEN 'Appartment'
+                        WHEN fu.name = 'House with shop' THEN 'Mixed (Residential + Commercial)'
+                        WHEN fu.name IN ('Individual House', 'Room') THEN 'Residential'
+                        ELSE 'Others'
+                    END AS functional_use_name,
+                    COUNT(b.bin) AS building_count
+                FROM
+                    building_info.buildings b
+                LEFT JOIN
+                    building_info.functional_uses fu ON fu.id = b.functional_use_id
+                WHERE
+                    b.deleted_at IS NULL
+                GROUP BY
+                    functional_use_name
+            ) AS subquery
+            ORDER BY
+                CASE
+                    WHEN functional_use_name = 'Appartment' THEN 1
+                    WHEN functional_use_name = 'Residential' THEN 2
+                    WHEN functional_use_name = 'Mixed (Residential + Commercial)' THEN 3
+                    ELSE 4
+                END
+        ";
         $results = DB::select($query);
         $labels = array();
         $values = array();
@@ -1009,108 +1025,115 @@ class DashboardService
 
 
     public function getContainmentTypesPerWard()
-    {
-        $chart = array();
-
-        // Retrieve wards
-        $wards = Ward::orderBy('ward')->pluck('ward', 'ward')->toArray();
-
-        // Retrieve containment types with dashboard_display
-        $containment_types = DB::select("SELECT
-    ct.map_display AS type,
-    COUNT(c.id) AS containment_count
-    FROM
-        fsm.containments c
-    JOIN
-        fsm.containment_types ct ON c.type_id = ct.id
-    WHERE
-        c.deleted_at IS NULL
-        AND ct.dashboard_display = true
-    GROUP BY
-        ct.map_display
-    ORDER BY
-        containment_count DESC;
+{
+    $containment_types = DB::select("
+        SELECT
+            a.ward,
+            a.type,
+            a.count,
+            b.totalward,
+            (a.count * 100 / b.totalward::numeric) AS percentage_proportion
+        FROM (
+            SELECT
+                w.ward,
+                COALESCE(ct.map_display, ct.type) AS type,
+                COUNT(c.id) AS count
+            FROM
+                fsm.containments c
+            JOIN
+                building_info.build_contains bc ON c.id = bc.containment_id
+            JOIN
+                building_info.buildings b ON b.bin = bc.bin
+            JOIN
+                fsm.containment_types ct ON c.type_id = ct.id
+            JOIN
+                layer_info.wardboundary w ON ST_Contains(w.geom, b.geom)
+            WHERE
+                c.deleted_at IS NULL
+                AND b.deleted_at IS NULL
+            GROUP BY
+                w.ward, COALESCE(ct.map_display, ct.type)
+        ) a
+        JOIN (
+            SELECT
+                w.ward,
+                COUNT(c.id) AS totalward
+            FROM
+                fsm.containments c
+            JOIN
+                building_info.build_contains bc ON c.id = bc.containment_id
+            JOIN
+                building_info.buildings b ON b.bin = bc.bin
+            JOIN
+                layer_info.wardboundary w ON ST_Contains(w.geom, b.geom)
+            WHERE
+                c.deleted_at IS NULL
+                AND b.deleted_at IS NULL
+            GROUP BY
+                w.ward
+        ) b ON b.ward = a.ward
+        ORDER BY a.ward ASC
     ");
 
-        $types = array();
-        foreach ($containment_types as $ctype) {
-            $types[$ctype->type] = $ctype->type;
+    $colors = [
+        "rgba(32, 139, 58, 0.8)",
+        "rgba(153, 202, 60, 0.8)",
+        "rgba(252, 236, 82, 0.8)",
+        "rgba(251, 176, 64, 0.8)",
+        "rgba(247, 142, 49, 0.8)",
+        "rgba(247, 202, 24, 0.8)",
+        "rgba(129, 207, 224,0.8)",
+        "rgba(228, 241, 254, 1)",
+        "rgba(200, 247, 197, 1)",
+        "rgba(68, 108, 179, 0.5)",
+        "rgba(255, 148, 112, 0.2)",
+        "rgba(178, 222, 39, 0.8)",
+        "rgba(77, 175, 124, 1)",
+        "rgba(251, 176, 64, 0.8)",
+        "rgba(247, 142, 49, 0.8)",
+    ];
+
+    $types = [];
+    $wards = [];
+    $groupedData = [];
+
+    foreach ($containment_types as $row) {
+        $ward = (string)$row->ward;
+        $type = $row->type;
+        $value = floatval($row->percentage_proportion);
+
+        if (!in_array($ward, $wards)) {
+            $wards[] = $ward;
+        }
+        if (!in_array($type, $types)) {
+            $types[] = $type;
         }
 
-        // Updated query to include the new map_display column
-        $query = "SELECT a.ward, a.type, a.count, b.totalward,
-            (a.count * 100/b.totalward::numeric) as percentage_proportion
-            FROM (
-                SELECT b.ward, ct.map_display AS type, count(c.*) as count
-                FROM fsm.containments c
-                JOIN building_info.buildings b ON b.bin = c.responsible_bin
-                JOIN fsm.containment_types ct ON c.type_id = ct.id
-                WHERE c.deleted_at IS NULL
-                GROUP BY b.ward, ct.map_display
-            ) a
-            JOIN (
-               	SELECT ward, count(b.ward) AS totalward
-                 FROM fsm.containments c
-                JOIN building_info.buildings b ON b.bin = c.responsible_bin
-                WHERE c.deleted_at IS NULL
-                GROUP BY b.ward
-            ) b ON b.ward = a.ward
-            ORDER BY a.ward ASC";
-
-        $results = DB::select($query);
-        $data = array();
-        $values = array();
-        foreach ($results as $row) {
-            $data[$row->type][$row->ward] = $row->count;
-            $values[$row->type][$row->ward] = $row->count;
-        }
-
-        $labels = array_map(function ($ward) {
-            return '"' . $ward . '"';
-        }, $wards);
-
-        // Define colors for chart
-        $colors = array(
-            '"rgba(32, 139, 58, 0.8)"',
-            '"rgba(153, 202, 60, 0.8)"',
-            '"rgba(252, 236, 82, 0.8)"',
-            '"rgba(251, 176, 64, 0.8)"',
-            '"rgba(247, 142, 49, 0.8)"',
-            '"rgba(247, 202, 24, 0.8)"',
-            '"rgba(129, 207, 224,0.8)"',
-            '"rgba(228, 241, 254, 1)"',
-            '"rgba(200, 247, 197, 1)"',
-            '"rgba(68, 108, 179, 0.5)"',
-            '"rgba(255, 148, 112, 0.2)"',
-            '"rgba(178, 222, 39, 0.8)"',
-            '"rgba(77, 175, 124, 1)"',
-            '"rgba(251, 176, 64, 0.8)"',
-            '"rgba(247, 142, 49, 0.8)"',
-        );
-
-        $colorsArr = array_slice($colors, 0, count($results), true);
-        $datasets = array();
-        $count = 0;
-        foreach ($types as $key1 => $value1) {
-            $dataset = array();
-            $dataset['label'] = '"' . $value1 . '"';
-            $dataset['color'] = $colors[$count++];
-            $dataset['data'] = array();
-            $dataset['value'] = array();
-            foreach ($wards as $key2 => $value2) {
-                $dataset['data'][] = isset($data[$key1][$key2]) ? $data[$key1][$key2] : '0';
-                $dataset['value'][] = isset($values[$key1][$key2]) ? $values[$key1][$key2] : '0';
-            }
-            $datasets[] = $dataset;
-        }
-
-        $chart = array(
-            'labels' => $labels,
-            'datasets' => $datasets,
-        );
-
-        return $chart;
+        $groupedData[$type][$ward] = $value;
     }
+
+    $datasets = [];
+    foreach ($types as $i => $type) {
+        $data = [];
+        foreach ($wards as $ward) {
+            $data[] = $groupedData[$type][$ward] ?? 0;
+        }
+        $datasets[] = (object)[
+            'label' => $type,
+            'color' => $colors[$i % count($colors)],
+            'data' => $data,
+            'value' => $data  // Use same as 'data' for tooltip
+        ];
+    }
+
+    $chartData = (object)[
+        'labels' => $wards,
+        'datasets' => $datasets
+    ];
+
+    return $chartData;
+}
+
 
     public function getContainTypeChart($ward = null)
     {
@@ -1139,7 +1162,22 @@ class DashboardService
                 containment_type
             ORDER BY
                 containment_count DESC;";
+       /*  $query = "
+                SELECT
+                ct.type AS containment_type,
+                COUNT(c.id) AS containment_count
+            FROM
+                fsm.containments c
+            JOIN
+                fsm.containment_types ct ON c.type_id = ct.id
+            WHERE
+                c.deleted_at IS NULL
 
+            GROUP BY
+                ct.type
+            ORDER BY
+                containment_count DESC;";
+ */
         $results = DB::select($query);
 
         $labels = array();

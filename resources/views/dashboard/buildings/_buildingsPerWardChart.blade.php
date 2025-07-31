@@ -1,5 +1,5 @@
 @include('layouts.dashboard.chart-card', [
-    'card_title' => __("Wardwise Distribution of Buildings"), // Removed extra quotes
+    'card_title' => __("Compound wise Distribution of Buildings"), // Removed extra quotes
     'export_chart_btn_id' => "exportbuildingsPerWardChart",
     'canvas_id' => "buildingsPerWardChart"
 ])
