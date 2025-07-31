@@ -1137,7 +1137,7 @@ class DashboardService
 
     public function getContainTypeChart($ward = null)
     {
-        /* $query = "SELECT
+        $query = "SELECT
             CASE
                 WHEN ct.map_display IS NOT NULL THEN ct.map_display
                 ELSE ct.type
@@ -1161,8 +1161,8 @@ class DashboardService
             GROUP BY
                 containment_type
             ORDER BY
-                containment_count DESC;"; */
-        $query = "
+                containment_count DESC;";
+       /*  $query = "
                 SELECT
                 ct.type AS containment_type,
                 COUNT(c.id) AS containment_count
@@ -1177,7 +1177,7 @@ class DashboardService
                 ct.type
             ORDER BY
                 containment_count DESC;";
-
+ */
         $results = DB::select($query);
 
         $labels = array();
