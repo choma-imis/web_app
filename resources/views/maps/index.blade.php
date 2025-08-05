@@ -2338,7 +2338,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Ward Boundary Map Layer')
                 wardboundary_layer: {
-                    name: '{{ __("Ward Boundary") }}',
+                    name: '{{ __("Compound Boundary") }}',
                     styles: {},
                     clipLegend: false,
                     showCount: false,
@@ -2741,7 +2741,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)   -->
                 @endcan
                 @can('Wards Map Layer')
                 wards_layer: {
-                    name: '{{ __("Ward Wise Info") }}',
+                    name: '{{ __("Compound Wise Info") }}',
                     styles: {
                         wards_layer_none: {
                             name: '{{ __("None") }}',
@@ -9464,7 +9464,7 @@ $.ajax({
                                     }else if (k == 'holding') {
                                         kk = 'Holding';
                                     } else if (k == 'ward') {
-                                        kk = 'Ward Number';
+                                        kk = 'Compound Name';
                                     } else if (k == 'toilet_status') {
                                         kk = 'Presence of Toilet';
                                     } else if (k == 'toilet_count') {

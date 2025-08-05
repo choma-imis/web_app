@@ -536,7 +536,7 @@ class DashboardService
                 SELECT
                     CASE
                         WHEN fu.name = 'Appartment' THEN 'Appartment'
-                        WHEN fu.name = 'House with shop' THEN 'Mixed (Residential + Commercial)'
+                        WHEN fu.name = 'House with shop' THEN 'Mixed (House With Shop)'
                         WHEN fu.name IN ('Individual House', 'Room') THEN 'Residential'
                         ELSE 'Others'
                     END AS functional_use_name,

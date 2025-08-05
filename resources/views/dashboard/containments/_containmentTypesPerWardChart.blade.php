@@ -46,8 +46,15 @@ var myChart = new Chart(ctx, {
                     labelString: 'Wards',
                 },
                 ticks: {
-                    beginAtZero: true
+                callback: function(value, index, values) {
+                    const wardMap = {
+                        1: 'Zambia Compound',
+                        2: 'Overspill Compound'
+                        // Add more mappings as needed
+                    };
+                    return wardMap[value] || value;
                 }
+        }
             }],
             yAxes: [{
                 stacked: false,

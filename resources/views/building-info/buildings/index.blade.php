@@ -71,8 +71,14 @@
                                                 </select>
                                             </div>
                                             <label for="ward_select"
-                                                class="control-label col-md-2">{{ __('Ward Number') }}</label>
+                                                class="control-label col-md-2">{{ __('Compound') }}</label>
                                             <div class="col-md-2">
+                                                    @php
+                                                        $ward = [
+                                                            1 => 'Zambia Compound',
+                                                            2 => 'Overspill Compound'
+                                                        ];
+                                                    @endphp
                                                 <select class="form-control" id="ward_select">
                                                     <option value="">{{ __('Ward Number') }}</option>
                                                     @foreach ($ward as $key => $value)
@@ -220,7 +226,7 @@
                                 <th>{{ __('BIN') }}</th>
                                 <th>{{ __('House Number') }}</th>
                                 <th>{{ __('Road Code') }}</th>
-                                <th>{{ __('Ward Number') }}</th>
+                                <th>{{ __('Compound') }}</th>
                                 <th>{{ __('Structure Type') }}</th>
                                 <th>{{ __('Number of Floors') }}</th>
                                 <th>{{ __('Presence of Toilet') }}</th>
@@ -302,7 +308,12 @@
                     },
                     {
                         data: 'ward',
-                        name: 'ward'
+                        name: 'ward',
+                        render: function(data) {
+                            if (data == 1) return 'Zambia Compound';
+                            if (data == 2) return 'Overspill Compound';
+                            return data;
+                        }
                     },
                     {
                         data: 'type',

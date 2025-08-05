@@ -1,7 +1,7 @@
 <!-- Last Modified Date: 19-04-2024
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 @include('layouts.dashboard.chart-card',[
-    'card_title' => __('Wardwise Total Road Length by Surface Type (m)') ,
+    'card_title' => __('Compoundwise Total Road Length by Surface Type (m)') ,
     'export_chart_btn_id' => "exportroadsSurfaceTypePerWardChart",
     'canvas_id' => "roadsSurfaceTypePerWardChart"
 ])
@@ -35,8 +35,18 @@ var myChart = new Chart(ctx, {
             },
             scaleLabel: {
                             display: true,
-                            labelString: 'Wards'
+                            labelString: 'Compounds'
                         },
+                         ticks: {
+            callback: function(value, index, values) {
+                const wardMap = {
+                    1: 'Zambia Compound',
+                    2: 'Overspill Compound'
+                    // Add more mappings as needed
+                };
+                return wardMap[value] || value;
+            }
+        }
       }],
       yAxes: [{
         stacked: true,

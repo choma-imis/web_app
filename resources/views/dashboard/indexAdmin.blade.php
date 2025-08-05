@@ -234,7 +234,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
     @endcan
 </div>
 
-<div class="row">
+{{-- <div class="row">
     @can('Distribution of Water Supply Services by Ward Chart')
         <div class="col-md-6">
             @include('dashboard.buildings._waterSupplyPipeCodePresencebyWardChart')
@@ -253,7 +253,7 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
             @include('dashboard.buildings._swmPresencebyWardChart')
         </div>
     </div>
-@endcan
+@endcan --}}
 
 
 <div class="row">
