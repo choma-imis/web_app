@@ -5,7 +5,7 @@
     </span>
     <div class="info-box-content">
       <span class="info-box-text"> <h3>{{ number_format($residentialBuildingCount) }}</h3></span>
-      <span class="info-box-number">{{__('Residential')}}</span>
+      <span class="info-box-number">{{__('Residential (Individual House + Rooms)')}}</span>
     </div>
   </div>
 

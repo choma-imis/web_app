@@ -1,5 +1,5 @@
 @include('layouts.dashboard.chart-card', [
-    'card_title' => __("Compound wise Distribution of Buildings"), // Removed extra quotes
+    'card_title' => __("Compoundwise Distribution of Buildings"), // Removed extra quotes
     'export_chart_btn_id' => "exportbuildingsPerWardChart",
     'canvas_id' => "buildingsPerWardChart"
 ])
@@ -37,6 +37,16 @@ scaleLabel: {
                 display: true,
                 labelString: 'Wards'
             },
+            ticks: {
+            callback: function(value, index, values) {
+                const wardMap = {
+                    1: 'Zambia Compound',
+                    2: 'Overspill Compound'
+                };
+                return wardMap[value] || value;
+            }
+        }
+
 }],
         yAxes: [{
             ticks: {

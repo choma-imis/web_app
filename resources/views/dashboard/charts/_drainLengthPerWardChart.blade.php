@@ -1,7 +1,7 @@
 <!-- Last Modified Date: 16-04-2024
 Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 @include('layouts.dashboard.chart-card',[
-    'card_title' =>__('Wardwise Drain Length (m)') ,
+    'card_title' =>__('Compoundwise Drain Length (m)') ,
     'export_chart_btn_id' => "exportdrainLengthPerWardChart",
     'canvas_id' => "drainLengthPerWardChart"
 ])
@@ -33,8 +33,18 @@ Developed By: Innovative Solution Pvt. Ltd. (ISPL)  (© ISPL, 2024) -->
 
             scaleLabel: {
                             display: true,
-                            labelString: 'Wards'
+                            labelString: 'Compounds'
                         },
+                         ticks: {
+            callback: function(value, index, values) {
+                const wardMap = {
+                    1: 'Zambia Compound',
+                    2: 'Overspill Compound'
+                    // Add more mappings as needed
+                };
+                return wardMap[value] || value;
+            }
+        }
       }],
                     yAxes: [{
                         ticks: {

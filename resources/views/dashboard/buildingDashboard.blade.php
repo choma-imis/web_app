@@ -18,20 +18,21 @@
                 <div class="col-lg-4  d-flex">
                     @include('dashboard.countBox._commercialBuildCountBox')
                 </div> <!--sub col div -->
-                <div class="col-lg-4  d-flex">
+               {{--  <div class="col-lg-4  d-flex">
                     @include('dashboard.countBox._industrialBuildCountBox')
-                </div> <!--sub col div -->
+                </div> <!--sub col div --> --}}
+                 <div class="col-lg-4  d-flex">
+                    @include('dashboard.countBox._mixedBuildCountBox')
+                </div>
             </div> <!-- sub row -->
             <div class="row">
-                <div class="col-lg-4  d-flex">
-                    @include('dashboard.countBox._mixedBuildCountBox')
-                </div> <!--sub col div -->
-                <div class="col-lg-4 d-flex ">
+                <!--sub col div -->
+                {{-- <div class="col-lg-4 d-flex ">
                     @include('dashboard.countBox._institutionCountBox')
-                </div>
-                <div class="col-lg-4 d-flex ">
+                </div> --}}
+                {{-- <div class="col-lg-4 d-flex ">
                     @include('dashboard.countBox._educationBuildCountBox')
-                </div>
+                </div> --}}
 
             </div> <!--sub row -->
 
